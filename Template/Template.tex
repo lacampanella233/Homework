@@ -1,79 +1,39 @@
 \documentclass{article}
-\usepackage[UTF8]{ctex}
-\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs, geometry, fancyhdr}
+\usepackage{homework}
 
-\geometry{a4paper, scale=0.8}
-\linespread{1.5}
+%\config{分析\ -\ 0}{2026年春季}{1}
 
-\definecolor{shadecolor}{RGB}{241, 241, 255}
-\newcounter{problemname}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{\kaishu 程昊一}
-\fancyhead[L]{\thecourse\hspace{1em}\theterm}
-\fancyhead[C]{\heiti 作业\ \thehomeworkcounter}
-\fancyfoot[C]{\textbf{\thepage}}
-
-\newcommand{\course}[1]{\def\thecourse{#1}}
-\newcommand{\term}[1]{\def\theterm{#1}}
-\newcommand{\homeworkcounter}[1]{\def\thehomeworkcounter{#1}}
-\newcommand{\config}[3]{\course{#1}\term{#2}\homeworkcounter{#3}}
-
-\newenvironment{problem}
-{
-    \begin{shaded}
-    \stepcounter{problemname}\par\noindent
-    \textbf{题目\arabic{problemname}.}
-}
-{\end{shaded}\par}
-
-\newenvironment{solution}
-{\par\noindent\textbf{解答. }}
-{\par}
-
-\newenvironment{note}
-{\par\noindent\textbf{题目\arabic{problemname}的注记. }}
-{\par}
-
-
-\title
-{
-    {\Large\songti \thecourse\hspace{1em}\theterm}\par\vspace{1em}
-    {\LARGE\heiti 作业\ \thehomeworkcounter} 
-}
-\author{\kaishu 程昊一}
-\date{}
-
-\config{分析\ -\ 0}{2026春季}{1}
+\course{分析\ -\ 0}
+\term{2026年春季}
+\homeworkcounter{1}
 
 \begin{document}
 
 \maketitle
 
 \begin{problem}
-    这里是题目. 
+问题内容.
 \end{problem}
 
 \begin{solution}
-    这里是解答. \par 
-    解答的第二行.
+问题解答.
 \end{solution}
 
 \begin{note}
-    这里是注记. 
+问题注解.
 \end{note}
 
 \begin{problem}
-    这里是题目. 
+问题内容.
 \end{problem}
 
-\begin{solution}
-    这里是解答. 
-\end{solution}
+\begin{proof}
+问题证明.
+\end{proof}
 
-\begin{note}
-    这里是注记. 
-\end{note}
+\newpage
+123
+
+
 
 \end{document}

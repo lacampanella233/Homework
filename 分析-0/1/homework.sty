@@ -1,9 +1,9 @@
 % homework.sty
-\ProvidesPackage{homework}[2025/04/01 v1.0 Homework assignment package]
+\ProvidesPackage{homework}[2026/03/04 v1.0 Homework template package]
 
 % 加载必需宏包
 \RequirePackage[UTF8]{ctex}
-\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed}
+\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed, enumitem}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
 
 % 页面设置
@@ -54,6 +54,9 @@
 \newenvironment{note}
 {\par\noindent\textbf{题目\arabic{problemname}的注记. }}
 {\par}
+
+% enumerate 环境设置
+\setlist[enumerate]{itemsep=0pt, topsep=0pt}
 
 % 标题默认设置（可在文档中通过 \title、\author、\date 覆盖）
 \title{%

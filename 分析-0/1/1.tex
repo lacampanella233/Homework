@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{homework}
+
+\config{分析\ -\ 0}{2026年春季}{1}
+\renewcommand{\i}{\mathrm{i}}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+如果$ r\neq 0 $是有理数而$ x $为无理数, 证明: $ r+x $与$ rx $均不为有理数.
+\end{problem}
+
+\begin{proof}
+采用反证法. \par 
+若$ p:=r+x $为有理数, 则$ x=p-r $是两个有理数的差, 也为有理数, 矛盾; \par 
+若$ q:=rx $为有理数, 则$ x=q/r $是两个有理数的商, 也为有理数, 矛盾.
+\end{proof}
+
+\begin{problem}
+设$ E $是某有序集的非空子集, 又设$ \alpha $为$ E $的下界, $ \beta $为$ E $的上界. 证明:$ \alpha\le\beta $.
+\end{problem}
+
+\begin{proof}
+由$ E $非空, 知存在$ x\in E $. 又$ \alpha $为$ E $的下界, $ \beta $为$ E $的上界, 故$ \alpha\le x\le\beta $, 从而$ \alpha\le\beta $.
+\end{proof}
+
+\begin{problem}
+设$ A $为非空实数集, 下有界. 令$ -A=\{-x:\ x\in A\} $. 求证: $ \inf A=-\sup(-A) $.
+\end{problem}
+
+\begin{proof}
+由$ A $非空且下有界, 知$ \inf A $存在. 对于任意$ x\in A $, 有$ -x\in -A $, 且$ -x\le -\inf A $. 因此$ -\inf A $是$ -A $的上界, 从而$ \sup(-A)\le -\inf A $. \par
+另一方面, 对于任意的$ x\in A $, 有$ -x\in -A $, 故$ -x\le \sup(-A) $, 即$ x\ge-\sup(-A) $. 因此$ -\sup(-A) $是$ A $的下界, 从而$ \inf A\ge -\sup(-A) $. \par
+综上所述, $ \inf A=-\sup(-A) $.
+\end{proof}
+
+\begin{problem}
+设$ z=a+b\i,\ w=c+d\i $. 若$ a<c $, 或$ a=c $且$ b<d $, 则规定$ z<w $. 证明: 这能使得所有复数的集合成为一个有序集. 这种序关系有没有最小上界性?
+\end{problem}
+
+\begin{solution}
+(1) 证明$ z<w $是一个序关系. \par
+注意到$ z<w $的必要条件是$ a\le c $. \par
+为了方便起见, 在这里给出$ z\not<w $(即$ w<z $或$ w=z $)的正面叙述: $ a>c $, 或$ a=c $且$ b\ge d $. 注意到$ z\not<w $的必要条件是$ a\ge c $. \par
+\begin{enumerate}[label=(\roman*)]
+\item 先证明: 若$ z,w\in\mathbb{C} $, 则$ z<w,\ z=w,\ w<z $有且仅有一个成立.\par 
+\begin{enumerate}[label=\textbullet]
+\item 若$ z<w $, 则$ a<c $, 此时不可能有$ z=w $或$ w<z $; 或者$ a=c $(因此不可能有$ w<z $)且$ b<d $(因此不可能有$ z=w $).\par 
+\item 若$ w<z $, 同理不可能有$ z<w $或$ z=w $.\par 
+\item 若$ z=w $, 则$ a=c $且$ b=d $, 故不可能有$ b<d $或$ d>b $, 即不可能有$ z<w $或$ w<z $.\par 
+\item 而若$ z<w,\ z=w,\ w<z $均不成立, 我们对$ a $与$ c $的大小关系分类讨论. 若$ a<c $, 这与$ z\not<w $矛盾; 若$ a>c $, 这与$ w\not<z $矛盾; 若$ a=c $, 则$ b\ge d $与$ z\not<w $矛盾, $ b\le d $与$ w\not<z $矛盾. \par
+\end{enumerate}
+因此, $ z<w,\ z=w,\ w<z $有且仅有一个成立.\par
+\item 证明: 若$ z,w,u\in\mathbb{C} $, 且$ z<w,\ w<u $, 则$ z<u $. \par
+由$ z<w $知$ a<c $, 或$ a=c $且$ b<d $; 由$ w<u $知$ c<e $, 或$ c=e $且$ d<f $ (此处记$ u=e+f\i $). \par
+\end{enumerate}
+综上所述, $ z<w $是一个序关系. \par
+(2) 证明配备了这个序关系的$ \mathbb{C} $没有最小上界性. 设$ A=\{z=a+b\i:\ b<0 \} $. 则$ A $的上界为$ 0 $, 但$ A $没有最小上界, 因为对于任意的实数$ x=x+0\i $, $ x $均为$ A $的上界. 因此, $ A $没有最小上界.
+\end{solution}
+
+\end{document}
