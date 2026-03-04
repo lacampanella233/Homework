@@ -8,7 +8,6 @@
 
 % 页面设置
 \geometry{a4paper, scale=0.8}
-\linespread{1.5}
 
 % 颜色定义
 \definecolor{shadecolor}{RGB}{241, 241, 255}
@@ -21,7 +20,7 @@
 \fancyhf{}
 \fancyhead[R]{\kaishu 程昊一}          % 右页眉：姓名
 \fancyhead[L]{\thecourse\hspace{1em}\theterm}  % 左页眉：课程+学期
-\fancyhead[C]{\heiti 作业\ \thehomeworkcounter} % 中页眉：作业编号
+\fancyhead[C]{\textbf{作业\ \thehomeworkcounter}} % 中页眉：作业编号
 \fancyfoot[C]{\textbf{\thepage}}       % 页脚：页码
 
 % 自定义命令：用于设置课程、学期、作业编号
@@ -55,13 +54,14 @@
 {\par\noindent\textbf{题目\arabic{problemname}的注记. }}
 {\par}
 
-% enumerate 环境设置
+% 列表环境设置
 \setlist[enumerate]{itemsep=0pt, topsep=0pt}
+\setlist[itemize]{itemsep=0pt, topsep=0pt}
 
 % 标题默认设置（可在文档中通过 \title、\author、\date 覆盖）
 \title{%
     {\Large\songti \thecourse\hspace{1em}\theterm}\par\vspace{1em}
-    {\LARGE\heiti 作业\ \thehomeworkcounter}%
+    {\LARGE\textbf{作业\ \thehomeworkcounter}}%
 }
 \author{\kaishu 程昊一}
 \date{}
