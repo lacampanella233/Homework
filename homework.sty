@@ -1,0 +1,60 @@
+% homework.sty
+\ProvidesPackage{homework}[2025/04/01 v1.0 Homework assignment package]
+
+% 加载必需宏包
+\RequirePackage[UTF8]{ctex}
+\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed}
+\RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
+
+% 页面设置
+\geometry{a4paper, scale=0.8}
+\linespread{1.5}
+
+% 颜色定义
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+% 计数器
+\newcounter{problemname}
+
+% 页眉页脚样式
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\kaishu 程昊一}          % 右页眉：姓名
+\fancyhead[L]{\thecourse\hspace{1em}\theterm}  % 左页眉：课程+学期
+\fancyhead[C]{\heiti 作业\ \thehomeworkcounter} % 中页眉：作业编号
+\fancyfoot[C]{\textbf{\thepage}}       % 页脚：页码
+
+% 自定义命令：用于设置课程、学期、作业编号
+\newcommand{\course}[1]{\def\thecourse{#1}}
+\newcommand{\term}[1]{\def\theterm{#1}}
+\newcommand{\homeworkcounter}[1]{\def\thehomeworkcounter{#1}}
+\newcommand{\config}[3]{\course{#1}\term{#2}\homeworkcounter{#3}}
+
+% problem 环境（带灰色背景）
+\newenvironment{problem}
+{
+    \begin{shaded}
+    \stepcounter{problemname}\par\noindent
+    \textbf{题目\arabic{problemname}.}
+}
+{\end{shaded}\par}
+
+% solution 环境
+\newenvironment{solution}
+{\par\noindent\textbf{解答. }}
+{\par}
+
+% note 环境
+\newenvironment{note}
+{\par\noindent\textbf{题目\arabic{problemname}的注记. }}
+{\par}
+
+% 标题默认设置（可在文档中通过 \title、\author、\date 覆盖）
+\title{%
+    {\Large\songti \thecourse\hspace{1em}\theterm}\par\vspace{1em}
+    {\LARGE\heiti 作业\ \thehomeworkcounter}%
+}
+\author{\kaishu 程昊一}
+\date{}
+
+\endinput
