@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1772704807.37087 "d:/程昊一/Homework/代数-0/1/1.tex" "1.pdf" "1" 1772704808.45037 0
-  "1.aux" 1772704808 162 fa61bf9ecf9314f94d51aa32222a725c "pdflatex"
-  "1.out" 1772704808 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["pdflatex"] 1772707595.74071 "d:/程昊一/Homework/代数-0/1/1.tex" "1.pdf" "1" 1772707596.82571 0
+  "1.aux" 1772707596 162 fa61bf9ecf9314f94d51aa32222a725c "pdflatex"
+  "1.out" 1772707596 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "1.tex" 1772704806 5351 1ea5af2804756b4c4e1540128779fb51 ""
   "c:/Windows/Fonts/msyh.ttc" 1756564701 19704352 1e10e74402e59d54499af795caf0b135 ""
   "c:/Windows/Fonts/simkai.ttf" 1711630440 11789376 868a8b82664dfab00a95e3e30eaa705a ""
@@ -158,7 +158,7 @@
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1751711061 3346133 a455951bd44c3d6cc0fcd01d149be5bf ""
   "c:/texlive/2025/texmf.cnf" 1751710880 713 e69b156964470283e0530f5060668171 ""
   "d:/程昊一/Homework/代数-0/1/1.tex" 1772704806 5351 1ea5af2804756b4c4e1540128779fb51 ""
-  "homework.sty" 1772704799 3378 75db47ca210b4e695b6bbb27cdb5b8db ""
+  "homework.sty" 1772707548 3378 5ea57ab452f4089cb9b24ed5c1e1971d ""
   (generated)
   "1.aux"
   "1.log"
