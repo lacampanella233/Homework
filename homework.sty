@@ -10,7 +10,7 @@
 
 % 加载必需宏包
 \RequirePackage[UTF8]{ctex}
-\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed, enumitem}
+\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed, enumitem, url}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
 \RequirePackage{xparse}
 
@@ -63,7 +63,7 @@
     \stepcounter{problemname}\par\noindent
     \boxed{\textbf{\homework@problemname\ \arabic{problemname}}%
     \kaishu
-    \IfValueT{#1}{ (#1)}.}%
+    \IfValueT{#1}{\,\textrm{(#1)}}.}%
 }
 {\end{shaded}\par}
 
@@ -106,5 +106,18 @@
 \newcommand{\e}{\mathrm{e}}
 \renewcommand{\d}{\mathrm{d}}
 \newcommand{\fl}[1]{\left\lfloor #1 \right\rfloor}
+
+% 制作标题并输出GitHub链接
+\if@homework@zh
+  % 中文
+  \AtBeginDocument{
+    \maketitle
+    *本人所有专业课的课程作业均同步于\url{https://github.com/lacampanella233/Homework.git}.}
+\else
+  % 英文
+  \AtBeginDocument{
+    \maketitle
+    *All of my homework is available at \url{https://github.com/lacampanella233/Homework.git}.}
+\fi
 
 \endinput
