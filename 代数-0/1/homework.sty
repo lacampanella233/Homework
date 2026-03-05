@@ -1,0 +1,110 @@
+% homework.sty
+\ProvidesPackage{homework}[2026/03/04 v1.0 Homework template package]
+
+% 声明选项
+\newif\if@homework@zh
+\DeclareOption{zh}{\@homework@zhtrue}
+\DeclareOption{en}{\@homework@zhfalse}
+\ExecuteOptions{zh} % 默认中文
+\ProcessOptions\relax
+
+% 加载必需宏包
+\RequirePackage[UTF8]{ctex}
+\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed, enumitem}
+\RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
+\RequirePackage{xparse}
+
+% 语言相关字符串定义
+\if@homework@zh
+  % 中文设置
+  \newcommand{\homework@problemname}{题目}
+  \newcommand{\homework@solutionname}{解答}
+  \newcommand{\homework@proofname}{证明}
+  \newcommand{\homework@noteprefix}{题目}
+  \newcommand{\homework@notesuffix}{的注记}
+  \newcommand{\homework@homeworkname}{作业}
+\else
+  % 英文设置
+  \newcommand{\homework@problemname}{Problem}
+  \newcommand{\homework@solutionname}{Solution}
+  \newcommand{\homework@proofname}{Proof}
+  \newcommand{\homework@noteprefix}{Note for Problem }
+  \newcommand{\homework@notesuffix}{}
+  \newcommand{\homework@homeworkname}{Homework}
+\fi
+
+% 页面设置
+\geometry{a4paper, scale=0.8}
+
+% 颜色定义
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+
+% 计数器
+\newcounter{problemname}
+
+% 页眉页脚样式
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\kaishu 程昊一}          % 右页眉：姓名
+\fancyhead[L]{\thecourse\hspace{1em}\theterm}  % 左页眉：课程+学期
+\fancyhead[C]{\textbf{\homework@homeworkname\ \thehomeworkcounter}} % 中页眉：作业编号
+\fancyfoot[C]{\textbf{\thepage}}       % 页脚：页码
+
+% 自定义命令：用于设置课程、学期、作业编号
+\newcommand{\course}[1]{\def\thecourse{#1}}
+\newcommand{\term}[1]{\def\theterm{#1}}
+\newcommand{\homeworkcounter}[1]{\def\thehomeworkcounter{#1}}
+\newcommand{\config}[3]{\course{#1}\term{#2}\homeworkcounter{#3}}
+
+% problem 环境（带灰色背景，支持可选标题参数）
+\NewDocumentEnvironment{problem}{o}
+{
+    \begin{shaded}
+    \stepcounter{problemname}\par\noindent
+    \boxed{\textbf{\homework@problemname\ \arabic{problemname}}}%
+    \kaishu
+    \IfValueT{#1}{ (#1)}.%
+}
+{\end{shaded}\par}
+
+% solution 环境
+\newenvironment{solution}
+{\par\noindent\textbf{\homework@solutionname. }}
+{\par}
+
+% proof 环境
+\renewenvironment{proof}
+{\par\noindent\textbf{\homework@proofname. }}
+{\hspace{\fill}$\square$\par}
+
+% note 环境
+\newenvironment{note}
+{\par\noindent\textbf{\homework@noteprefix\arabic{problemname}\homework@notesuffix. }}
+{\par}
+
+% 列表环境设置
+\setlist[enumerate]{itemsep=0pt, topsep=0pt}
+\setlist[itemize]{itemsep=0pt, topsep=0pt}
+
+% 标题默认设置（可在文档中通过 \title、\author、\date 覆盖）
+\title{%
+    {\Large\songti \thecourse\hspace{1em}\theterm}\par\vspace{1em}
+    {\LARGE\textbf{\homework@homeworkname\ \thehomeworkcounter}}%
+}
+\author{\kaishu 程昊一}
+\date{}
+
+% 公式相关的自定义命令
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\renewcommand{\i}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\fl}[1]{\left\lfloor #1 \right\rfloor}
+
+\endinput
