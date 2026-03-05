@@ -126,9 +126,11 @@ $ V $ is a vector space over $ \F $, where $ \F\neq \F_2 $ . Prove that the unio
 \begin{proof}
 The sufficiency is trivial, so we will only prove the necessity.\par
 Assume there are three subspaces $ U_1, U_2, U_3 $ of $ V $ such that $ U:=U_1\cup U_2\cup U_3 $ is a subspace of $ V $. If $ U_2\subset U_1 $ or $ U_1\subset U_2 $ (WLOG the former), then $ U=U_1\cup U_2\cup U_3=U_1\cup U_3 $ . By the previous problem, either $ U_1\subset U_3 $ or $ U_3\subset U_1 $, and both cases meet the requirement.\par
-Otherwise, if  $ U_1\not\subset U_2 $ and $ U_2\not\subset U_1$ , then we're going to prove:  $ U_1+U_2\subset U_3 $ , thus  $ U_1\subset U_3 $ and $ U_2\subset U_3 $.\par 
+Otherwise, if  $ U_1\not\subset U_2 $ and $ U_2\not\subset U_1$ , then we're going to prove: $ U_1\subset U_3 $ and $ U_2\subset U_3 $.\par 
 For every $ u_1\in U_1-U_2 $ and $ u_2\in U_2-U_1 $ , $ u_1+u_2\in U $ . If $ u_1+u_2\in U_1 $, then $ u_2=(u_1+u_2)-u_1\in U_1 $, which contradicts the choice of $ u_2 $. Similarly, if $ u_1+u_2\in U_2 $, then $ u_1\in U_2 $, which contradicts the choice of $ u_1 $. Thus $ u_1+u_2\in U_3 $. \par 
- $ \F\neq\F_2 $ , thus $ 2u_1\neq 0 $ , then $ 2u_1\in U_1-U_2 $ . For the same reason,  $ 2u_1+u_2\in U_3 $ . Hence  $ u_1=(2u_1+u_2)-(u_1+u_2)\in U_3 $ . Similarly, $ u_2\in U_3 $ . Thus $ U_1\subset U_3 $ and $ U_2\subset U_3 $. That's what we want to prove, and the necessity is proved.
+ $ \F\neq\F_2 $ , thus $ 2u_1\neq 0 $ , then $ 2u_1\in U_1-U_2 $ . For the same reason,  $ 2u_1+u_2\in U_3 $ . Hence  $ u_1=(2u_1+u_2)-(u_1+u_2)\in U_3 $ . Hence we have proved  $ U_1-U_2\subset U_3 $ .\par 
+So, to prove  $ U_1\subset U_3 $ , it's sufficient to prove  $ U_1\cap U_2\subset U_3 $. Note that $ W:=U_1\cap U_2 $ is a subspace of  $ U_1 $ ( $ W $ is closed under addition and scalar multiplication). Choose  $ v\in U_1-W=U_1-U_2\subset U_3$, then for every  $ w $ in $ W $ , $ v+w\not\in W $(otherwise $ v=(v+w)-w\in W $), then $ v+w\in U_1-U_2\subset U_3 $. Hence  $ w=(v+w)-v\in U_3 $. Thus $ W\subset U_3 $. \par 
+That's what we want to prove, and the necessity is proved.
 \end{proof}
 
 \begin{problem}[1C-21]
