@@ -5,8 +5,6 @@
 
 \begin{document}
 
-\maketitle
-
 \begin{problem}[1B-2]
 Suppose $ a\in\mathbb{F} $, $ v\in V $, and $ av=0 $. Prove that: $ a=0 $ or $ v=0 $.
 \end{problem}
@@ -43,8 +41,7 @@ t\infty =
 0 & \text{if } t = 0, \\
 \infty & \text{if } t > 0.
 \end{cases}
-\]
-\[
+\quad
 t(-\infty) = 
 \begin{cases} 
 \infty & \text{if } t < 0, \\
@@ -123,7 +120,51 @@ Since $ U $ is closed under addition, $ u_1+u_2\in U $, which implise ether $ u_
 \end{proof}
 
 \begin{problem}[1C-13]
-Prove that the union of three subspaces of $ V $ is a subspace of $ V $ if and only if one of the subspaces contains the other two.
+$ V $ is a vector space over $ \F $, where $ \F\neq \F_2 $ . Prove that the union of three subspaces of $ V $ is a subspace of $ V $ if and only if one of the subspaces contains the other two.
 \end{problem}
+
+\begin{proof}
+The sufficiency is trivial, so we will only prove the necessity.\par
+Assume there are three subspaces $ U_1, U_2, U_3 $ of $ V $ such that $ U:=U_1\cup U_2\cup U_3 $ is a subspace of $ V $. If $ U_2\subset U_1 $ or $ U_1\subset U_2 $ (WLOG the former), then $ U=U_1\cup U_2\cup U_3=U_1\cup U_3 $ . By the previous problem, either $ U_1\subset U_3 $ or $ U_3\subset U_1 $, and both cases meet the requirement.\par
+Otherwise, if  $ U_1\not\subset U_2 $ and $ U_2\not\subset U_1$ , then we're going to prove:  $ U_1+U_2\subset U_3 $ , thus  $ U_1\subset U_3 $ and $ U_2\subset U_3 $.\par 
+For every $ u_1\in U_1-U_2 $ and $ u_2\in U_2-U_1 $ , $ u_1+u_2\in U $ . If $ u_1+u_2\in U_1 $, then $ u_2=(u_1+u_2)-u_1\in U_1 $, which contradicts the choice of $ u_2 $. Similarly, if $ u_1+u_2\in U_2 $, then $ u_1\in U_2 $, which contradicts the choice of $ u_1 $. Thus $ u_1+u_2\in U_3 $. \par 
+ $ \F\neq\F_2 $ , thus $ 2u_1\neq 0 $ , then $ 2u_1\in U_1-U_2 $ . For the same reason,  $ 2u_1+u_2\in U_3 $ . Hence  $ u_1=(2u_1+u_2)-(u_1+u_2)\in U_3 $ . Similarly, $ u_2\in U_3 $ . Thus $ U_1\subset U_3 $ and $ U_2\subset U_3 $. That's what we want to prove, and the necessity is proved.
+\end{proof}
+
+\begin{problem}[1C-21]
+Suppose
+\[
+U = \{(x, y, x + y, x - y, 2x) \in \mathbb{F}^5 : x, y \in \mathbb{F}\}.
+\]
+Find a subspace \( W \) of \( \mathbb{F}^5 \) such that \( \mathbb{F}^5 = U \oplus W \).
+\end{problem}
+
+\begin{solution}
+Let  $ W=\{(0,0,a,b,c)\in\F^5: a,b,c\in\F\} $. We'll prove this $ W $ meets the requirement.\par 
+First, we're going to prove: $ U+V $ is direct sum . This is equivalent to prove: $ (x,y,x+y,x-y,2x)+(0,0,a,b,c)=0 $ implies  $ x=y=a=b=c=0 $ . This is obvious, since the equation w.r.t the first two components implies $ x=y=0 $, then follows $ a=b=c=0 $. Thus  $ U+V $ is direct sum .\par
+Then to prove  $ U\oplus W=\F^5 $ . That's clear, since
+\[ (x_1,x_2,x_3,x_4,x_5)=(x_1,x_2,x_1+x_2,x_1-x_2,2x_1)+(0,0,x_3-x_1-x_2,x_4-x_1+x_2,x_5-2x_2). \] 
+\end{solution}
+
+\begin{problem}[1C-24]
+A function \( f : \mathbb{R} \to \mathbb{R} \) is called \emph{even} if
+\[
+f(-x) = f(x)
+\]
+for all \( x \in \mathbb{R} \). A function \( f : \mathbb{R} \to \mathbb{R} \) is called \emph{odd} if
+\[
+f(-x) = -f(x)
+\]
+for all \( x \in \mathbb{R} \). Let \( V_\mathrm{e} \) denote the set of real-valued even functions on \( \mathbb{R} \) and let \( V_\mathrm{o} \) denote the set of real-valued odd functions on \( \mathbb{R} \). Show that
+\[
+\mathbb{R}^{\mathbb{R}} = V_\mathrm{e} \oplus V_\mathrm{o}.
+\]
+\end{problem}
+
+\begin{proof}
+First, we're going to prove: $ V_\mathrm{e}+V_\mathrm{o} $ is direct sum . This is equivalent to prove  $ V_\mathrm{e}\cap V_\mathrm{o}=\{0\} $(Notice that there're only two subspaces to be added). For  $ f\in V_\mathrm{e}\cap V_\mathrm{o}$, we have  $ f(x)=f(-x)=-f(x) $ for every $ x\in\R $, then $ f=0 $. Thus $ V_\mathrm{e}+V_\mathrm{o} $ is direct sum .\par
+Then to prove  $ V_\mathrm{e}\oplus V_\mathrm{o}=\R^\R $ . For every $ f\in\R^\R $, define $ f_\mathrm{e}(x)=(f(x)+f(-x))/2 $ and $ f_\mathrm{o}(x)=(f(x)-f(-x))/2 $. Then it's easy to verify that  $ f=f_\mathrm{e}+f_\mathrm{o} $, and  $ f_\mathrm{e}\in V_\mathrm{e} $,  $ f_\mathrm{o}\in V_\mathrm{o} $. Thus  $ V_\mathrm{e}\oplus V_\mathrm{o}=\R^\R $. That's what we want to prove, and the problem is solved.   
+\end{proof}
+
 
 \end{document}
