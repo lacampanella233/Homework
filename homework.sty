@@ -1,5 +1,5 @@
 % homework.sty
-\ProvidesPackage{homework}[2026/03/04 v1.0 Homework template package]
+\ProvidesPackage{homework}[2026/03/06 v1.2 Homework template package with lemma fix]
 
 % 声明选项
 \newif\if@homework@zh
@@ -10,9 +10,10 @@
 
 % 加载必需宏包
 \RequirePackage[UTF8]{ctex}
-\RequirePackage{amsmath, amsthm, amssymb, bm, color, framed, enumitem, url}
+\RequirePackage{amsmath, amsthm, amssymb, bm, framed, enumitem, url}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
 \RequirePackage{xparse}
+\RequirePackage{xcolor} % <--- 修改：由 color 改为 xcolor，以支持 \colorlet
 
 % 语言相关字符串定义
 \if@homework@zh
@@ -23,6 +24,7 @@
   \newcommand{\homework@noteprefix}{题目}
   \newcommand{\homework@notesuffix}{的注记}
   \newcommand{\homework@homeworkname}{作业}
+  \newcommand{\homework@lemmaname}{引理}      % <--- 新增
 \else
   % 英文设置
   \newcommand{\homework@problemname}{Problem}
@@ -31,6 +33,7 @@
   \newcommand{\homework@noteprefix}{Note for Problem }
   \newcommand{\homework@notesuffix}{}
   \newcommand{\homework@homeworkname}{Homework}
+  \newcommand{\homework@lemmaname}{Lemma}      % <--- 新增
 \fi
 
 % 页面设置
@@ -38,6 +41,7 @@
 
 % 颜色定义
 \definecolor{shadecolor}{RGB}{241, 241, 255}
+\definecolor{lembg}{RGB}{255, 255, 224}        % <--- 新增淡黄色背景
 
 % 计数器
 \newcounter{problemname}
@@ -56,16 +60,31 @@
 \newcommand{\homeworkcounter}[1]{\def\thehomeworkcounter{#1}}
 \newcommand{\config}[3]{\course{#1}\term{#2}\homeworkcounter{#3}}
 
-% problem 环境（带灰色背景，支持可选标题参数）
+% problem 环境（带灰色背景，支持可选标题参数，正文楷体）
 \NewDocumentEnvironment{problem}{o}
 {
     \begin{shaded}
     \stepcounter{problemname}\par\noindent
     \boxed{\textbf{\homework@problemname\ \arabic{problemname}}%
-    \kaishu
     \IfValueT{#1}{\,\textrm{(#1)}}.}%
+    \if@homework@zh\kaishu\fi    % 使正文为楷体（仅中文）
 }
 {\end{shaded}\par}
+
+% lemma 环境（淡黄色背景，可选标题，不编号，无框，正文楷体）
+\NewDocumentEnvironment{lemma}{o}
+{
+    \colorlet{tmp@shadecolor}{shadecolor}%   <--- 保存原背景色
+    \colorlet{shadecolor}{lembg}%            <--- 临时改为淡黄
+    \begin{shaded}
+    \par\noindent
+    \textbf{\homework@lemmaname\ \IfValueT{#1}{(#1)}}\space
+    \if@homework@zh\kaishu\fi
+}
+{
+    \end{shaded}
+    \colorlet{shadecolor}{tmp@shadecolor}%   <--- 恢复原背景色
+}
 
 % solution 环境
 \newenvironment{solution}
