@@ -6,7 +6,7 @@
 
 \begin{document}
 
-\begin{problem}
+\begin{problem}[1-1]
 如果$ r\neq 0 $是有理数而$ x $为无理数, 证明: $ r+x $与$ rx $均不为有理数.
 \end{problem}
 
@@ -16,7 +16,26 @@
 若$ q:=rx $为有理数, 则$ x=q/r $是两个有理数的商, 也为有理数, 矛盾.
 \end{proof}
 
-\begin{problem}
+\begin{problem}[1-3]
+证明命题 1.15 : 
+\begin{enumerate}[label=(\alph*)]
+\item 如果 \(x \neq 0\), 并且 \(xy = xz\), 就有 \(y = z\)；
+\item 如果 \(x \neq 0\), 并且 \(xy = x\), 就有 \(y = 1\)；
+\item 如果 \(x \neq 0\), 并且 \(xy = 1\), 就有 \(y = 1/x\)；
+\item 如果 \(x \neq 0\), 就有 \(1/(1/x) = x\). 
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+\item 由 $ x\neq 0 $ 知道 $ x $ 的乘法逆 $ x^{-1} $ 存在. 故 $ y=(x^{-1}x)y=x^{-1}(xy)=x^{-1}(xz)=(x^{-1}x)z=z $. 
+\item 将 $ z=1 $ 带入上面的结论即证.
+\item 由 $ xy=1 $ 知 $ 1/x=(1/x)(xy)=(x^{-1}x)y=y $ .
+\item 记 $ y=1/x $ , 则 $ xy=1 $ , 由上面的结论知 $ 1/y=x $ , 即 $ 1/(1/x)=x $ .
+\end{enumerate}
+\end{proof}
+
+\begin{problem}[1-4]
 设$ E $是某有序集的非空子集, 又设$ \alpha $为$ E $的下界, $ \beta $为$ E $的上界. 证明:$ \alpha\le\beta $.
 \end{problem}
 
@@ -24,7 +43,7 @@
 由$ E $非空, 知存在$ x\in E $. 又$ \alpha $为$ E $的下界, $ \beta $为$ E $的上界, 故$ \alpha\le x\le\beta $, 从而$ \alpha\le\beta $.
 \end{proof}
 
-\begin{problem}
+\begin{problem}[1-5]
 设$ A $为非空实数集, 下有界. 令$ -A=\{-x:\ x\in A\} $. 求证: $ \inf A=-\sup(-A) $.
 \end{problem}
 
@@ -34,7 +53,109 @@
 综上所述, $ \inf A=-\sup(-A) $.
 \end{proof}
 
-\begin{problem}
+\begin{problem}[1-6]
+固定 $ b>1 $ .
+\begin{enumerate}[label=(\alph*)]
+\item 如果 \( m, n, p, q \) 是整数, \( n > 0, q > 0 \), 且 \( r = m/n = p/q \). 证明  
+\[(b^m)^{1/n} = (b^p)^{1/q}.\]
+因此, 定义 \( b^r = (b^m)^{1/n} \) 有意义.
+\item 证明, 如果 \( r \) 与 \( s \) 是有理数, 那么 \( b^{r+s} = b^r b^s \). 
+\item 如果 \( x \) 是实数. 定义 \( B(x) \) 为所有数 \( b^t \) 的集合, 这里 \( t \) 是有理数并且 \( t \leq x \). 
+证明  
+\[b^r = \sup B(r).\]
+这里 \( r \) 是有理数. 由此, 对于每个实数 \( x \), 定义  
+\[b^x = \sup B(x)\]
+是合理的. 
+\item 证明, 对于一切实数 \( x \) 及 \( y \), \( b^{x+y} = b^x b^y \). 
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+由上课讲过的内容,  $ f: \R^+\to\R^+, x\mapsto x^{1/n} $是一一映射. 
+
+\begin{enumerate}[label=(\alph*)]
+
+\item 由 \( r = m/n = p/q \) 知 \( m q = n p \). 因此,
+\[(b^m)^{1/n} = (b^{mq})^{1/nq} = (b^{np})^{1/nq} = (b^p)^{1/q}.\]
+
+\item 由 \( r = m/n \) 和 \( s = p/q \) 知 \( r+s = (mq + np)/nq \). 因此,
+\[b^{r+s} = b^{(mq + np)/nq} = (b^{mq + np})^{1/nq} = (b^{mq} b^{np})^{1/nq} = (b^mq)^{1/nq} (b^np)^{1/nq} = b^r b^s.\]
+
+\item 注意到对于正整数 $ n $ ,  $ x>1 \Rightarrow x^n>1 $ , $ x<1\Rightarrow x^n<1 $ , 因此 $ x>1 \Leftrightarrow x^{1/n}>1 $ . 同理, 对于正有理数 $ q $ , 有 $ x>1 \Leftrightarrow x^q>1 $ .\par 
+因此, 对于有理数 $ p<q $ , 有 $ b^q/b^p=b^{q-p}>1 $ , 结合 $ b>0 $ 知 $ b^p<b^q $ . 也就是说, 函数 $ f:\Q\to\R^+,\ x\mapsto b^x $是单调递增的. 故根据 $ B(r) $ 的定义,  $ b^r $ 是 $ B(r) $ 中的最大元素, 故 $ b^r=\sup B(r) $.
+
+\item 修改 $ B(x) $ 的定义为
+ \[ B(x) = \{ b^t : t \in \mathbb{Q}, t < x \} \]
+先来重新证明(c)小问, 即对于有理数 $ r $ , 有 $ b^r=\sup B(r) $ .\par 
+一方面, 根据定义以及(c)中证明的单调性, $ b^r $ 是 $ B(r) $ 的一个上界. 另一方面, 对于任意的 $ 0<\beta<b^r $, 由阿基米德原理, 知存在正整数 $ n $ , 使得
+\[ n>\frac{\beta(b-1)}{b^r-\beta}. \]  
+根据下一题(b)中的结论, 有 
+\[ b^{1/n}-1<\frac{b-1}{n}<(b-1)\frac{b^r-\beta}{\beta (b-1)}=\frac{b^r}{\beta}-1. \]
+因此 $ b^{r-1/n}=b^r/b^{1/n}>b^r/(b^r/\beta)=\beta $, 即 
+\[ \beta<b^{r-1/n}<b^r. \]
+结合 $ r-1/n\in\Q $ 知 $ b^{r-1/n}\in B(r) $. 综上所述, $ \sup B(r)= b^{r} $. \par
+接着证明原问题. 先来证明一个引理: 
+\begin{lemma}
+对于有上界的两个集合 $ A,B\subset\R^+ $ , 定义 $ C=\{ab:a\in A, b\in B\} $, 则 $ \sup C=\sup A\cdot\sup B. $ 
+\end{lemma}
+\begin{proof}
+这是因为, 记 $ \alpha=\sup A,\ \beta=\sup B, \gamma=\sup C $ . 对于任意的 $ 0<\gamma'<\alpha\beta $ , 记
+\[ \alpha'=\alpha\sqrt{\gamma'/\gamma}>0, \quad \beta'=\beta\sqrt{\gamma'/\gamma}>0. \]
+注意到 $ \gamma'/\gamma<1 $ , 因此 $ \alpha'<\alpha,\ \beta'<\beta. $ 由上确界的性质, 可以找到 $ a\in A, b\in B $ , 使得 $ \alpha'<a\le\alpha, \beta'<b\le\beta $ , 从而 $ \gamma'=\alpha'\beta'<ab\le\alpha\beta $ . \par
+因此, 对于任意的 $ \gamma'<\alpha\beta $ , 均可以找到 $ c\in C $ , 使得 $ \gamma'<c\le\alpha\beta $ . \par
+若 $ \gamma<\alpha\beta $ , 则取 $ \gamma<\gamma'<\alpha\beta $ 以及相应的 $ c\in C $ , 则 $ \gamma<\gamma'<c $ , 矛盾. 因此 $ \gamma\ge\alpha\beta $ .\par
+另一方面, 对于任意的 $ a\in A, b\in B $ , 有 $ ab\le\alpha\beta $ . 因此 $ \alpha\beta $ 是 $ C $ 的一个上界, 从而 $ \gamma\le\alpha\beta $ .\par 
+因此我们证明了 $ \gamma=\alpha\beta $ , 即 $ \sup C=\sup A\cdot\sup B $ .
+\end{proof}
+回到原题. 由这个引理, 我们只需要证明:  $ B(x+y)=\{\alpha\beta:\alpha\in B(x), \beta\in B(y)\}. $ 一方面, 对任意的 $ \alpha\in B(x),\ \beta\in B(y) $ , 均存在有理数 $ \xi< x, \eta< y $ , 使得 $ \alpha=b^{\xi},\ \beta=b^{\eta} $ . 因此 $ \alpha\beta=b^{\xi}b^{\eta}=b^{\xi+\eta}\in B(x+y) $ .\par
+另一方面, 对于任意的 $ \gamma\in B(x+y) $ , 存在有理数 $ \zeta< x+y $ , 使得 $ \gamma=b^{\zeta} $. 注意到$ \zeta-y<x+y-y=x $, 结合有理数的稠密性, 知存在$ \xi\in\Q $, 使得$ \zeta-y<\xi<x $. 再令$ \eta=\zeta-\xi\in\Q $, 则$ \eta=\zeta-\xi<\zeta-(\zeta-y)=y $. \par 
+即, 我们找到了$ \xi,\eta\in\Q $, 使得$ \xi<x,\eta<y,\xi+\eta=\zeta $. 因此$ b^\xi\in B(x), b^\eta\in B(y) $. 故$ \gamma=b^{\zeta}=b^{\xi}b^{\eta}\in\{\alpha\beta:\alpha\in B(x), \beta\in B(y)\} $ . \par
+因此, 我们证明了$ B(x+y)=\{\alpha\beta:\alpha\in B(x), \beta\in B(y)\} $. 因而原题得证.\end{enumerate} 
+\end{proof}
+
+\begin{problem}[1-7]
+固定 \(b > 1, y > 0\), 按照下面的提纲来证明, 存在唯一的实数 \(x\) 使 \(b^x = y\)  
+(这 \(x\) 叫做以 \(b\) 为底 \(y\) 的对数):
+\begin{enumerate}[label=(\alph*)]
+\item 对每个正整数 \(n\), \(b^n - 1 \geq n(b - 1)\). 
+
+\item 因之 \(b - 1 \geq n(b^{1/n} - 1)\). 
+
+\item 如果 \(t > 1\) 且 \(n > \frac{b-1}{t-1}\), 那么 \(b^{1/n} < t\). 
+
+\item 如果 \(w\) 使 \(b^w < y\), 那么对于足够大的 \(n\), \(b^{w + (1/n)} < y\). 为了证明这一点, 应用(c)而取 \(t = y \cdot b^{-w}\). 
+
+\item 如果 \(b^w > y\), 那么对于足够大的 \(n\), \(b^{w - (1/n)} > y\). 
+
+\item 设 \(A\) 是所有使 \(b^w < y\) 成立的 \(w\) 的集, 证明 \(x = \sup A\) 满足方程 \(b^x = y\). 
+
+\item 证明这 \(x\) 是惟一的. 
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+\item 对于$ b>1 $, 有
+\[ b^n-1=(b-1)(b^{n-1}+b^{n-2}+\cdots+1)>(b-1)(1+1+\cdots+1)=n(b-1). \]
+\item 将(a)结论中的$ b $替换为$ b^{1/n} $, 即得.
+\item 由(b)中的结论, 有
+ \[ b^{1/n}<1+\frac{b-1}{n}<1+(b-1)\frac{t-1}{b-1}=t. \] 
+\item 取 $ t=y\cdot b^{-w} $ , 则 $ t>1 $ , 由(c)中的结论, 对于$ n>(b-1)/(t-1) $ , 有 $ b^{1/n}<t $ , 从而$ b^{w+(1/n)}=b^w\cdot b^{1/n}<y\cdot b^{-w}\cdot b^w=y $.
+\item 这与(d)是完全类似的.
+\item 若$ b^x<y $, 则根据(c), 取$ n $使得$ b^{x+1/n}<y $, 则$ x+1/n\in A $, 这与$ x=\sup A $矛盾; 若$ b^x>y $, 则根据(e), 取$ n $使得$ b^{x-1/n}>y $, 由上一题(c)中证明的单调性, 知$ x-1/n $是$ A $的一个上界, 这与$ x=\sup A $矛盾. 因此, $ b^x=y $.
+\item 集合$ A=\{w\in\R: b^w<y\} $是唯一的, 因此$ x=\sup A $也是唯一的.
+\end{enumerate}
+\end{proof}
+
+\begin{problem}[1-8]
+证明在复数域中不能定义序关系以使其变为有序域.
+\end{problem}
+
+\begin{proof}
+由书中的命题 1.18, $ -1<0 $. 由$ \i\neq 0 $知道$ -1=\i^2>0 $, 矛盾.
+\end{proof}
+
+\begin{problem}[1-9]
 设$ z=a+b\i,\ w=c+d\i $. 若$ a<c $, 或$ a=c $且$ b<d $, 则规定$ z<w $. 证明: 这能使得所有复数的集合成为一个有序集. 这种序关系有没有最小上界性?
 \end{problem}
 
