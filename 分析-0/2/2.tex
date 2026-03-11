@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage{homework}
+\usepackage{booktabs,float}
+
+\setlength{\heavyrulewidth}{1pt}
+
+\config{分析\,-\,0}{2026春季}{2}
+
+\begin{document}
+
+\begin{problem}[1-10]
+设 \( z = a + b \i \), \( w = u + v \i \), 而
+\[
+a = \left( \frac{|w| + u}{2} \right)^{\frac{1}{2}}, \quad
+b = \left( \frac{|w| - u}{2} \right)^{\frac{1}{2}}.
+\]
+证明：如果 \( v \geq 0 \), 那么 \( z^2 = w \), 而若 \( v \leq 0 \) 那么 \( (\bar{z})^2 = w \). 由此断定每个复数(只有一个例外)有两个复平方根. 
+\end{problem}
+
+\begin{proof}
+根据复数的运算法则, 
+\begin{align*}
+ z^2 &= (a + b \i)^2 = a^2 - b^2 + 2 a b \i=\frac{|w|+u}{2}-\frac{|w|-u}{2}+\i\sqrt{|w|^2-u^2}  \\
+ &=u+ |v|\i =\begin{cases}
+w, & v \ge 0;\\
+\bar{w}, & v < 0.\end{cases} 
+\end{align*}
+\end{proof}
+
+\begin{problem}[1-12]
+设$ z_1,z_2,\cdots,z_n $为复数. 证明: 
+\[ \abs{z_1+z_2+\cdots+z_n}\le\abs{z_1}+\abs{z_2}+\cdots+\abs{z_n}. \] 
+\end{problem}
+
+
+\begin{proof}
+用数学归纳法证明.\par
+当 $n=1$ 时, $\abs{z_1} \le \abs{z_1}$, 不等式显然成立.\par
+假设 $n=k$ 时不等式成立, 即 $\abs{z_1+z_2+\cdots+z_k}\le\abs{z_1}+\abs{z_2}+\cdots+\abs{z_k}$.\par
+当 $n=k+1$ 时, 设 $z=z_1+z_2+\cdots+z_k$, 则
+\begin{align*}
+\abs{z_1+z_2+\cdots+z_k+z_{k+1}} &= \abs{z+z_{k+1}}\\
+&\le \abs{z}+\abs{z_{k+1}}\\
+&\le \abs{z_1}+\abs{z_2}+\cdots+\abs{z_k}+\abs{z_{k+1}}.
+\end{align*}
+因此, 对所有正整数 $n$, 不等式恒成立.
+\end{proof}
+
+\begin{problem}[1-13]
+设$ x,y $为复数. 证明: 
+\[ \abs{\abs{x}-\abs{y}}\le\abs{x-y}. \] 
+\end{problem}
+
+\begin{proof}
+根据三角不等式, 我们有
+\begin{align*}
+\abs{x} &= \abs{(x-y)+y} \le \abs{x-y}+\abs{y},\\
+\abs{y} &= \abs{(y-x)+x} \le \abs{y-x}+\abs{x} = \abs{x-y}+\abs{x}.
+\end{align*}\par 
+从第一个不等式得 $\abs{x}-\abs{y} \le \abs{x-y}$;从第二个不等式得 $\abs{y}-\abs{x} \le \abs{x-y}$, 即 $\abs{x}-\abs{y} \ge -\abs{x-y}$.\par
+因此 $\abs{\abs{x}-\abs{y}} \le \abs{x-y}$.
+\end{proof}
+
+\begin{problem}[1-14]
+如果$ z $为复数, 且$ \abs{z}=1 $, 计算
+\[ \abs{1+z}^2+\abs{1-z}^2. \] 
+\end{problem}
+
+\begin{solution}
+因为 $|z|=1$, 所以 $z\bar{z}=1$. 因此
+\begin{align*}
+\abs{1+z}^2+\abs{1-z}^2&=(1+z)(1+\bar{z})+(1-z)(1-\bar{z})\\
+&=2+z+\bar{z}+2-z-\bar{z}=4.
+\end{align*}
+\end{solution}
+
+\begin{problem}[1-16]
+设 \( k \geq 3 \), \( x, y \in \mathbb{R}^k \), \( |x - y| = d > 0 \) 且 \( r > 0 \). 试证：
+
+\begin{enumerate}[label=(\alph*)]
+\item 如果 \( 2r > d \)，就有无穷多个 \( z \in \mathbb{R}^k \) 使
+\[
+|z - x| = |z - y| = r.
+\]
+\item 如果 \( 2r = d \)，就恰好有一个这样的 \( z \). 
+\item 如果 \( 2r < d \)，就没有这样的 \( z \). 
+\end{enumerate}
+
+如果 \( k \) 是 2 或 1, 这些命题应怎样修正? 
+\end{problem}
+
+\begin{proof}
+不妨设$ x=(0,0,\cdots,0),y=(d,0,\cdots,0) $. 先考虑$ k\ge 3 $的情况. 不难知道, 若$ 2r>d $, 则
+\begin{align*}
+&\left\{z\in\R^k:\abs{z-x}=\abs{z-y}=r\right\}\\
+=&\left\{\left(\frac{d}{2},a_1,\cdots,a_{k-1}\right):a_1^2+\cdots+a_{k-1}^2=r^2-\left(\frac{d}{2}\right)^2, a_i\in\R\right\}\\
+\supset&\left\{\left(\frac{d}{2},\sqrt{r^2-\left(\frac{d}{2}\right)^2}\cos\theta,\sqrt{r^2-\left(\frac{d}{2}\right)^2}\sin\theta,0,\cdots,0\right),\theta\in [0,2\pi) \right\}.
+\end{align*}
+因此$ 2r>d $时至少有无穷个$ z\in\R^k $满足要求.\par 
+若$ 2r=d $, 则$ r^2-(d/2)^2=0 $, 因此上面的集合只有一个元素, 即$ (d/2,0,\cdots,0) $.
+若$ 2r<d $, 则这与$ 2r=|z-x|+|z-y|\ge| x-y |=d $矛盾.\par
+$ k=1,2 $时的情况如下:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+         & $ k=1 $ & $ k=2 $ \\
+        \midrule
+        $ 2r>d $ & 不存在 & 恰有$ 2 $个 \\
+        $ 2r=d $ & 恰有$ 1 $个 & 恰有$ 1 $个 \\
+        $ 2r<d $ & 不存在 & 不存在 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\end{proof}
+
+\begin{problem}[1-19]
+设 \(a \in \mathbb{R}^k\), \(b \in \mathbb{R}^k\)，求 \(c \in \mathbb{R}^k\) 和 \(r > 0\) 使得
+\[
+|x - a| = 2|x - b|
+\]
+当且仅当
+\[
+|x - c| = r.
+\]
+\end{problem}
+
+\begin{solution}
+我们将$ \R^k $中的点视作一个向量, 并且应用向量的内积. 条件即为
+\[
+|x - a|^2 = 4|x - b|^2.
+\]
+展开得
+\begin{align*}
+& &|x|^2 - 2x\cdot a + |a|^2 &= 4(|x|^2 - 2x\cdot b + |b|^2).&&&&\\
+&\Rightarrow&|x|^2 - \frac{2(4b - a)}{3}\cdot x + \frac{|a|^2 - 4|b|^2}{3} &= 0.&&&&\\
+&\Rightarrow&\left|x - \frac{4b - a}{3}\right|^2 &= \frac{\abs{4b-a}^2}{9} + \frac{|a|^2 - 4|b|^2}{3}.&&&&\\
+&\Rightarrow&\left|x - \frac{4b - a}{3}\right| &= \frac{2\abs{b-a}}{3}.&&&&\\
+\end{align*}
+因此, 
+\[ c=\frac{4b-a}{3},\quad r=\frac{2\abs{b-a}}{3}. \] 
+\end{solution}
+
+
+
+\end{document}
