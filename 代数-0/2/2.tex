@@ -1,0 +1,199 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Algebra\,-\,0}{2026 Spring}{2}
+\newcommand{\sspan}{\text{span}\,}
+
+\begin{document}
+
+\begin{problem}[2A-2]
+    Prove or give a counterexample: If \( v_1, v_2, v_3, v_4 \) span \( V \), then the list
+    \[
+    v_1 - v_2, v_2 - v_3, v_3 - v_4, v_4
+    \]
+    also spans \( V \).
+\end{problem}
+
+\begin{proof}
+    We will prove the statement. \par 
+    By the definition of spanning, we have that for every \( v \in V \), there exist scalars \( a_1, a_2, a_3, a_4 \) such that
+    \[ v= a_1 v_1 + a_2 v_2 + a_3 v_3 + a_4 v_4. \]
+    Then, we can rewrite the above equation as
+    \[ v= a_1 (v_1 - v_2) + (a_1 + a_2) (v_2 - v_3) + (a_1 + a_2 + a_3) (v_3 - v_4) + (a_1 + a_2 + a_3 + a_4) v_4. \]\par 
+    This means that for every \( v \in V \), there exist scalars \( b_1, b_2, b_3, b_4 \) such that
+    \[ v= b_1 (v_1 - v_2) + b_2 (v_2 - v_3) + b_3 (v_3 - v_4) + b_4 v_4. \]
+\end{proof}
+
+\begin{problem}[2A-6]
+    Show that the list \( (2, 3, 1), (1, -1, 2), (7, 3, c) \) is linearly dependent in \( \mathbb{F}^3 \) if and only if \( c = 8 \).
+\end{problem}
+
+\begin{proof}
+    On the one hand, if $ c=8 $, then we have
+    \[ 2(2, 3, 1) + 3(1, -1, 2) - (7, 3, 8) = (0, 0, 0). \]\par 
+    On the other hand, if the list \( (2, 3, 1), (1, -1, 2), (7, 3, c) \) is linearly dependent in \( \mathbb{F}^3 \), then there exist scalars \( a_1, a_2, a_3 \) with $ a_3\neq 0 $ (otherwise the first two vectors would be linearly dependent) such that
+    \[ a_1 (2, 3, 1) + a_2 (1, -1, 2) + a_3 (7, 3, c) = (0, 0, 0). \]
+    This means that 
+    \[ \begin{cases}
+    2 a_1 + a_2 + 7 a_3 = 0,  \\
+    3 a_1 - a_2 + 3 a_3 = 0,  \\
+    a_1 + 2 a_2 + c a_3 = 0.  
+    \end{cases} \]
+    Then
+    \[ 0=-7(2 a_1 + a_2 + 7 a_3)+3(3 a_1 - a_2 + 3 a_3)+5(a_1 + 2 a_2 + c a_3)=(5c-40)a_3. \] 
+    Since $ a_3\neq 0 $, we have $ c=8 $.
+\end{proof}
+
+\begin{problem}[2A-7]
+    (a) Show that if we think of \(\mathbb{C}\) as a vector space over \(\mathbb{R}\), then the list  
+    \[ 1 + \i, 1 - \i \] is linearly independent.
+
+    (b) Show that if we think of \(\mathbb{C}\) as a vector space over \(\mathbb{C}\), then the list  
+    \[ 1 + \i, 1 - \i \] is linearly dependent.
+\end{problem}
+
+\begin{solution}
+    (a) Suppose that there exist scalars \( a_1, a_2 \in \mathbb{R} \) such that
+    \[ a_1 (1 + \i) + a_2 (1 - \i) = 0. \]
+    By comparing the real and imaginary parts of the above equation, we have
+    \[ a_1+a_2=0,\quad a_1-a_2=0.\quad\Rightarrow\quad a_1=a_2=0. \]\par 
+    (b) Note that
+    \[ (1+\i) -\i (1-\i)=0. \]
+\end{solution}
+
+\begin{problem}[2B-4]
+    \begin{enumerate}[label=(\alph*)]
+        \item Let \( U \) be the subspace of \( \mathbb{C}^5 \) defined by
+        \[
+        U = \{ (z_1, z_2, z_3, z_4, z_5) \in \mathbb{C}^5 : 6z_1 = z_2 \text{ and } z_3 + 2z_4 + 3z_5 = 0 \}.
+        \]
+        Find a basis of \( U \).
+
+        \item Extend the basis in (a) to a basis of \( \mathbb{C}^5 \).
+
+        \item Find a subspace \( W \) of \( \mathbb{C}^5 \) such that \( \mathbb{C}^5 = U \oplus W \).
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    (a) We parametrize the subspace $U$ using free variables. From $6z_1 = z_2$, we have $z_2 = 6z_1$. From $z_3 + 2z_4 + 3z_5 = 0$, we have $z_3 = -2z_4 - 3z_5$. 
+
+Let $z_1 = s$, $z_4 = t$, $z_5 = u$ be free variables. Then
+\[ (z_1, z_2, z_3, z_4, z_5) = (s, 6s, -2t - 3u, t, u) = s(1, 6, 0, 0, 0) + t(0, 0, -2, 1, 0) + u(0, 0, -3, 0, 1). \]
+Therefore, a basis of $U$ is
+\[ \{ e_1:=(1, 6, 0, 0, 0), e_2:=(0, 0, -2, 1, 0), e_3:=(0, 0, -3, 0, 1) \}. \]
+
+    (b) To extend this to a basis of $\mathbb{C}^5$, we add the vectors $e_4:=(0, 1, 0, 0, 0)$ and $e_5:=(0, 0, 1, 0, 0)$. On the one hand, it is easy to verify that the five vectors are linearly independent. On the other hand, for every vector $(z_1, z_2, z_3, z_4, z_5) \in \mathbb{C}^5$, we have
+    \[ (z_1,z_2,\cdots,z_5)=z_1e_1+z_4e_2+z_5e_3+(z_1-5z_2)e_4+(z_3+2z_4+3z_5)e_5. \] 
+
+    (c) Let $W = \sspan\{ e_4,e_5 \}$. Since $ U=\sspan\{e_1,e_2,e_3\} $ and notice that $ \{e_1,e_2,\cdots,e_5\} $ is a basis of $ \mathbb{C}^5 $, hence $ U\cap W=\{0\} $ and $ U+W=\sspan\{e_1,e_2,e_3,e_4,e_5\} = \mathbb{C}^5 $. Therefore, $ \mathbb{C}^5=U\oplus W $.
+\end{solution}
+
+\begin{problem}[2B-5]
+    Suppose \( V \) is finite-dimensional and \( U, W \) are subspaces of \( V \) such that \( V = U + W \). Prove that there exists a basis of \( V \) consisting of vectors in \( U \cup W \).
+\end{problem}
+
+\begin{proof}
+    Obviously, $ U\cap W $ is a subspace of $ V $. Pick a basis $ \mathcal{B}_0 $ of $ U\cap W $; if $ U\cap W=\{0\} $, let $ \mathcal{B}_0=\varnothing $. Then we can extend $ \mathcal{B}_0 $ to a basis $ \mathcal{B}_1 $ of $ U $ and a basis $ \mathcal{B}_2 $ of $ W $. \par 
+    We claim that $ \mathcal{B}=\mathcal{B}_1\cup\mathcal{B}_2 $ is a basis of $ V $. On the one hand, for every vector $ v\in V $, there exist vectors $ u\in U $ and $ w\in W $ such that $ v=u+w $. Notice that $ u\in\sspan\mathcal{B}_1 $ and $ w\in\sspan\mathcal{B}_2 $, hence $ v\in\sspan\mathcal{B} $, which implies that $\mathcal{B}$ spans $V$. \par 
+    On the other hand, if the vectors in $ \mathcal{B} $ are linearly dependent, then there exists a linear combination of vectors in $ \mathcal{B} $ whose coefficients are not all zero. Note that $ \mathcal{B}=\mathcal{B}_1\cup(\mathcal{B}_2-\mathcal{B}_1) $, and $ \mathcal{B}_1\cap(\mathcal{B}_2-\mathcal{B}_1)=\varnothing $, then the linear combination can be rewritten as a linear combination of vectors in $ \mathcal{B}_1 $ plus a linear combination of vectors in $ \mathcal{B}_2-\mathcal{B}_1 $. In other words, there exist a vector $ v_1\in\sspan \mathcal{B}_1 $ and a vector $ v_2\in\sspan(\mathcal{B}_2-\mathcal{B}_1) $ such that $ v_1+v_2=0 $ and $ v_1\neq0, v_2\neq0 $. Then, $ v_2=-v_1\in\sspan \mathcal{B}_1 $, which indicates $ v_2\in(\sspan \mathcal{B}_1)\cap(\sspan (\mathcal{B}_2-\mathcal{B}_1))=\{0\} $, which contradicts the fact that $ v_2\neq0 $. Therefore, the vectors in $ \mathcal{B} $ are linearly independent. \par
+    Hence, $ \mathcal{B} $ is a basis of $ V $ consisting of vectors in $ U\cup W $.
+\end{proof}
+
+\begin{problem}[2B-11]
+    Suppose \( V \) is a real vector space. Show that if \( v_1, \ldots, v_n \) is a basis of \( V \) (as a real vector space), then \( v_1, \ldots, v_n \) is also a basis of the complexification \( V_{\mathbb{C}} \) (as a complex vector space).
+\end{problem}
+
+\begin{proof}
+    First, we show that the list \( v_1, \ldots, v_n \) spans \( V_{\mathbb{C}} \). For every vector \( v \in V_{\mathbb{C}} \), there exist vectors \( u, w \in V \) such that \( v = u + \i w \). Since \( v_1, \ldots, v_n \) is a basis of \( V \), there exist scalars \( a_1, \ldots, a_n, b_1, \ldots, b_n \in \mathbb{R} \) such that
+    \[ u = a_1 v_1 + \cdots + a_n v_n, \quad w = b_1 v_1 + \cdots + b_n v_n. \]
+    Then
+    \[ v = u + \i w = (a_1 v_1 + \cdots + a_n v_n) + \i (b_1 v_1 + \cdots + b_n v_n) = (a_1 + \i b_1) v_1 + \cdots + (a_n + \i b_n) v_n. \]
+    This shows that \( v \in \sspan\{v_1, \ldots, v_n\} \), so the list \( v_1, \ldots, v_n \) spans \( V_{\mathbb{C}} \). \par
+    Next, we show that the list \( v_1, \ldots, v_n \) is linearly independent in \( V_{\mathbb{C}} \). Suppose that there exist scalars \( c_1, \ldots, c_n \in \mathbb{C} \) such that
+    \[ c_1 v_1 + \cdots + c_n v_n = 0. \]
+    Write \( c_j = a_j + \i b_j \) for some \( a_j, b_j \in \mathbb{R} \). Then
+    \[ (a_1 + \i b_1) v_1 + \cdots + (a_n + \i b_n) v_n = (a_1 v_1 + \cdots + a_n v_n) + \i (b_1 v_1 + \cdots + b_n v_n) = 0. \]
+    Since \( v_1, \ldots, v_n \) is a basis of \( V \), we have \( a_1 = \cdots = a_n = 0 \) and \( b_1 = \cdots = b_n = 0 \). Therefore, \( c_1 = \cdots = c_n = 0 \), which shows that the list \( v_1, \ldots, v_n \) is linearly independent in \( V_{\mathbb{C}} \). \par
+    Combining the above two parts, it's proved that \( v_1, \ldots, v_n \) is a basis of \( V_{\mathbb{C}} \).
+\end{proof}
+
+\begin{problem}[2C-6]
+    \begin{enumerate}[label=(\alph*)]
+        \item Let \( U = \{p \in \mathcal{P}_4(\mathbb{F}) : p(2) = p(5) = p(6)\} \). Find a basis of \( U \).
+        \item Extend the basis in (a) to a basis of \( \mathcal{P}_4(\mathbb{F}) \).
+        \item Find a subspace \( W \) of \( \mathcal{P}_4(\mathbb{F}) \) such that \( \mathcal{P}_4(\mathbb{F}) = U \oplus W \).
+    \end{enumerate}
+\end{problem}
+
+
+
+\begin{solution}
+    (a) Set
+    \[ \begin{cases}
+        &e_1(x):=1,\\
+        &e_2(x):=(x-2)(x-5)(x-6),\\
+        &e_3(x):=x(x-2)(x-5)(x-6).
+    \end{cases} \]
+    We will show that \( \{e_1, e_2, e_3\} \) is a basis of \( U \).\par
+    On the one hand, for every \( p \in U \), we have \( p(2) = p(5) = p(6) \). Let \( c = p(2) \). Then the polynomial \( p - c e_1 \) has roots \( 2, 5, 6 \), which means that there exists a linear function $ ax+b $ such that
+    \[ p-c e_1=(ax+b)(x-2)(x-5)(x-6)\quad\Rightarrow\quad p=a e_3+b e_2+c e_1. \] \par
+    On the other hand, if \( a e_3 + b e_2 + c e_1 = 0 \) for some scalars \( a, b, c \), then by comparing the coefficients of \( x^4 \), we have \( a = 0 \). Then by comparing the coefficients of \( x^3 \), we have \( b = 0 \). Finally, by comparing the coefficients of \( x^0 \), we have \( c = 0 \). Therefore, the vectors in \( \{e_1, e_2, e_3\} \) are linearly independent. \par
+    Hence, \( \{e_1, e_2, e_3\} \) is a basis of \( U \).\par
+    (b) Set
+    \[ \begin{cases}
+        &e_4(x):=(x-2)(x-5),\\
+        &e_5(x):=(x-2)(x-6).
+    \end{cases} \] 
+    We will show that \( \{e_1, e_2, e_3, e_4, e_5\} \) is a basis of \( \mathcal{P}_4(\mathbb{F}) \). On the one hand, for every polynomial \( p \in \mathcal{P}_4(\mathbb{F}) \), it is easy to verify that (by taking $ x=2,3,4,5,6 $ and use the Fundemental Algebra Theorem)
+    \begin{align*}
+    p &= p(2) e_1+\left(\frac{5}{4} p(2)+ \frac{2}{3} p(3)-\frac{3}{4}p(4)-p(5)- \frac{1}{6} p(6)\right) e_2 \\
+    &+\left(-\frac{3}{4} p(2)- \frac{1}{6} p(3)+ \frac{1}{4} p(4)+ \frac{1}{2}p(5) + \frac{1}{6} p(6)\right) e_3+(p(6)-p(2)) e_4+(p(5)-p(2)) e_5. 
+    \end{align*}\par
+    On the other hand, we will show that the vectors in \( \{e_1, e_2, e_3, e_4, e_5\} \) are linearly independent. Suppose that there exist scalars \( a_1, a_2, a_3, a_4, a_5 \) such that
+    \[ a_1 e_1 + a_2 e_2 + a_3 e_3 + a_4 e_4 + a_5 e_5 = 0. \]
+    By comparing the coefficients of \( x^4 \), we have \( a_3 = 0 \). Then by comparing the coefficients of \( x^3 \), we have \( a_2 = 0 \). Then by comparing the coefficients of \( x^2 \) and \( x \), we have \( a_4 = a_5 = 0 \). Finally, by comparing the coefficients of \( x^0 \), we have \( a_1 = 0 \). Therefore, \( a_1 = a_2 = a_3 = a_4 = a_5 = 0 \), which shows that the vectors in \( \{e_1, e_2, e_3, e_4, e_5\} \) are linearly independent. \par
+    (c) Let \( W = \sspan\{e_4, e_5\} \). Since \( U = \sspan\{e_1, e_2, e_3\} \) and notice that \( \{e_1, e_2, e_3, e_4, e_5\} \) is a basis of \( \mathcal{P}_4(\mathbb{F}) \), hence \( U \cap W = \{0\} \) and \( U + W = \sspan\{e_1, e_2, e_3, e_4, e_5\} = \mathcal{P}_4(\mathbb{F}) \). Therefore, \( \mathcal{P}_4(\mathbb{F}) = U \oplus W \).
+\end{solution}
+
+\begin{problem}[2C-8]
+    Suppose $ v_1,v_2,\cdots,v_m $ is linearlly independent and $ w\in V $. Prove that
+    \[ \dim\sspan \{v_1+w, v_2+w, \ldots, v_m+w\} \ge m-1. \]
+\end{problem}
+
+\begin{proof}
+    Denote $ v_i+w $ as $ v_i' $ and $ U=\sspan \left\{v_1+w,\cdots,v_m+w\right\}=U $. We will prove the praoblem by two steps. \par
+    (i) First, we show that the $ m-1 $ vectors $ v_1-v_m,v_2-v_m,\cdots,v_{m-1}-v_m $ are linearly independent. Suppose that there exist not-all-zero scalars $ a_1,a_2,\cdots,a_{m-1} $ such that
+    \[ a_1 (v_1 - v_m) + a_2 (v_2 - v_m) + \cdots + a_{m-1} (v_{m-1} - v_m) = 0. \]
+    We can rewrite the above equation as
+    \[ a_1 v_1 + a_2 v_2 + \cdots + a_{m-1} v_{m-1} - (a_1 + a_2 + \cdots + a_{m-1}) v_m = 0. \]
+    Since $ v_1,v_2,\cdots,v_m $ are linearly independent, we have $ a_1 = a_2 = \cdots = a_{m-1} = 0 $, which contradicts the fact that the scalars are not all zero. Therefore, the $ m-1 $ vectors $ v_1-v_m,v_2-v_m,\cdots,v_{m-1}-v_m $ are linearly independent. \par
+    (ii) Next, Note that
+    \begin{align*}
+        U&\supset\left\{\sum_{i=1}^{m } a_iv_i:\ a_i\in\R,\ \sum_{i=1}^{m} a_i=0\right\}\\
+        &=\left\{\sum_{i=1}^{m-1} a_iv_i-\left(\sum_{i=1}^{m-1} a_i \right)v_m:\ a_i\in\R,\ \sum_{i=1}^{m} a_i=0\right\}\\
+        &=\left\{\sum_{i=1}^{m-1} a_i(v_i-v_m):\ a_i\in\R\right\}\\
+        &=\sspan \left\{v_1-v_m,\cdots,v_{m-1}-v_m \right\}.
+    \end{align*}
+    Then By the result in (i), we have
+    \[ \dim U\ge\dim\sspan \left\{v_1-v_m,\cdots,v_{m-1}-v_m \right\}=m-1. \] 
+\end{proof}
+
+\begin{problem}[2C-16]
+    Suppose \( V \) is finite-dimensional and \( U \) is a subspace of \( V \) with \( U \neq V \). Let \( n = \dim V \) and \( m = \dim U \). Prove that there exist \( n - m \) subspaces of \( V \), each of dimension \( n - 1 \), whose intersection equals \( U \).
+\end{problem}
+
+\begin{proof}
+    Take a basis \( u_1, \ldots, u_m \) of \( U \) and extend it to a basis \( u_1, \ldots, u_m, v_1, \ldots, v_{n-m} \) of \( V \). For each \( i = 1, \ldots, n - m \), let
+    \[ W_i = \sspan\{u_1, \ldots, u_m, v_1, \ldots, v_{i-1}, v_{i+1}, \ldots, v_{n-m}\}. \]
+    Then \( W_i \) is a subspace of \( V \) with dimension \( n - 1 \) (since it is spanned by \( n - 1 \) linear independent vectors). We will show that the intersection of these subspaces equals \( U \). \par
+    On the one hand, since \( U \subset W_i \) for each \( i \), we have \( U \subset \bigcap_{i=1}^{n-m} W_i \). \par
+    On the other hand, if \( v \in \bigcap_{i=1}^{n-m} W_i \), then \( v \in W_i \) for each \( i \). Writing \( v \) as a linear combination of the basis vectors, we have
+    \[ v = a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_{n-m} v_{n-m}. \]
+    For each $ 1\le i\le n-m  $, $ v-b_iv_i  $ is a linear combination of $ u_1, \ldots, u_m, v_1, \ldots, v_{i-1}, v_{i+1}, \ldots, v_{n-m} $ which are all in $ V $, but $ v_i\not\in W_i $, consequencely we have $ b_i=0 $. Therefore, \( v = a_1 u_1 + \cdots + a_m u_m \in U \). This shows that \( \bigcap_{i=1}^{n-m} W_i \subset U \). \par
+    Combining the above two parts, we have \( \bigcap_{i=1}^{n-m} W_i = U \).
+\end{proof}
+
+\end{document}
+
+
