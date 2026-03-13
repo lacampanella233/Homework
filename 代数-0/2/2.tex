@@ -194,6 +194,42 @@ Therefore, a basis of $U$ is
     Combining the above two parts, we have \( \bigcap_{i=1}^{n-m} W_i = U \).
 \end{proof}
 
+\begin{problem}[3A-4]
+    Suppose \( T \in \mathcal{L}(V, W) \) and \( v_1, \ldots, v_m \) is a list of vectors in \( V \) such that \( Tv_1, \ldots, Tv_m \) is a linearly independent list in \( W \). Prove that \( v_1, \ldots, v_m \) is linearly independent.
+\end{problem}
+
+\begin{proof}
+    Suppose that there exist scalars \( a_1, \ldots, a_m \) such that
+    \[ a_1 v_1 + \cdots + a_m v_m = 0. \]
+    Applying \( T \) to both sides of the above equation, we have
+    \[ a_1 Tv_1 + \cdots + a_m Tv_m = 0. \]
+    Since \( Tv_1, \ldots, Tv_m \) is a linearly independent list in \( W \), we have \( a_1 = \cdots = a_m = 0 \). Therefore, \( v_1, \ldots, v_m \) is linearly independent.
+\end{proof}
+
+\begin{problem}[3A-11]
+    Suppose \( V \) is finite-dimensional and \( T \in \mathcal{L}(V) \). Prove that \( T \) is a scalar multiple of the identity if and only if \( ST = TS \) for every \( S \in \mathcal{L}(V) \).
+\end{problem}
+
+\begin{proof}
+    On the one hand, if \( T \) is a scalar multiple of the identity, then \( T = \lambda I \) for some scalar \( \lambda \). For every \( S \in \mathcal{L}(V) \), we have
+    \[ ST = S(\lambda I) = \lambda S = (\lambda I)S = TS. \]\par
+    On the other hand, if \( ST = TS \) for every \( S \in \mathcal{L}(V) \), then we will show that \( T \) is a scalar multiple of the identity. Pick a basis \( v_1, \ldots, v_n \) of \( V \). For each $ 1\le i\le n $, define the linear map $ S_i  $ as follow: for arbitraty $ v:=\sum_{i=1}^{n} a_iv_i\in V $, $ S_i(v)=a_iv_i $. For $ i,j\in\{1,2,\cdots,n\} $, set 
+    \[ T(v_j)=c_{j1}v_1+c_{j2}v_2+\cdots+c_{jn}v_n. \] \par
+    Then
+    \[ S_iT(v_j)=S_i(c_{j1}v_1+c_{j2}v_2+\cdots+c_{jn}v_n)=c_{ji}v_i, \]
+    and
+    \[ TS_i(v_j)=\delta_{ij}T(v_j)=a_jT(v_j)=\delta_{ij}(c_{j1}v_1+c_{j2}v_2+\cdots+c_{jn}v_n). \]\par
+    Since $ S_iT=TS_i $, by comparing coefficients, we have $ c_{ji}=0 $ for every $ i\neq j $. Therefore, for every $ 1\le j\le n $, there exists a scalar $ c_j $ such that
+    \[ T(v_j)=c_jv_j. \]\par
+    Next, define $ S'_{i} $ for $ 2\le i\le n $ as follow: for arbitraty $ v:=\sum_{i=1}^{n} a_iv_i\in V $, $ S'_{i}(v)=a_1v_i $. Then
+    \[ S'_{i}T(v_1)=S'_{i}(c_1v_1)=c_1v_i,\quad TS'_{i}(v_1)=T(v_i)=c_iv_i. \]\par
+    We immideiately have $ c_1=c_i $ for every $ 2\le i\le n $, which indicates
+    \[ T(v)=c_1v. \] 
+\end{proof}
+
+\begin{problem}[3A-13]
+    Suppose \( V \) is finite-dimensional. Prove that every linear map on a subspace of \( V \) can be extended to a linear map on \( V \). In other words, show that if \( U \) is a subspace of \( V \) and \( S \in \mathcal{L}(U, W) \), then there exists \( T \in \mathcal{L}(V, W) \) such that \( Tu = Su \) for all \( u \in U \).
+\end{problem}
 \end{document}
 
 
