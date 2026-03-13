@@ -3,6 +3,7 @@
 
 \config{Algebra\,-\,0}{2026 Spring}{2}
 \newcommand{\sspan}{\text{span}\,}
+\newcommand{\im}{\text{im}\,}
 
 \begin{document}
 
@@ -84,7 +85,7 @@ Therefore, a basis of $U$ is
 \[ \{ e_1:=(1, 6, 0, 0, 0), e_2:=(0, 0, -2, 1, 0), e_3:=(0, 0, -3, 0, 1) \}. \]
 
     (b) To extend this to a basis of $\mathbb{C}^5$, we add the vectors $e_4:=(0, 1, 0, 0, 0)$ and $e_5:=(0, 0, 1, 0, 0)$. On the one hand, it is easy to verify that the five vectors are linearly independent. On the other hand, for every vector $(z_1, z_2, z_3, z_4, z_5) \in \mathbb{C}^5$, we have
-    \[ (z_1,z_2,\cdots,z_5)=z_1e_1+z_4e_2+z_5e_3+(z_1-5z_2)e_4+(z_3+2z_4+3z_5)e_5. \] 
+    \[ (z_1,z_2,\cdots,z_5)=z_1e_1+z_4e_2+z_5e_3+(z_1-6z_2)e_4+(z_3+2z_4+3z_5)e_5. \] 
 
     (c) Let $W = \sspan\{ e_4,e_5 \}$. Since $ U=\sspan\{e_1,e_2,e_3\} $ and notice that $ \{e_1,e_2,\cdots,e_5\} $ is a basis of $ \mathbb{C}^5 $, hence $ U\cap W=\{0\} $ and $ U+W=\sspan\{e_1,e_2,e_3,e_4,e_5\} = \mathbb{C}^5 $. Therefore, $ \mathbb{C}^5=U\oplus W $.
 \end{solution}
@@ -230,6 +231,89 @@ Therefore, a basis of $U$ is
 \begin{problem}[3A-13]
     Suppose \( V \) is finite-dimensional. Prove that every linear map on a subspace of \( V \) can be extended to a linear map on \( V \). In other words, show that if \( U \) is a subspace of \( V \) and \( S \in \mathcal{L}(U, W) \), then there exists \( T \in \mathcal{L}(V, W) \) such that \( Tu = Su \) for all \( u \in U \).
 \end{problem}
+
+\begin{proof}
+    Pick a basis \( u_1, \ldots, u_m \) of \( U \) and extend it to a basis \( u_1, \ldots, u_m, v_1, \ldots, v_{n-m} \) of \( V \). Denote \( \sspan \left\{v_1,\cdots,v_{n-m}\right\} \) by \( U' \), then \( V=U\oplus U' \). For arbitraty \( v\in V \), we can write v as
+    \[ v=u+u',\quad u\in U,\ u'\in U'. \] \par
+    Define \( T\in \mathcal{L}(V,W) \) as \( T(v)=S(u). \) Then it's easy to verify that for all \( v\in U \), \( T(v)=S(v) \).
+\end{proof}
+
+\begin{problem}[3B-4]
+    Show that \( T\in \mathcal{L}(\R^5,\R^4):\ \dim\ker T>2 \) is not a subspace of \( \mathcal{L }(\R^5, \R^4) \). 
+\end{problem}
+
+\begin{proof}
+    We will show that the set \( \{T \in \mathcal{L}(\R^5, \R^4) : \dim\ker T > 2\} \) is not closed under addition.\par
+    Define the linear map \( S \in \mathcal{L}(\R^5, \R^4) \) as
+    \[ S(x_1, x_2, x_3, x_4, x_5) = (x_1, x_2, 0, 0). \]
+    Then \( S \) is a linear map with \( \ker S=\left\{(0,0,x_3,x_4,x_5):x_3,x_4,x_5\in\R \right\} \) and \( \dim\ker S=3 \). Then, define the linear map \( T \in \mathcal{L }(\R^5,\R^4) \) as
+    \[ T(x_1,x_2,x_3,x_4,x_5) = (0,0,x_4,x_5). \] 
+    Then it's clear that \( \dim\ker T =3. \) \par
+    However, \( S+T \) is a linear map defined as
+    \[ (S+T)(x_1,x_2,x_3,x_4,x_5) = (x_1, x_2, x_4, x_5). \]
+    Then \( \ker(S+T) = \{(0, 0, x_3, 0, 0) : x_3 \in \R\} \) and \( \dim\ker(S+T) = 1 \). Therefore, \( S+T \notin \{T \in \mathcal{L}(\R^5, \R^4) : \dim\ker T > 2\} \), which shows that the set \( \{T \in \mathcal{L}(\R^5, \R^4) : \dim\ker T > 2\} \) is not closed under addition.
+\end{proof}
+
+\begin{problem}[3B-22]
+    Suppose \( U \) nad \( V \) are finite-dimensional vector spaces and \( S\in \mathcal{L }(V,W) \) and \( T\in \mathcal{L }(U,V) \) Prove that 
+    \[ \dim\ker ST\le\dim\ker S+\dim\ker T. \] 
+\end{problem} 
+
+\begin{proof}
+    Let
+    \[ \dim\ker S=s,\quad\dim\ker T=t,\quad\dim\ker ST=d. \] 
+    It's clear that \( \ker T\subset \ker ST \). Select a basis of \( \ker T \) , denoted as \( \{v_1,v_2,\cdots,v_t\}  \) and extend it to a basis of \( \ker ST \), denoted as \( \{v_1,v_2,\cdots,v_t,u_1,\cdots,u_{d-t}\} \).\par
+    First, we claim that \( \{Tu_1, Tu_2, \ldots, Tu_{d-t}\} \) is a linearly independent list in \( V \). Suppose that there exist scalars \( a_1, a_2, \ldots, a_{d-t} \) such that
+    \[ a_1 Tu_1 + a_2 Tu_2 + \cdots + a_{d-t} Tu_{d-t} =T(u)= 0, \]
+    where \( u:=\sum_{i=1}^{d-t} a_iu_i \). Then \( u\in\ker T=\sspan\{v_i:1\le i\le t\} \), which contradicts the fact that \( \{v_1,v_2,\cdots,v_t,u_1,\cdots,u_{d-t}\} \) is a basis of \( \ker ST \). Therefore, \( \{Tu_1, Tu_2, \ldots, Tu_{d-t}\} \) is a linearly independent list in \( V \). \par
+    Next, we claim that \( \{Tu_1, Tu_2, \ldots, Tu_{d-t}\} \subset \ker S \). For each \( 1\le i\le d-t \), since \( u_i\in\ker ST \), we have \( S(Tu_i)=0 \), which means that \( Tu_i\in\ker S \). Therefore, \( \{Tu_1, Tu_2, \ldots, Tu_{d-t}\} \subset \ker S \). \par
+    Since \( \{Tu_1, Tu_2, \ldots, Tu_{d-t}\} \) is a linearly independent list in \( \ker S \), we have \( d-t \le s \). Therefore, \( d \le s + t \).
+\end{proof}
+
+\begin{problem}[3B-25]
+    Suppose that \( W \) is finite-dimensional and \( S,T\in \mathcal{L }(V,W) \). Prove that \( \ker S\subset \ker T \) if and only if there exists \( E\in \mathcal{L }(W) \) such that \( T=ES \). 
+\end{problem}
+
+\begin{proof}
+    On the one hand, if there exists \( E \in \mathcal{L}(W) \) such that \( T = ES \), then for every \( v \in \ker S \), we have
+    \[ T(v) = ES(v) = E(0) = 0, \]
+    which shows that \( v \in \ker T \). Therefore, \( \ker S \subset \ker T \). \par
+    On the other hand, if \( \ker S\subset\ker T\subset V \), then by the theorem of basis extension, we can find \( 3 \) sets of vectors
+    \[ \mathcal{A }:=\{u_1,\cdots,u_a\}\quad \mathcal{B }:=\{v_1,\cdots,v_b\}\quad \mathcal{C }:=\{w_1,\cdots,w_c\}, \]
+    such that \( \mathcal{A} \) is a basis of \( \ker S \), \( \mathcal{A} \cup \mathcal{B} \) is a basis of \( \ker T \), and \( \mathcal{A} \cup \mathcal{B} \cup \mathcal{C} \) is a basis of \( V \). We can prove (by the same method in the previous exercise) that \( \{S(x):x\in \mathcal{B}\cup \mathcal{C}\} \) is linearly indenpendent. \par
+    Denote
+    \[ \mathcal{B}' := \{S(v_1), S(v_2), \ldots, S(v_b)\},\quad \mathcal{C }' := \{S(w_1), S(w_2), \ldots, S(w_c)\}. \] 
+    Then \( \mathcal{B}'\cup \mathcal{C}' \) is lienarly independent, which implies we can extent it to a basis of \( V \), denoted as \( \mathcal{A}' \cup \mathcal{B}' \cup \mathcal{C}' \). \par 
+    Then we can define linear map \( E\in \mathcal{L }(W) \) by defining \( E \) on this basis as follow:
+    \[ \begin{cases}
+        E(a')=0 , \quad\forall a'\in \mathcal{A}';\\
+        E(S(v_i))=T(v_i)=0, \quad\forall v_i\in \mathcal{B};\\
+        E(S(w_i))=T(w_i), \quad\forall w_i\in\mathcal{C}.
+    \end{cases} \]\par
+    Let's verify that \( T=ES \). We only need to verify the two lienar maps are the same on the basis \( \mathcal{A}\cup \mathcal{B}\cup \mathcal{C}. \)
+    \begin{itemize}
+        \item For every \( a\in \mathcal{A} \), \( ES(a)=E(0)=0=T(a) \) since \( a\in\ker S\subset \ker T \).
+        \item For every \( x\in\mathcal{B}\cup\mathcal{C} \), we have \( ES(x)=T(x) \) by the definition of \( E \).
+    \end{itemize}
+    Therefore, the statement is proved.
+\end{proof}
+
+\begin{problem}[3B-27]
+    Suppose \( P\in\mathcal{L}(V) \) such that \( P^2=P \). Prove that \( V=\ker P\oplus\im P  \).
+\end{problem}
+
+\begin{proof}
+    First, we will show that \( \ker P \cap \im P = \{0\} \). If \( v \in \ker P \cap \im P \), then there exists \( u \in V \) such that \( v = Pu \). Since \( v \in \ker P \), we have
+    \[ 0 = Pv = P(Pu) = P^2 u = Pu = v. \]
+    Therefore, \( v = 0 \), which shows that \( \ker P \cap \im P = \{0\} \). \par
+    Next, we will show that \( V = \ker P + \im P \). For every \( v \in V \), we can write
+    \[ v = (v - Pv) + Pv. \]
+    Note that \( Pv \in \im P \). Moreover, 
+    \[ P(v-Pv)=Pv-P^2v=Pv-Pv=0\quad\Rightarrow v-Pv\in\ker P. \] 
+    Therefore, \( v\in\ker P +\im P  \). This shows that \( V = \ker P +\im P  \). Combining the above two parts, we have \( V=\ker P\oplus\im P  \).
+\end{proof}
+
+
 \end{document}
 
 

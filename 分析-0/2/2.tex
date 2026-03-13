@@ -143,6 +143,61 @@ $ k=1,2 $时的情况如下:
 \[ c=\frac{4b-a}{3},\quad r=\frac{2\abs{b-a}}{3}. \] 
 \end{solution}
 
+\begin{problem}[2-2]
+    如果存在不全为\( 0 \)的整数\( a_0,a_1,\cdots,a_n \), 而复数\( z \)满足
+    \[ a_nz^n+a_{n-1}z^{n-1}+\cdots+a_1z+a_0=0, \] 
+    则称\( z \)为一个{\heiti 代数数}. 证明: 所有代数数构成可数集.
+\end{problem}
+
+\begin{proof}
+    我们接下来构造一个从代数数集合到\( \Q^+ \)的单射\( f \), 这样由\( \Q  \)可数就可以证明原命题.\par
+    由第一次作业的习题, 我们可以在\( \C \)上定义字典排序. 设\( z \)是一个代数数, 而
+    \[ p(x):=a_nz^n+a_{n-1}z^{n-1}+\cdots+a_0 \] 
+    是它的极小多项式, 且其系数满足\( \gcd(a_n,a_{n-1},\cdots,a_0)=1 \)(不难知道, 对于每个代数数\( z \)都有唯一的这样的极小多项式). 设\( z \)在\( p(x) \)的\( n \)个根中, 按照字典排序, 为从小到大的第\( r \)个, 其中\( 1\le r\le n \). 设\( p_0=2,\,p_1=3,\,p_2=5\cdots \)为全体素数从小到大的排列. 定义
+    \[ f(z)=p_0^{a_0}p_1^{a_1}\cdots p_n^{a_n}p_{n+1}^r\in\Q^+ . \]\par
+    结合算数基本定理, 不难验证\( f \)是一个单射. 
+\end{proof}
+
+\begin{problem}[2-3]
+    证明: 存在不是代数数的实数.
+\end{problem}
+
+\begin{proof}
+    由上一个题目, 代数数集合是可数的. 而实数集合是不可数的. 因此, 实数集合中至少存在一个元素不在代数数集合中, 即存在不是代数数的实数.
+\end{proof}
+
+\begin{problem}[2-4]
+    所有无理数组成的集合是否可数?
+\end{problem}
+
+\begin{solution}
+    不可数. 否则, 设\( \{q_n\}_{n\le 1} \)为所有的有理数, \( \{r_n\}_{n\le 1 } \)为所有的无理数, 那么可以将所有的实数罗列为
+    \[ q_1,\,r_1,\,q_2,\,r_2,q_3,\,r_3,\cdots, \] 
+    这与\( \R \)不可数矛盾.
+\end{solution}
+
+\begin{problem}[2-11]
+    对于\( x,y\in\R  \), 定义
+    \[ d_1(x,y)=(x-y)^2,\quad d_2(x,y)=\sqrt{\abs{x-y}},\quad d_3(x,y)=\abs{x^2-y^2}, \] 
+    \[ d_4(x,y)=\abs{x-2y},\quad d_5(x,y)=\frac{\abs{x-y}}{1+\abs{x-y}}. \]
+    其中哪些是度量, 哪些不是? 
+\end{problem}
+
+\begin{solution}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 不是度量. 因为\( d(0,1)+d(1,2)=1+1<4=d(0,2) \), 不满足三角不等式.
+        \item 是度量. 正定性与对称性是显然的, 下面来验证三角不等式. 不妨设\( x\ge y\ge z \), 则
+        \begin{align*}
+            \sqrt{x-y}+\sqrt{y-z}&=\sqrt{\left(\sqrt{x-y}+\sqrt{y-z}\right)^2}=\sqrt{(x-y)+(y-z)+2\sqrt{(x-y)(y-z)}}\\
+            &\ge \sqrt{(x-y)+(y-z)}=\sqrt{x-z}.
+        \end{align*}
+        \item 不是度量. 因为\( d(-1,1)=0 \), 不满足正定性.
+        \item 不是度量. 因为\( d(0,1)=2\ne d(1,0)=1 \), 不满足对称性.
+        \item 是度量. 正定性与对称性是显然的, 下面来验证三角不等式. 不妨设\( x\ge y\ge z \), 则
+        \[ \frac{x-y}{x-y+1}+\frac{y-z}{y-z+1}-\frac{x-z}{x-z+1}=\frac{(x-y) (x-z+2) (y-z)}{(x-y+1) (x-z+1) (y-z+1)}\ge 0. \] 
+    \end{enumerate}
+\end{solution}
+
 
 
 \end{document}
