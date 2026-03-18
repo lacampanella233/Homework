@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{分析\,-\,0}{2026 春季}{3}
+
+\begin{document}
+\begin{problem}[2-6]
+    令\( E' \)是集\( E \)的一切极限点的集合.
+    \begin{enumerate}[label=(\alph*)]
+        \item 证明\( E' \)是闭集.
+        \item 证明\( E \)与\( \overline{E } \)有相同的极限点, 其中\( \overline{E}=E\cup E' \). 
+        \item \( E  \)与\( E' \)是否总是有相同的极限点?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    先注意到一个事实: 若\( A\subset B \), 则\( A'\subset B' \). 这是显然的.\par
+    (a) 令\( x \)为\( E' \)的一个极限点, 我们来证明: \( x \)也为\( E \)的一个极限点.\par
+    任意\( \varepsilon > 0 \), 因为\( x \)是\( E' \)的一个极限点, 所以存在\( y \in E' \)使得\( 0 < |x-y| < \varepsilon/2 \). 又因为\( y \)是\( E \)的一个极限点, 所以存在\( z \in E \)使得\( 0 < |y-z| < \varepsilon/2 \). 因此
+    \[|x-z| \leq |x-y| + |y-z| < \varepsilon/2 + \varepsilon/2 = \varepsilon. \]
+    这说明\( x \)是\( E \)的一个极限点, 从而\( E' \subset E \)的极限点集合. 这说明\( E' \)是闭集.\par
+    (b) 因为\( E \subset \overline{E} \), 所以\( E'\subset(\overline{E})' \). 若存在\( x \), 使得\( x\in(\overline{E })' \), 而\( x\not\in E' \), 则存在正实数\( r_0 \), 使得\( N_{r_0}(x)\cup E=\varnothing \). 则
+    \[ \forall 0<r<r_0,\ N_{r}(x)\cup E=\varnothing,\ N_{r}(x)\cup\overline{E}\neq\varnothing\implies N_{r}(x)\cup E'\neq\varnothing. \] 
+    由此知道\( x \)是\( E' \)的极限点, 而由(a)知\( x\in E' \), 即\( x \)为\( E \)的极限点, 矛盾. 从而\( E'=(\overline{E})' \).\par
+    (c) 不总是. 例如\( E=\{1/n:n\in\mathbb{N}\} \), 则\( E'=\{0\} \), \( E \)的极限点为\( 0 \), 而\( E' \)没有极限点.
+\end{solution}
+
+\begin{problem}[2-7]
+    令 \( A_1, A_2, A_3, \cdots \) 是某度量空间的子集. 
+    \begin{enumerate}[label=(\alph*)]
+        \item 如果 \( B_n = \bigcup_{i=1}^n A_i \), 证明 \( \overline{B}_n = \bigcup_{i=1}^n \overline{A}_i \), \( n = 1, 2, 3, \cdots \). 
+        \item 如果 \( B = \bigcup_{i=1}^\infty A_i \), 证明 \( \overline{B} \supset \bigcup_{i=1}^\infty \overline{A}_i \). 
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+    (a) 因为\( A_i \subset B_n \), 所以\( \overline{A}_i \subset \overline{B}_n \), 从而\( \bigcup_{i=1}^n \overline{A}_i \subset \overline{B}_n \). \par
+    接下来证明\( \overline{B}_n\subset\bigcup_{i=1}^{n}\overline{A }_i  \). 对\( x\in\overline{B}_n \), 取\( x_k\in (N_{1/k}(x)\cap B_n)-\left\{x\right\} \), 其中\( k \)为正整数. 则\( \{x_k\}_{k\le 1} \)是一个无穷序列. 由抽屉原理, 存在一个\( A_i \), 使得\( A_i \)包含\( \left\{x_k\right\}_{k\le 1 } \)中的无穷多个元素. 从而\( x \)是\( A_i \)的一个极限点, 即\( x\in\overline{A}_i \). 这说明\( \overline{B}_n\subset\bigcup_{i=1}^{n}\overline{A }_i  \). \par
+    (b) 因为\( A_i \subset B \), 所以\( \overline{A}_i \subset \overline{B} \), 从而\( \bigcup_{i=1}^\infty \overline{A}_i \subset \overline{B} \).
+\end{proof}
+
+\begin{problem}[2-8]
+    是否每一个开集\( E\in\R^2 \)的每一个点一定是\( E  \)的极限点? 对\( \R^2 \)中的闭集如何呢?
+\end{problem}
+
+\begin{solution}
+    若\( E  \)为开集, 则结论成立. 这是因为, 由\( E  \)为开集, 知对任意的\( x\in E  \), 存在\( x \)的一个邻域\( N_{r_0}(x)\subset E  \). 则对于\( x \)的任意邻域\( N_{r}(x) \), 有
+    \[ (N_{r}(x)\cap E)-\{x\}\supset N_{\min\{r,r_0\}}(x)-\{x\}\neq\varnothing. \] 
+    故\( x \)是\( E  \)的极限点.\par
+    另一方面, 若\( E \)为闭集, 则结论不成立. 取\( E=[0,1]\cup\{2\} \), 不难验证\( E'=[0,1] \), 因此\( 2 \)不是\( E  \)的极限点.
+\end{solution}
+
+\begin{problem}[2-9]
+    令 \( E^\circ \) 表集 \( E \) 的所有内点组成的集. 
+    \begin{enumerate}[label=(\alph*)]
+        \item 证明 \( E^\circ \) 是开集. 
+        \item 证明: \( E \) 是开集当且仅当 \( E^\circ = E \). 
+        \item 如果 \( G \subset E \) 且 \( G \) 开，证明 \( G \subset E^\circ \). 
+        \item 证明 \( E^\circ \) 的余集是 \( E \) 的余集的闭包. 
+        \item \( E \) 的内部与 \( \overline{E } \) 的内部是否总一样? 
+        \item \( E \) 的闭包与 \( E^\circ \) 的闭包是否总一样? 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    (a) 只需要证明: \( E^\circ \)中的每一个点均为\( E^\circ \)的内点. 对于任意的\( x\in E^\circ \), 存在\( N_r(x)\subset E  \). \par
+    我们来证明: \( N_{r/2}(x)\subset E^\circ  \). 这是因为, 对于任意的\( y\in N_{r/2}(x) \), 由于三角不等式, 有: 
+    \[ \forall\,z\in N_{r/2}(y),\,\abs{z-x}\le\abs{z-y}+\abs{y-x}<\frac{r}{2}+\frac{r}{2}=r\implies N_{r/2}(y)\subset N_{r}x\subset E. \]
+    由此得知\( y \)是\( E \)的内点, 因此\( N_{r/2}(x)\subset E^\circ \). \par
+    (b) 若\( E \)为开集, 则根据定义, 有\( E\subset E^\circ \), 并且根据内点的定义, 有\( E^\circ\subset E  \), 故\( E=E^\circ  \). 若\( E=E^\circ \), 则\( E\subset E^\circ  \), 由定义知\( E  \)为开集.\par
+    (c) 因为\( G \)为开集, 所以任意的\( x\in G \), 均存在\( N_r(x)\subset G\subset E \), 故\( x \)为\( E  \)的内点, 即\( x\in E^\circ \).\par
+    (d) 一方面, 我们证明\( (E^\circ)^c\subset\overline{E^c} \). 对于任意的\( x\in(E^\circ)^c \), \( x\not\in E^\circ \), 故\( x \)的任意邻域均满足\( N_r(x)\not\subset E \), 即\( N_r(x)\cap E^c\neq\varnothing \).若\( x\in E^c \), 则\( x\in\overline{E^c } \); 若\( x\not\in E^c  \), 则\( (N_r(x)-\{x\})\cap E^c\neq\varnothing \), 由此知道\( x \)是\( E^c  \)的一个极限点, 故\( x\in\overline{E^c} \).\par
+    另一方面, 我们证明\( \overline{E^c }\subset(E^\circ)^c  \). 对于任意的\( x\in\overline{E^c} \), 或者\( x\in E^c  \), 或者\( x\in(E^c)' \). 若\( x\in E^c \), 由\( E^\circ\subset E  \)知道\( x\in E^c\subset(E^\circ)^c \). 若\( x\in(E^c)' \), 则\( x \)是\( E^c \)的极限点, 故\( x \)的任意邻域均满足\( N_r(x)\cap E^c\neq\varnothing \), 故\( N_r(x)\not\subset E \). 由此知道\( x \)不是\( E \)的内点, 即\( x\in (E^\circ)^c  \). \par
+    以上两方面结合, 就有\( (E^\circ)^c=\overline{E^c } \). \par
+    (e) 不总是. 例如\( E=[0,1)\cup (1,2] \). 则\( E^\circ=(0,1)\cup(1,2) \), 但是\( (\overline{E })^\circ=(0,2) \). \par
+    (f) 不总是. 例如\( E=\{1/n:n\in\N^+\} \). 则\( \overline{E}=\{0\}\cup E  \), 但是\( \overline{E^\circ}=\varnothing \).    
+\end{solution}
+
+\begin{problem}[2-22]
+    含有可数稠密自己的度量空间叫做可分的. 证明: \( \R^k \)是可分的.
+\end{problem}
+
+\begin{proof}
+    取所有的\( k \)个坐标都是有理数的点组成的集合, 记为\( \Q^k \). 由于\( \Q \)可数, 故\( \Q^k \)可数. 又因为\( \Q \)在\( \R \)中稠密, 所以\( \Q^k \)在\( \R^k \)中稠密. 从而\( \R^k \)是可分的.
+\end{proof}
+
+\end{document}
