@@ -40,6 +40,8 @@
 | `\fl{...}`  | 向下取整 \(\left\lfloor ...\right\rfloor\) |
 | `\bo{...}`  | 粗体符号 \(\boldsymbol{...}\) |
 | `\transpose`  | 转置符号 \(^\mathrm{T}\) |
+| `\im`       | 线性映射的像空间 \(\operatorname{im}\) |
+| `\rank`     | 矩阵的秩 \(\operatorname{rank}\) |
 
 
 宏包会自动制作标题, 因此不需要使用`\maketitle`命令. 只需在文档导言区设置好上述3个参数.
