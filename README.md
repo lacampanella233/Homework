@@ -42,6 +42,9 @@
 | `\transpose`  | 转置符号 \(^\mathrm{T}\) |
 | `\im`       | 线性映射的像空间 \(\operatorname{im}\) |
 | `\rank`     | 矩阵的秩 \(\operatorname{rank}\) |
+| `\sspan`    | 向量空间的生成子空间 \(\operatorname{span}\) |
+
+注: 之所以使用`\sspan`而不是`\span`, 是因为`\span`在LaTeX中已经被定义为表格环境中的命令, 直接使用会导致冲突.
 
 
 宏包会自动制作标题, 因此不需要使用`\maketitle`命令. 只需在文档导言区设置好上述3个参数.
