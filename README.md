@@ -39,6 +39,7 @@
 | `\d`        | 微分符号 \(\mathrm{d}\)（直立） |
 | `\fl{...}`  | 向下取整 \(\left\lfloor ...\right\rfloor\) |
 | `\bo{...}`  | 粗体符号 \(\boldsymbol{...}\) |
+| `\transpose`  | 转置符号 \(^\mathrm{T}\) |
 
 
 宏包会自动制作标题, 因此不需要使用`\maketitle`命令. 只需在文档导言区设置好上述3个参数.
