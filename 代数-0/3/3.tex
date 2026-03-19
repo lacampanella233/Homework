@@ -1,0 +1,116 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Algebra\,-\,0}{2026 Spring}{3}
+
+\begin{document}
+
+\begin{problem}[3C-1]
+    Suppose \( T\in \mathcal{L }(V,W) \). Show that w.r.t each choice of basis of \( V \) and \( W \), the matrix o \( T  \)hans at least \( \dim\mathrm{im}\,T  \) nonzero entries.
+\end{problem}
+
+\begin{proof}
+    Pick two basis in \( V \) and \( W \), denoted by \( \mathcal{B}=\{b_1,\cdots,b_n\} \) and \( \mathcal{C}=\{c_1,\cdots,c_m\} \) respectively. Set \( M:=\mathcal{M }(T;\mathcal{B},\mathcal{C }) \) being the matrix of \( T  \), and \( d:=\dim\mathrm{im}\,T  \). \par
+    Suppose that \( M  \) has at most \( d-1 \) entries. Then \( M  \) has at least \( n-d+1 \) columns with all-zero entries, which indicates that there are at least \( n-d+1 \) zero vectors among the \( n \) vectors \( Mb_1,\cdots,Mb_n \). Then 
+    \[ \dim\mathrm{im}\,T=\dim\mathrm{span}\,\{Mb_i:1\le i\le n\}\le n-(n-d+1)=d-1. \] 
+    Hence, we get a contradiction, and the matrix \( M  \) has at least \( d \) nonzero entries.
+\end{proof}
+
+\begin{problem}[3C-2]
+    Suppose \( T\in\mathcal{L}(V,W) \), where \( V \) and \( W \) are finite-dimensional and nonzero. Prove that \( \dim\operatorname{im } T=1 \) if and only if there exist a basis of \( V \) and a basis of \( W \) such that, with respect to these bases, all entries of \( \mathcal{M}(T) \) equal \(1\).
+\end{problem}
+
+\begin{proof}
+    (a) We will prove "\( \Rightarrow \)" first. Since \( \dim\operatorname{im } T=1 \), there exists a nonzero vector \( w_0\in W  \) such that \( \operatorname{im } T=\mathrm{span}\,\{w_0\} \). We can extend \( w_0 \) to a basis of \( W \), denoted by \( \mathcal{C'}=\{w_0,w_1,\cdots,w_{m-1}\} \). Let \( w_m=w_0-w_1-\cdots-w_{m-1} \), it's easy to verify that \( \mathcal{C }:=\{w_1,\cdots,w_m\} \) is also a basis of \( W \). \par
+    Next, pick a basis of \( V \) in \( V-\ker T \) (this is a \( n \)-dimensional vector space minus an at most \( (n-1) \)-dimensional subspace, in which there do exist a basis of \( V \)), denoted by \( \mathcal{B'}=\{v'_1,\cdots,v'_n\} \). Since \( 0\neq T v'_i\in \operatorname{im } T=\mathrm{span}\,\{w_0\} \), there exists a scalar \( a_i \) such that \( T v'_i=a_i w_0 \). Then set
+    \[ \mathcal{B}:=\{a_1^{-1}v'_1,\cdots,a_n^{-1}v'_n\}. \]\par
+    It's easy to verify that \( \mathcal{B} \) is also a basis of \( V \), and for every \( v\in \mathcal{B} \), \( Tv=w_0=w_1+\cdots+w_m  \). Hence w.r.t the bases \( \mathcal{B} \) and \( \mathcal{C} \), the matrix of \( T  \) has all entries equal to \( 1 \). \par 
+    (b) We will prove "\( \Leftarrow \)" now. Suppose that there exist a basis of \( V \) and a basis of \( W \) such that, with respect to these bases, all entries of \( \mathcal{M}(T) \) equal \(1\). Then for every vector \( v\in V  \), we can write \( v=\sum_{i=1}^n a_i v_i \), where \( v_1,\cdots,v_n \) are the basis of \( V \). Then
+    \[ Tv=T\left(\sum_{i=1}^n a_i v_i\right)=\sum_{i=1}^n a_i Tv_i=\sum_{i=1}^n a_i (w_1+\cdots+w_m)=(a_1+\cdots+a_n)(w_1+\cdots+w_m), \]
+    where \( \{w_i:1\le i\le m\} \) is the selected basis of \( W \). Hence, \( \operatorname{im } T\subseteq \mathrm{span}\,\{w_1+\cdots+w_m\} \), which indicates that \( \dim\operatorname{im } T\le 1 \). Since \( T\ne 0 \), we have \( \dim\operatorname{im } T=1 \).
+\end{proof}
+
+\begin{problem}[3C-6]
+    Suppose \( v_1,\cdots,v_m \) is a basis of \( V \) and \( W \) is finite-dimensional. Suppose \( T\in\mathcal{L}(V,W) \). Prove that there exists a basis \( w_1,\cdots,w_n \) of \( W \) such that all entries in the first column of \( \mathcal{M}(T) \) [with respect to the bases \( v_1,\cdots,v_m \) and \( w_1,\cdots,w_n \)] are \(0\) except for possibly a \(1\) in the first row, first column.
+\end{problem}
+
+\begin{proof}
+    (1) If \( Tv_1=0 \), then we can pick an arbitrary basis of \( W \) and the conclusion holds. \par
+    (2) If \( Tv_1\ne 0 \), we can extend \( Tv_1 \) to a basis of \( W \), denoted by \( w_1=Tv_1,w_2,\cdots,w_n \). Then w.r.t the bases \( v_1,\cdots,v_m \) and \( w_1,\cdots,w_n \), the matrix of \( T  \) has all entries in the first column equal to \( 0 \) except for a \( 1 \) in the first row, first column.
+\end{proof}
+
+\begin{problem}[3C-9]
+    Suppose \( a=(a_1\ \cdots\ a_n) \) is a \(1\)-by-\(n\) matrix and \( B \) is an \(n\)-by-\(p\)
+    matrix. Prove that
+    \[
+        aB=a_1B_{1,\cdot}+\cdots+a_nB_{n,\cdot}.
+    \]
+    In other words, show that \( aB \) is a linear combination of the rows of \( B \), with the
+    scalars that multiply the rows coming from \( a \).
+\end{problem}
+
+\begin{proof}
+    Let \( B_{i,\cdot} \) be the \( i \)-th row of \( B \). Then by the definition of block matrix multiplication, we have
+    \[
+        aB=(a_1\ \cdots\ a_n)\left(\begin{matrix}
+            B_{1,\cdot}\\
+            \vdots\\
+            B_{n,\cdot}
+        \end{matrix}\right)=\sum_{i=1}^n a_i B_{i,\cdot}.
+    \]
+\end{proof}
+
+\begin{problem}[3C-12]
+    Prove that matrix multiplication is associative. In other words, suppose \( A \), \( B \), and \( C \) are matrices whose sizes are such that \( (AB)C \) makes sense. Explain why
+    \( A(BC) \) makes sense and prove that
+    \[
+        (AB)C=A(BC).
+    \]
+\end{problem}
+
+\begin{proof}
+    Suppose \( A\in\F^{m\times n } \) and \( B\in\F^{n\times k} \). Since \( (AB)C  \) make sense, \( C\in\F^{k\times l } \) for some positive integer \( l \). Then \( BC \) is an \( n \times l \) matrix, and \( A(BC) \) makes sense. \par
+    Denote the entries of \( A \), \( B \), and \( C \) by \( A_{ij} \), \( B_{ij} \), and \( C_{ij} \) respectively. Then
+    \[ ((AB)C)_{s,t}=\sum_{j=1}^{k}\left(\sum_{i=1}^{n} A_{si}B_{ij}\right)C_{jt} \]
+    and
+    \[ (A(BC))_{s,t}=\sum_{i=1}^{n} A_{si}\left(\sum_{j=1}^{k} B_{ij}C_{jt}\right). \]
+    By the associative property of scalar multiplication and addition, these two expressions are equal. Thus, \( (AB)C=A(BC) \).
+\end{proof}
+
+\begin{problem}[3C-16]
+    Suppose \( A \) is an \(m\)-by-\(n\) matrix with \( A\ne 0 \). Prove that the rank of \( A \)
+    is \(1\) if and only if there exist \( (c_1,\cdots,c_m)\in\F^m \) and
+    \( (d_1,\cdots,d_n)\in\F^n \) such that \( A_{j,k}=c_j d_k \) for every
+    \( j=1,\cdots,m \) and every \( k=1,\cdots,n \).
+\end{problem}
+
+\begin{proof}
+    (a) We will prove "\( \Rightarrow \)" first. Since the rank of \( A \) is \( 1 \), all the column vectors of \( A \) (i.e. \( A_{\cdot,i} \) for \( 1\le i\le n \)) lies in a one-dimensional subspace of \( \F^m \). Hence, there exists a nonzero vector \( c=(c_1,\cdots,c_m)\in\F^m \) such that for every \( 1\le i\le n \), there exists a scalar \( d_i \) such that \( A_{\cdot,i}=d_i c \). Then we have \( A_{j,k}=c_j d_k \) for every \( j=1,\cdots,m \) and every \( k=1,\cdots,n \). \par
+    (b) We will prove "\( \Leftarrow \)" now. Suppose there exist \( (c_1,\cdots,c_m)\in\F^m \) and \( (d_1,\cdots,d_n)\in\F^n \) such that \( A_{j,k}=c_j d_k \) for every \( j=1,\cdots,m \) and every \( k=1,\cdots,n \). Denote \( c=(c_1,\cdots,c_m ) \). Then, by the definition of rank, we have
+    \[ \rank A=\dim\sspan\{A_{\cdot,1},\cdots,A_{\cdot,n}\}=\dim\sspan\{d_1c,\cdots,d_nc\}=1. \]
+\end{proof}
+
+\begin{problem}[3C-17]
+    Suppose \( T\in\mathcal{L}(V) \), and \( u_1,\ldots,u_n \) and \( v_1,\ldots,v_n \) are bases of \( V \). Prove that the following are equivalent:
+    \begin{enumerate}[label=(\alph*)]
+        \item \( T \) is injective.
+        \item The columns of \( \mathcal{M}(T) \) are linearly independent in \( \F^{n,1} \).
+        \item The columns of \( \mathcal{M}(T) \) span \( \F^{n,1} \).
+        \item The rows of \( \mathcal{M}(T) \) span \( \F^{1,n} \).
+        \item The rows of \( \mathcal{M}(T) \) are linearly independent in \( \F^{1,n} \).
+    \end{enumerate}
+    Here \( \mathcal{M}(T) \) means \( \mathcal{M}(T,(u_1,\ldots,u_n),(v_1,\ldots,v_n)) \).
+\end{problem}
+
+\begin{proof}
+    Denote \( M:=\mathcal{M }(T )=(c_1,\cdots,c_n)=(r_1\transpose,\ldots,r_n\transpose)\transpose \), where \( c_i\in\F^{n\times 1} \) and \( r_i\in\F^{1\times n} \). \par
+    (a)\(\implies\)(b): if \( c_1,\cdots,c_n \) are linearly dependent, then there exists not-all-zero scalors \( a_1,\cdots,a_n \) such that \( a_1c_1+\cdots+a_nc_n=0 \), which means\( T(a_1u_1+\cdots+a_nu_n)=0 \), contradicting to (a).\par
+    (b)\(\implies\)(c): \( c_1,\cdots,c_n\in\F^{n\times 1} \) are linearly indenpendent, then \( \{c_1,\cdots,c_n\} \) is a basis of \( \F^{n\times1} \), which implies the conclusion.\par
+    (c)\(\implies\)(a): (c) means that \( T  \) is surjective, hence \( V=\im T=\sspan\{Tu_1,\cdots,Tu_n\} \). Since \( \dim V=n \), \( \{Tu_1,\cdots,Tu_n\} \) is a basis of \( V \). Hence, \( T  \) is injective. \par
+    (c)\( \iff \)(d): (c)\( \iff \)Column rank of \( M  \) equals \( n \)\( \iff \)Row rank of \( M  \) equals \( n \)\( \iff \)(d).\par
+    (d)\( \iff \)(e): (d)\( \iff \)\( \dim\sspan\{r_1,\cdots,r_n\}=n \). Since \( \dim\F^{1\times n}=n \), that is equivalent to \( r_1,\cdots,r_n \) are linearly independent.
+\end{proof}
+
+
+
+\end{document}
