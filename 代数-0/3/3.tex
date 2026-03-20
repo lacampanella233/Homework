@@ -9,11 +9,6 @@
     Suppose \( T\in \mathcal{L }(V,W) \). Show that w.r.t each choice of basis of \( V \) and \( W \), the matrix o \( T  \)hans at least \( \dim\mathrm{im}\,T  \) nonzero entries.
 \end{problem}
 
-\begin{problem}[3D-14]
-    Suppose that \( u_1,\ldots,u_n \) and \( v_1,\ldots,v_n \) are bases of \( V \) and let \( T\in\mathcal{L}(V) \) be such that \( Tv_k=u_k \) for each \( k=1,\ldots,n \). Prove that
-    \[ \mathcal{M}(T,(v_1,\ldots,v_n))=\mathcal{M}(I,(u_1,\ldots,u_n),(v_1,\ldots,v_n)). \]
-\end{problem}
-
 \begin{proof}
     Pick two basis in \( V \) and \( W \), denoted by \( \mathcal{B}=\{b_1,\cdots,b_n\} \) and \( \mathcal{C}=\{c_1,\cdots,c_m\} \) respectively. Set \( M:=\mathcal{M }(T;\mathcal{B},\mathcal{C }) \) being the matrix of \( T  \), and \( d:=\dim\mathrm{im}\,T  \). \par
     Suppose that \( M  \) has at most \( d-1 \) entries. Then \( M  \) has at least \( n-d+1 \) columns with all-zero entries, which indicates that there are at least \( n-d+1 \) zero vectors among the \( n \) vectors \( Mb_1,\cdots,Mb_n \). Then 
@@ -202,13 +197,13 @@
 \end{proof}
 
 \begin{problem}[3D-13]
-    Show thatr hte result in Exercise 3D-12 can fail without the hypothesis that V is finite-dimensional.
+    Show that the result in Exercise 3D-12 can fail without the hypothesis that \( V \) is finite-dimensional.
 \end{problem}
 
 \begin{proof}
     Take \( V=\F^\infty \), and 
-    \[ S(a_1,a_2,a_3,\cdots)=(a_3,\cdots),\ T=U,\ U(a_1,a_2,\cdots) =(a_2,\cdots). \]
-    It's easy to verify that \( STU=I \), but \( T \) is not invertible since \( \ker T\neq\{0\} \). 
+    \[ S(a_1,a_2,a_3,\cdots)=(a_3,\cdots),\ T=U,\ U(a_1,a_2,\cdots) =(0,a_1,a_2,\cdots). \]
+    It's easy to verify that \( STU=I \), but \( T \) is not invertible since \( \im T\neq\F^\infty \). 
 \end{proof}
 
 \begin{problem}[3D-17]
