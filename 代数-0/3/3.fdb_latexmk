@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1773989513.76859 "d:/程昊一/Homework/代数-0/3/3.tex" "3.pdf" "3" 1773989515.35136 0
-  "3.aux" 1773989515 162 f042405b684a8c860cba07045d113040 "pdflatex"
-  "3.out" 1773989514 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "3.tex" 1773989512 15727 5ec3b080bc54cfd04b277e7faa21f38c ""
+["pdflatex"] 1774012259.26722 "d:/程昊一/Homework/代数-0/3/3.tex" "3.pdf" "3" 1774012260.33995 0
+  "3.aux" 1774012260 162 1048d5a6ab834159417e60c8f895d4f4 "pdflatex"
+  "3.out" 1774012259 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "3.tex" 1774012257 17811 bb1879259ea2f335d48b73cd01e1a50e ""
   "c:/Windows/Fonts/msyh.ttc" 1756564701 19704352 1e10e74402e59d54499af795caf0b135 ""
   "c:/Windows/Fonts/simkai.ttf" 1711630440 11789376 868a8b82664dfab00a95e3e30eaa705a ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1751704995 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -53,9 +53,11 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1751703469 32080 340ef9bf63678554ee606688e7b5339d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1751703469 30251 6afa5cb1d0204815a708a080681d4674 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1751703469 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb" 1751703469 37912 07513ec114ac737ab54cea0152f4424b ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1751703469 36281 c355509802a035cadc5f15869451dcee ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1751703469 35752 024fb6c41858982481f6968b5fc26508 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1751703469 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1751703469 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1751703469 32762 7fee39e011c23b3589931effd97b9702 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1751703469 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1751703469 32716 08e384dc442464e7285e891af9f45947 ""
@@ -160,7 +162,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1751710906 5512713 d5293fe2524c042fff1d1aaaba621917 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1751711061 3346133 a455951bd44c3d6cc0fcd01d149be5bf ""
   "c:/texlive/2025/texmf.cnf" 1751710880 713 e69b156964470283e0530f5060668171 ""
-  "d:/程昊一/Homework/代数-0/3/3.tex" 1773989512 15727 5ec3b080bc54cfd04b277e7faa21f38c ""
+  "d:/程昊一/Homework/代数-0/3/3.tex" 1774012257 17811 bb1879259ea2f335d48b73cd01e1a50e ""
   "homework.sty" 1773941062 4830 6f0f3ec26531d315985345b56b927e91 ""
   (generated)
   "3.aux"

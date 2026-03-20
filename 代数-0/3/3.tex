@@ -9,6 +9,11 @@
     Suppose \( T\in \mathcal{L }(V,W) \). Show that w.r.t each choice of basis of \( V \) and \( W \), the matrix o \( T  \)hans at least \( \dim\mathrm{im}\,T  \) nonzero entries.
 \end{problem}
 
+\begin{problem}[3D-14]
+    Suppose that \( u_1,\ldots,u_n \) and \( v_1,\ldots,v_n \) are bases of \( V \) and let \( T\in\mathcal{L}(V) \) be such that \( Tv_k=u_k \) for each \( k=1,\ldots,n \). Prove that
+    \[ \mathcal{M}(T,(v_1,\ldots,v_n))=\mathcal{M}(I,(u_1,\ldots,u_n),(v_1,\ldots,v_n)). \]
+\end{problem}
+
 \begin{proof}
     Pick two basis in \( V \) and \( W \), denoted by \( \mathcal{B}=\{b_1,\cdots,b_n\} \) and \( \mathcal{C}=\{c_1,\cdots,c_m\} \) respectively. Set \( M:=\mathcal{M }(T;\mathcal{B},\mathcal{C }) \) being the matrix of \( T  \), and \( d:=\dim\mathrm{im}\,T  \). \par
     Suppose that \( M  \) has at most \( d-1 \) entries. Then \( M  \) has at least \( n-d+1 \) columns with all-zero entries, which indicates that there are at least \( n-d+1 \) zero vectors among the \( n \) vectors \( Mb_1,\cdots,Mb_n \). Then 
@@ -205,6 +210,28 @@
     \[ S(a_1,a_2,a_3,\cdots)=(a_3,\cdots),\ T=U,\ U(a_1,a_2,\cdots) =(a_2,\cdots). \]
     It's easy to verify that \( STU=I \), but \( T \) is not invertible since \( \ker T\neq\{0\} \). 
 \end{proof}
+
+\begin{problem}[3D-17]
+    Suppose \( V \) is finite-dimensional and \( S\in\mathcal{L}(V) \). Define \( \mathcal{A}\in\mathcal{L}(\mathcal{L}(V)) \) by
+    \( \mathcal{A}(T)=ST \) for \( T\in\mathcal{L}(V) \).
+    \begin{enumerate}[label=\textup{(\alph*)}]
+        \item Show that \( \dim\ker\mathcal{A}=(\dim V)(\dim\ker S) \).
+        \item Show that \( \dim\im\mathcal{A}=(\dim V)(\dim\im S) \).
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+    (a) Notice that \( \ker \mathcal{A}=\left\{T\in \mathcal{L}(V):\im T\subset\ker S\right\} \). Pick a basis \( \mathcal{B'}:=\{b_1,\cdots,b_m\} \) of \( \ker S \), and extend it to a basis \( \mathcal{B}:=\{b_1,\cdots,b_n\} \) of \( V \). Then it's obvious to verify that the \( mn \) linear maps
+    \[ T_{i_1,\cdots,i_n}:V\to\ker S,\ b_j\mapsto b_{i_j}\ (1\le j\le n),\ 1\le i_1,\cdots,i_n\le m  \] 
+    form a basis of \( \ker \mathcal{A} \). Hence, \( \dim\ker\mathcal{A}=mn=(\dim V)(\dim\ker S) \). \par
+    (b) We will show that \( \im \mathcal{A}=\{T'\in \mathcal{L}(V):\im T'\subset\im S\} \). On the one hand, for any \( T\in \mathcal{L}(V) \), \( \im ST\subset\im S \), hence \( \im \mathcal{A}\subset\{T'\in \mathcal{L}(V):\im T'\subset\im S\} \). On the other hand, For any \( U\subset\im S \), it's straight to verify that \( S^{-1}(U):=\{v\in V:\ Sv\in U\} \) is a subspace of \( V \). Construct \( T\in \mathcal{L}(V) \) such that \( \im T=S^{-1}(U) \), thus \( \im ST=U \). Therefore \( \im \mathcal{A}\supset\{T':\im T'\subset\im S\} \), and consequently our statement has been proved.\par
+    By the totally same argument as that in (a), we can prove that \( \dim \{T':\im T'\subset\im S\}=(\dim V)(\dim\im S) \). 
+\end{proof}
+
+\begin{problem}[3D-23]
+    
+\end{problem}
+
 
 
 
