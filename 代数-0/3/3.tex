@@ -111,6 +111,102 @@
     (d)\( \iff \)(e): (d)\( \iff \)\( \dim\sspan\{r_1,\cdots,r_n\}=n \). Since \( \dim\F^{1\times n}=n \), that is equivalent to \( r_1,\cdots,r_n \) are linearly independent.
 \end{proof}
 
+\begin{problem}[3D-3]
+    Suppose \( V \) is finite-dimensional and \( T\in\mathcal{L}(V) \). Prove that the following
+    are equivalent:
+    \begin{enumerate}[label=\textup{(\alph*)}]
+        \item \( T \) is invertible.
+        \item \( Tv_1,\ldots, Tv_n \) is a basis of \( V \) for every basis \( v_1,\ldots,v_n \) of \( V \).
+        \item \( Tv_1,\ldots, Tv_n \) is a basis of \( V \) for some basis \( v_1,\ldots,v_n \) of \( V \).
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+    (a)\( \implies \)(b): Since \( T  \) is invertible, \( T^{-1} \) exists. For every basis \( v_1,\cdots,v_n \) of \( V \), if \( Tv_1,\cdots,Tv_n \) is not a basis of \( V \), then by definition, there exists a vector \( v_0=\sum_{i=1}^{n} a_iTv_i=\sum_{i=1}^{n} b_iTv_i \) , where \( a_i,b_i\in\F \) with \( (a_1,\cdots,a_n)\neq(b_1,\cdots,b_n) \). Hence
+    \[ T^{-1}v_0=\sum_{i=1}^{n} a_iv_i\neq \sum_{i=1}^{n} b_iv_i=T^{-1}v_0, \] 
+    which contradicts the linearly indepnedenceness of \( v_1,\cdots,v_n \).\par
+    (b)\( \implies \)(c): trivial.\par
+    (c)\( \implies \)(a): Since \( Tv_1,\cdots,Tv_n \) is a basis of \( V \), we can define a linear map \( S\in\mathcal{L}(V) \) by setting \( S(Tv_i)=v_i \) for every \( 1\le i\le n \). Then for every vector \( v=\sum_{i=1}^n a_i v_i\in V  \), we have
+    \[ STv=S\left(\sum_{i=1}^n a_i Tv_i\right)=\sum_{i=1}^n a_i S(Tv_i)=\sum_{i=1}^n a_i v_i=v. \]
+    Hence, \( ST=I_V  \). Similarly, we can verify that \( TS=I_V  \). Thus, \( T  \) is invertible.
+\end{proof}
+
+\begin{problem}[3D-6]
+    Suppose \( W \) is finite-dimensional and \( S,T\in\mathcal{L}(V,W) \). Prove that
+    \( \ker S=\ker T \) if and only if there exists an invertible \( E\in\mathcal{L}(W) \)
+    such that \( S=ET \).
+\end{problem}
+
+\begin{proof}
+    (a) We will prove "\( \implies \)" first. Denote \( K=\ker S=\ker T \). \( K \) is a subspace of \( V \) , hence there exists a nonzero subspace \( U \) of \( V \) such that \( V=K\oplus U \). Thus we can find a basis of \( U \), denoted as \( \{u_1,\cdots,u_m\} \). \par
+    It's easy to verify that \( \mathcal{S}:=\{Su_i:1\le i\le m\} \) and \( \mathcal{T}:=\{Tu_i:1\le i\le m\} \) are also linearly indenpendent. Then we can extend \( \mathcal{S} \) and \( \mathcal{T} \) to basis of \( V \) :
+    \[ \mathcal{S'}:=\{u'_i=Su_i:1\le i\le m\}\cup\{u'_i:m<i\le n\},\quad \mathcal{T'}:=\{u''_i=Tu_i:1\le i\le m\}\cup\{u''_i:m<i\le n\}. \]\par
+    Define \( E \) as follow: \( Eu''_i=u_i \). Then, it's easy to verify that \( S=ET \) holds in \( K \) and \( U \), consequently in \( V \). \par
+    (b) Next, we will prove "\( \Longleftarrow \)". Using the inversibility of \( E \), we have
+    \[ Tv=0\iff ETv=0\iff Sv=0. \] 
+\end{proof}
+
+\begin{problem}[3D-10]
+    Suppose $V$ and $W$ are finite-dimensional and $U$ is a subspace of $V$. Let
+    $\mathcal{E}=\{T\in\mathcal{L}(V,W):U\subseteq\ker T\}$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Show that $\mathcal{E}$ is a subspace of $\mathcal{L}(V,W)$.
+        \item Find a formula for $\dim\mathcal{E}$ in terms of $\dim V$, $\dim W$, and $\dim U$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\alph*)]
+    \item We check the subspace criteria. 
+    \begin{enumerate}[label=(\arabic*)]
+        \item The zero map belongs to \( \mathcal{E} \) because \( \ker 0=V \) contains \( U \).
+        \item If \( S,T\in\mathcal{E} \) then \( U\subseteq\ker S\cap\ker T \), so \( (S+T)u=Su+Tu=0 \) for every \( u\in U \). Hence \( U\subseteq\ker(S+T) \).
+        \item If \( S\in\mathcal{E} \) and \( a\in\F \) then \( (aS)u=a(Su)=0 \) for every \( u\in U \), giving \( aS\in\mathcal{E} \).
+    \end{enumerate}
+    \item We will show that \( \mathcal{E}\cong \mathcal{L}(V/U,W) \), and thus
+    \[ \dim\mathcal{E}=\dim(V/U)\cdot\dim W=(\dim V-\dim U)\dim W. \]\par
+    Define
+    \[ f:\mathcal{E}\to \mathcal{L}(V/U,W),\ T\mapsto \left(T':V/U\to W,\ v+U\mapsto T(v)\right). \] 
+    \( f(T) \) is well defined, since if \( v_1+U=v_2+U \), then \( v_1-v_2\in U\subseteq\ker T \), which means \( T(v_1)=T(v_2) \). It's easy to verify that \( f  \) is linear. Next, we will show that \( f  \) is bijective. \par
+    \begin{enumerate}[label=(\arabic*)]
+    \item \( f \) is injective. Suppose \( f(T_1)=f(T_2) \), then for any \( v\in V \), 
+    \[ T_1(v)=(fT_1)(v+U)=(fT_2)(v+U)=T_2(v). \]
+    \item \( f \) is surjective. For any \( T'\in\mathcal{L}(V/U,W) \), define \( T:V\to W \) by \( Tv=T'(v+U) \). It's easy to verify that \( T\in\mathcal{E} \) and \( f(T)=T' \).
+    \end{enumerate}
+    Hence, \( f  \) is an isomorphism, and the conclusion follows.
+\end{enumerate}
+\end{solution}
+
+\begin{problem}[3D-11]
+    Suppose \( V \) is finite-dimensional and \( S,T\in\mathcal{L}(V) \). Prove that
+    \( ST \) is invertible if and only if both \( S \) and \( T \) are invertible.
+\end{problem}
+
+\begin{proof}
+    On the one hand, if \( S \) and \( T \) are invertible, then \( S^{-1} \) and \( T^{-1} \) exist. Hence, set \( (ST)^{-1}=T^{-1}S^{-1} \). Then \( (ST)^{-1}(ST)=T^{-1}S^{-1}ST=T^{-1}T=I \) and \( (ST)(ST)^{-1}=STT^{-1}S^{-1}=SS^{-1}=I \), which means \( ST \) is invertible. \par
+    On the other hand, if \( ST \) is invertible, then \( STv=0\iff v=0 \). If \( T \) is not invertible, then \( \ker T\neq\{0\} \), which shows there exists \( v\neq 0 \), such that \( Tv=0 \). Then \( STv=0 \), which contradicts to the invertibility of \( ST \). Hence, \( T \) is invertible. Similarly, if \( S \) is not invertible, then there exists \( u\neq 0 \) such that \( Su=0 \). Notice that \( T^{-1}u\neq 0 \) since \( T  \) is invertible, then \( ST(T^{-1}u)=Su=0 \), which contradicts to the invertibility of \( ST \). Hence, \( S \) is invertible.
+\end{proof}
+
+\begin{problem}[3D-12]
+    Suppose \( V \) is finite-dimensional and \( S,T,U\in\mathcal{L}(V) \) satisfy \( STU=I \). Show that \( T \) is invertible and that \( T^{-1}=US \).
+\end{problem}
+
+\begin{proof}
+    By the previous problem, \( S,T,U \) are all invertible. Then
+    \[ T^{-1}=UU^{-1}T^{-1}S^{-1}S=U(STU)^{-1}S=UIS=US. \] 
+\end{proof}
+
+\begin{problem}[3D-13]
+    Show thatr hte result in Exercise 3D-12 can fail without the hypothesis that V is finite-dimensional.
+\end{problem}
+
+\begin{proof}
+    Take \( V=\F^\infty \), and 
+    \[ S(a_1,a_2,a_3,\cdots)=(a_3,\cdots),\ T=U,\ U(a_1,a_2,\cdots) =(a_2,\cdots). \]
+    It's easy to verify that \( STU=I \), but \( T \) is not invertible since \( \ker T\neq\{0\} \). 
+\end{proof}
+
+
 
 
 \end{document}
