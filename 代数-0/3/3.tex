@@ -229,8 +229,16 @@
 \end{proof}
 
 \begin{problem}[3D-23]
-    
+    Suppose that \( u_1,\ldots,u_n \) and \( v_1,\ldots,v_n \) are bases of \( V \). Let \( T\in\mathcal{L}(V) \) be such that \( Tv_k=u_k \) for each \( k=1,\ldots,n \). Prove that
+    \[
+        \mathcal{M}(T,(v_1,\ldots,v_n))=\mathcal{M}(I,(u_1,\ldots,u_n),(v_1,\ldots,v_n)).
+    \]
 \end{problem}
+
+\begin{proof}
+    Denote \( \mathcal{V}:=\{v_i:1\le i\le n\} \) and \( \mathcal{U}:=\{u_i:1\le i\le n\} \). Then by the definition,
+    \[ \mathcal{M}(T,\mathcal{V})=\left([Tv_1]_\mathcal{V},\cdots,[Tv_n]_\mathcal{V}\right)=\left([u_1]_\mathcal{V},\cdots,[u_n]_\mathcal{V}\right)=\mathcal{M}(I,\mathcal{U},\mathcal{V}). \] 
+\end{proof}
 
 
 
