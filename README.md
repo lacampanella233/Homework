@@ -25,24 +25,24 @@
 `enumerate` 和 `itemize` 列表的项间距和段间距已压缩为 0pt，使排版更紧凑.
 
 模板预定义了一些快捷命令，方便数学写作：
-| 命令        | 含义               |
-|-------------|--------------------|
-| `\R`        | 实数集 \(\mathbb{R}\) |
-| `\C`        | 复数集 \(\mathbb{C}\) |
-| `\N`        | 自然数集 \(\mathbb{N}\) |
-| `\Z`        | 整数集 \(\mathbb{Z}\) |
-| `\Q`        | 有理数集 \(\mathbb{Q}\) |
-| `\F`        | 域 \(\mathbb{F}\)     |
-| `\abs{...}` | 绝对值 \(\left\lvert ...\right\rvert\) |
-| `\i`        | 虚数单位 \(\mathrm{i}\) |
-| `\e`        | 自然底数 \(\mathrm{e}\) |
-| `\d`        | 微分符号 \(\mathrm{d}\)（直立） |
-| `\fl{...}`  | 向下取整 \(\left\lfloor ...\right\rfloor\) |
-| `\bo{...}`  | 粗体符号 \(\boldsymbol{...}\) |
-| `\transpose`  | 转置符号 \(^\mathrm{T}\) |
-| `\im`       | 线性映射的像空间 \(\operatorname{im}\) |
-| `\rank`     | 矩阵的秩 \(\operatorname{rank}\) |
-| `\sspan`    | 向量空间的生成子空间 \(\operatorname{span}\) |
+| 命令        | 含义               | 定义                 |
+|-------------|--------------------|----------------------|
+| `\R`        | 实数集              | `\mathbb{R}`      |
+| `\C`        | 复数集              | `\mathbb{C}`      |
+| `\N`        | 自然数集            | `\mathbb{N}`      |
+| `\Z`        | 整数集              | `\mathbb{Z}`      |
+| `\Q`        | 有理数集            | `\mathbb{Q}`      |
+| `\F`        | 域                  | `\mathbb{F}`      |
+| `\abs{...}` | 绝对值              | `\left\lvert ... \right\rvert` |
+| `\i`        | 虚数单位            | `\mathrm{i}`      |
+| `\e`        | 自然底数            | `\mathrm{e}`      |
+| `\d`        | 微分符号 （直立）   | `\mathrm{d}`      |
+| `\fl{...}`  | 向下取整            | `\left\lfloor ... \right\rfloor` |
+| `\bo{...}`  | 粗体符号            | `\boldsymbol{...}` |
+| `\transpose`  | 转置符号          | `^\mathrm{T}` |
+| `\im`       | 线性映射的像空间    | `\operatorname{im}` |
+| `\rank`     | 矩阵的秩            | `\operatorname{rank}` |
+| `\sspan`    | 向量空间的生成子空间 | `\operatorname{span}` |
 
 注: 之所以使用`\sspan`而不是`\span`, 是因为`\span`在LaTeX中已经被定义为表格环境中的命令, 直接使用会导致冲突.
 
