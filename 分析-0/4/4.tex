@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{分析\,-\,0}{2026 春季}{4}
+
+\begin{document}
+
+\begin{problem}[2-13]
+    构造一个实数的紧集, 使它的极限点构成一个可数集.
+\end{problem}
+
+\begin{solution}
+    事实上, 可以构造一个实数的紧集, 使它的极限点构成一个单点集. 例如, 集合 $A = \{0\} \cup \{1/n : n \in \mathbb{N}\}$ 就是一个满足条件的集合. 这个集合是紧的, 因为它是闭的且有界的. 它的极限点只有一个, 就是 $0$, 因为 $1/n$ 随着 $n$ 的增大趋近于 $0$. 因此, 这个集合满足题目的要求.
+\end{solution}
+
+\begin{problem}[2-15]
+    证明: 如果把“紧的”这个词换成“闭的”或“有界的”, 那么定理2.36和它的推论均不成立.
+\end{problem}
+
+\begin{note}
+    事实上, 应当增加条件: 两个命题中的紧子集组都是无穷的.
+\end{note}
+
+\begin{solution}
+    抄写一遍定理2.36及其推论:\par
+    \textbf{定理2.36} {\kaishu 如果 \( \{K_\alpha\}_{\alpha \in A} \) 是度量空间 \( X \) 的一组紧子集, 并且 \( \{K_\alpha\} \) 中任意有限个集合的交都不是空集, 那么 \( \bigcap_\alpha K_\alpha \) 也不是空集.}\par
+    \textbf{定理2.36的推论} {\kaishu 设 \( \{K_n\} \) 是非空紧集的序列, 并且 \( K_n\supset K_{n+1} \) 对任意的正整数 \( n \) 均成立, 那么 \( \bigcap_n K_n \) 也是非空的.}\par
+    (1) 首先说明: 把“紧的”换成“闭的”时, 两个命题都不成立. 这是因为, 取 \( X=\R \) 并配备度量 \( d(x,y)=\abs{x-y} \) , 取 \( f: A\to\R \) 并且使得 \( f \) 无上界. 取 \( K_\alpha=[f(\alpha),+\infty),\ K_n=[n,+\infty) \) .\par
+    容易验证这两个构造均满足命题条件, 但不满足命题结论.\par
+    (2) 把“紧的”换成“有界的”时, 两个命题也都不成立. 这是因为, 取 \( A \) 的一个可数子集 \( A':=\{\alpha_n\}_{n\le 1} \). 令 \( \{K_n=(0,1/n)\} \) , 并且取
+    \[ K_\alpha=\begin{cases}
+    (0,1) & \alpha\not\in A', \\
+     (0,1/n) & \alpha=\alpha_n\in A'.
+    \end{cases} \]  \par
+    容易验证这两个构造均满足命题条件, 但不满足命题结论.
+\end{solution}
+
+\begin{problem}[2-16]
+    把所有有理数组成的集 $\mathbb{Q}$ 看成度量空间, 而以 $d(p,q)=\abs{p-q}$. 令 $E$ 是所有满足
+    $2<p^2<3$ 的 $p\in\mathbb{Q}$ 组成的集, 证明 $E$ 是 $\mathbb{Q}$ 中的有界闭集, 但 $E$ 不是
+    紧集, $E$ 是否为 $\mathbb{Q}$ 中的开集?
+\end{problem}
+
+\begin{solution}
+    首先证明 $E$ 是有界的. 由于 $p^2 < 4$, 我们有 $|p| < 2$. 因此, $E \subset (-2, 2)$, 所以 $E$ 是有界的.\par
+    再来证明 \( E \) 是闭集. 采用反证法. 设 \( x \) 是 \( E \) 的一个极限点, 而 \( x\not\in E \) . 分类讨论:
+    \begin{enumerate}[label=(\alph*)]
+        \item 如果 \( 0\le x^2\le 2 \) . 由 \( \sqrt{2}\not\in\Q \) 知道 \( 0\le x^2<2 \) . 取
+        \[ r=\frac{2-x^2}{2\abs{x}+2}<2. \] \par
+        我们来证明 \( N_r(x)\cap E=\varnothing \) , 这只需要证明 \( (x\pm r)^2\le 2 \) . 这是因为, 
+        \[ (x\pm r)^2=x^2+r(\mp2x+r)<x^2+r(2\abs{x}+2)<x^2+(2-x^2)=2. \] 
+        \item 如果 \( 3\le x^2 \) . 由 \( \sqrt{3}\not\in\Q \) 知道 \( x^2>3 \) . 取
+        \[ r=\frac{x^2-3}{2\abs{x}}>0. \] 
+        我们来证明 \( N_r(x)\cap E=\varnothing \) , 这只需要证明 \( (x\pm r)^2\ge 3 \) . 这是因为,
+        \[ (x\pm r)^2=x^2\pm 2xr+r^2>x^2-2r\abs{x}=x^2-(x^2-3)=3. \] 
+    \end{enumerate}\par
+    再来证明 \( E \) 不是紧的. 取 \( a_1=3/2 \) , \( a_{n+1}=(2a_n+3)/(a_n+2) \). 容易验证 \( \lim_{n\to\infty}a_n=\sqrt{3} \) 且 \( \{a_n\} \) 单调递增. 令
+    \[ \mathcal{O}_n=(-a_n,a_n). \] 
+    则 \( \{\mathcal{O}_n\} \) 是 \( E \) 的一个开覆盖, 但没有有限子覆盖.\par
+    最后, \( E \) 是 \( \Q \) 中的开集. 证明方法与证明其为闭集是完全类似的.
+\end{solution}
+
+\begin{problem}[2-19]
+    (a) 令 $A$ 及 $B$ 是某度量空间 $X$ 中的不交闭集, 证明它们是分离的.
+
+    (b) 证明不交开集也是分离的.
+
+    (c) 固定 $p\in X$, $\delta>0$, 定义 $A$ 为由满足 $d(p,q)<\delta$ 的一切 $q\in X$ 组成的集,
+    而 $B$ 为满足 $d(p,q)>\delta$ 的一切 $q\in X$ 组成的集. 证明 $A$ 与 $B$ 是分离的.
+
+    (d) 证明至少含有两个点的连通度量空间, 是不可数的. 提示: 用 (c).
+\end{problem}
+
+\begin{proof}
+    (a) 由 \( A \) 与 \( B \) 均为闭集, 知 \( A=\overline{A} \) 且 \( B=\overline{B} \) . 故由 \( A\cap B=\varnothing \) 知 \( A\cap\overline{B}=B\cap\overline{A}=\varnothing \) , 因此两者相离.\par
+    (b) 设 \( A \) 和 \( B \) 是两个不交的开集. 若两者不是分离的, 不妨设 \( x\in A\cap\overline{B} \) . 由于 \( A \) 是开集, 存在 \( r>0 \) 使得 \( N_r(x)\subset A \) . 由于 \( x\in\overline{B} \) , 存在 \( y\in N_r(x)\cap B \) . 这与 \( A\cap B=\varnothing \) 矛盾.\par
+\end{proof}
+
+
+
+\end{document}
