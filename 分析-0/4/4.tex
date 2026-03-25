@@ -74,7 +74,73 @@
 \begin{proof}
     (a) 由 \( A \) 与 \( B \) 均为闭集, 知 \( A=\overline{A} \) 且 \( B=\overline{B} \) . 故由 \( A\cap B=\varnothing \) 知 \( A\cap\overline{B}=B\cap\overline{A}=\varnothing \) , 因此两者相离.\par
     (b) 设 \( A \) 和 \( B \) 是两个不交的开集. 若两者不是分离的, 不妨设 \( x\in A\cap\overline{B} \) . 由于 \( A \) 是开集, 存在 \( r>0 \) 使得 \( N_r(x)\subset A \) . 由于 \( x\in\overline{B} \) , 存在 \( y\in N_r(x)\cap B \) . 这与 \( A\cap B=\varnothing \) 矛盾.\par
+    (c) 不难知道 \( \overline{A}=\{q\in X:d(p,q)\le\delta\} \) 而 \( \overline{B}=\{q\in X:d(p,q)\ge\delta\} \) . 因此 \( A\cap\overline{B}=B\cap\overline{A}=\varnothing \) , 因此两者相离.\par
+    (d) 若 \( X \) 是包含至少两个点的连通度量空间, 则任取 \( x\in X \) , 则集合
+    \[ D:=\left\{d(x,y):y\in X-\{x\}\right\}\subset\R_+ \] 
+    非空. 若 \( X \) 可数, 则 \( D \) 至多可数, 因此存在 \( r\in \R_+-D \) . 则取
+    \[ A=\left\{y\in X:d(x,y)<r\right\},\ B=\left\{y\in X:d(x,y)>r\right\}. \] \par
+    由 \( r \) 的取法知 \( X=A\cup B \) , 再由(c)知 \( A, B \) 不连通, 这与 \( X \) 连通矛盾.
 \end{proof}
+
+\begin{problem}[2-21]
+    令 $A$ 及 $B$ 是某个 $\mathbb{R}^k$ 的分离子集, 设 $\bo{a}\in A$, $\bo{b}\in B$, 且对 $t\in\mathbb{R}^1$ 定义
+    \[
+        p(t)=(1-t)\bo{a}+t\bo{b}.
+    \]
+    令 $A_0=p^{-1}(A)$, $B_0=p^{-1}(B)$ [于是, $t\in A_0$ 当且仅当 $p(t)\in A$].\par
+    (a) 证明 $A_0$ 与 $B_0$ 是 $\mathbb{R}^1$ 中的分离子集.\par
+    (b) 证明存在 $t_0\in(0,1)$ 使得 $p(t_0)\not\in A\cup B$.\par
+    (c) 证明 $\mathbb{R}^k$ 的凸子集是连通集.
+\end{problem}
+
+\begin{proof}
+    (a) 若 \( A_0 \) 与 \( B_0 \) 在 \( \R \) 中不分离, 不妨设 \( t_0\in A_0\cap\overline{B_0} \) . 则 \( p(t_0)\in A \) . \par
+    我们来证明 \( p(t_0)\in\overline{B} \) , 这样就可以导出矛盾. 对于任意的 \( r>0 \) , 存在 \( t'\in N_{r/\abs{\bo{a}-\bo{b}}}(t_0)\cap B_0 \) , 因此
+    \[ f(t')\in f \left(N_{r/\abs{\bo{a}-\bo{b}}}(t_0)\right)\cap f(B_0)\in N_r(f(t_0))\cap B. \] 
+    因此 \( p(t_0) \) 是 \( B \) 的一个极限点, 因此 \( p(t_0)\in\overline{B} \) .\par
+    (b) 否则, 对于任意的 \( t\in(0,1) \) , 均有 \( p(t)\in A\cup B \) , 即 \( (0,1)=A_0'\cup B_0' \) , 其中 \( A_0'=A_0\cap(0,1) \) ,  \( B_0'=B_0\cap (0,1) \) . 由于 \( (0,1) \) 是连通的, 故 \( A_0' \) 与 \( B_0' \) 连通, 因此 \( A_0,B_0 \) 连通, 与(a)矛盾.\par
+    (c) 设 \( E \) 是 \( \R^k \) 的凸集, 而 \( E \) 不连通. 则存在分离的 \( A, B \subset E \) , 使得 \( A\cap B=\varnothing \) 且 \( A\cup B=E \) . 任取 \( \bo{a}\in A \) , \( \bo{b}\in B \) , 则 \( p(t)\in E=A\cup B \) 对任意的 \( t\in(0,1) \) 都成立. 这与(b)矛盾. 
+\end{proof}
+
+\begin{problem}[2-25]
+    证明紧致度量空间有可数的拓扑基, 因而是可分的.
+\end{problem}
+
+\begin{proof}
+    设 \( K \) 是一个紧致度量空间, 则 \( K \) 的任意的无限子集均有极限点. 由习题2-24知 \( K \) 是可分的, 设其可数稠密子集为 \( A=\left\{a_n\right\} \) . \par
+    我们证明:
+    \[ \mathcal{B}:=\left\{N_r(a_n):\ r\in\Q_+,\ a_n\in A\right\} \] 
+    是可数的拓扑基. 首先, 由 \( \Q_+ \) 与 \( A \) 可数, 知 \( \mathcal{B} \) 可数. 因此, 只需要证明:  \( K \) 中的任意开集 \( E \) 均为 \( \mathcal{B} \) 中某些集合的并集.\par
+    设 \( x\in E \) . 则存在 \( r_x\in\Q_+ \) 使得 \( N_{r_x}(x)\subset E \) . 由于 \( A \) 在 \( K \) 中稠密, 存在 \( a_{n_x}\in A\cap N_{r_x/2}(x) \) . 则 \( x\in N_{r_x/2}(a_{n_x})\subset N_{r_x}(x)\subset E \) . 因此
+    \[ E=\bigcup_{x\in E}N_{r_x/2}(a_{n_x}), \]
+    其中 \( N_{r_x/2}(a_{n_x})\in\mathcal{B} \) . 因此 \( \mathcal{B} \) 是 \( K \) 的一个拓扑基.
+\end{proof}
+
+\begin{problem}[2-26]
+    设 \( X \) 是一个度量空间, 满足: \( X \) 内的任意无限子集均有极限点. 求证: \( X \) 是紧的.
+\end{problem}
+
+\begin{proof}
+    由前面的若干例题, 知道 \( X \) 是可分的, 因而 \( X \) 具有可数的拓扑基 \( \mathcal{B}:=\left\{B_n:n\le 1\right\} \) . 下面来证明 \( X \) 是紧致度量空间. \par
+    采用反证法. 如果 \( X \) 不是紧致度量空间, 则存在 \( X \) 的一个开覆盖 \( \{O_\alpha\} \) , 使得其没有有限的子覆盖. 对于任意的一个下标 \( \alpha \) , 设 \( S_\alpha\subset\N_+ \) 是这样的一个集合, 使得
+    \[ O_\alpha=\bigcup_{n\in S_\alpha}B_n. \] \par
+    记 \( S=\bigcup_{\alpha}S_\alpha\subset\N_+ \) , 并且将 \( S \) 的元素记为 \( S=\left\{s_1,s_2,\cdots\right\} \) . 则
+    \[ X=\bigcup_{\alpha}O_\alpha=\bigcup_{\alpha}\bigcup_{n\in S_\alpha}B_n=\bigcup_{n\in S}B_n. \tag{\( \ast \)}\]  \par
+    若 \( S \) 有限, 则这表明 \( \{O_\alpha\} \) 本身就是有限子覆盖, 问题变为平凡的. 下面假设 \( S \) 无限. \par
+    由 \( S \) 的定义, 知对于任意的正整数 \( n \) , 存在 \( \alpha_n \) 使得 \( s_n\in S_{\alpha_n} \) . 则 \( B_{s_n}\subset O_{\alpha_n} \) . 对于任意的正整数 \( n \) , 由 \( \{O_\alpha\} \) 没有有限子覆盖, 知
+    \[ X\not\subset\bigcup_{k=1}^{n}O_{\alpha_k}\implies\exists\ p_n\in X-\bigcup_{k=1}^{n}O_{\alpha_k}. \]
+    记 \( P=\{p_n:n\in\N_+\} \) . 分情况讨论:
+    \begin{enumerate}[label=(\alph*)]
+        \item  \( P \) 是有限集. 则存在 \( p\in P \) , 使得 \( \left\{n\in\N_+:p_n=p\right\} \) 是无限集. 取正整数 \( m \) 使得 \( p\in B_{s_m} \) (这由(\( \ast \))是可以做到的). 再取正整数 \( m' \) 使得 \( p_{m'}=p \) 且 \( m'>m \) . 则
+        \[ p_{m'}=p\in B_{s_m}\subset\bigcup_{k=1}^{m'} B_{s_k}\subset\bigcup_{k=1}^{m'} O_{\alpha_k}. \] 
+        这与我们对于点列 \( \{p_n\} \) 的定义矛盾.
+        \item  \( P \) 是无限集. 根据条件,  \( P \) 存在极限点, 记为 \( p^* \) . 由(\( \ast \))知可以取正整数 \( m \) 使得 \( p^*\in B_{s_m} \) . 则根据极限点的定义,  \( B_{s_m} \) 包含了 \( P \) 中无穷多个点. 取正整数 \( m'>m \) 使得 \( p_{s_{m'}}\in B_{s_m} \) . 则
+        \[ p_{s_{m'}}\in B_{s_m}\subset\bigcup_{k=1}^{m'} B_{s_k}\subset\bigcup_{k=1}^{m'} O_{\alpha_k}. \] 
+        这与我们对于点列 \( \{p_n\} \) 的定义矛盾.
+    \end{enumerate}\par
+    因此, 无论哪种情况均会得到矛盾. 因此 \( X \) 是紧的.
+\end{proof}
+
 
 
 
