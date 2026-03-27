@@ -1,0 +1,285 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Algebra\,-\,0}{2026 Spring}{4}
+
+\begin{document}
+
+Preface: Thank you for reading my long, awful and complicated homework.
+
+\begin{problem}[3E-1]
+	Suppose $T$ is a function from $V$ to $W$. The graph of $T$ is the subset of
+	$V \times W$ defined by
+	\[
+		\text{graph of }T
+		= \{(v, Tv) \in V \times W : v \in V\}.
+	\]
+	Prove that $T$ is a linear map if and only if the graph of $T$ is a subspace
+	of $V \times W$.
+\end{problem}
+
+\begin{proof}
+	Denote the graph of \( T \) by \( G\subset V\times W \) . On the one hand, if \( T \) is a linear map, then for and \( (v_1,Tv_1)\in G \) and  \( (v_2,Tv_2)\in G \) , and  \( \lambda\in\F \) , we have
+	\[ (v_1,Tv_1)+(v_2,Tv_2)=(v_1+v_2,T(v_1+v_2))\in G,\ \lambda(v_1,Tv_1)=(\lambda v_1,T(\lambda v_1))\in G. \] 
+	Hence, \( G \) is a subspace of \( V\times W \) .\par
+	On the other hand, if \( G \) is a subspace of \( V\times W \) , then for any \( v_1,v_2\in V \) and \( \lambda\in\F \) , we have
+	\[ (v_1,Tv_1)+(v_2,Tv_2)=(v_1+v_2,Tv_1+Tv_2)\in G,\ \lambda(v_1,Tv_1)=(\lambda v_1,\lambda Tv_1)\in G, \]
+	which implies that \( T(v_1+v_2)=Tv_1+Tv_2 \) and \( T(\lambda v_1)=\lambda Tv_1 \) . Hence, \( T \) is a linear map.
+\end{proof}
+
+\begin{problem}[3E-9]
+	Prove that a nonempty subset $A$ of $V$ is a translate of some subspace of
+	$V$ if and only if
+	\[
+		\lambda v + (1 - \lambda)w \in A
+	\]
+	for all $v, w \in A$ and all $\lambda \in \mathbf{F}$.
+\end{problem}
+
+\begin{proof}
+	On the one hand, if \( A \) is a translate of \( U \) , then there exists \( t \in V \) such that \( A = t + U \) . For any \( v, w \in A \) and \( \lambda \in \mathbf{F} \) , we have \( v = t + u_1 \) and \( w = t + u_2 \) for some \( u_1, u_2 \in U \) . Then
+	\[ \lambda v+ (1-\lambda)w= \lambda(t+u_1)+(1-\lambda)(t+u_2)=t+(\lambda u_1+ (1-\lambda) u_2)\in t+U. \] \par
+	On the other hand, if \( \lambda v + (1 - \lambda)w \in A \) for all \( v, w \in A \) and all \( \lambda \in \F \) , We will show that there exists  \( t\in V \) and \( U\subset V \) such that \( A=t+U \) . \par
+	Pick \( a_0\in A \) and  \( a_0=t+u_0 \) . Denote
+	\[ U=\left\{a-a_0:a\in A\right\}. \] \par
+	It suffices to prove \( U \) is a subspace of \( V \) . 
+	\begin{enumerate}[label=(\alph*)]
+		\item U is closed under addition. That's because for \( u_1,u_2 \) in \( U \) , set \( a_1=a_0+u_1, a_2=a_0+u_2 \) . Then \( a_1/2+a_2/2=a_0+(u_1+u_2)/2\in A \) , hence \( 2(a_1/2+a_2/2)+(1-2)a_0=a_0+(u_1+u_2)\in A \) , which implies \( u_1+u_2\in U \) . 
+		\item U is closed under scalar multiplication. That's because for \( u\in U \) and \( \lambda\in\F \) , set \( a=a_0+u \) . Then \( \lambda a+(1-\lambda)a_0=a_0+\lambda u\in A \) , which implies \( \lambda u\in U \) .
+	\end{enumerate}
+\end{proof}
+
+\begin{problem}[3E-14]
+	Suppose $U$ and $W$ are subspaces of $V$ and $V = U \oplus W$. Suppose
+	$w_1, \cdots, w_m$ is a basis of $W$. Prove that
+	$w_1 + U, \cdots, w_m + U$ is a basis of $V/U$.
+\end{problem}
+
+\begin{proof}
+	First we will show that \( w_1+U, \cdots, w_m+U \) is linearly independent. Suppose \( \lambda_1(w_1+U)+\cdots+\lambda_m(w_m+U)=0+U \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . Then \( \lambda_1w_1+\cdots+\lambda_mw_m\in U \) . Since \( U\cap W=\{0\} \) , we have \( \lambda_1w_1+\cdots+\lambda_mw_m=0 \) , which implies \( \lambda_1=\cdots=\lambda_m=0 \) . Hence, \( w_1+U, \cdots, w_m+U \) is linearly independent.\par
+	Next we will show that \( w_1+U, \cdots, w_m+U \) spans \( V/U \) . For any \( v+U\in V/U \) , we can write \( v=u+w \) for some \( u\in U \) and \( w\in W \) . Since \( w_1, \cdots, w_m \) is a basis of \( W \) , we can write \( w=\lambda_1w_1+\cdots+\lambda_mw_m \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . Then
+	\[ v+U=u+w+U=\lambda_1(w_1+U)+\cdots+\lambda_m(w_m+U). \]
+	Hence, \( w_1+U, \cdots, w_m+U \) spans \( V/U \) .\par
+	Combining the above two paragraphs, we conclude that \( w_1+U, \cdots, w_m+U \) is a basis of \( V/U \) .
+\end{proof}
+
+\begin{problem}[3E-15]
+	Suppose $U$ is a subspace of $V$ and $v_1 + U, \cdots, v_m + U$ is a basis
+	of $V/U$ and $u_1, \cdots, u_n$ is a basis of $U$. Prove that
+	$v_1, \cdots, v_m, u_1, \cdots, u_n$ is a basis of $V$.
+\end{problem}
+
+\begin{proof}
+	First we will show that \( v_1, \cdots, v_m, u_1, \cdots, u_n \) is linearly independent. Suppose \( \lambda_1v_1+\cdots+\lambda_mv_m+\mu_1u_1+\cdots+\mu_nu_n=0 \) for some \( \lambda_1,\cdots,\lambda_m,\mu_1,\cdots,\mu_n\in\F \) . Then \( \lambda_1(v_1+U)+\cdots+\lambda_m(v_m+U)=0+U \) , which implies \( \lambda_1=\cdots=\lambda_m=0 \) . Hence, \( \mu_1u_1+\cdots+\mu_nu_n=0 \) , which implies \( \mu_1=\cdots=\mu_n=0 \) . Therefore, \( v_1, \cdots, v_m, u_1, \cdots, u_n \) is linearly independent.\par
+	Next we will show that \( v_1, \cdots, v_m, u_1, \cdots, u_n \) spans \( V \) . Since \( v_1+U, \cdots, v_m+U \) is a basis of \( V/U \) , we can write \( v+U=\lambda_1(v_1+U)+\cdots+\lambda_m(v_m+U) \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . Then
+	\[ v=\lambda_1v_1+\cdots+\lambda_mv_m+u \] for some \( u\in U \) . Since \( u_1, \cdots, u_n \) is a basis of \( U \) , we can write \( u=\mu_1u_1+\cdots+\mu_nu_n \) for some \( \mu_1,\cdots,\mu_n\in\F \) . Then
+	\[ v=\lambda_1v_1+\cdots+\lambda_mv_m+\mu_1u_1+\cdots+\mu_nu_n. \]
+	Hence, \( v_1, \cdots, v_m, u_1, \cdots, u_n \) spans \( V \) .\par
+	Combining the above two paragraphs, we conclude that \( v_1, \cdots, v_m, u_1, \cdots, u_n \) is a basis of \( V \) .
+\end{proof}
+
+\begin{problem}[3E-18]
+	Suppose that $U$ is a subspace of $V$ such that $V/U$ is finite-dimensional.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that if $W$ is a finite-dimensional subspace of $V$ and $V = U + W$, then $\dim W \geq \dim V/U$.
+		\item Prove that there exists a finite-dimensional subspace $W$ of $V$ such that $\dim W = \dim V/U$ and $V = U \oplus W$.
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	(a)  Suppose \( W \) is a finite-dimensional subspace of \( V \) and \( V = U + W \) . Then the map \( T:W\to V/U \) defined by \( Tw=w+U \) is a surjective linear map. Hence, we have
+	\[ \dim W=\dim\ker T+\dim V/U\geq \dim V/U. \] \par
+	(b)  Since \( V/U \) is finite-dimensional, we can pick a basis \( v_1+U, \cdots, v_m+U \) of \( V/U \) . Denote \( W=\sspan\{v_1,\cdots,v_m\} \) . We will show that \( V=U\oplus W \) and \( \dim W=\dim V/U \) .\par
+	First we will show that \( V=U+W \) . For any \( v\in V \) , we can write \( v+U=\lambda_1(v_1+U)+\cdots+\lambda_m(v_m+U) \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . Then
+	\[ v=\lambda_1v_1+\cdots+\lambda_mv_m+u \] for some \( u\in U \) . Hence, \( V=U+W \) .\par
+	Next we will show that \( U\cap W=\{0\} \) . Suppose \( u\in U\cap W \) . Then \( u=\lambda_1v_1+\cdots+\lambda_mv_m \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . Hence, we have
+	\[ \lambda_1(v_1+U)+\cdots+\lambda_m(v_m+U)=0+U, \] which implies \( \lambda_1=\cdots=\lambda_m=0 \) . Therefore, \( u=0 \) and \( U\cap W=\{0\} \) .\par
+	Combining the above two paragraphs, we conclude that \( V=U\oplus W \) .\par
+	Finally, since \( v_1+U, \cdots, v_m+U \) is a basis of \( V/U \) , we have \( \dim W=\dim\sspan\{v_1,\cdots,v_m\}=m=\dim V/U \) .
+\end{proof}
+
+\begin{problem}[3F-5]
+	Suppose $T \in \mathcal{L}(V, W)$ and $w_1, \cdots, w_m$ is a basis of $\im T$. Hence for each $v \in V$, there exist unique numbers $\varphi_1(v), \cdots, \varphi_m(v)$ such that
+	\[
+		Tv = \varphi_1(v)w_1 + \cdots + \varphi_m(v)w_m,
+	\]
+	thus defining functions $\varphi_1, \cdots, \varphi_m$ from $V$ to $\F$. Show that each of the functions $\varphi_1, \cdots, \varphi_m$ is a linear functional on $V$.
+\end{problem}
+
+\begin{proof}
+	Without loss of generality, we only need to show that \( \varphi_1 \) is a linear functional on \( V \) . For any \( v_1,v_2\in V \) and \( \lambda\in\F \) , we have
+	\[ \varphi_1(v_1+v_2)w_1+\cdots=v_1+v_2=(\varphi_1(v_1)+\varphi_1(v_2))w_1+\cdots\implies \varphi_1(v_1+v_2)=\varphi_1(v_1)+\varphi_1(v_2), \] 
+	\[ \lambda\varphi_1(v_1)w_1+\cdots=\lambda v_1=\varphi_1(\lambda v_1)w_1+\cdots\implies \varphi_1(\lambda v_1)=\lambda\varphi_1(v_1). \] 
+\end{proof}
+
+\begin{problem}[3F-8]
+	Suppose $v_1, \cdots, v_n$ is a basis of $V$ and $\varphi_1, \cdots, \varphi_n$
+	is the dual basis of $V'$. Define $\Gamma : V \to \F^n$ and
+	$\Lambda : \F^n \to V$ by
+	\[
+		\Gamma(v) = (\varphi_1(v), \cdots, \varphi_n(v))
+	\]
+	and
+	\[
+		\Lambda(a_1, \cdots, a_n) = a_1v_1 + \cdots + a_nv_n.
+	\]
+	Explain why $\Gamma$ and $\Lambda$ are inverses of each other.
+\end{problem}
+
+\begin{proof}
+	\[ \Lambda\Gamma(v)=\Lambda(\varphi_1(v),\cdots\varphi_n(v))=\varphi_1(v)v_1+\cdots+\varphi_n(v)v_n=v, \]
+	\[ \Gamma\Lambda(a_1,\cdots,a_n)=\Gamma(a_1v_1+\cdots+a_nv_n)=(\varphi_1(a_1v_1+\cdots+a_nv_n),\cdots,\varphi_n(a_1v_1+\cdots+a_nv_n))=(a_1,\cdots,a_n). \]
+\end{proof}
+
+\begin{problem}[3F-10]
+	Suppose $m$ is a positive integer.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $1, x - 5, \cdots, (x - 5)^m$ is a basis of
+		      $\mathcal{P}_m(\mathbb{R})$.
+		\item What is the dual basis of the basis in (a)?
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) For any \( p\in \mathcal{P}_m(\R) \) , we can write uniquely
+	\[ p(x)=\sum_{k=0}^{m} \frac{p^{(k)}(5)}{k!} (x-5)^k, \] 
+	which is not hard to verify.\par
+	(b) From the formula in (a), we can see that the dual basis of \( 1, x - 5, \cdots, (x - 5)^m \) is
+	\[ \varphi_k(p)=\frac{p^{(k)}(5)}{k!},\ 0\le k\le m. \] 
+\end{solution}
+
+\begin{problem}[3F-11]
+	Suppose $v_1, \cdots, v_n$ is a basis of $V$ and $\varphi_1, \cdots, \varphi_n$
+	is the corresponding dual basis of $V'$. Suppose $\psi \in V'$. Prove that
+	\[
+		\psi = \psi(v_1)\varphi_1 + \cdots + \psi(v_n)\varphi_n.
+	\]
+\end{problem}
+
+\begin{proof}
+	For any \( v\in V \) , we can write \( v=\varphi_1(v)v_1+\cdots+\varphi_n(v)v_n \) . Applying \( \psi \) to both sides, we get
+	\[ \psi(v) = \psi(\varphi_1(v)v_1+\cdots+\varphi_n(v)v_n) = \varphi_1(v)\psi(v_1)+\cdots+\varphi_n(v)\psi(v_n), \] 
+	which is exactly we want to prove.
+\end{proof}
+
+\begin{problem}[3F-15]
+	Define $T : \mathcal{P}(\mathbf{R}) \to \mathcal{P}(\mathbf{R})$ by
+	\[
+		(Tp)(x) = x^2p(x) + p''(x)
+	\]
+	for each $x \in \mathbf{R}$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Suppose $\varphi \in \mathcal{P}(\mathbf{R})'$ is defined by
+		      $\varphi(p) = p'(4)$. Describe the linear functional
+		      $T'(\varphi)$ on $\mathcal{P}(\mathbf{R})$.
+		\item Suppose $\varphi \in \mathcal{P}(\mathbf{R})'$ is defined by
+		      $\varphi(p) = \int_0^1 p$. Evaluate $(T'(\varphi))(x^3)$.
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) For any \( p\in \mathcal{P}(\R) \) , we have
+	\[ (T'(\varphi))(p)=\varphi(Tp)=(Tp)'(4)=(x^2p(x)+p''(x))'(4)=8p(4)+16p'(4)+5p'''(4). \] \par
+	(b) For any \( p\in \mathcal{P}(\R) \) , we have
+	\[ (T'(\varphi))(p)=\varphi(Tp)=\int_0^1 (Tp)(x)\d x=\int_0^1 (x^2p(x)+p''(x))\d x=\int_0^1 x^2p(x)\d x+p'(1)-p'(0). \] 
+	Hence, we have
+	\[ (T'(\varphi))(x^3)=\int_0^1 x^5\d x+3-0=\frac{1}{6}+3=\frac{19}{3}. \]
+\end{solution}
+
+\begin{problem}[3F-18]
+	Suppose $V$ and $W$ are finite-dimensional. Prove that the map that takes
+	$T \in \mathcal{L}(V, W)$ to $T' \in \mathcal{L}(W', V')$ is an isomorphism
+	of $\mathcal{L}(V, W)$ onto $\mathcal{L}(W', V')$.
+\end{problem}
+
+\begin{proof}
+	Denote
+	\[ \Phi:\ \mathcal{L}(V,W)\to \mathcal{L}(W',V'),\ T\mapsto T'. \] 
+	It suffices to show that \( \Phi \) is injective and surjective.\par
+	First, we prove that \( \ker\Phi=0 \) . For \( T\in\ker\Phi \) , we have \( 0=\Phi(T)(\varphi)=T'(\varphi)=\varphi T \) for arbitraty \( \varphi\in W' \) . Hence for some \( v\in V \) , we have \( \varphi(Tv)=0 \) for any \( \varphi\in W' \) , which implies \( Tv=0 \) . Since \( v\in V \) is arbitraty, we have \( T=0 \) . Thus, \( \ker\Phi=0 \) .\par
+	Next, we will show that \( \Phi \) is surjective. Since \( V \) and \( W \) are finitee-dimensional, we have \( V\simeq V'', W\simeq W'' \) .In fact, we can treat \( v\in V \) as a linear functional on \( V' \) , such that \( v(\varphi)=\varphi(v) \) , \( \forall\varphi\in V' \). For the reason above, we will write down \( V=V'' \) and \( W=W'' \) .\par
+	First, We will prove for given \( T\in \mathcal{L}(V,W) \) , we have
+	\[ T=T''. \] \par
+	Notice that for any \( \varphi\in W' \) and \( v\in V \) , by the associative property, we have
+	\[ \varphi(T(v))=(\varphi\circ T)(v)\implies (T(v))(\varphi)=v(\varphi\circ T)=v(T'(\varphi)). \] 
+	(Remember that  \( \varphi\in W' \) and \( Tv\in W=W'' \) ; \( \varphi\circ T \in V' \) and \( v\in V=V'' \) .) Since
+	\[ v(T'(\varphi))=(v\circ T')(\varphi), \] 
+	we have \( (T(v))(\varphi)=(v\circ T')(\varphi) \) for any \( \varphi\in W' \) , hence \( T(v)=v\circ T' \) for any \( v\in V \) . Since \( T''(v)=v\circ T' \) for any \( v\in V \) , we have \( T=T'' \) .\par
+	Next, we will show that for any \( S\in \mathcal{L}(W',V') \) , there exists \( T\in \mathcal{L}(V,W) \) such that \( S=\Phi(T)=T' \). Take \( T=S' \) , we have
+	\[ T'=S''=S\in \mathcal{L}(W',V'). \] 
+\end{proof}
+
+\begin{problem}[3F-23]
+	Suppose $V$ is finite-dimensional and $\varphi_1, \cdots, \varphi_m \in V'$. Prove that the following three sets are equal to each other.
+	\begin{enumerate}[label=(\alph*)]
+		\item $\sspan(\varphi_1, \cdots, \varphi_m)$;
+		\item $\left((\ker \varphi_1) \cap \cdots \cap (\ker \varphi_m)\right)^0$;
+		\item $\{\varphi \in V' : (\ker \varphi_1) \cap \cdots \cap (\ker \varphi_m) \subset \ker \varphi\}$.
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	Denote the three sets by \( A,B,C \) respectively. We will show that \( A=B=C \) .\par
+	First, we will show that \( A\subset B \) . For any \( \varphi\in A \) , we can write \( \varphi=\lambda_1\varphi_1+\cdots+\lambda_m\varphi_m \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . For any \( v\in (\ker \varphi_1) \cap \cdots \cap (\ker \varphi_m) \) , we have \( \varphi_k(v)=0 \) for \( 1\le k\le m \). Then
+	\[ \varphi(v)=\lambda_1\varphi_1(v)+\cdots+\lambda_m\varphi_m(v)=0, \] 
+	which implies \( \varphi\in B \) .\par
+	Next, by definition, \( B=C \). \par
+	Finally, we will show that \( C\subset A \) . Pick a maximum linearly independent subset of \( \{\varphi_1,\cdots,\varphi_m\} \) , say \( \{\varphi_1,\cdots,\varphi_k\} \) . Then
+	\[ \sspan \left\{\varphi_1,\cdots,\varphi_m\right\}=\sspan \left\{\varphi_1,\cdots,\varphi_k\right\}. \] \par
+	First, we will show that \( \bigcap_{i=1}^{k}\ker \varphi_i \subset \ker \varphi_j \) for any \( k+1\le j\le m \) . For any \( v\in \bigcap_{i=1}^{k}\ker \varphi_i \) , we have \( \varphi_i(v)=0 \) for \( 1\le i\le k \) . Since \( \{\varphi_1,\cdots,\varphi_k\} \) is a maximum linearly independent subset of \( \{\varphi_1,\cdots,\varphi_m\} \) , we can write \( \varphi_j=\lambda_1\varphi_1+\cdots+\lambda_k\varphi_k \) for some \( \lambda_1,\cdots,\lambda_k\in\F \) . Then
+	\[ \varphi_j(v)=\lambda_1\varphi_1(v)+\cdots+\lambda_k\varphi_k(v)=0, \]
+	which implies \( v\in \ker \varphi_j \) .\par
+	So, it suffices to prove
+	\[ \left\{\varphi\in V':\bigcap_{i=1}^{k}\ker \varphi_i\subset\ker\varphi\right\}\subset\sspan(\varphi_1,\cdots,\varphi_k). \] \par
+	We can extend \( \{\varphi_1,\cdots,\varphi_k\} \) to a basis of \( V' \) , say \( \{\varphi_1,\cdots,\varphi_k,\psi_{k+1},\cdots,\psi_n\} \) . Pick the dual basis, say \( v_1,\cdots,v_n \). Notice that for any \( k+1\le j\le n \) and \( 1\le i\le k \), we have \( \varphi_i(v_j)=0 \), which indicates \( v_j\in\bigcap_{i=1}^{k}\ker \varphi_i\subset\ker \varphi \). \par
+	For any \( \varphi\in V' \) such that \( \bigcap_{i=1}^{k}\ker \varphi_i\subset\ker\varphi \) , we will prove
+	\[ \varphi=\sum_{i=1}^{k} (\varphi(v_i))\varphi_i\in\sspan \left\{\varphi_1,\cdots,\varphi_k\right\}. \] 
+	That's because, for any \( v=\sum_{i=1}^{n}\lambda_i v_i \) , we have
+	\begin{align*}
+		\varphi(v)
+		&=\sum_{i=1}^{k}\lambda_i\varphi(v_i) +\sum_{i=k+1}^{n}\lambda_i\overbrace{\varphi(v_i)}^{\substack{\text{This term is zero}}}\\
+		&=\sum_{i=1}^{k}\left(\sum_{j=1}^{n} \delta_{ij}\lambda_j\right)\varphi(v_i)
+		=\sum_{i=1}^{k}\left(\sum_{j=1}^{n} \varphi_i(v_j)\lambda_j\right)\varphi(v_i)\\
+		&=\sum_{i=1}^{k}\varphi(v_i)\varphi_i(v).
+	\end{align*}
+\end{proof}
+
+\begin{problem}[3F-26]
+	Suppose $V$ is finite-dimensional and $\Omega$ is a subspace of $V'$. Prove
+	that
+	\[
+		\Omega = \{v \in V : \varphi(v) = 0 \text{ for every } \varphi \in \Omega\}^0.
+	\]
+\end{problem}
+
+\begin{proof}
+	Pick a basis of \( \Omega \) , say \( \{\varphi_1,\cdots,\varphi_m\} \) , and extend it to a basis of \( V' \) , say \( \{\varphi_1,\cdots,\varphi_n\} \) . Note that
+	\[ \varphi(v)=0, \forall\,\varphi\in\Omega\iff\varphi\in\bigcap_{i=1}^{k}\ker\varphi_i. \] 
+	So we only need to show that
+	\[ \sspan \left\{\varphi_1,\cdots,\varphi_m\right\}=\left(\bigcap_{i=1}^{k}\ker\varphi_i\right)^0, \] 
+	which is exactly the result in Problem 3F-23.
+\end{proof}
+
+\begin{problem}[3F-31]
+	Suppose $U$ is a subspace of $V$. Let $i : U \to V$ be the inclusion map
+	defined by $i(u) = u$. Thus $i' \in \mathcal{L}(V', U')$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $\ker i' = U^0$.
+		\item Prove that if $V$ is finite-dimensional, then
+		      $\im i' = U'$.
+		\item Prove that if $V$ is finite-dimensional, then $\tilde{i'}$ is an
+		      isomorphism from $V'/U^0$ onto $U'$.
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	(a) For any \( \varphi\in V' \), 
+	\[ \varphi\in\ker i' \iff i'(\varphi)=0 \iff \varphi(i(u))=0, \forall u\in U \iff U\subset\ker\varphi \iff \varphi\in U^0. \] \par
+	(b) Since \( V \) is finite-dimensional, we can pick a subspace \( W \) of \( V \) such that \( V=U\oplus W \) . For any \( \psi\in U' \) , we can define \( \varphi\in V' \) by \( \varphi(u+w)=\psi(u) \) for any \( u\in U,w\in W \) . Then we have
+	\[ i'(\varphi)(u)=\varphi(i(u))=\varphi(u)=\psi(u), \forall u\in U, \] which implies \( i'(\varphi)=\psi \) and \( \im i'=U' \) .\par
+	(c) I don't know the exact definition of \( \tilde{i'} \) , but I guess it is the map from \( V'/U^0 \) to \( U' \) defined by \( \tilde{i'}(\varphi+U^0)=i'(\varphi) \) for any \( \varphi\in V' \) . Then the conclusion follows from (a) and (b) immediately.
+\end{proof}
+
+
+
+\end{document}
