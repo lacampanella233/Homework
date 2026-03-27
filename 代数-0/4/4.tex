@@ -199,10 +199,61 @@
 	First, We will prove for given \( T\in \mathcal{L}(V,W) \) , we have
 	\[ T=T''. \] \par
 	Notice that for any \( \varphi\in W' \) and \( v\in V \) , by the associative property, we have
-	\[ \varphi(Tv)=(\varphi\circ T)v\implies (Tv)(\varphi)=v(\varphi T)=v(T'(\varphi)). \] 
-	(Remember that  \( \varphi\in W' \) and \( Tv\in W=W'' \) ; \( \varphi T \in V' \) and \( v\in V=V'' \) .) Then
+	\[ \varphi(T(v))=(\varphi\circ T)(v)\implies (T(v))(\varphi)=v(\varphi\circ T)=v(T'(\varphi)). \] 
+	(Remember that  \( \varphi\in W' \) and \( Tv\in W=W'' \) ; \( \varphi\circ T \in V' \) and \( v\in V=V'' \) .) Since
+	\[ v(T'(\varphi))=(v\circ T')(\varphi), \] 
+	we have \( (T(v))(\varphi)=(v\circ T')(\varphi) \) for any \( \varphi\in W' \) , hence \( T(v)=v\circ T' \) for any \( v\in V \) . Since \( T''(v)=v\circ T' \) for any \( v\in V \) , we have \( T=T'' \) .\par
+	Next, we will show that for any \( S\in \mathcal{L}(W',V') \) , there exists \( T\in \mathcal{L}(V,W) \) such that \( S=\Phi(T)=T' \). Take \( T=S' \) , we have
+	\[ T'=S''=S\in \mathcal{L}(W',V'). \] 
 \end{proof}
 
+\begin{problem}[3F-23]
+	Suppose $V$ is finite-dimensional and $\varphi_1, \cdots, \varphi_m \in V'$. Prove that the following three sets are equal to each other.
+	\begin{enumerate}[label=(\alph*)]
+		\item $\sspan(\varphi_1, \cdots, \varphi_m)$;
+		\item $\left((\ker \varphi_1) \cap \cdots \cap (\ker \varphi_m)\right)^0$;
+		\item $\{\varphi \in V' : (\ker \varphi_1) \cap \cdots \cap (\ker \varphi_m) \subset \ker \varphi\}$.
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	Denote the three sets by \( A,B,C \) respectively. We will show that \( A=B=C \) .\par
+	First, we will show that \( A\subset B \) . For any \( \varphi\in A \) , we can write \( \varphi=\lambda_1\varphi_1+\cdots+\lambda_m\varphi_m \) for some \( \lambda_1,\cdots,\lambda_m\in\F \) . For any \( v\in (\ker \varphi_1) \cap \cdots \cap (\ker \varphi_m) \) , we have \( \varphi_k(v)=0 \) for \( 1\le k\le m \). Then
+	\[ \varphi(v)=\lambda_1\varphi_1(v)+\cdots+\lambda_m\varphi_m(v)=0, \] 
+	which implies \( \varphi\in B \) .\par
+	Next, by definition, \( B=C \). \par
+	Finally, we will show that \( C\subset A \) . Pick a maximum linearly independent subset of \( \{\varphi_1,\cdots,\varphi_m\} \) , say \( \{\varphi_1,\cdots,\varphi_k\} \) . Then
+	\[ \sspan \left\{\varphi_1,\cdots,\varphi_m\right\}=\sspan \left\{\varphi_1,\cdots,\varphi_k\right\}. \] \par
+	First, we will show that \( \bigcap_{i=1}^{k}\ker \varphi_i \subset \ker \varphi_j \) for any \( k+1\le j\le m \) . For any \( v\in \bigcap_{i=1}^{k}\ker \varphi_i \) , we have \( \varphi_i(v)=0 \) for \( 1\le i\le k \) . Since \( \{\varphi_1,\cdots,\varphi_k\} \) is a maximum linearly independent subset of \( \{\varphi_1,\cdots,\varphi_m\} \) , we can write \( \varphi_j=\lambda_1\varphi_1+\cdots+\lambda_k\varphi_k \) for some \( \lambda_1,\cdots,\lambda_k\in\F \) . Then
+	\[ \varphi_j(v)=\lambda_1\varphi_1(v)+\cdots+\lambda_k\varphi_k(v)=0, \]
+	which implies \( v\in \ker \varphi_j \) .\par
+	So, it suffices to prove
+	\[ \left\{\varphi\in V':\bigcap_{i=1}^{k}\ker \varphi_i\subset\ker\varphi\right\}\subset\sspan(\varphi_1,\cdots,\varphi_k). \] \par
+	We can extend \( \{\varphi_1,\cdots,\varphi_k\} \) to a basis of \( V' \) , say \( \{\varphi_1,\cdots,\varphi_k,\psi_{k+1},\cdots,\psi_n\} \) . Pick the dual basis, say \( v_1,\cdots,v_n \). Notice that for any \( k+1\le j\le n \) and \( 1\le i\le k \), we have \( \varphi_i(v_j)=0 \), which indicates \( v_j\in\bigcap_{i=1}^{k}\ker \varphi_i\subset\ker \varphi \). \par
+	For any \( \varphi\in V' \) such that \( \bigcap_{i=1}^{k}\ker \varphi_i\subset\ker\varphi \) , we will prove
+	\[ \varphi=\sum_{i=1}^{k} (\varphi(v_i))\varphi_i\in\sspan \left\{\varphi_1,\cdots,\varphi_k\right\}. \] 
+	That's because, for any \( v=\sum_{i=1}^{n}\lambda_i v_i \) , we have
+	\begin{align*}
+		\varphi(v)
+		&=\sum_{i=1}^{k}\lambda_i\varphi(v_i) +\sum_{i=k+1}^{n}\lambda_i\overbrace{\varphi(v_i)}^{\substack{\text{This term is zero}}}\\
+		&=\sum_{i=1}^{k}\left(\sum_{j=1}^{n} \delta_{ij}\lambda_j\right)\varphi(v_i)
+		=\sum_{i=1}^{k}\left(\sum_{j=1}^{n} \varphi_i(v_j)\lambda_j\right)\varphi(v_i)\\
+		&=\sum_{i=1}^{k}\varphi(v_i)\varphi_i(v).
+	\end{align*}
+\end{proof}
+
+\begin{problem}[3F-26]
+	Suppose $V$ is finite-dimensional and $\Omega$ is a subspace of $V'$. Prove
+	that
+	\[
+		\Omega = \{v \in V : \varphi(v) = 0 \text{ for every } \varphi \in \Omega\}^0.
+	\]
+\end{problem}
+
+\begin{proof}
+	First, we will show that \( \Omega\subset \{v\in V:\varphi(v)=0\text{ for every }\varphi\in\Omega\}^0 \), i.e. for any \( \varphi\in \Omega \) and \( v\in V \) such that \( \psi(v)=0 \) for every \( \psi\in\Omega \) , we have \( \varphi(v)=0 \) . That's trivial.\par
+	Next, we will show that \( \{v\in V:\varphi(v)=0\text{ for every }\varphi\in\Omega\}^0\subset \Omega \). 
+\end{proof}
 
 
 
