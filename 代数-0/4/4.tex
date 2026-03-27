@@ -5,6 +5,8 @@
 
 \begin{document}
 
+Preface: Thank you for reading my long, awful and complicated homework.
+
 \begin{problem}[3E-1]
 	Suppose $T$ is a function from $V$ to $W$. The graph of $T$ is the subset of
 	$V \times W$ defined by
@@ -251,8 +253,31 @@
 \end{problem}
 
 \begin{proof}
-	First, we will show that \( \Omega\subset \{v\in V:\varphi(v)=0\text{ for every }\varphi\in\Omega\}^0 \), i.e. for any \( \varphi\in \Omega \) and \( v\in V \) such that \( \psi(v)=0 \) for every \( \psi\in\Omega \) , we have \( \varphi(v)=0 \) . That's trivial.\par
-	Next, we will show that \( \{v\in V:\varphi(v)=0\text{ for every }\varphi\in\Omega\}^0\subset \Omega \). 
+	Pick a basis of \( \Omega \) , say \( \{\varphi_1,\cdots,\varphi_m\} \) , and extend it to a basis of \( V' \) , say \( \{\varphi_1,\cdots,\varphi_n\} \) . Note that
+	\[ \varphi(v)=0, \forall\,\varphi\in\Omega\iff\varphi\in\bigcap_{i=1}^{k}\ker\varphi_i. \] 
+	So we only need to show that
+	\[ \sspan \left\{\varphi_1,\cdots,\varphi_m\right\}=\left(\bigcap_{i=1}^{k}\ker\varphi_i\right)^0, \] 
+	which is exactly the result in Problem 3F-23.
+\end{proof}
+
+\begin{problem}[3F-31]
+	Suppose $U$ is a subspace of $V$. Let $i : U \to V$ be the inclusion map
+	defined by $i(u) = u$. Thus $i' \in \mathcal{L}(V', U')$.
+	\begin{enumerate}[label=(\alph*)]
+		\item Show that $\ker i' = U^0$.
+		\item Prove that if $V$ is finite-dimensional, then
+		      $\im i' = U'$.
+		\item Prove that if $V$ is finite-dimensional, then $\tilde{i'}$ is an
+		      isomorphism from $V'/U^0$ onto $U'$.
+	\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	(a) For any \( \varphi\in V' \), 
+	\[ \varphi\in\ker i' \iff i'(\varphi)=0 \iff \varphi(i(u))=0, \forall u\in U \iff U\subset\ker\varphi \iff \varphi\in U^0. \] \par
+	(b) Since \( V \) is finite-dimensional, we can pick a subspace \( W \) of \( V \) such that \( V=U\oplus W \) . For any \( \psi\in U' \) , we can define \( \varphi\in V' \) by \( \varphi(u+w)=\psi(u) \) for any \( u\in U,w\in W \) . Then we have
+	\[ i'(\varphi)(u)=\varphi(i(u))=\varphi(u)=\psi(u), \forall u\in U, \] which implies \( i'(\varphi)=\psi \) and \( \im i'=U' \) .\par
+	(c) I don't know the exact definition of \( \tilde{i'} \) , but I guess it is the map from \( V'/U^0 \) to \( U' \) defined by \( \tilde{i'}(\varphi+U^0)=i'(\varphi) \) for any \( \varphi\in V' \) . Then the conclusion follows from (a) and (b) immediately.
 \end{proof}
 
 
