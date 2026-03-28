@@ -55,7 +55,7 @@
     \begin{enumerate}[label=(\alph*)]
         \item 证明 \( E^\circ \) 是开集. 
         \item 证明: \( E \) 是开集当且仅当 \( E^\circ = E \). 
-        \item 如果 \( G \subset E \) 且 \( G \) 开，证明 \( G \subset E^\circ \). 
+        \item 如果 \( G \subset E \) 且 \( G \) 开, 证明 \( G \subset E^\circ \). 
         \item 证明 \( E^\circ \) 的余集是 \( E \) 的余集的闭包. 
         \item \( E \) 的内部与 \( \overline{E } \) 的内部是否总一样? 
         \item \( E \) 的闭包与 \( E^\circ \) 的闭包是否总一样? 
@@ -76,12 +76,67 @@
     (f) 不总是. 例如\( E=\{1/n:n\in\N^+\} \). 则\( \overline{E}=\{0\}\cup E  \), 但是\( \overline{E^\circ}=\varnothing \).    
 \end{solution}
 
+\begin{problem}[2-10]
+    设 \( X \) 是无穷集. 对于 \( p\in X \), \( q\in X \), 定义
+    \[
+    d(p,q)=
+    \begin{cases}
+        1, & \text{如果 } p\ne q,\\
+        0, & \text{如果 } p=q.
+    \end{cases}
+    \]
+    证明这是一个度量. 由此所得的度量空间的哪些子集是开集? 哪些是闭集? 哪些是紧集?
+\end{problem}
+
+\begin{solution}
+    先来证明\( d \)是一个度量. 根据定义, 显然有正定性与对称性. 现在来证明三角不等式. 对于\( x,y,z\in X \), 若\( x=z \), 则\( 0=d(x,z)\le d(x,y)+d(y,z) \); 若\( x\neq z \), 则\( x=y \) 与 \( y=z \) 不可能同时成立, 故\( d(x,z)=1 \le d(x,y)+d(y,z) \). 因此\( d \)满足三角不等式.\par
+    在这样的一个度量空间中, 
+    \[ N_r(x)=\begin{cases}
+        X, & \text{如果} r>1;\\
+        \{x\}, & \text{如果} r\le 1.
+    \end{cases} \] 
+    因此任意的集合均为开集(因为任何单点集都是某个邻域). 同理, 任意的集合均为闭集. \par
+    而仅有有限集为紧集, 因为对于无限集\( E\subset X \), \( \bigcup_{x\in E}\{x\} \) 是一个开覆盖, 但没有有限子覆盖.
+\end{solution}
+
+\begin{problem}[2-12]
+    设 \( K\subset \R^1 \) 是由 \( 0 \) 及诸数 \( 1/n\,(n=1,2,3,\cdots) \) 组成的集. 由定义直接证明(不用 Heine-Borel 定理)\( K \)是紧集.
+\end{problem}
+
+\begin{proof}
+    我们直接来证明: \( K \)的任意开覆盖\( \{G_\alpha\}_{\alpha\in A} \)都有有限子覆盖. \par
+    由于\( 0\in K \), 存在\( G_{\alpha_0} \)使得\( 0\in G_{\alpha_0} \). 因为\( G_{\alpha_0} \)是开集, 存在\( r>0 \)使得\( N_r(0)\subset G_{\alpha_0} \). 取\( n_0=\lceil 1/r\rceil \), 则对于任意的\( n>n_0 \), \( 1/n<r \), 从而\( 1/n\in N_r(0)\subset G_{\alpha_0} \). \par
+    而对于\( n\le n_0 \), \( 1/n \)为有限个点, 存在\( G_{\alpha_1}, G_{\alpha_2}, \cdots, G_{\alpha_{n_0}} \)使得\( 1/n\in G_{\alpha_n} \). 从而 \( \{G_{\alpha_0}, G_{\alpha_1}, \cdots, G_{\alpha_{n_0}}\} \) 是 \( K \) 的一个有限子覆盖.
+\end{proof}
+
 \begin{problem}[2-22]
-    含有可数稠密自己的度量空间叫做可分的. 证明: \( \R^k \)是可分的.
+    含有可数稠密子集的度量空间叫做可分的. 证明: \( \R^k \)是可分的.
 \end{problem}
 
 \begin{proof}
     取所有的\( k \)个坐标都是有理数的点组成的集合, 记为\( \Q^k \). 由于\( \Q \)可数, 故\( \Q^k \)可数. 又因为\( \Q \)在\( \R \)中稠密, 所以\( \Q^k \)在\( \R^k \)中稠密. 从而\( \R^k \)是可分的.
+\end{proof}
+
+\begin{problem}[2-23]
+    \( X \) 的一组开子集 \( \{V_\alpha\} \) 叫做 \( X \) 的一个基, 如果以下的事实成立：对于每个 \( x\in X \) 和 \( X \) 的每个含 \( x \) 的开集 \( G \), 总有某个 \( \alpha \) 使得 \( x\in V_\alpha\subset G \). 换句话说, \( X \)
+    的每个开集必是 \( \{V_\alpha\} \) 中某些集的并. 证明每个可分度量空间有可数基. 
+\end{problem}
+
+\begin{proof}
+    记可分度量空间 \( X \) 的可数稠密子集为 \( E={e_1,e_2,\cdots} \) . 考虑
+    \[ \mathcal{V}:={N_q(e_n):\ q\in\Q_+,\ n\in\Z_+}. \]
+    则由 \( \Z_+ \) 与 \( \Q_+ \) 可数, 知道 \( \mathcal{V} \) 可数. \par
+    下面来证明: \( V \) 是 \( X \) 的一个基. 这是因为, 对于 \( X \) 的任意一个开集 \( G \) 以及 \( x\in G \) , 存在 \( x \) 的邻域 \( N_r(x)\subset G \) . 由于 \( E \) 稠密, 故存在 \( e_n\in N_r(x) \) . 取有理数 \( q \) , 使得 \( q<\abs{r-d(e_n,x)} \) . 由三角不等式容易知道 \( N_q(e_n)\subset N_r(x)\subset G \) , 并且 \( N_q(e_n)\in \mathcal{V} \) . 由此知结论成立.
+\end{proof}
+
+\begin{problem}[2-24]
+    令 \( X \) 是度量空间, 其中每个无限子集均有极限点. 证明:  \( X \) 是可分的.
+\end{problem}
+
+\begin{proof}
+    固定正数\,\( \delta \)\,. 按照如下方式定义\,\( E_\delta \)\,: 任取\,\( x_1\in X \)\,. 若已经取好了\,\( x_1,\cdots,x_n \)\,, 则若存在\,\( x_{n+1}\in X \)\,使得\,\( d(x_{n+1},x_i)\le\delta \)\,对于\,\( i=1,2,\cdots,n \)\,都成立, 则取这样的\,\( x_{n+1} \)\,; 否则停止. 由定义知\,\( E_\delta \)\,中任意两点的距离都不小于\,\( \delta \)\,, 故不难知道\,\( E_\delta \)\,没有极限点, 因此\,\( E_\delta \)\,是有限集. \par
+    注意到: 根据\,\( E_{\delta} \)\,的定义, 对于任意的\,\( x\in X-E_{\delta} \)\,与\,\( e\in E \)\,, 均有\,\( d(x,e)<\delta \)\,, 否则可以将\,\( x \)\,继续添加到\,\( E_{\delta} \)\,中.\par
+    取\,\( E=\bigcup_{n\le 1}E_{1/n} \)\,. 由于每个\,\( E_{1/n} \)\,有限, 故\,\( E \)\,可数. 现在来证明\,\( E \)\,是稠密的, 即\,\( \overline{E}=X \)\,. 这是因为, 对于任意的\,\( x\in X-E \)\,及其邻域\,\( N_r(x) \)\,, 取正整数\,\( n \)\,使得\,\( r>1/n \)\,. 则存在\,\( e\in E_{1/n} \)\,, 使得\,\( d(e,x)<1/n<r \)\,, 即\,\( e\in N_r(x) \)\,, 故\,\( N_r(x)\cap E\neq\varnothing \)\,. 因此\,\( x \)\,是\,\( E \)\,的一个极限点, 从而\,\( x\in\overline{E} \)\,. 由此知\,\( X=\overline{E} \)\,, 即\,\( E \)\,在\,\( X \)\,中稠密. 从而\,\( X \)\,是可分的.
 \end{proof}
 
 \end{document}
