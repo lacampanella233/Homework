@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Physics\,-\,0}{2026 Spring}{}
+
+\begin{document}
+
+\begin{problem}
+	(15pts) A small block with mass $0.04\,\mathrm{kg}$ slides in a vertical circle of radius $R=0.5\,\mathrm{m}$ on the inside of a circular track. During one of the revolutions of the block, when the block is at the bottom of its path, point $A$, the normal force exerted on the block by the track has magnitude $3.95\,\mathrm{N}$. In this same revolution, when the block reaches the top of its path, point $B$, the normal force exerted on the block has magnitude $0.68\,\mathrm{N}$. How much work is done on the block by friction during the motion of the block from point $A$ to point $B$?
+\end{problem}
+
+\begin{solution}
+	Denote the normal force and the speed of the block at point $A$ and \( B \) as $N_A$ and $v_A$, $N_B$ and $v_B$ respectively. The gravitational force acting on the block is given by $mg$, where $m$ is the mass of the block and $g$ is the acceleration due to gravity.\par
+	Then \( v_A \) and \( v_B \) is given by
+	\[ v_A=\sqrt{\frac{R(N_A-mg)}{m}} \quad \text{and} \quad v_B=\sqrt{\frac{R(N_B+mg)}{m}}. \] 
+	The decrease in kinetic energy of the block from point \( A \) to point \( B \) is \( m(v_A^2-v_B^2)/2 \), and the decrease in potential energy is \( 2mgR \). Therefore, the work done by friction is given by
+	\[ W = \frac{m(v_A^2-v_B^2)}{2} + 2mgR. \]\par
+	Substituting the values of \( m \), \( R \), \( N_A \), \( N_B \), and \( g \) into the above equation, we got
+	\[ W=1.0175\,\mathrm{J}. \] 
+\end{solution}
+
+\begin{problem}
+	(15pts) Consider an object of mass $m$ that is released from rest in a fluid with linear drag $\vec{F}_d=-b\vec{v}$. Compute the energy as a function of time and show that $\Delta E=E(t)-E(0)$ equals the work done by the drag force in time $t$.
+\end{problem}
+
+\begin{solution}
+	Denote the velocity of the object at time \( t \) as \( v(t) \). The equation of motion for the object can be written as
+	\[ m\frac{\d v}{\d t} = mg - bv,\ v(0)=0. \]
+	Solving this differential equation, we get
+	\[ v(t) = \frac{mg}{b}(1 - \e^{-bt/m}). \]
+	Denote the distance traveled by the object at time \( t \) as \( x(t) \). We can find \( x(t) \) by integrating \( v(t) \):
+	\[ x(t) = \int_0^t v(t') \d t' = \frac{mg}{b} \left( t + \frac{m}{b}(\e^{-bt/m} - 1) \right). \]\par
+	Then we can work out that
+	\[ \Delta E=-mgx(t)+\frac{1}{2}mv(t)^2=\frac{m^3g^2}{2b^2}\left(\e^{-2bt/m}-4\e^{-bt/m}+3\right)-\frac{m^2g^2}{b}t. \] \par
+	On the other hand, the work done by the drag force in time \( t \) is given by
+	\[ W = \int_0^t F_d\,v(t') \d t' = -b \int_0^t v(t')^2 \d t' = \frac{m^3g^2}{2b^2}\left(\e^{-2bt/m}-4\e^{-bt/m}+3\right)-\frac{m^2g^2}{b}t. \]\par
+	Hence, we have \( \Delta E = E(t) - E(0) = W \), which shows that the change in energy of the object equals the work done by the drag force.
+\end{solution}
+
+\begin{problem}
+	(40pts) Two springs with the same unstretched length but different spring constants $k_1$ and $k_2$ are attached to a block with mass $m$ on a frictionless surface. Calculate the effective spring constant $k_{\mathrm{eff}}$ such that $\sum F=-k_{\mathrm{eff}}x$ for each of the cases shown in the pictures below.
+	\begin{enumerate}
+		\item[(a)] (10pts)
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{PB3-a.png}
+		\end{center}
+
+		\item[(b)] (10pts)
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{PB3-b.png}
+		\end{center}
+
+		\item[(c)] (10pts)
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{PB3-c.png}
+		\end{center}
+
+		\item[(d)] (10pts) Assume now that you have an object of mass $m$ attached to only one spring with spring constant $k$ and oscillating with frequency $f_1$. If the spring is cut in half and the same object is attached to one of the two halves, its frequency is now $f_2$. What is the ratio $f_2/f_1$?
+	\end{enumerate}
+\end{problem}
+
+
+
+
+\end{document}
