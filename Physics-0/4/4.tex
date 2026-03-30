@@ -1,6 +1,12 @@
 \documentclass{article}
 \usepackage[en]{homework}
 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\definecolor{qqwuqq}{rgb}{0.,0.39215686274509803,0.}
+
 \config{Physics\,-\,0}{2026 Spring}{}
 
 \begin{document}
@@ -59,7 +65,57 @@
 	\end{enumerate}
 \end{problem}
 
+\begin{solution}
+	(a) \( F=F_1+F_2=(k_1+k_2)x \), hence \( k_\mathrm{eff}=k_1+k_2 \).\par
+	(b) \( F=F_1-F_2=k_1x-k_2(\mathrm{const.}-x)=(k_1+k_2)x+\mathrm{const.} \), hence \( k_\mathrm{eff}=k_1+k_2 \).\par
+	(c) \( x=x_1+x_2=F/k_1+F/k_2 \), hence \( k_\mathrm{eff}=k_1k_2/(k_1+k_2) \).\par
+	(d) The frequency of oscillation is given by 
+	\[ f = \frac{1}{2\pi}\sqrt{\frac{k}{m}}. \]
+	When the spring is cut in half, the spring constant of each half becomes \( 2k \) because \( k=(2k)^2/(2k+2k) \). Therefore, the new frequency \( f_2 \) is given by
+	\[ f_2 = \frac{1}{2\pi}\sqrt{\frac{2k}{m}}. \]
+	The ratio of the frequencies is
+	\[ \frac{f_2}{f_1} = \frac{\sqrt{2}}{1} = \sqrt{2}. \]
+\end{solution}
 
+\begin{problem}
+	(30pts) Consider a one dimensional version of the ``Mexican hat'' potential, which is given by
+	\[ U(x)=-\alpha x^2+\beta x^4 \]
+	where $\alpha>0$ and $\beta>0$. (A higher-dimensional version of this potential is related to the ``Higgs mechanism'' that is responsible for giving particles a mass and ultimately led to the Nobel Prize in physics in 2013.)
+	\begin{enumerate}
+		\item[(a)] (10pts) Sketch the potential and determine the location of the local maximum and local minima.
+		\item[(b)] (10pts) If you release the particle from the local maximum (by giving it a small perturbation), what is its speed at the local minima? How far does the particle get before turning back?
+		\item[(c)] (10pts) Find the period of oscillation for a particle stuck around one of the local minima assuming that $x-x_0$ is small where $x_0$ is the location of the local minimum.
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) The draft of the potential with \( \alpha=\beta=1 \) is shown below. The local maximum is located at \( x=0 \) and the local minima are located at \( x=\pm\sqrt{\alpha/(2\beta)} \).\par
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+		\begin{axis}[
+			x=1.0cm,y=1.0cm,
+			axis lines=middle,
+			xmin=-2.0,
+			xmax=2.0,
+			ymin=-1.0,
+			ymax=2.0,
+			xtick={-2.0,-1.0,...,2.0},
+			ytick={-1.0,0.0,...,2.0},]
+			\clip(-2.,-1.) rectangle (2.,2.);
+			\draw[line width=1.2pt,color=qqwuqq,smooth,samples=100,domain=-2.0:2.0] plot(\x,{0-(\x)^(2.0)+(\x)^(4.0)});
+		\end{axis}
+		\end{tikzpicture}
+	\end{figure}\par
+	(b) Suppose the speed of the particle at the local minima is \( v \). Since the particle is released from rest at the local maximum, the total energy of the system is given by \( E = U(0) = 0 \). According to the conservation of energy, we have
+	\[ E = E_\mathrm{k} + U(x_0) \implies 0 = \frac{1}{2}mv^2 - \alpha x_0^2 + \beta x_0^4, \]
+	where \( x_0=\pm\sqrt{\alpha/(2\beta)} \). Solving for \( v \), we get
+	\[ v=\frac{\alpha}{\sqrt{2m\beta}}. \] \par
+	Denote the turning point of the particle as \( x_\mathrm{turn} \). At the turning point, the potential energy equals the total energy, hence we have
+	\[ U(x_\mathrm{turn}) = 0 \implies -\alpha x_\mathrm{turn}^2 + \beta x_\mathrm{turn}^4 = 0 \implies x_\mathrm{turn}=\sqrt{\alpha/\beta}. \]\par
+	(c) The period of oscillation near \( x_0 \) is given by
+	\[ T=2\pi \sqrt{\frac{m}{U''(x_0)}}=\pi\sqrt{\frac{m}{\alpha}}. \] 
+\end{solution}
 
 
 \end{document}
