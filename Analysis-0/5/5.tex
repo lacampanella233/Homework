@@ -103,6 +103,36 @@ x_{n+1}=\frac{\alpha+x_n}{1+x_n}
 	Then the convergence rate is linear, i.e. \( \varepsilon_n\sim \left(\frac{\alpha-1}{\alpha+1}\right)^n \), which is much slower than the method in Exercise 16.
 \end{solution}
 
+\begin{problem}[3-20]
+Let $\{p_n\}$ be a Cauchy sequence in a metric space $X$, and suppose that a subsequence $\{p_{n_i}\}$ converges to a point $p\in X$. Prove that the whole sequence $\{p_n\}$ converges to $p$.
+\end{problem}
+
+\begin{proof}
+	For any positive real number \( \varepsilon \), there exists integer \( N_1 \) and \( N_2 \) such that \( d(p_{n_i},p)<\varepsilon/2 \) for all \( n_i\geq N_1 \) and \( d(p_m,p_n)<\varepsilon/2 \) for all \( m,n\geq N_2 \).\par
+	Take \( N=\max \left\{N_1,N_2\right\} \). For any \( n>N \), select \( n_i>n \). Then by the definition of \( N \), we have
+	\[ d(p_n,p)\le d(p_n,p_{n_i})+d(p_{n_i},p)<\varepsilon/2+\varepsilon/2 =\varepsilon. \] \par
+	Hence, \( \{p_n\} \) converges to \( p \).
+\end{proof}
+
+\begin{problem}[3-21]
+Prove the following theorem, analogous to Theorem 3.10(b): if, in a complete metric space $X$, each $E_n$ in the sequence $\{E_n\}$ is a nonempty bounded closed set, $E_n\supset E_{n+1}$, and
+\[
+\lim_{n\to\infty}\operatorname{diam}(E_n)=0,
+\]
+then
+\[
+\bigcap_{n=1}^{\infty}E_n
+\]
+consists of exactly one point.
+\end{problem}
+
+\begin{proof}
+	First, we will show that \( \bigcap_{n=1}^{\infty} E_n \) is nonempty. For each positive integer \( n \), select \( p_n\in E_n \). Since \( E_1 \) is bounded and \( p_n\in E_n\subset E_1 \) for any \( n\le 1 \), The sequence \( \left\{p_n\right\} \) is bounded. Therefore, \( \left\{p_n\right\} \) has a convergent subsequence, say \( \left\{p_{n_i}\right\} \). Denote \( \lim_{i\to\infty}p_{n_i}=p \). \par
+	For any \( n\in\N_+ \), since \( \left\{p_{n_i}:n_i\ge n\right\} \subset E_n \), \( E_n \) is closed, and \( p_{n_i}\to p \), we have \( p\in E_n \). Thus, \( p\in \bigcap_{n=1}^{\infty} E_n \), and the intersection is nonempty. \par
+	Next, we will show that \( \bigcap_{n=1}^{\infty} E_n \) consists of exactly one point. Suppose that there are two distinct points \( p,q\in \bigcap_{n=1}^{\infty} E_n \). Then for any positive integer \( n \), since \( p,q\in E_n \), we have \( d(p,q)\le \operatorname{diam}(E_n) \). Letting \( n\to\infty \), we have \( d(p,q)=0 \), which is a contradiction. Hence, the intersection consists of exactly one point.
+\end{proof}
+
+
 
 
 \end{document}
