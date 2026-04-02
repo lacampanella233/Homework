@@ -132,6 +132,83 @@ consists of exactly one point.
 	Next, we will show that \( \bigcap_{n=1}^{\infty} E_n \) consists of exactly one point. Suppose that there are two distinct points \( p,q\in \bigcap_{n=1}^{\infty} E_n \). Then for any positive integer \( n \), since \( p,q\in E_n \), we have \( d(p,q)\le \operatorname{diam}(E_n) \). Letting \( n\to\infty \), we have \( d(p,q)=0 \), which is a contradiction. Hence, the intersection consists of exactly one point.
 \end{proof}
 
+\begin{problem}[3-22]
+Let $X$ be a complete metric space, and let each $G_n$ in the sequence $\{G_n\}$ be an open dense subset of $X$. Prove Baire's theorem:
+\[
+\bigcap_{n=1}^{\infty} G_n \neq \varnothing
+\]
+(in fact, this intersection is dense in $X$).
+\end{problem}
+
+\begin{proof}
+	We will prove that \( G:=\bigcap_{n=1}^{\infty} G_n \) is dense in \( X \), i.e. for any \( x\in X \) and \( r>0 \), \( N_r(x)\cap G\neq\varnothing \). \par
+	Take \( x_1\in N_r(x) \) (such \( x_1 \) exists, since \( G_1 \) is dense in \( X \)), and \( r_1>0 \) such that \( N_{r_1}(x_1)\subset G_1 \) (Notice that \( G_1 \) is open). 
+	Suppose that we have selected \( x_1,x_2,\dots,x_{n} \) and \( r_1,r_2,\dots,r_{n} \), such that \( N_{r_i}(x_i)\subset G_i \) and \( N_{r_i}(x_i)\subset N_{r_{i-1}}(x_{i-1}) \). Then we can select \( x_{n+1}\in N_{r_n}(x_n)\cap G_{n+1} \) (such \( x_{n+1} \) exists, since \( G_{n+1} \) is dense in \( X \)), and \( r_{n+1}>0 \) such that \( N_{r_{n+1}}(x_{n+1})\subset G_{n+1} \) and \( N_{r_{n+1}}(x_{n+1})\subset N_{r_n}(x_n) \). \par
+	Then we have a sequence of nested closed balls \( \left\{\overline{N}_{r_n}(x_n)\right\} \). Since \( r_n\to 0 \), we have \( \operatorname{diam}(\overline{N}_{r_n}(x_n))=2r_n\to 0 \). By Problem 21, there exists a unique point \( y\in X \) such that \( y\in \bigcap_{n=1}^{\infty} \overline{N}_{r_n}(x_n) \). Since \( N_{r_n}(x_n)\subset G_n \), we have \( y\in G_n \) for any positive integer \( n \). Hence, \( y\in G=\bigcap_{n=1}^{\infty} G_n \). Moreover, since \( y\in N_r(x) \), we have \( N_r(x)\cap G\neq\varnothing \). Therefore, \( G=\bigcap_{n=1}^{\infty} G_n \) is dense in \( X \).
+\end{proof}
+
+\begin{problem}[3-23]
+	Let \( \left\{p_n\right\} \) and \( \left\{q_n\right\} \) be two Cauchy sequences in metric space \( X \). Prove that \( \left\{d(p_n,q_n)\right\} \) converges.
+\end{problem}
+
+\begin{proof}
+	We'll show that \( \left\{d(p_n,q_n)\right\} \) is a Cauchy sequence. For any positive real number \( \varepsilon \), there exists integer \( N_1 \) and \( N_2 \) such that \( d(p_m,p_n)<\varepsilon/2 \) for all \( m,n\geq N_1 \) and \( d(q_m,q_n)<\varepsilon/2 \) for all \( m,n\geq N_2 \).\par
+	Take \( N=\max \left\{N_1,N_2\right\} \). For any \( m,n>N \), we have
+	\begin{align*}
+		d(p_m,q_m)-d(p_n,q_n) &\le d(p_m,p_n)+d(p_n,q_n)+d(q_n,q_m)-d(p_n,q_n)\\
+		&=d(p_m,p_n)+d(q_n,q_m)<\varepsilon/2+\varepsilon/2=\varepsilon.\\
+		d(p_m,q_m)-d(p_n,q_n) &\ge -d(p_m,p_n)-d(q_n,q_m)>-\varepsilon/2-\varepsilon/2=-\varepsilon.
+	\end{align*}
+	Thus \( \abs{d(p_m,q_m)-d(p_n,q_n)}<\varepsilon \). Hence, \( \left\{d(p_n,q_n)\right\} \) is a Cauchy sequence, and it converges.
+\end{proof}
+
+\begin{problem}[3-24]
+Let $X$ be a metric space.
+
+\begin{enumerate}
+	\item[(a)] Two Cauchy sequences $\{p_n\}$ and $\{q_n\}$ in $X$ are called equivalent if
+	\[
+	\lim_{n\to\infty} d(p_n,q_n)=0.
+	\]
+	Prove that this defines an equivalence relation (Definition 2.3).
+
+	\item[(b)] Let $X^*$ be the set of all equivalence classes obtained in this way. If $P\in X^*$ and $Q\in X^*$, choose $\{p_n\}\in P$ and $\{q_n\}\in Q$, and define
+	\[
+	\Delta(P,Q)=\lim_{n\to\infty} d(p_n,q_n).
+	\]
+	By Problem 23, this limit exists. Prove that if $\{p_n\}$ and $\{q_n\}$ are replaced by equivalent sequences, then $\Delta(P,Q)$ is unchanged; hence $\Delta$ is a metric on $X^*$.
+
+	\item[(c)] Prove that the metric space $X^*$ obtained above is complete.
+
+	\item[(d)] For each $p\in X$, choose a Cauchy sequence all of whose terms are $p$; let $P_p$ be the member of $X^*$ containing this sequence. Prove that for all $p,q\in X$,
+	\[
+	\Delta(P_p,P_q)=d(p,q).
+	\]
+	In other words, the map $\varphi(p)=P_p$ is an isometry from $X$ into $X^*$.
+
+	\item[(e)] Prove that $\varphi(X)$ is dense in $X^*$, and that $\varphi(X)=X^*$ if and only if $X$ is complete.
+	\end{enumerate}\par
+	Using (d), we may identify $X$ with $\varphi(X)$, and thus regard $X$ as embedded in the complete metric space $X^*$. The space $X^*$ is called the \emph{completion} of $X$.
+\end{problem}
+
+\begin{proof}
+	(a) The reflexivity and symmetry of this relation are obvious. We will show that it is transitive. Suppose that \( \{p_n\} \) and \( \{q_n\} \) are equivalent, and \( \{q_n\} \) and \( \{r_n\} \) are equivalent. For any positive real number \( \varepsilon \), there exists integer \( N_1 \) and \( N_2 \) such that \( d(p_n,q_n)<\varepsilon/2 \) for all \( n\geq N_1 \) and \( d(q_n,r_n)<\varepsilon/2 \) for all \( n\geq N_2 \).\par
+	Take \( N=\max \left\{N_1,N_2\right\} \). For any \( n>N \), we have
+	\[ d(p_n,r_n)\le d(p_n,q_n)+d(q_n,r_n)<\varepsilon/2+\varepsilon/2=\varepsilon. \] \par
+	Hence, \( \{p_n\} \) and \( \{r_n\} \) are equivalent, and the relation is transitive.\par
+	(b) Assume that \( \{p_n'\} \) and \( \{q_n'\} \) are equivalent to \( \{p_n\} \) and \( \{q_n\} \) respectively. Denote \( D:=\lim_{n\to\infty}d(p_n,q_n) \). \par
+	For any positive number \( \varepsilon \), there exist \( N_1,N_2,N_3 \) such that \( \abs{d(p_n,q_n)-D}<\varepsilon/3 \) for any \( n>N_3 \), and \( \abs{d(p_n,p'_n)}<\varepsilon/3 \) for any \( n>N_1 \), and \( \abs{d(q_n,q'_n)}<\varepsilon/3 \) for any \( n>N_2 \). \par
+	Let \( N=\max \left\{N_1,N_2,N_3\right\} \). Then, for any \( n>N \), we have
+	\begin{align*}
+		\abs{d(p'_n,q'_n)-D}
+		&=\abs{\left(d(p'_n,q'_n)-d(p_n,q_n)\right)}+\abs{d(p_n,q_n)-D}\\
+		&\le \abs{d(p'_n,q'_n)-d(p_n,q_n)}+\varepsilon/3\\
+		&\le \abs{d(p'_n,q'_n)-d(p_n,q'_n)}+\abs{d(p_n,q'_n)-d(p_n,q_n)}+\varepsilon/3\\
+		&\le d(p_n,p'_n)+d(q_n,q'_n)+\varepsilon/3
+		<\varepsilon/3+\varepsilon/3+\varepsilon/3=\varepsilon.
+	\end{align*}\par
+	Thus \( \abs{d(p'_n,q'_n)-D}<\varepsilon \) for any \( n>N \). Hence, \( \lim_{n\to\infty}d(p'_n,q'_n)=D \), and \( \Delta(P,Q) \) is unchanged.\par
+\end{proof}
 
 
 

@@ -293,6 +293,7 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/zhmetrics/unikai/unikai7a.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/zhmetrics/unikai/unikai66.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/zhmetrics/unikai/unikai4e.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT 5.aux
 INPUT ./5.out
 INPUT ./5.out
@@ -312,6 +313,7 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
