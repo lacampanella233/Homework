@@ -5,5 +5,104 @@
 
 \begin{document}
 
+\begin{problem}[3-16]
+Fix a positive constant $\alpha$, choose $x_1 > \sqrt{\alpha}$, and define
+\[
+x_{n+1} = \frac{1}{2}\left(x_n + \frac{\alpha}{x_n}\right),
+\]
+which determines $x_2, x_3, x_4, \dots$.
+
+\begin{enumerate}
+	\item[(a)] Prove that $\{x_n\}$ is monotonically decreasing and
+	\[
+	\lim_{n \to \infty} x_n = \sqrt{\alpha}.
+	\]
+
+	\item[(b)] Let $\varepsilon_n = x_n - \sqrt{\alpha}$. Prove that
+	\[
+	\varepsilon_{n+1} = \frac{\varepsilon_n^2}{2x_n} < \frac{\varepsilon_n^2}{2\sqrt{\alpha}}.
+	\]
+	Hence, setting $\beta = 2\sqrt{\alpha}$, obtain
+	\[
+	\varepsilon_{n+1} < \beta\left(\frac{\varepsilon_1}{\beta}\right)^{2^n},
+	\qquad n=1,2,3,\dots.
+	\]
+
+	\item[(c)] This is a good method for computing square roots, because the recursion is simple and converges very fast. For example, if $\alpha = 3$ and $x_1 = 2$, prove that
+	\[
+	\frac{\varepsilon_1}{\beta} < \frac{1}{10},
+	\]
+	and therefore
+	\[
+	\varepsilon_5 < 4\cdot 10^{-16},
+	\qquad
+	\varepsilon_6 < 4\cdot 10^{-32}.
+	\]
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    (a) First, we will show (by induction) that \( \sqrt{\alpha}<x_{n+1}<x_n \) for any positive integer \( n \). It suffices to show that if \( x_n>\alpha \), then \( \alpha<x_{n+1}<x_{n} \). This is because
+    \[ x_{n+1}=\frac{1}{2}\left(x_n+\frac{\alpha}{x_n}\right)>\sqrt{x_{n}\cdot\frac{\alpha}{x_n}}=\sqrt{\alpha}\ (\text{Notice that } x_n \neq \sqrt{\alpha}), \] 
+    \[ x_{n}-x_{n+1}=\frac{1}{2}\left(x_n-\frac{\alpha}{x_n}\right)=\frac{x_{n}^2-\alpha}{2x_n}>0 . \]\par
+    Next, we will show that \( \lim_{n\to\infty} x_n=\sqrt{\alpha} \). Since \( \{x_n\} \) is bounded and monotone, it converges. Let \( x=\lim_{n\to\infty} x_n \). Then
+    \[ x=\frac{1}{2}\left(x+\frac{\alpha}{x}\right) \implies x^2=\alpha\implies x=\sqrt{\alpha}. \]\par
+	(b) We have
+	\[ \varepsilon_{n+1}=x_{n+1}-\sqrt{\alpha}=\frac{1}{2}\left(x_n+\frac{\alpha}{x_n}-2\sqrt{\alpha}\right)=\frac{1}{2}\left(\sqrt{x_n}-\sqrt{\frac{\alpha}{x_n}}\right)^2=\frac{\varepsilon_n^2}{2x_n}. \]
+	Since \( x_n>\sqrt{\alpha} \), we have \( \varepsilon_{n+1}<\frac{\varepsilon_n^2}{2\sqrt{\alpha}} \). Let \( \beta=2\sqrt{\alpha} \).
+	By induction, we can show that \( \varepsilon_{n+1}<\beta\left(\varepsilon_1/\beta\right)^{2^n} \) for any positive integer \( n \). It suffices to show that if \( \varepsilon_n<\beta\left(\varepsilon_1/\beta\right)^{2^{n-1}} \), then \( \varepsilon_{n+1}<\beta\left(\varepsilon_1/\beta\right)^{2^n} \). This is because
+	\[ \varepsilon_{n+1}<\frac{\varepsilon_n^2}{2\sqrt{\alpha}}<\frac{\beta^2}{2\sqrt{\alpha}}\left(\frac{\varepsilon_1}{\beta}\right)^{2^n}=\beta\left(\frac{\varepsilon_1}{\beta}\right)^{2^n}. \]\par
+	(c) Take \( \alpha=3 \) and \( x_1=2 \), we can calculate that
+	\[ \varepsilon_1=x_1-\sqrt{\alpha}=2-\sqrt{3}\approx 0.268,\ \beta=2\sqrt{3}\approx 3.464\implies \frac{\varepsilon_1}{\beta}\approx 0.077<\frac{1}{10}. \] 
+\end{solution}
+
+\begin{problem}[3-17]
+Fix $\alpha>1$. Choose $x_1>\sqrt{\alpha}$ and define
+\[
+x_{n+1}=\frac{\alpha+x_n}{1+x_n}
+=x_n+\frac{\alpha-x_n^2}{1+x_n}.
+\]
+
+\begin{enumerate}
+	\item[(a)] Prove that
+	\[
+	x_1>x_3>x_5>\cdots.
+	\]
+
+	\item[(b)] Prove that
+	\[
+	x_2<x_4<x_6<\cdots.
+	\]
+
+	\item[(c)] Prove that
+	\[
+	\lim_{n\to\infty}x_n=\sqrt{\alpha}.
+	\]
+
+	\item[(d)] Compare the convergence rate of this method with that of the method in Exercise 16.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) and (b)\ \ From the recursion, we have
+	\[ x_{n+2}-x_{n}=\frac{(1+\alpha)x_{n}+2\alpha}{2x_n+(1+\alpha)}-x_n=-\frac{2(x_n^2-\alpha)}{2x_n+(1+\alpha)}\begin{cases}
+		<0, & \text{if } x_n>\sqrt{\alpha},\\
+		>0, & \text{if } x_n<\sqrt{\alpha}.
+	\end{cases} \]
+	\[ x_{n+1}-\sqrt{\alpha}=\frac{(\sqrt{\alpha}-1)(\sqrt{\alpha}-x_n)}{1+x_n}\begin{cases}
+		<0, & \text{if } x_n>\sqrt{\alpha},\\
+		>0, & \text{if } x_n<\sqrt{\alpha}.
+	\end{cases} \] \par
+	Then the conclusions follow immediately from \( x_1>\sqrt{\alpha} \) and little effort on induction.\par
+	(c) Since \( \{x_{2n-1}\} \) is bounded and monotone, it converges. Let \( x=\lim_{n\to\infty} x_{2n-1} \). Then
+	\[ x=\frac{(1+\alpha)x_{n}+2\alpha}{2x_n+(1+\alpha)} \implies x=\pm\sqrt{\alpha}. \] 
+	Since all the terms are positive, we have \( x=\sqrt{\alpha} \).\par
+	Similarly, we can show that \( \lim_{n\to\infty} x_{2n}=\sqrt{\alpha} \). Therefore, \( \lim_{n\to\infty} x_n=\sqrt{\alpha} \).\par
+	(d) Let \( \varepsilon_n=x_n-\sqrt{\alpha} \). We have
+	\[ \varepsilon_{n+1}=\frac{(\sqrt{\alpha}-1)(\sqrt{\alpha}-x_n)}{1+x_n}=\frac{(\sqrt{\alpha}-1)\varepsilon_n}{1+x_n}. \] 
+	Then the convergence rate is linear, i.e. \( \varepsilon_n\sim \left(\frac{\alpha-1}{\alpha+1}\right)^n \), which is much slower than the method in Exercise 16.
+\end{solution}
+
+
 
 \end{document}
