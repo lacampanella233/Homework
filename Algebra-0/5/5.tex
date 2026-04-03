@@ -225,11 +225,80 @@
 \end{problem}
 
 \begin{proof}
-  WLOG, we can assume that \( p=(x-x_1)(x-x_2)\cdots(x-x_m) \) and \( q=(x-y_1)(x-y_2)\cdots(x-y_n) \) are monic. \par
-  (a) Suppose that \( T(r,s)=0 \) for some \( r\in \mathcal{P}_{n-1}(\C) \) and \( s\in \mathcal{P}_{m-1}(\C) \). Then \( rp+sq=0 \). Since \( p(x_i)=0\neq q(x_i) \) for each \( i=1,2,\cdots,m \), we have \( s(x_i)=0 \) for each \( i=1,2,\cdots,m \). Since \( s\in \mathcal{P}_{m-1}(\C) \), this implies that \( s=0 \). Similarly, since \( q(y_j)=0 \) for each \( j=1,2,\cdots,n \), we have \( r(y_j)=0 \) for each \( j=1,2,\cdots,n \). Since \( r\in \mathcal{P}_{n-1}(\C) \), this implies that \( r=0 \). Therefore, \( T \) is injective. \par
+  (a) Suppose $T(r,s)=rp+sq=0$ for some $r\in\mathcal{P}_{n-1}(\mathbb{C})$, $s\in\mathcal{P}_{m-1}(\mathbb{C})$. Then $rp=-sq$. Since $p$ and $q$ have no common zeros, they are coprime in $\mathbb{C}[x]$. Hence $p$ divides $s$, but $\deg s<\deg p$, so $s=0$. Similarly $q$ divides $r$, and $\deg r<\deg q$ implies $r=0$. Thus $T$ is injective.\par
   (b) Since \( \dim(\mathcal{P}_{n-1}(\C)\times \mathcal{P}_{m-1}(\C))=n+m=\dim(\mathcal{P}_{m+n-1}(\C)) \), and \( T \) is injective, we can conclude that \( T \) is surjective. \par
   (c) Since \( T \) is surjective, there exist \( r\in \mathcal{P}_{n-1}(\C) \) and \( s\in \mathcal{P}_{m-1}(\C) \) such that \( T(r,s)=rp+sq=1 \).
 \end{proof}
+
+\begin{problem}[5A-7]
+  Define \( T\in \mathcal{L}(\F^3) \) by \( T(z_1,z_2,z_3)=(2z_2,0,5z_3) \). Find all eigevalues and eigenvectors of \( T \). 
+\end{problem}
+
+\begin{solution}
+  The represent matrix of \( T \) is
+  \[ A=\left(\begin{matrix}
+    0 & 2 & 0\\
+    0 & 0 & 0\\
+    0 & 0 & 5
+  \end{matrix}\right). \] 
+  Solving the characteristic polynomial \( \det(\lambda I - A) = 0 \), we can get the eigenvalues \( \lambda = 0,0,5 \). \par
+  For \( \lambda = 0 \), the eigenvectors is \( (x,0,0) \); For \( \lambda=5 \), the eigenvectors is \( (0,0,x) \).
+\end{solution}
+
+\begin{problem}[5A-8]
+  Suppose $P\in\mathcal{L}(V)$ is such that $P^2=P$. Prove that if $\lambda$ is an eigenvalue of $P$, then $\lambda=0$ or $\lambda=1$.
+\end{problem}
+
+\begin{proof}
+  Choose an nonzero eigenvector \( v\in V \) with eigenvalue \( \lambda \). Then \( Pv = \lambda v \). Applying \( P \) again, we get \( P^2v = P(\lambda v) = \lambda Pv = \lambda^2 v \). Since \( P^2 = P \), we have \( Pv = \lambda^2 v \). Therefore, \( \lambda v = \lambda^2 v \), which implies \( \lambda = \lambda^2 \). Solving this equation, we get \( \lambda = 0 \) or \( \lambda = 1 \).
+\end{proof}
+
+\begin{problem}[5A-15]
+  Suppose $V$ is finite-dimensional, $T\in\mathcal{L}(V)$, and
+  $\lambda\in\mathbf{F}$. Show that $\lambda$ is an eigenvalue of $T$ if and
+  only if $\lambda$ is an eigenvalue of the dual operator
+  $T^*\in\mathcal{L}(V^*)$.
+\end{problem}
+
+\begin{proof}
+  Denote \( M \) as the represent matrix of \( T \) w.r.t basis \( \mathcal{B  } \). Then \( M^t \) is the represent matrix of \( T^* \) w.r.t the dual basis \( \mathcal{B}^* \). Obviously \( M \) and \( M^t \)  have the same eigenvalues. Therefore, \( \lambda \) is an eigenvalue of \( T \) if and only if \( \lambda \) is an eigenvalue of \( T^* \).
+\end{proof}
+
+\begin{problem}[5A-16]
+  Suppose $v_1,\ldots,v_n$ is a basis of $V$ and $T\in\mathcal{L}(V)$. Prove
+  that if $\lambda$ is an eigenvalue of $T$, then
+  \[
+  |\lambda|\leq n\max\bigl\{|\mathcal{M}(T)_{j,k}|:1\leq j,k\leq n\bigr\},
+  \]
+  where $\mathcal{M}(T)_{j,k}$ denotes the entry in row $j$, column $k$ of the
+  matrix of $T$ with respect to the basis $v_1,\ldots,v_n$.
+\end{problem}
+
+\begin{proof}
+  Take an nonzero eigenvector \( v \) with eigenvalue \( \lambda \). Write \( v = a_1v_1 + a_2v_2 + \cdots + a_nv_n \). Denote \( M_{ij}=\mathcal{M}(T)_{ij} \). Then
+  \[ Tv = \lambda v = a_1\sum_{j=1}^{n}M_{j1}v_j + a_2\sum_{j=1}^{n}M_{j2}v_j + \cdots + a_n\sum_{j=1}^{n}M_{jn}v_j. \] \par
+  \[ \implies \lambda a_i=\sum_{j=1}^{n}a_{j}M_{ij}. \] 
+  Using the triangle inequality, we get
+  \begin{align*}
+    \abs{\lambda}\sum_{i=1}^{n}\abs{a_i}
+    &=\sum_{i=1}^{n}\abs{\sum_{j=1}^{n}a_jM_{ij}}
+    \le \sum_{i=1}^{n}\sum_{j=1}^{n}\abs{a_j}\abs{M_{ij}}\\
+    &\le \max \left\{\abs{M_{ij}}:1\leq i,j\leq n\right\} \sum_{i=1}^{n}\sum_{j=1}^{n}\abs{a_j}\\
+    &\le n\max \left\{\abs{M_{ij}}:1\leq i,j\leq n\right\} \sum_{j=1}^{n}\abs{a_j}.
+  \end{align*}
+  Since \( v\neq 0 \), we have \( \sum_{i=1}^{n}\abs{a_i}>1 \), hence the conclusion follows.
+\end{proof}
+
+\begin{problem}[5A-22]
+  Suppose \( T\in \mathcal{L}(V) \) and there exist nonzero vectors \( u \) and \( w \) in \( V \) such that 
+  \[ T(u)=3w,\quad T(w)=3u. \] 
+  Prove that \( 3 \) or \( -3 \) is an eigenvalue of \( T \).
+\end{problem}
+
+\begin{proof}
+  If \( u+w\neq 0 \), then \( T(u+w)=3(u+w) \), which indicates \( 3 \) is an eigenvalue of \( T \); Otherwise, \( w=-u \), and \( T(u)=-3u \), which indicates \( -3 \) is an eigenvalue pf \( T \).
+\end{proof}
+
 
 
 
