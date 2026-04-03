@@ -5,6 +5,109 @@
 
 \begin{document}
 
+\begin{problem}[3-4]
+Find the limit superior and limit inferior of the sequence $\{s_n\}$ defined by
+\[
+s_1=0,\qquad s_{2m}=\frac{s_{2m-1}}{2},\qquad s_{2m+1}=\frac{1}{2}+s_{2m}\quad(m\ge 1).
+\]
+\end{problem}
+
+\begin{solution}
+  from the recursion, wew have \( s_1=s_2=0 \), and
+  \[ s_{2n+2}=\frac{s_{2n+1}}{2}=\frac{1}{4}+\frac{s_{2n}}{2} \implies s_{2n}=-\frac{1}{2^{n}}+\frac{1}{2}.\]
+  \[ s_{2n-1}=2s_{2n}=-\frac{1}{2^{n-1}}+1. \]\par
+  Then it's clear that \( \limsup_{n\to\infty} s_n=1 \) and \( \liminf_{n\to\infty} s_n=1/2 \).  
+\end{solution}
+
+\begin{problem}[3-5]
+For any two real sequences $\{a_n\}$ and $\{b_n\}$, prove that
+\[
+\limsup_{n\to\infty}(a_n+b_n)\le \limsup_{n\to\infty}a_n+\limsup_{n\to\infty}b_n.
+\]
+Assume that the sum on the right-hand side is not of the indeterminate form $+\infty-\infty$.
+\end{problem}
+
+\begin{proof}
+  Recall that 
+  \[ \limsup_{n\to\infty}a_n=\lim_{n\to\infty}\left(\sup_{m\ge n} a_m\right), \]
+  so it suffices to show that for any positive integer \( n \),
+  \[ \sup_{m\ge n} (a_m+b_m)\le \sup_{m\ge n} a_m+\sup_{m\ge n} b_m \] 
+  \[ \Longleftarrow \sup \left\{a+b:a\in A,b\in B\right\}\le \sup A+\sup B,\text{ where }A=\left\{a_m:m\ge n\right\},B=\left\{b_m:m\ge n\right\}. \] 
+\end{proof}
+
+
+\begin{problem}[3-7]
+Prove that if $a_n\ge 0$ and $\sum a_n$ converges, then
+\[
+\sum \frac{\sqrt{a_n}}{n}
+\]
+also converges.
+\end{problem}
+
+\begin{proof}
+  From Abel summation formula, we have
+  \begin{align*}
+    \sum_{k=1}^{n}\frac{\sqrt{a_k}}{k}
+    &=\sum_{k=1}^{n}a_k\frac{1}{k\sqrt{a_k}}=\sum_{k=1}^{n}\left(\sum_{i=1}^{k}a_i\right)\left(\frac{1}{k\sqrt{a_k}}-\frac{1}{(k+1)\sqrt{a_{k+1}}}\right)+\frac{1}{(n+1)\sqrt{a_{n+1}}}\sum_{i=1}^{n}a_i
+  \end{align*}
+\end{proof}
+
+\begin{problem}[3-11]
+Assume $a_n>0$, let
+\[
+s_n=a_1+\cdots+a_n,
+\]
+and suppose that $\sum a_n$ diverges.
+
+\begin{enumerate}
+\item[(a)] Prove that
+\[
+\sum \frac{a_n}{1+a_n}
+\]
+diverges.
+
+\item[(b)] Prove that
+\[
+\frac{a_{N+1}}{s_{N+1}}+\cdots+\frac{a_{N+k}}{s_{N+k}}\ge 1-\frac{s_N}{s_{N+k}},
+\]
+and then prove that \(\sum {a_n}/{s_n} \)
+diverges.
+
+\item[(c)] Prove that
+\[
+\frac{a_n}{s_n^2}\le \frac{1}{s_{n-1}}-\frac{1}{s_n},
+\]
+and then prove that \( \sum {a_n}/{s_n^2} \)
+converges.
+
+\item[(d)] What can be said about
+\[
+\sum \frac{a_n}{1+n a_n},\qquad \sum \frac{a_n}{1+n^2 a_n}?
+\]
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[3-12]
+Assume $a_n>0$ and that $\sum a_n$ converges. Let
+\[
+r_n=\sum_{m=n}^{\infty}a_m.
+\]
+
+\begin{enumerate}
+\item[(a)] Prove that for $m<n$,
+\[
+\frac{a_m}{r_m}+\cdots+\frac{a_n}{r_n}>1-\frac{r_n}{r_m},
+\]
+and then prove that \( \sum {a_n}/{r_n} \) diverges.
+
+\item[(b)] Prove that
+\[
+\frac{a_n}{\sqrt{r_n}}<2\bigl(\sqrt{r_n}-\sqrt{r_{n+1}}\bigr),
+\]
+and then prove that \( \sum {a_n}/{\sqrt{r_n}} \) converges.
+\end{enumerate}
+\end{problem}
+
 \begin{problem}[3-16]
 Fix a positive constant $\alpha$, choose $x_1 > \sqrt{\alpha}$, and define
 \[
