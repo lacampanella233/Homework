@@ -208,6 +208,26 @@ Let $X$ be a metric space.
 		<\varepsilon/3+\varepsilon/3+\varepsilon/3=\varepsilon.
 	\end{align*}\par
 	Thus \( \abs{d(p'_n,q'_n)-D}<\varepsilon \) for any \( n>N \). Hence, \( \lim_{n\to\infty}d(p'_n,q'_n)=D \), and \( \Delta(P,Q) \) is unchanged.\par
+	(c) Take a Cauchy sequence \( \{P_n\} \) in \( X^* \), where \( P_n=\left\{p_{n,m}\right\}_{m\ge 1} \). Construct \( P=\left\{p_{k,n_k}\right\}_{k\ge 1} \) as follow:
+	\begin{itemize}
+		\item Take \( n_1 \) such that for any \( i,j\ge n_1 \), \( d(p_{1,i},p_{1,j})<1 \).
+		\item Take \( n_2>n_1 \) such that: (a) for any \( i,j\ge n_2 \), \( d(p_{2,i},p_{2,j})<1/2 \); (b) for any \( i\ge n_2 \), \( d(p_{1,i},p_{2,i})<2\Delta(P_1,P_2) \).
+		\item ...
+		\item If \( n_1,\cdots,n_k \) has been taken, then take \( n_{k+1} \) such that: (a) for any \( i,j\ge n_{k+1} \), \( d(p_{k+1,i},p_{k+1,j})<1/(k+1) \); (b) for any \( i\ge n_{k+1} \) and \( 1\le j\le k \), \( d(p_{j,i},p_{k+1,i})<2\Delta(P_j,P_{k+1}) \).
+	\end{itemize}\par
+	We will first show that \( P\in X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that fora any \( i,j>N_1 \), \( \Delta(P_i,P_j)<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil2/\varepsilon\rceil,N_1\right\} \). For any \( i,j>N \), by definition, we have
+	\[ d(p_{i,n_i},p_{i,n_j})<\frac{1}{N}<\frac{\varepsilon}{2};\ d(p_{i,n_j},p_{j,n_j})<2\Delta(P_i,P_j)<\frac{\varepsilon}{2} \]
+	\[ \implies d(p_{i,n_i},p_{j,n_j})<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon. \] \par
+	Hence, \( P \) is a Cauchy sequence, and \( P\in X^* \).\par
+	Next, we will show that \( P_n\to P \) in \( X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that for any \( i,j>N_1 \), \( d(p_{i,n_i},p_{j,n_j})<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil4/\varepsilon\rceil,N_1\right\} \). For any \( m>N \), we will show that \( \Delta(P_n,P)<\varepsilon \). For any \( i>n_m \), 
+	\[ d(p_{m,i},p_{m,n_m})<\frac{1}{m}<\frac{\varepsilon}{4},\ d(p_{m,n_m},p_{i,n_i})<\varepsilon/4 \] 
+	\[ \implies d(p_{m,i},p_{i,n_i})<\varepsilon/2\implies \Delta(P_n,P)\le \frac{\varepsilon}{2}<\varepsilon. \] 
+	Hence, \( \lim_{n\to\infty}\Delta(P_n,P)=0 \), and \( X^* \) is complete.\par
+	(d) The statement can be easily proved by definition.\par
+	(e) We will first show that \( \varphi(X) \) is dense in \( X^* \), i.e. for any \( P=\left\{p_n\right\}_{n\ge 1}\in X^* \) and \( \varepsilon>0 \), there exists \( p\in X \) such that \( \Delta(P,P_p)<\varepsilon \). There exists \( N \) such that for any \( i,j\ge N \), \( d(p_i,p_j)<\varepsilon/2 \). Let \( p=p_N \). Then, for any \( i\ge N \), we have
+	\[ d(p_i,p)<\varepsilon/2\implies \Delta(P,P_p)\le \varepsilon/2<\varepsilon. \] \par
+	Hence, \( \varphi(X) \) is dense in \( X^* \).\par
+	Next, we will show that \( \varphi(X)=X^* \) if \( X \) is complete. For any \( P=\left\{p_n\right\}_{n\ge 1}\in X^* \), there exists \( p\in X \) such that \( p_n\to p \). Then \( P \) is equivalent to \( P_p \), and \( P=P_p \). Hence, \( \varphi(X)=X^* \).\par
 \end{proof}
 
 
