@@ -45,11 +45,9 @@ also converges.
 \end{problem}
 
 \begin{proof}
-  From Abel summation formula, we have
-  \begin{align*}
-    \sum_{k=1}^{n}\frac{\sqrt{a_k}}{k}
-    &=\sum_{k=1}^{n}a_k\frac{1}{k\sqrt{a_k}}=\sum_{k=1}^{n}\left(\sum_{i=1}^{k}a_i\right)\left(\frac{1}{k\sqrt{a_k}}-\frac{1}{(k+1)\sqrt{a_{k+1}}}\right)+\frac{1}{(n+1)\sqrt{a_{n+1}}}\sum_{i=1}^{n}a_i
-  \end{align*}
+  By Cauchy-Schwarz inequality, we have
+  \[ \left(\sum_{n=1}^N \frac{\sqrt{a_n}}{n}\right)^2\le \left(\sum_{n=1}^N a_n\right)\left(\sum_{n=1}^N \frac{1}{n^2}\right). \] 
+  Since \( \sum a_n \) converges and \( \sum 1/n^2 \) converges, we have \( \sum {\sqrt{a_n}}/{n} \) converges.
 \end{proof}
 
 \begin{problem}[3-11]
@@ -86,6 +84,15 @@ converges.
 \]
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  (a) If \( \lim_{n\to\infty}a_n\neq 0 \), then so does \( \left\{a_n/(1+a_n)\right\}_{n\ge 1} \), hence \( \sum a_n/(1+a_n) \) diverges.\par
+  If \( \lim_{n\to\infty}a_n=0 \), then take \( N \) such that for any \( n>N \), \( a_n<1 \). Notice that
+  \[ \frac{a_n}{1+a_n}>\frac{a_n}{2},\ \forall\,n>N\implies \sum_{n>N}\frac{a_n}{1+a_N}\text{ diverges}. \] \par
+  (b) From Bernoulli's inequality, We have
+  \[ \frac{s_{N}}{s_{N+k}}=\prod_{i=1}^{k}\left(1-\frac{a_{N+i}}{s_{N+i}}\right)\ge 1-\sum_{i=1}^{n}\frac{a_{N+i}}{s_{N+i}}\implies \sum_{i=1}^{k}\frac{a_{N+i}}{s_{N+i}}\ge 1-\frac{s_{N}}{s_{N+k}}. \]\par
+  Since \( \lim_{n\to\infty}s_n=+\infty \), we can pick a sequence of ascending integers \( \left\{n_i\right\}_{i\ge 1} \) such that \( s_{n_{i+1}}>2s_{n_i} \) for every \( i\ge 1 \). Then, 
+\end{solution}
 
 \begin{problem}[3-12]
 Assume $a_n>0$ and that $\sum a_n$ converges. Let
