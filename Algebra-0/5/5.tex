@@ -1,0 +1,308 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+\definecolor{qqttcc}{rgb}{0.,0.2,0.8}
+\definecolor{qqwwtt}{rgb}{0.,0.4,0.2}
+\definecolor{wwffqq}{rgb}{0.4,1.,0.}
+\definecolor{qqffff}{rgb}{0.,1.,1.}
+
+\config{Algebra-0}{2026 Spring}{5}
+
+\begin{document}
+
+\section{Problems form Artin}
+
+\begin{problem}[I.2.6]
+	Sketch the effect on the plane $\mathbb{R}^2$ of multiplication by the matrix
+	\[
+	A = \begin{bmatrix}
+	2 & -1 \\
+	2 & 3
+	\end{bmatrix}.
+	\]
+\end{problem}
+
+\begin{solution}
+  \begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[line cap=round,line join=round,x=0.4cm,y=0.4cm]
+      \clip(-6.,-10.) rectangle (6.,10.);
+      \draw [line width=0.8pt,color=qqffff] (-2.,-2.)-- (-2.,2.);
+      \draw [line width=0.8pt,color=qqffff] (-1.5,-2.)-- (-1.5,2.);
+      \draw [line width=0.8pt,color=qqffff] (-1.,-2.)-- (-1.,2.);
+      \draw [line width=0.8pt,color=qqffff] (-0.5,-2.)-- (-0.5,2.);
+      \draw [line width=0.8pt,color=qqffff] (0.,-2.)-- (0.,2.);
+      \draw [line width=0.8pt,color=qqffff] (0.5,-2.)-- (0.5,2.);
+      \draw [line width=0.8pt,color=qqffff] (1.,-2.)-- (1.,2.);
+      \draw [line width=0.8pt,color=qqffff] (1.5,-2.)-- (1.5,2.);
+      \draw [line width=0.8pt,color=qqffff] (2.,-2.)-- (2.,2.);
+      \draw [line width=0.8pt,color=qqffff] (2.,-2.)-- (-2.,-2.);
+      \draw [line width=0.8pt,color=qqffff] (2.,-1.5)-- (-2.,-1.5);
+      \draw [line width=0.8pt,color=qqffff] (2.,-1.)-- (-2.,-1.);
+      \draw [line width=0.8pt,color=qqffff] (2.,-0.5)-- (-2.,-0.5);
+      \draw [line width=0.8pt,color=qqffff] (2.,0.)-- (-2.,0.);
+      \draw [line width=0.8pt,color=qqffff] (2.,0.5)-- (-2.,0.5);
+      \draw [line width=0.8pt,color=qqffff] (2.,1.)-- (-2.,1.);
+      \draw [line width=0.8pt,color=qqffff] (2.,1.5)-- (-2.,1.5);
+      \draw [line width=0.8pt,color=qqffff] (2.,2.)-- (-2.,2.);
+      \draw [line width=0.8pt,color=wwffqq] (-2.,-10.)-- (-6.,2.);
+      \draw [line width=0.8pt,color=wwffqq] (-1.,-9.)-- (-5.,3.);
+      \draw [line width=0.8pt,color=wwffqq] (0.,-8.)-- (-4.,4.);
+      \draw [line width=0.8pt,color=wwffqq] (1.,-7.)-- (-3.,5.);
+      \draw [line width=0.8pt,color=wwffqq] (2.,-6.)-- (-2.,6.);
+      \draw [line width=0.8pt,color=wwffqq] (3.,-5.)-- (-1.,7.);
+      \draw [line width=0.8pt,color=wwffqq] (4.,-4.)-- (0.,8.);
+      \draw [line width=0.8pt,color=wwffqq] (5.,-3.)-- (1.,9.);
+      \draw [line width=0.8pt,color=wwffqq] (6.,-2.)-- (2.,10.);
+      \draw [line width=0.8pt,color=wwffqq] (-2.,-10.)-- (6.,-2.);
+      \draw [line width=0.8pt,color=wwffqq] (-2.5,-8.5)-- (5.5,-0.5);
+      \draw [line width=0.8pt,color=wwffqq] (-3.,-7.)-- (5.,1.);
+      \draw [line width=0.8pt,color=wwffqq] (-3.5,-5.5)-- (4.5,2.5);
+      \draw [line width=0.8pt,color=wwffqq] (-4.,-4.)-- (4.,4.);
+      \draw [line width=0.8pt,color=wwffqq] (-4.5,-2.5)-- (3.5,5.5);
+      \draw [line width=0.8pt,color=wwffqq] (-5.,-1.)-- (3.,7.);
+      \draw [line width=0.8pt,color=wwffqq] (-5.5,0.5)-- (2.5,8.5);
+      \draw [line width=0.8pt,color=wwffqq] (-6.,2.)-- (2.,10.);
+      \draw [line width=1.2pt,color=qqttcc,->] (0.,0.)-- (0.,1.);
+      \draw [line width=1.2pt,color=qqttcc,->] (0.,0.)-- (1.,0.);
+      \draw [line width=1.2pt,color=qqwwtt,->] (0.,0.)-- (2.,2.);
+      \draw [line width=1.2pt,color=qqwwtt,->] (0.,0.)-- (-1.,3.);
+    \end{tikzpicture}
+  \end{figure}
+\end{solution}
+
+\begin{problem}[I.2.10]
+  Let $A$ be a square matrix. Prove that there exist elementary matrices
+  $E_1, \ldots, E_k$ such that
+  \[
+  E_k \cdots E_1 A
+  \]
+  is either the identity matrix or has its bottom row equal to zero.
+\end{problem}
+
+\begin{proof}
+  If \( A \) is invertible, then one can transform \( A \) to \( I \) by elementary row transformation, thus there exists elementary matrices \( E_1,\cdots,E_k \) such that \( E_k\cdots E_1A=I \). \par
+  If \( A \) is not invertible, then by elementary row transfirmation, we can transform \( A \) to a row-echelon form, which has its bottom row equal to zero. Thus there exists elementary matrices \( E_1,\cdots,E_k \) such that \( E_k\cdots E_1A \) has its bottom row equal to zero.
+\end{proof}
+
+\begin{problem}[I.4.3]
+  Prove that a matrix in which each row contains exactly one entry equal to $1$,
+  each column also contains exactly one entry equal to $1$, and all other entries
+  are $0$, is a permutation matrix.
+\end{problem}
+
+\begin{proof}
+  Denote the matrix by \( A \). By the definition of \( A \), we can write
+  \[ A=\sum_{i=1}^{n}E_{i,\sigma(i)},\ \sigma(i)\in \left\{1,2,\cdots,n\right\}. \]
+  Moreover, since each column of \( A \) contains exactly one entry equal to \( 1 \), we have \( \sigma(i)\neq \sigma(j) \) for \( i\neq j \). Thus \( \sigma \) is a permutation of \( \left\{1,2,\cdots,n\right\} \), i.e. \( \sigma\in S_n \). Therefore \( A \) is a permutation matrix. 
+\end{proof}
+
+\begin{problem}[I.4.6]
+  What is the permutation matrix corresponding to the permutation \( i \mapsto n-i \) ?
+\end{problem}
+
+\begin{solution}
+  \[ \left(\begin{matrix}
+    0 & 0 & \cdots & 0 & 1 \\
+    0 & 0 & \cdots & 1 & 0 \\
+    \vdots & \vdots & \ddots & \vdots & \vdots \\
+    0 & 1 & \cdots & 0 & 0 \\
+    1 & 0 & \cdots & 0 & 0
+  \end{matrix}\right). \] 
+\end{solution}
+
+\begin{problem}[I.5.3]
+  Let $A=(a_{ij})$ be an $n\times n$ matrix with integer entries. Prove that
+  $A^{-1}$ has integer entries if and only if
+  \[
+  \det(A)=\pm 1.
+  \]
+\end{problem}
+
+\begin{proof}
+  If \( A^{-1} \) has integer entries, then \( \det A^{-1}\in\Z \). Since \( \det(A^{-1}) = (\det A)^{-1} \), we have \( (\det A)^{-1} \in \Z \), which implies \( \det A = \pm 1 \). \par
+  Conversely, if \( \det A = \pm 1 \), then \( A^{-1}=(\operatorname{adj} A)/(\det A) \) has integer entries since \( \operatorname{adj} A \) has integer entries and \( \det A = \pm 1 \).
+\end{proof}
+
+\section{Problems from LADR}
+
+\begin{problem}[4-10]
+  For $p \in \mathcal{P}(\mathbb{R})$, define $Tp:\mathbb{R}\to\mathbb{R}$ by
+  \[
+  (Tp)(x)=
+  \begin{cases}
+    \dfrac{p(x)-p(3)}{x-3}, & \text{if } x\neq 3,\\
+    p'(3), & \text{if } x=3.
+  \end{cases}
+  \]
+  for each $x\in\mathbb{R}$. Show that $Tp\in\mathcal{P}(\mathbb{R})$ for every
+  polynomial $p\in\mathcal{P}(\mathbb{R})$ and also show that
+  $T:\mathcal{P}(\mathbb{R})\to\mathcal{P}(\mathbb{R})$ is a linear map.
+\end{problem}
+
+\begin{proof}
+  Since the polynomial \( p(x)-p(3) \) vanishes at \( x=3 \), it has a root \( x=3 \), hence a factor \( x-3 \). Write
+  \[ p(x)-p(3)=q(x)(x-3). \] \par
+  Take derivative of the equation above and set \( x=3 \), we can get \( p'(3)=q(3) \).  Then \( T(p)=q\in \mathcal{P}(\R) \).\par
+  Let's prove that \( T \) is a linear map. \begin{itemize}
+    \item for \( p,q\in \mathcal{P}(\R) \), 
+    \[ T(p+q)=\frac{p(x)+q(x)-p(3)-q(3)}{x-3}=\frac{p(x)-p(3)}{x-3}+\frac{q(x)-q(3)}{x-3}=T(p)+T(q). \]
+    \item for \( p\in \mathcal{P}(\R) \) and \( c\in \R \),
+    \[ T(cp)=\frac{cp(x)-cp(3)}{x-3}=c\frac{p(x)-p(3)}{x-3}=cT(p). \]
+  \end{itemize}\par
+  Therefore \( T \) is a linear map.
+\end{proof}
+
+\begin{problem}[4-12]
+  Suppose $m$ is a nonnegative integer and $p\in\mathcal{P}_m(\mathbb{C})$ is
+  such that there are distinct real numbers $x_0,x_1,\ldots,x_m$ with
+  $p(x_k)\in\mathbb{R}$ for each $k=0,1,\ldots,m$. Prove that all coefficients
+  of $p$ are real.
+\end{problem}
+
+\begin{proof}
+  By the Lagrange interpolation formula, we can write
+  \[ p(x)=\sum_{k=0}^{m}p(x_k)\prod_{j\neq k}\frac{x-x_j}{x_k-x_j}. \] \par
+  Since \( p(x_k)\in \R \) for each \( k=0,1,\cdots,m \), the coefficients of \( p \) are all real.
+\end{proof}
+
+\begin{problem}[4-13]
+  Suppose $p\in\mathcal{P}(\mathbf{F})$ with $p\neq 0$. Let
+  \[
+  U=\{pq:q\in\mathcal{P}(\mathbf{F})\}.
+  \]
+  \begin{enumerate}
+    \item Show that $\dim\bigl(\mathcal{P}(\mathbf{F})/U\bigr)=\deg p$.
+    \item Find a basis of $\mathcal{P}(\mathbf{F})/U$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+  Let \( \deg p = m \). We will show that \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) is a basis of \( \mathcal{P}(\mathbf{F})/U \). \par
+  First, we show that \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) is linearly independent. Suppose \( c_0,c_1,\cdots,c_{m-1}\in \mathbf{F} \) such that
+  \[ c_0(1+U)+c_1(x+U)+\cdots+c_{m-1}(x^{m-1}+U)=0+U. \] \par
+  Then \( c_0+c_1x+\cdots+c_{m-1}x^{m-1}\in U \), which implies that there exists \( q\in \mathcal{P}(\mathbf{F}) \) such that
+  \[ c_0+c_1x+\cdots+c_{m-1}x^{m-1}=pq. \] \par
+  Since \( \deg p = m \) and \( \deg(q) < m \), this is impossible unless \( c_0=c_1=\cdots=c_{m-1}=0 \). Therefore, \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) is linearly independent. \par
+  Next, we show that \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) spans \( \mathcal{P}(\mathbf{F})/U \). Let \( r\in \mathcal{P}(\mathbf{F}) \). By the division algorithm, there exist unique polynomials \( q,r'\in \mathcal{P}(\mathbf{F}) \) such that
+  \[ r=pq+r', \quad \deg(r')<\deg(p). \] \par
+  Then \( r+U=pq+r'+U=r'+U \), and since \( r'=\sum_{k=0}^{m-1}a_kx^k \) for some \( a_k\in \mathbf{F} \),
+  we have
+ \[ r'+U=\sum_{k=0}^{m-1}a_k(x^k+U). \] \par
+  Therefore, \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) spans \( \mathcal{P}(\mathbf{F})/U \). Hence, it is a basis.
+\end{solution}
+
+\begin{problem}[4-14]
+  Suppose $p,q\in\mathcal{P}(\mathbb{C})$ are nonconstant polynomials with no
+  zeros in common. Let $m=\deg p$ and $n=\deg q$. Use linear algebra as outlined
+  below in (a)--(c) to prove that there exist
+  $r\in\mathcal{P}_{n-1}(\mathbb{C})$ and $s\in\mathcal{P}_{m-1}(\mathbb{C})$ such
+  that
+  \[
+  rp+sq=1.
+  \]
+  \begin{enumerate}[label=(\alph*)]
+    \item Define
+    \[
+    T:\mathcal{P}_{n-1}(\mathbb{C})\times\mathcal{P}_{m-1}(\mathbb{C})
+    \to\mathcal{P}_{m+n-1}(\mathbb{C})
+    \]
+    by
+    \[
+    T(r,s)=rp+sq.
+    \]
+    Show that the linear map $T$ is injective.
+    \item Show that the linear map $T$ in (a) is surjective.
+    \item Use (b) to conclude that there exist
+    $r\in\mathcal{P}_{n-1}(\mathbb{C})$ and $s\in\mathcal{P}_{m-1}(\mathbb{C})$ such
+    that $rp+sq=1$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) Suppose $T(r,s)=rp+sq=0$ for some $r\in\mathcal{P}_{n-1}(\mathbb{C})$, $s\in\mathcal{P}_{m-1}(\mathbb{C})$. Then $rp=-sq$. Since $p$ and $q$ have no common zeros, they are coprime in $\mathbb{C}[x]$. Hence $p$ divides $s$, but $\deg s<\deg p$, so $s=0$. Similarly $q$ divides $r$, and $\deg r<\deg q$ implies $r=0$. Thus $T$ is injective.\par
+  (b) Since \( \dim(\mathcal{P}_{n-1}(\C)\times \mathcal{P}_{m-1}(\C))=n+m=\dim(\mathcal{P}_{m+n-1}(\C)) \), and \( T \) is injective, we can conclude that \( T \) is surjective. \par
+  (c) Since \( T \) is surjective, there exist \( r\in \mathcal{P}_{n-1}(\C) \) and \( s\in \mathcal{P}_{m-1}(\C) \) such that \( T(r,s)=rp+sq=1 \).
+\end{proof}
+
+\begin{problem}[5A-7]
+  Define \( T\in \mathcal{L}(\F^3) \) by \( T(z_1,z_2,z_3)=(2z_2,0,5z_3) \). Find all eigevalues and eigenvectors of \( T \). 
+\end{problem}
+
+\begin{solution}
+  The represent matrix of \( T \) is
+  \[ A=\left(\begin{matrix}
+    0 & 2 & 0\\
+    0 & 0 & 0\\
+    0 & 0 & 5
+  \end{matrix}\right). \] 
+  Solving the characteristic polynomial \( \det(\lambda I - A) = 0 \), we can get the eigenvalues \( \lambda = 0,0,5 \). \par
+  For \( \lambda = 0 \), the eigenvectors is \( (x,0,0) \); For \( \lambda=5 \), the eigenvectors is \( (0,0,x) \).
+\end{solution}
+
+\begin{problem}[5A-8]
+  Suppose $P\in\mathcal{L}(V)$ is such that $P^2=P$. Prove that if $\lambda$ is an eigenvalue of $P$, then $\lambda=0$ or $\lambda=1$.
+\end{problem}
+
+\begin{proof}
+  Choose an nonzero eigenvector \( v\in V \) with eigenvalue \( \lambda \). Then \( Pv = \lambda v \). Applying \( P \) again, we get \( P^2v = P(\lambda v) = \lambda Pv = \lambda^2 v \). Since \( P^2 = P \), we have \( Pv = \lambda^2 v \). Therefore, \( \lambda v = \lambda^2 v \), which implies \( \lambda = \lambda^2 \). Solving this equation, we get \( \lambda = 0 \) or \( \lambda = 1 \).
+\end{proof}
+
+\begin{problem}[5A-15]
+  Suppose $V$ is finite-dimensional, $T\in\mathcal{L}(V)$, and
+  $\lambda\in\mathbf{F}$. Show that $\lambda$ is an eigenvalue of $T$ if and
+  only if $\lambda$ is an eigenvalue of the dual operator
+  $T^*\in\mathcal{L}(V^*)$.
+\end{problem}
+
+\begin{proof}
+  Denote \( M \) as the represent matrix of \( T \) w.r.t basis \( \mathcal{B  } \). Then \( M^t \) is the represent matrix of \( T^* \) w.r.t the dual basis \( \mathcal{B}^* \). Obviously \( M \) and \( M^t \)  have the same eigenvalues. Therefore, \( \lambda \) is an eigenvalue of \( T \) if and only if \( \lambda \) is an eigenvalue of \( T^* \).
+\end{proof}
+
+\begin{problem}[5A-16]
+  Suppose $v_1,\ldots,v_n$ is a basis of $V$ and $T\in\mathcal{L}(V)$. Prove
+  that if $\lambda$ is an eigenvalue of $T$, then
+  \[
+  |\lambda|\leq n\max\bigl\{|\mathcal{M}(T)_{j,k}|:1\leq j,k\leq n\bigr\},
+  \]
+  where $\mathcal{M}(T)_{j,k}$ denotes the entry in row $j$, column $k$ of the
+  matrix of $T$ with respect to the basis $v_1,\ldots,v_n$.
+\end{problem}
+
+\begin{proof}
+  Take an nonzero eigenvector \( v \) with eigenvalue \( \lambda \). Write \( v = a_1v_1 + a_2v_2 + \cdots + a_nv_n \). Denote \( M_{ij}=\mathcal{M}(T)_{ij} \). Then
+  \[ Tv = \lambda v = a_1\sum_{j=1}^{n}M_{j1}v_j + a_2\sum_{j=1}^{n}M_{j2}v_j + \cdots + a_n\sum_{j=1}^{n}M_{jn}v_j. \] \par
+  \[ \implies \lambda a_i=\sum_{j=1}^{n}a_{j}M_{ij}. \] 
+  Using the triangle inequality, we get
+  \begin{align*}
+    \abs{\lambda}\sum_{i=1}^{n}\abs{a_i}
+    &=\sum_{i=1}^{n}\abs{\sum_{j=1}^{n}a_jM_{ij}}
+    \le \sum_{i=1}^{n}\sum_{j=1}^{n}\abs{a_j}\abs{M_{ij}}\\
+    &\le \max \left\{\abs{M_{ij}}:1\leq i,j\leq n\right\} \sum_{i=1}^{n}\sum_{j=1}^{n}\abs{a_j}\\
+    &\le n\max \left\{\abs{M_{ij}}:1\leq i,j\leq n\right\} \sum_{j=1}^{n}\abs{a_j}.
+  \end{align*}
+  Since \( v\neq 0 \), we have \( \sum_{i=1}^{n}\abs{a_i}>1 \), hence the conclusion follows.
+\end{proof}
+
+\begin{problem}[5A-22]
+  Suppose \( T\in \mathcal{L}(V) \) and there exist nonzero vectors \( u \) and \( w \) in \( V \) such that 
+  \[ T(u)=3w,\quad T(w)=3u. \] 
+  Prove that \( 3 \) or \( -3 \) is an eigenvalue of \( T \).
+\end{problem}
+
+\begin{proof}
+  If \( u+w\neq 0 \), then \( T(u+w)=3(u+w) \), which indicates \( 3 \) is an eigenvalue of \( T \); Otherwise, \( w=-u \), and \( T(u)=-3u \), which indicates \( -3 \) is an eigenvalue pf \( T \).
+\end{proof}
+
+
+
+
+
+
+
+\end{document}
