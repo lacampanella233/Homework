@@ -158,5 +158,82 @@
   Therefore \( T \) is a linear map.
 \end{proof}
 
+\begin{problem}[4-12]
+  Suppose $m$ is a nonnegative integer and $p\in\mathcal{P}_m(\mathbb{C})$ is
+  such that there are distinct real numbers $x_0,x_1,\ldots,x_m$ with
+  $p(x_k)\in\mathbb{R}$ for each $k=0,1,\ldots,m$. Prove that all coefficients
+  of $p$ are real.
+\end{problem}
+
+\begin{proof}
+  By the Lagrange interpolation formula, we can write
+  \[ p(x)=\sum_{k=0}^{m}p(x_k)\prod_{j\neq k}\frac{x-x_j}{x_k-x_j}. \] \par
+  Since \( p(x_k)\in \R \) for each \( k=0,1,\cdots,m \), the coefficients of \( p \) are all real.
+\end{proof}
+
+\begin{problem}[4-13]
+  Suppose $p\in\mathcal{P}(\mathbf{F})$ with $p\neq 0$. Let
+  \[
+  U=\{pq:q\in\mathcal{P}(\mathbf{F})\}.
+  \]
+  \begin{enumerate}
+    \item Show that $\dim\bigl(\mathcal{P}(\mathbf{F})/U\bigr)=\deg p$.
+    \item Find a basis of $\mathcal{P}(\mathbf{F})/U$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+  Let \( \deg p = m \). We will show that \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) is a basis of \( \mathcal{P}(\mathbf{F})/U \). \par
+  First, we show that \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) is linearly independent. Suppose \( c_0,c_1,\cdots,c_{m-1}\in \mathbf{F} \) such that
+  \[ c_0(1+U)+c_1(x+U)+\cdots+c_{m-1}(x^{m-1}+U)=0+U. \] \par
+  Then \( c_0+c_1x+\cdots+c_{m-1}x^{m-1}\in U \), which implies that there exists \( q\in \mathcal{P}(\mathbf{F}) \) such that
+  \[ c_0+c_1x+\cdots+c_{m-1}x^{m-1}=pq. \] \par
+  Since \( \deg p = m \) and \( \deg(q) < m \), this is impossible unless \( c_0=c_1=\cdots=c_{m-1}=0 \). Therefore, \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) is linearly independent. \par
+  Next, we show that \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) spans \( \mathcal{P}(\mathbf{F})/U \). Let \( r\in \mathcal{P}(\mathbf{F}) \). By the division algorithm, there exist unique polynomials \( q,r'\in \mathcal{P}(\mathbf{F}) \) such that
+  \[ r=pq+r', \quad \deg(r')<\deg(p). \] \par
+  Then \( r+U=pq+r'+U=r'+U \), and since \( r'=\sum_{k=0}^{m-1}a_kx^k \) for some \( a_k\in \mathbf{F} \),
+  we have
+ \[ r'+U=\sum_{k=0}^{m-1}a_k(x^k+U). \] \par
+  Therefore, \( \{1+U,x+U,\cdots,x^{m-1}+U\} \) spans \( \mathcal{P}(\mathbf{F})/U \). Hence, it is a basis.
+\end{solution}
+
+\begin{problem}[4-14]
+  Suppose $p,q\in\mathcal{P}(\mathbb{C})$ are nonconstant polynomials with no
+  zeros in common. Let $m=\deg p$ and $n=\deg q$. Use linear algebra as outlined
+  below in (a)--(c) to prove that there exist
+  $r\in\mathcal{P}_{n-1}(\mathbb{C})$ and $s\in\mathcal{P}_{m-1}(\mathbb{C})$ such
+  that
+  \[
+  rp+sq=1.
+  \]
+  \begin{enumerate}[label=(\alph*)]
+    \item Define
+    \[
+    T:\mathcal{P}_{n-1}(\mathbb{C})\times\mathcal{P}_{m-1}(\mathbb{C})
+    \to\mathcal{P}_{m+n-1}(\mathbb{C})
+    \]
+    by
+    \[
+    T(r,s)=rp+sq.
+    \]
+    Show that the linear map $T$ is injective.
+    \item Show that the linear map $T$ in (a) is surjective.
+    \item Use (b) to conclude that there exist
+    $r\in\mathcal{P}_{n-1}(\mathbb{C})$ and $s\in\mathcal{P}_{m-1}(\mathbb{C})$ such
+    that $rp+sq=1$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+  WLOG, we can assume that \( p=(x-x_1)(x-x_2)\cdots(x-x_m) \) and \( q=(x-y_1)(x-y_2)\cdots(x-y_n) \) are monic. \par
+  (a) Suppose that \( T(r,s)=0 \) for some \( r\in \mathcal{P}_{n-1}(\C) \) and \( s\in \mathcal{P}_{m-1}(\C) \). Then \( rp+sq=0 \). Since \( p(x_i)=0\neq q(x_i) \) for each \( i=1,2,\cdots,m \), we have \( s(x_i)=0 \) for each \( i=1,2,\cdots,m \). Since \( s\in \mathcal{P}_{m-1}(\C) \), this implies that \( s=0 \). Similarly, since \( q(y_j)=0 \) for each \( j=1,2,\cdots,n \), we have \( r(y_j)=0 \) for each \( j=1,2,\cdots,n \). Since \( r\in \mathcal{P}_{n-1}(\C) \), this implies that \( r=0 \). Therefore, \( T \) is injective. \par
+  (b) Since \( \dim(\mathcal{P}_{n-1}(\C)\times \mathcal{P}_{m-1}(\C))=n+m=\dim(\mathcal{P}_{m+n-1}(\C)) \), and \( T \) is injective, we can conclude that \( T \) is surjective. \par
+  (c) Since \( T \) is surjective, there exist \( r\in \mathcal{P}_{n-1}(\C) \) and \( s\in \mathcal{P}_{m-1}(\C) \) such that \( T(r,s)=rp+sq=1 \).
+\end{proof}
+
+
+
+
+
 
 \end{document}
