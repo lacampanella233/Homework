@@ -92,6 +92,15 @@ converges.
   (b) From Bernoulli's inequality, We have
   \[ \frac{s_{N}}{s_{N+k}}=\prod_{i=1}^{k}\left(1-\frac{a_{N+i}}{s_{N+i}}\right)\ge 1-\sum_{i=1}^{n}\frac{a_{N+i}}{s_{N+i}}\implies \sum_{i=1}^{k}\frac{a_{N+i}}{s_{N+i}}\ge 1-\frac{s_{N}}{s_{N+k}}. \]\par
   Since \( \lim_{n\to\infty}s_n=+\infty \), we can pick a sequence of ascending integers \( \left\{n_i\right\}_{i\ge 1} \) such that \( s_{n_{i+1}}>2s_{n_i} \) for every \( i\ge 1 \). Then, 
+  \[ \sum_{i=n_1+1}^{n_{k+1}}\frac{a_{i}}{s_{i}}=\sum_{i=1}^{k}\sum_{j=n_{i}+1}^{n_{i+1}}\frac{a_{j}}{s_{j}}\ge\sum_{i=1}^{k}\left(1-\frac{s_{n_i}}{s_{n_{i+1}}}\right)>\sum_{i=1}^{k}\left(1-\frac{1}{2}\right)=\frac{k}{2}. \] \par
+  Therefore, \( \sum {a_n}/{s_n} \) diverges.\par
+  (c) Since \( s_n=s_{n-1}+a_n \), we have
+  \[ \frac{1}{s_{n-1}}-\frac{1}{s_n}=\frac{s_{n}-s_{n-1}}{s_{n-1}s_{n}}\ge \frac{a_{n}}{s_{n}^2}. \] 
+  Thus, 
+  \[ \sum_{i=1}^{N}\frac{a_i}{s_i^2}\le\frac{1}{a_1} \sum_{i=2}^{N}\left(\frac{1}{s_{i-1}}-\frac{1}{s_i}\right)=\frac{2}{a_1}-\frac{1}{s_N}. \] 
+  (d) The first series can be either convergent or divergent. For example, if \( a_n=1/n \), then \( \sum a_n/(1+na_n) \) diverges; if \( a_n=1/n^2 \), then \( \sum a_n/(1+na_n) \) converges. \par
+  The second series converges, since
+  \[ \frac{a_n}{1+n^2a_n}<\frac{a_n}{n^2a_n}=\frac{1}{n^2}. \] 
 \end{solution}
 
 \begin{problem}[3-12]
@@ -114,6 +123,16 @@ and then prove that \( \sum {a_n}/{r_n} \) diverges.
 and then prove that \( \sum {a_n}/{\sqrt{r_n}} \) converges.
 \end{enumerate}
 \end{problem}
+
+\begin{proof}
+  (a) From Bernoulli's inequality, we have
+  \[ \frac{r_{n}}{r_{m}}=\prod_{i=m}^{n-1}\left(1-\frac{a_{i}}{r_{i}}\right)> 1-\sum_{i=m}^{n-1}\frac{a_{i}}{r_{i}}\implies \sum_{i=m}^{n-1}\frac{a_{i}}{r_{i}}> 1-\frac{r_{n}}{r_{m}}. \]
+  From the same argument as 3-11(b), we can conclude that \( \sum {a_n}/{r_n} \) diverges.\par
+  (b) Since \( r_n=r_{n+1}+a_n \), we have
+  \[ \sqrt{r_n}-\sqrt{r_{n+1}}=\frac{r_{n}-r_{n+1}}{\sqrt{r_n}+\sqrt{r_{n+1}}}> \frac{a_n}{2\sqrt{r_n}}\implies \frac{a_n}{\sqrt{r_n}}<2\left(\sqrt{r_n}-\sqrt{r_{n+1}}\right). \] 
+  Then \( \sum_{n=1}^{N}a_n/\sqrt{r_n}<2 \left(\sqrt{r_1}-\sqrt{r_{N+1}}\right) \), which indicates that \( \sum {a_n}/{\sqrt{r_n}} \) converges.
+\end{proof}
+
 
 \begin{problem}[3-16]
 Fix a positive constant $\alpha$, choose $x_1 > \sqrt{\alpha}$, and define
@@ -210,7 +229,7 @@ x_{n+1}=\frac{\alpha+x_n}{1+x_n}
 	Similarly, we can show that \( \lim_{n\to\infty} x_{2n}=\sqrt{\alpha} \). Therefore, \( \lim_{n\to\infty} x_n=\sqrt{\alpha} \).\par
 	(d) Let \( \varepsilon_n=x_n-\sqrt{\alpha} \). We have
 	\[ \varepsilon_{n+1}=\frac{(\sqrt{\alpha}-1)(\sqrt{\alpha}-x_n)}{1+x_n}=\frac{(\sqrt{\alpha}-1)\varepsilon_n}{1+x_n}. \] 
-	Then the convergence rate is linear, i.e. \( \varepsilon_n\sim \left(\frac{\alpha-1}{\alpha+1}\right)^n \), which is much slower than the method in Exercise 16.
+	Then the convergence rate is linear, i.e. \( \varepsilon_n\sim \left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^n \), which is much slower than the method in Exercise 16.
 \end{solution}
 
 \begin{problem}[3-20]
@@ -286,7 +305,7 @@ Let $X$ be a metric space.
 	\[
 	\Delta(P,Q)=\lim_{n\to\infty} d(p_n,q_n).
 	\]
-	By Problem 23, this limit exists. Prove that if $\{p_n\}$ and $\{q_n\}$ are replaced by equivalent sequences, then $\Delta(P,Q)$ is unchanged; hence $\Delta$ is a metric on $X^*$.
+	By Problem 3-23, this limit exists. Prove that if $\{p_n\}$ and $\{q_n\}$ are replaced by equivalent sequences, then $\Delta(P,Q)$ is unchanged; hence $\Delta$ is a metric on $X^*$.
 
 	\item[(c)] Prove that the metric space $X^*$ obtained above is complete.
 
@@ -311,7 +330,7 @@ Let $X$ be a metric space.
 	Let \( N=\max \left\{N_1,N_2,N_3\right\} \). Then, for any \( n>N \), we have
 	\begin{align*}
 		\abs{d(p'_n,q'_n)-D}
-		&=\abs{\left(d(p'_n,q'_n)-d(p_n,q_n)\right)}+\abs{d(p_n,q_n)-D}\\
+		&\le\abs{\left(d(p'_n,q'_n)-d(p_n,q_n)\right)}+\abs{d(p_n,q_n)-D}\\
 		&\le \abs{d(p'_n,q'_n)-d(p_n,q_n)}+\varepsilon/3\\
 		&\le \abs{d(p'_n,q'_n)-d(p_n,q'_n)}+\abs{d(p_n,q'_n)-d(p_n,q_n)}+\varepsilon/3\\
 		&\le d(p_n,p'_n)+d(q_n,q'_n)+\varepsilon/3
@@ -321,12 +340,12 @@ Let $X$ be a metric space.
 	(c) Take a Cauchy sequence \( \{P_n\} \) in \( X^* \), where \( P_n=\left\{p_{n,m}\right\}_{m\ge 1} \). Construct \( P=\left\{p_{k,n_k}\right\}_{k\ge 1} \) as follow:
 	\begin{itemize}
 		\item Take \( n_1 \) such that for any \( i,j\ge n_1 \), \( d(p_{1,i},p_{1,j})<1 \).
-		\item Take \( n_2>n_1 \) such that: (a) for any \( i,j\ge n_2 \), \( d(p_{2,i},p_{2,j})<1/2 \); (b) for any \( i\ge n_2 \), \( d(p_{1,i},p_{2,i})<2\Delta(P_1,P_2) \).
+		\item Take \( n_2>n_1 \) such that: (a) for any \( i,j\ge n_2 \), \( d(p_{2,i},p_{2,j})<1/2 \); (b) for any \( i\ge n_2 \), \( d(p_{1,i},p_{2,i})<\Delta(P_1,P_2)+1/2 \).
 		\item ...
-		\item If \( n_1,\cdots,n_k \) has been taken, then take \( n_{k+1} \) such that: (a) for any \( i,j\ge n_{k+1} \), \( d(p_{k+1,i},p_{k+1,j})<1/(k+1) \); (b) for any \( i\ge n_{k+1} \) and \( 1\le j\le k \), \( d(p_{j,i},p_{k+1,i})<2\Delta(P_j,P_{k+1}) \).
+		\item If \( n_1,\cdots,n_k \) has been taken, then take \( n_{k+1} \) such that: (a) for any \( i,j\ge n_{k+1} \), \( d(p_{k+1,i},p_{k+1,j})<1/(k+1) \); (b) for any \( i\ge n_{k+1} \) and \( 1\le j\le k \), \( d(p_{j,i},p_{k+1,i})<\Delta(P_j,P_{k+1})+1/(k+1) \).
 	\end{itemize}\par
-	We will first show that \( P\in X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that fora any \( i,j>N_1 \), \( \Delta(P_i,P_j)<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil2/\varepsilon\rceil,N_1\right\} \). For any \( i,j>N \), by definition, we have
-	\[ d(p_{i,n_i},p_{i,n_j})<\frac{1}{N}<\frac{\varepsilon}{2};\ d(p_{i,n_j},p_{j,n_j})<2\Delta(P_i,P_j)<\frac{\varepsilon}{2} \]
+	We will first show that \( P\in X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that fora any \( i,j>N_1 \), \( \Delta(P_i,P_j)<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil4/\varepsilon\rceil,N_1\right\} \). For any \( i,j>N \), by definition, we have
+	\[ d(p_{i,n_i},p_{i,n_j})<\frac{1}{N}<\frac{\varepsilon}{2};\ d(p_{i,n_j},p_{j,n_j})<\Delta(P_i,P_j)+\frac{1}{N}<\frac{\varepsilon}{4}+\frac{\varepsilon}{4}=\frac{\varepsilon}{2} \]
 	\[ \implies d(p_{i,n_i},p_{j,n_j})<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon. \] \par
 	Hence, \( P \) is a Cauchy sequence, and \( P\in X^* \).\par
 	Next, we will show that \( P_n\to P \) in \( X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that for any \( i,j>N_1 \), \( d(p_{i,n_i},p_{j,n_j})<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil4/\varepsilon\rceil,N_1\right\} \). For any \( m>N \), we will show that \( \Delta(P_n,P)<\varepsilon \). For any \( i>n_m \), 
