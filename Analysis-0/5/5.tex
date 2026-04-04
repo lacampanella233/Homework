@@ -1,0 +1,364 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Analysis-0}{2026 Spring}{5}
+
+\begin{document}
+
+\begin{problem}[3-4]
+Find the limit superior and limit inferior of the sequence $\{s_n\}$ defined by
+\[
+s_1=0,\qquad s_{2m}=\frac{s_{2m-1}}{2},\qquad s_{2m+1}=\frac{1}{2}+s_{2m}\quad(m\ge 1).
+\]
+\end{problem}
+
+\begin{solution}
+  from the recursion, wew have \( s_1=s_2=0 \), and
+  \[ s_{2n+2}=\frac{s_{2n+1}}{2}=\frac{1}{4}+\frac{s_{2n}}{2} \implies s_{2n}=-\frac{1}{2^{n}}+\frac{1}{2}.\]
+  \[ s_{2n-1}=2s_{2n}=-\frac{1}{2^{n-1}}+1. \]\par
+  Then it's clear that \( \limsup_{n\to\infty} s_n=1 \) and \( \liminf_{n\to\infty} s_n=1/2 \).  
+\end{solution}
+
+\begin{problem}[3-5]
+For any two real sequences $\{a_n\}$ and $\{b_n\}$, prove that
+\[
+\limsup_{n\to\infty}(a_n+b_n)\le \limsup_{n\to\infty}a_n+\limsup_{n\to\infty}b_n.
+\]
+Assume that the sum on the right-hand side is not of the indeterminate form $+\infty-\infty$.
+\end{problem}
+
+\begin{proof}
+  Recall that 
+  \[ \limsup_{n\to\infty}a_n=\lim_{n\to\infty}\left(\sup_{m\ge n} a_m\right), \]
+  so it suffices to show that for any positive integer \( n \),
+  \[ \sup_{m\ge n} (a_m+b_m)\le \sup_{m\ge n} a_m+\sup_{m\ge n} b_m \] 
+  \[ \Longleftarrow \sup \left\{a+b:a\in A,b\in B\right\}\le \sup A+\sup B,\text{ where }A=\left\{a_m:m\ge n\right\},B=\left\{b_m:m\ge n\right\}. \] 
+\end{proof}
+
+
+\begin{problem}[3-7]
+Prove that if $a_n\ge 0$ and $\sum a_n$ converges, then
+\[
+\sum \frac{\sqrt{a_n}}{n}
+\]
+also converges.
+\end{problem}
+
+\begin{proof}
+  By Cauchy-Schwarz inequality, we have
+  \[ \left(\sum_{n=1}^N \frac{\sqrt{a_n}}{n}\right)^2\le \left(\sum_{n=1}^N a_n\right)\left(\sum_{n=1}^N \frac{1}{n^2}\right). \] 
+  Since \( \sum a_n \) converges and \( \sum 1/n^2 \) converges, we have \( \sum {\sqrt{a_n}}/{n} \) converges.
+\end{proof}
+
+\begin{problem}[3-11]
+Assume $a_n>0$, let
+\[
+s_n=a_1+\cdots+a_n,
+\]
+and suppose that $\sum a_n$ diverges.
+
+\begin{enumerate}
+\item[(a)] Prove that
+\[
+\sum \frac{a_n}{1+a_n}
+\]
+diverges.
+
+\item[(b)] Prove that
+\[
+\frac{a_{N+1}}{s_{N+1}}+\cdots+\frac{a_{N+k}}{s_{N+k}}\ge 1-\frac{s_N}{s_{N+k}},
+\]
+and then prove that \(\sum {a_n}/{s_n} \)
+diverges.
+
+\item[(c)] Prove that
+\[
+\frac{a_n}{s_n^2}\le \frac{1}{s_{n-1}}-\frac{1}{s_n},
+\]
+and then prove that \( \sum {a_n}/{s_n^2} \)
+converges.
+
+\item[(d)] What can be said about
+\[
+\sum \frac{a_n}{1+n a_n},\qquad \sum \frac{a_n}{1+n^2 a_n}?
+\]
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) If \( \lim_{n\to\infty}a_n\neq 0 \), then so does \( \left\{a_n/(1+a_n)\right\}_{n\ge 1} \), hence \( \sum a_n/(1+a_n) \) diverges.\par
+  If \( \lim_{n\to\infty}a_n=0 \), then take \( N \) such that for any \( n>N \), \( a_n<1 \). Notice that
+  \[ \frac{a_n}{1+a_n}>\frac{a_n}{2},\ \forall\,n>N\implies \sum_{n>N}\frac{a_n}{1+a_N}\text{ diverges}. \] \par
+  (b) From Bernoulli's inequality, We have
+  \[ \frac{s_{N}}{s_{N+k}}=\prod_{i=1}^{k}\left(1-\frac{a_{N+i}}{s_{N+i}}\right)\ge 1-\sum_{i=1}^{n}\frac{a_{N+i}}{s_{N+i}}\implies \sum_{i=1}^{k}\frac{a_{N+i}}{s_{N+i}}\ge 1-\frac{s_{N}}{s_{N+k}}. \]\par
+  Since \( \lim_{n\to\infty}s_n=+\infty \), we can pick a sequence of ascending integers \( \left\{n_i\right\}_{i\ge 1} \) such that \( s_{n_{i+1}}>2s_{n_i} \) for every \( i\ge 1 \). Then, 
+  \[ \sum_{i=n_1+1}^{n_{k+1}}\frac{a_{i}}{s_{i}}=\sum_{i=1}^{k}\sum_{j=n_{i}+1}^{n_{i+1}}\frac{a_{j}}{s_{j}}\ge\sum_{i=1}^{k}\left(1-\frac{s_{n_i}}{s_{n_{i+1}}}\right)>\sum_{i=1}^{k}\left(1-\frac{1}{2}\right)=\frac{k}{2}. \] \par
+  Therefore, \( \sum {a_n}/{s_n} \) diverges.\par
+  (c) Since \( s_n=s_{n-1}+a_n \), we have
+  \[ \frac{1}{s_{n-1}}-\frac{1}{s_n}=\frac{s_{n}-s_{n-1}}{s_{n-1}s_{n}}\ge \frac{a_{n}}{s_{n}^2}. \] 
+  Thus, 
+  \[ \sum_{i=1}^{N}\frac{a_i}{s_i^2}\le\frac{1}{a_1} \sum_{i=2}^{N}\left(\frac{1}{s_{i-1}}-\frac{1}{s_i}\right)=\frac{2}{a_1}-\frac{1}{s_N}. \] 
+  (d) The first series can be either convergent or divergent. For example, if \( a_n=1/n \), then \( \sum a_n/(1+na_n) \) diverges; if \( a_n=1/n^2 \), then \( \sum a_n/(1+na_n) \) converges. \par
+  The second series converges, since
+  \[ \frac{a_n}{1+n^2a_n}<\frac{a_n}{n^2a_n}=\frac{1}{n^2}. \] 
+\end{solution}
+
+\begin{problem}[3-12]
+Assume $a_n>0$ and that $\sum a_n$ converges. Let
+\[
+r_n=\sum_{m=n}^{\infty}a_m.
+\]
+
+\begin{enumerate}
+\item[(a)] Prove that for $m<n$,
+\[
+\frac{a_m}{r_m}+\cdots+\frac{a_n}{r_n}>1-\frac{r_n}{r_m},
+\]
+and then prove that \( \sum {a_n}/{r_n} \) diverges.
+
+\item[(b)] Prove that
+\[
+\frac{a_n}{\sqrt{r_n}}<2\bigl(\sqrt{r_n}-\sqrt{r_{n+1}}\bigr),
+\]
+and then prove that \( \sum {a_n}/{\sqrt{r_n}} \) converges.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) From Bernoulli's inequality, we have
+  \[ \frac{r_{n}}{r_{m}}=\prod_{i=m}^{n-1}\left(1-\frac{a_{i}}{r_{i}}\right)> 1-\sum_{i=m}^{n-1}\frac{a_{i}}{r_{i}}\implies \sum_{i=m}^{n-1}\frac{a_{i}}{r_{i}}> 1-\frac{r_{n}}{r_{m}}. \]
+  From the same argument as 3-11(b), we can conclude that \( \sum {a_n}/{r_n} \) diverges.\par
+  (b) Since \( r_n=r_{n+1}+a_n \), we have
+  \[ \sqrt{r_n}-\sqrt{r_{n+1}}=\frac{r_{n}-r_{n+1}}{\sqrt{r_n}+\sqrt{r_{n+1}}}> \frac{a_n}{2\sqrt{r_n}}\implies \frac{a_n}{\sqrt{r_n}}<2\left(\sqrt{r_n}-\sqrt{r_{n+1}}\right). \] 
+  Then \( \sum_{n=1}^{N}a_n/\sqrt{r_n}<2 \left(\sqrt{r_1}-\sqrt{r_{N+1}}\right) \), which indicates that \( \sum {a_n}/{\sqrt{r_n}} \) converges.
+\end{proof}
+
+
+\begin{problem}[3-16]
+Fix a positive constant $\alpha$, choose $x_1 > \sqrt{\alpha}$, and define
+\[
+x_{n+1} = \frac{1}{2}\left(x_n + \frac{\alpha}{x_n}\right),
+\]
+which determines $x_2, x_3, x_4, \dots$.
+
+\begin{enumerate}
+	\item[(a)] Prove that $\{x_n\}$ is monotonically decreasing and
+	\[
+	\lim_{n \to \infty} x_n = \sqrt{\alpha}.
+	\]
+
+	\item[(b)] Let $\varepsilon_n = x_n - \sqrt{\alpha}$. Prove that
+	\[
+	\varepsilon_{n+1} = \frac{\varepsilon_n^2}{2x_n} < \frac{\varepsilon_n^2}{2\sqrt{\alpha}}.
+	\]
+	Hence, setting $\beta = 2\sqrt{\alpha}$, obtain
+	\[
+	\varepsilon_{n+1} < \beta\left(\frac{\varepsilon_1}{\beta}\right)^{2^n},
+	\qquad n=1,2,3,\dots.
+	\]
+
+	\item[(c)] This is a good method for computing square roots, because the recursion is simple and converges very fast. For example, if $\alpha = 3$ and $x_1 = 2$, prove that
+	\[
+	\frac{\varepsilon_1}{\beta} < \frac{1}{10},
+	\]
+	and therefore
+	\[
+	\varepsilon_5 < 4\cdot 10^{-16},
+	\qquad
+	\varepsilon_6 < 4\cdot 10^{-32}.
+	\]
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+    (a) First, we will show (by induction) that \( \sqrt{\alpha}<x_{n+1}<x_n \) for any positive integer \( n \). It suffices to show that if \( x_n>\alpha \), then \( \alpha<x_{n+1}<x_{n} \). This is because
+    \[ x_{n+1}=\frac{1}{2}\left(x_n+\frac{\alpha}{x_n}\right)>\sqrt{x_{n}\cdot\frac{\alpha}{x_n}}=\sqrt{\alpha}\ (\text{Notice that } x_n \neq \sqrt{\alpha}), \] 
+    \[ x_{n}-x_{n+1}=\frac{1}{2}\left(x_n-\frac{\alpha}{x_n}\right)=\frac{x_{n}^2-\alpha}{2x_n}>0 . \]\par
+    Next, we will show that \( \lim_{n\to\infty} x_n=\sqrt{\alpha} \). Since \( \{x_n\} \) is bounded and monotone, it converges. Let \( x=\lim_{n\to\infty} x_n \). Then
+    \[ x=\frac{1}{2}\left(x+\frac{\alpha}{x}\right) \implies x^2=\alpha\implies x=\sqrt{\alpha}. \]\par
+	(b) We have
+	\[ \varepsilon_{n+1}=x_{n+1}-\sqrt{\alpha}=\frac{1}{2}\left(x_n+\frac{\alpha}{x_n}-2\sqrt{\alpha}\right)=\frac{1}{2}\left(\sqrt{x_n}-\sqrt{\frac{\alpha}{x_n}}\right)^2=\frac{\varepsilon_n^2}{2x_n}. \]
+	Since \( x_n>\sqrt{\alpha} \), we have \( \varepsilon_{n+1}<\frac{\varepsilon_n^2}{2\sqrt{\alpha}} \). Let \( \beta=2\sqrt{\alpha} \).
+	By induction, we can show that \( \varepsilon_{n+1}<\beta\left(\varepsilon_1/\beta\right)^{2^n} \) for any positive integer \( n \). It suffices to show that if \( \varepsilon_n<\beta\left(\varepsilon_1/\beta\right)^{2^{n-1}} \), then \( \varepsilon_{n+1}<\beta\left(\varepsilon_1/\beta\right)^{2^n} \). This is because
+	\[ \varepsilon_{n+1}<\frac{\varepsilon_n^2}{2\sqrt{\alpha}}<\frac{\beta^2}{2\sqrt{\alpha}}\left(\frac{\varepsilon_1}{\beta}\right)^{2^n}=\beta\left(\frac{\varepsilon_1}{\beta}\right)^{2^n}. \]\par
+	(c) Take \( \alpha=3 \) and \( x_1=2 \), we can calculate that
+	\[ \varepsilon_1=x_1-\sqrt{\alpha}=2-\sqrt{3}\approx 0.268,\ \beta=2\sqrt{3}\approx 3.464\implies \frac{\varepsilon_1}{\beta}\approx 0.077<\frac{1}{10}. \] 
+\end{solution}
+
+\begin{problem}[3-17]
+Fix $\alpha>1$. Choose $x_1>\sqrt{\alpha}$ and define
+\[
+x_{n+1}=\frac{\alpha+x_n}{1+x_n}
+=x_n+\frac{\alpha-x_n^2}{1+x_n}.
+\]
+
+\begin{enumerate}
+	\item[(a)] Prove that
+	\[
+	x_1>x_3>x_5>\cdots.
+	\]
+
+	\item[(b)] Prove that
+	\[
+	x_2<x_4<x_6<\cdots.
+	\]
+
+	\item[(c)] Prove that
+	\[
+	\lim_{n\to\infty}x_n=\sqrt{\alpha}.
+	\]
+
+	\item[(d)] Compare the convergence rate of this method with that of the method in Exercise 16.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) and (b)\ \ From the recursion, we have
+	\[ x_{n+2}-x_{n}=\frac{(1+\alpha)x_{n}+2\alpha}{2x_n+(1+\alpha)}-x_n=-\frac{2(x_n^2-\alpha)}{2x_n+(1+\alpha)}\begin{cases}
+		<0, & \text{if } x_n>\sqrt{\alpha},\\
+		>0, & \text{if } x_n<\sqrt{\alpha}.
+	\end{cases} \]
+	\[ x_{n+1}-\sqrt{\alpha}=\frac{(\sqrt{\alpha}-1)(\sqrt{\alpha}-x_n)}{1+x_n}\begin{cases}
+		<0, & \text{if } x_n>\sqrt{\alpha},\\
+		>0, & \text{if } x_n<\sqrt{\alpha}.
+	\end{cases} \] \par
+	Then the conclusions follow immediately from \( x_1>\sqrt{\alpha} \) and little effort on induction.\par
+	(c) Since \( \{x_{2n-1}\} \) is bounded and monotone, it converges. Let \( x=\lim_{n\to\infty} x_{2n-1} \). Then
+	\[ x=\frac{(1+\alpha)x_{n}+2\alpha}{2x_n+(1+\alpha)} \implies x=\pm\sqrt{\alpha}. \] 
+	Since all the terms are positive, we have \( x=\sqrt{\alpha} \).\par
+	Similarly, we can show that \( \lim_{n\to\infty} x_{2n}=\sqrt{\alpha} \). Therefore, \( \lim_{n\to\infty} x_n=\sqrt{\alpha} \).\par
+	(d) Let \( \varepsilon_n=x_n-\sqrt{\alpha} \). We have
+	\[ \varepsilon_{n+1}=\frac{(\sqrt{\alpha}-1)(\sqrt{\alpha}-x_n)}{1+x_n}=\frac{(\sqrt{\alpha}-1)\varepsilon_n}{1+x_n}. \] 
+	Then the convergence rate is linear, i.e. \( \varepsilon_n\sim \left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^n \), which is much slower than the method in Exercise 16.
+\end{solution}
+
+\begin{problem}[3-20]
+Let $\{p_n\}$ be a Cauchy sequence in a metric space $X$, and suppose that a subsequence $\{p_{n_i}\}$ converges to a point $p\in X$. Prove that the whole sequence $\{p_n\}$ converges to $p$.
+\end{problem}
+
+\begin{proof}
+	For any positive real number \( \varepsilon \), there exists integer \( N_1 \) and \( N_2 \) such that \( d(p_{n_i},p)<\varepsilon/2 \) for all \( n_i\geq N_1 \) and \( d(p_m,p_n)<\varepsilon/2 \) for all \( m,n\geq N_2 \).\par
+	Take \( N=\max \left\{N_1,N_2\right\} \). For any \( n>N \), select \( n_i>n \). Then by the definition of \( N \), we have
+	\[ d(p_n,p)\le d(p_n,p_{n_i})+d(p_{n_i},p)<\varepsilon/2+\varepsilon/2 =\varepsilon. \] \par
+	Hence, \( \{p_n\} \) converges to \( p \).
+\end{proof}
+
+\begin{problem}[3-21]
+Prove the following theorem, analogous to Theorem 3.10(b): if, in a complete metric space $X$, each $E_n$ in the sequence $\{E_n\}$ is a nonempty bounded closed set, $E_n\supset E_{n+1}$, and
+\[
+\lim_{n\to\infty}\operatorname{diam}(E_n)=0,
+\]
+then
+\[
+\bigcap_{n=1}^{\infty}E_n
+\]
+consists of exactly one point.
+\end{problem}
+
+\begin{proof}
+	First, we will show that \( \bigcap_{n=1}^{\infty} E_n \) is nonempty. For each positive integer \( n \), select \( p_n\in E_n \). Since \( E_1 \) is bounded and \( p_n\in E_n\subset E_1 \) for any \( n\le 1 \), The sequence \( \left\{p_n\right\} \) is bounded. Therefore, \( \left\{p_n\right\} \) has a convergent subsequence, say \( \left\{p_{n_i}\right\} \). Denote \( \lim_{i\to\infty}p_{n_i}=p \). \par
+	For any \( n\in\N_+ \), since \( \left\{p_{n_i}:n_i\ge n\right\} \subset E_n \), \( E_n \) is closed, and \( p_{n_i}\to p \), we have \( p\in E_n \). Thus, \( p\in \bigcap_{n=1}^{\infty} E_n \), and the intersection is nonempty. \par
+	Next, we will show that \( \bigcap_{n=1}^{\infty} E_n \) consists of exactly one point. Suppose that there are two distinct points \( p,q\in \bigcap_{n=1}^{\infty} E_n \). Then for any positive integer \( n \), since \( p,q\in E_n \), we have \( d(p,q)\le \operatorname{diam}(E_n) \). Letting \( n\to\infty \), we have \( d(p,q)=0 \), which is a contradiction. Hence, the intersection consists of exactly one point.
+\end{proof}
+
+\begin{problem}[3-22]
+Let $X$ be a complete metric space, and let each $G_n$ in the sequence $\{G_n\}$ be an open dense subset of $X$. Prove Baire's theorem:
+\[
+\bigcap_{n=1}^{\infty} G_n \neq \varnothing
+\]
+(in fact, this intersection is dense in $X$).
+\end{problem}
+
+\begin{proof}
+	We will prove that \( G:=\bigcap_{n=1}^{\infty} G_n \) is dense in \( X \), i.e. for any \( x\in X \) and \( r>0 \), \( N_r(x)\cap G\neq\varnothing \). \par
+	Take \( x_1\in N_r(x) \) (such \( x_1 \) exists, since \( G_1 \) is dense in \( X \)), and \( r_1>0 \) such that \( N_{r_1}(x_1)\subset G_1 \) (Notice that \( G_1 \) is open). 
+	Suppose that we have selected \( x_1,x_2,\dots,x_{n} \) and \( r_1,r_2,\dots,r_{n} \), such that \( N_{r_i}(x_i)\subset G_i \) and \( N_{r_i}(x_i)\subset N_{r_{i-1}}(x_{i-1}) \). Then we can select \( x_{n+1}\in N_{r_n}(x_n)\cap G_{n+1} \) (such \( x_{n+1} \) exists, since \( G_{n+1} \) is dense in \( X \)), and \( r_{n+1}>0 \) such that \( N_{r_{n+1}}(x_{n+1})\subset G_{n+1} \) and \( N_{r_{n+1}}(x_{n+1})\subset N_{r_n}(x_n) \). \par
+	Then we have a sequence of nested closed balls \( \left\{\overline{N}_{r_n}(x_n)\right\} \). Since \( r_n\to 0 \), we have \( \operatorname{diam}(\overline{N}_{r_n}(x_n))=2r_n\to 0 \). By Problem 21, there exists a unique point \( y\in X \) such that \( y\in \bigcap_{n=1}^{\infty} \overline{N}_{r_n}(x_n) \). Since \( N_{r_n}(x_n)\subset G_n \), we have \( y\in G_n \) for any positive integer \( n \). Hence, \( y\in G=\bigcap_{n=1}^{\infty} G_n \). Moreover, since \( y\in N_r(x) \), we have \( N_r(x)\cap G\neq\varnothing \). Therefore, \( G=\bigcap_{n=1}^{\infty} G_n \) is dense in \( X \).
+\end{proof}
+
+\begin{problem}[3-23]
+	Let \( \left\{p_n\right\} \) and \( \left\{q_n\right\} \) be two Cauchy sequences in metric space \( X \). Prove that \( \left\{d(p_n,q_n)\right\} \) converges.
+\end{problem}
+
+\begin{proof}
+	We'll show that \( \left\{d(p_n,q_n)\right\} \) is a Cauchy sequence. For any positive real number \( \varepsilon \), there exists integer \( N_1 \) and \( N_2 \) such that \( d(p_m,p_n)<\varepsilon/2 \) for all \( m,n\geq N_1 \) and \( d(q_m,q_n)<\varepsilon/2 \) for all \( m,n\geq N_2 \).\par
+	Take \( N=\max \left\{N_1,N_2\right\} \). For any \( m,n>N \), we have
+	\begin{align*}
+		d(p_m,q_m)-d(p_n,q_n) &\le d(p_m,p_n)+d(p_n,q_n)+d(q_n,q_m)-d(p_n,q_n)\\
+		&=d(p_m,p_n)+d(q_n,q_m)<\varepsilon/2+\varepsilon/2=\varepsilon.\\
+		d(p_m,q_m)-d(p_n,q_n) &\ge -d(p_m,p_n)-d(q_n,q_m)>-\varepsilon/2-\varepsilon/2=-\varepsilon.
+	\end{align*}
+	Thus \( \abs{d(p_m,q_m)-d(p_n,q_n)}<\varepsilon \). Hence, \( \left\{d(p_n,q_n)\right\} \) is a Cauchy sequence, and it converges.
+\end{proof}
+
+\begin{problem}[3-24]
+Let $X$ be a metric space.
+
+\begin{enumerate}
+	\item[(a)] Two Cauchy sequences $\{p_n\}$ and $\{q_n\}$ in $X$ are called equivalent if
+	\[
+	\lim_{n\to\infty} d(p_n,q_n)=0.
+	\]
+	Prove that this defines an equivalence relation (Definition 2.3).
+
+	\item[(b)] Let $X^*$ be the set of all equivalence classes obtained in this way. If $P\in X^*$ and $Q\in X^*$, choose $\{p_n\}\in P$ and $\{q_n\}\in Q$, and define
+	\[
+	\Delta(P,Q)=\lim_{n\to\infty} d(p_n,q_n).
+	\]
+	By Problem 3-23, this limit exists. Prove that if $\{p_n\}$ and $\{q_n\}$ are replaced by equivalent sequences, then $\Delta(P,Q)$ is unchanged; hence $\Delta$ is a metric on $X^*$.
+
+	\item[(c)] Prove that the metric space $X^*$ obtained above is complete.
+
+	\item[(d)] For each $p\in X$, choose a Cauchy sequence all of whose terms are $p$; let $P_p$ be the member of $X^*$ containing this sequence. Prove that for all $p,q\in X$,
+	\[
+	\Delta(P_p,P_q)=d(p,q).
+	\]
+	In other words, the map $\varphi(p)=P_p$ is an isometry from $X$ into $X^*$.
+
+	\item[(e)] Prove that $\varphi(X)$ is dense in $X^*$, and that $\varphi(X)=X^*$ if and only if $X$ is complete.
+	\end{enumerate}\par
+	Using (d), we may identify $X$ with $\varphi(X)$, and thus regard $X$ as embedded in the complete metric space $X^*$. The space $X^*$ is called the \emph{completion} of $X$.
+\end{problem}
+
+\begin{proof}
+	(a) The reflexivity and symmetry of this relation are obvious. We will show that it is transitive. Suppose that \( \{p_n\} \) and \( \{q_n\} \) are equivalent, and \( \{q_n\} \) and \( \{r_n\} \) are equivalent. For any positive real number \( \varepsilon \), there exists integer \( N_1 \) and \( N_2 \) such that \( d(p_n,q_n)<\varepsilon/2 \) for all \( n\geq N_1 \) and \( d(q_n,r_n)<\varepsilon/2 \) for all \( n\geq N_2 \).\par
+	Take \( N=\max \left\{N_1,N_2\right\} \). For any \( n>N \), we have
+	\[ d(p_n,r_n)\le d(p_n,q_n)+d(q_n,r_n)<\varepsilon/2+\varepsilon/2=\varepsilon. \] \par
+	Hence, \( \{p_n\} \) and \( \{r_n\} \) are equivalent, and the relation is transitive.\par
+	(b) Assume that \( \{p_n'\} \) and \( \{q_n'\} \) are equivalent to \( \{p_n\} \) and \( \{q_n\} \) respectively. Denote \( D:=\lim_{n\to\infty}d(p_n,q_n) \). \par
+	For any positive number \( \varepsilon \), there exist \( N_1,N_2,N_3 \) such that \( \abs{d(p_n,q_n)-D}<\varepsilon/3 \) for any \( n>N_3 \), and \( \abs{d(p_n,p'_n)}<\varepsilon/3 \) for any \( n>N_1 \), and \( \abs{d(q_n,q'_n)}<\varepsilon/3 \) for any \( n>N_2 \). \par
+	Let \( N=\max \left\{N_1,N_2,N_3\right\} \). Then, for any \( n>N \), we have
+	\begin{align*}
+		\abs{d(p'_n,q'_n)-D}
+		&\le\abs{\left(d(p'_n,q'_n)-d(p_n,q_n)\right)}+\abs{d(p_n,q_n)-D}\\
+		&\le \abs{d(p'_n,q'_n)-d(p_n,q_n)}+\varepsilon/3\\
+		&\le \abs{d(p'_n,q'_n)-d(p_n,q'_n)}+\abs{d(p_n,q'_n)-d(p_n,q_n)}+\varepsilon/3\\
+		&\le d(p_n,p'_n)+d(q_n,q'_n)+\varepsilon/3
+		<\varepsilon/3+\varepsilon/3+\varepsilon/3=\varepsilon.
+	\end{align*}\par
+	Thus \( \abs{d(p'_n,q'_n)-D}<\varepsilon \) for any \( n>N \). Hence, \( \lim_{n\to\infty}d(p'_n,q'_n)=D \), and \( \Delta(P,Q) \) is unchanged.\par
+	(c) Take a Cauchy sequence \( \{P_n\} \) in \( X^* \), where \( P_n=\left\{p_{n,m}\right\}_{m\ge 1} \). Construct \( P=\left\{p_{k,n_k}\right\}_{k\ge 1} \) as follow:
+	\begin{itemize}
+		\item Take \( n_1 \) such that for any \( i,j\ge n_1 \), \( d(p_{1,i},p_{1,j})<1 \).
+		\item Take \( n_2>n_1 \) such that: (a) for any \( i,j\ge n_2 \), \( d(p_{2,i},p_{2,j})<1/2 \); (b) for any \( i\ge n_2 \), \( d(p_{1,i},p_{2,i})<\Delta(P_1,P_2)+1/2 \).
+		\item ...
+		\item If \( n_1,\cdots,n_k \) has been taken, then take \( n_{k+1} \) such that: (a) for any \( i,j\ge n_{k+1} \), \( d(p_{k+1,i},p_{k+1,j})<1/(k+1) \); (b) for any \( i\ge n_{k+1} \) and \( 1\le j\le k \), \( d(p_{j,i},p_{k+1,i})<\Delta(P_j,P_{k+1})+1/(k+1) \).
+	\end{itemize}\par
+	We will first show that \( P\in X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that fora any \( i,j>N_1 \), \( \Delta(P_i,P_j)<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil4/\varepsilon\rceil,N_1\right\} \). For any \( i,j>N \), by definition, we have
+	\[ d(p_{i,n_i},p_{i,n_j})<\frac{1}{N}<\frac{\varepsilon}{2};\ d(p_{i,n_j},p_{j,n_j})<\Delta(P_i,P_j)+\frac{1}{N}<\frac{\varepsilon}{4}+\frac{\varepsilon}{4}=\frac{\varepsilon}{2} \]
+	\[ \implies d(p_{i,n_i},p_{j,n_j})<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon. \] \par
+	Hence, \( P \) is a Cauchy sequence, and \( P\in X^* \).\par
+	Next, we will show that \( P_n\to P \) in \( X^* \). For any positive number \( \varepsilon \), take \( N_1 \) such that for any \( i,j>N_1 \), \( d(p_{i,n_i},p_{j,n_j})<\varepsilon/4 \). Then, let \( N=\max \left\{\lceil4/\varepsilon\rceil,N_1\right\} \). For any \( m>N \), we will show that \( \Delta(P_n,P)<\varepsilon \). For any \( i>n_m \), 
+	\[ d(p_{m,i},p_{m,n_m})<\frac{1}{m}<\frac{\varepsilon}{4},\ d(p_{m,n_m},p_{i,n_i})<\varepsilon/4 \] 
+	\[ \implies d(p_{m,i},p_{i,n_i})<\varepsilon/2\implies \Delta(P_n,P)\le \frac{\varepsilon}{2}<\varepsilon. \] 
+	Hence, \( \lim_{n\to\infty}\Delta(P_n,P)=0 \), and \( X^* \) is complete.\par
+	(d) The statement can be easily proved by definition.\par
+	(e) We will first show that \( \varphi(X) \) is dense in \( X^* \), i.e. for any \( P=\left\{p_n\right\}_{n\ge 1}\in X^* \) and \( \varepsilon>0 \), there exists \( p\in X \) such that \( \Delta(P,P_p)<\varepsilon \). There exists \( N \) such that for any \( i,j\ge N \), \( d(p_i,p_j)<\varepsilon/2 \). Let \( p=p_N \). Then, for any \( i\ge N \), we have
+	\[ d(p_i,p)<\varepsilon/2\implies \Delta(P,P_p)\le \varepsilon/2<\varepsilon. \] \par
+	Hence, \( \varphi(X) \) is dense in \( X^* \).\par
+	Next, we will show that \( \varphi(X)=X^* \) if \( X \) is complete. For any \( P=\left\{p_n\right\}_{n\ge 1}\in X^* \), there exists \( p\in X \) such that \( p_n\to p \). Then \( P \) is equivalent to \( P_p \), and \( P=P_p \). Hence, \( \varphi(X)=X^* \).\par
+\end{proof}
+
+
+
+\end{document}
