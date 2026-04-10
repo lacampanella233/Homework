@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1775751858.65671 "d:/程昊一/Homework/Algebra-0/6/6.tex" "6.pdf" "6" 1775751859.76518 0
-  "6.aux" 1775751859 162 f0fda7573680236e99560fa2ea99f7ba "pdflatex"
-  "6.out" 1775751859 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "6.tex" 1775751858 10411 d753b4ad3a6d174dc74f39d2d38fc37a ""
+["pdflatex"] 1775785415.69879 "d:/程昊一/Homework/Algebra-0/6/6.tex" "6.pdf" "6" 1775785417.28055 0
+  "6.aux" 1775785417 162 f0fda7573680236e99560fa2ea99f7ba "pdflatex"
+  "6.out" 1775785416 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "6.tex" 1775785414 12945 2e8e8baec6576ce26ab0f2b765d38fcd ""
   "c:/Windows/Fonts/msyh.ttc" 1756564701 19704352 1e10e74402e59d54499af795caf0b135 ""
   "c:/Windows/Fonts/simkai.ttf" 1711630440 11789376 868a8b82664dfab00a95e3e30eaa705a ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1751704149 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -59,6 +59,7 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1751703469 36281 c355509802a035cadc5f15869451dcee ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1751703469 35752 024fb6c41858982481f6968b5fc26508 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1751703469 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1751703469 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1751703469 32762 7fee39e011c23b3589931effd97b9702 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1751703469 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1751703469 32716 08e384dc442464e7285e891af9f45947 ""
@@ -165,7 +166,7 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1751710906 5512713 d5293fe2524c042fff1d1aaaba621917 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1751711061 3346133 a455951bd44c3d6cc0fcd01d149be5bf ""
   "c:/texlive/2025/texmf.cnf" 1751710880 713 e69b156964470283e0530f5060668171 ""
-  "d:/程昊一/Homework/Algebra-0/6/6.tex" 1775751858 10411 d753b4ad3a6d174dc74f39d2d38fc37a ""
+  "d:/程昊一/Homework/Algebra-0/6/6.tex" 1775785414 12945 2e8e8baec6576ce26ab0f2b765d38fcd ""
   "homework.sty" 1774873487 4837 c0fdb029f7a9ee7d8b9d2b0b623acc46 ""
   (generated)
   "6.aux"

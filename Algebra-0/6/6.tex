@@ -137,14 +137,30 @@ Suppose that $V$ is finite-dimensional, $\dim V > 1$, and $T \in \mathcal{L}(V)$
 
 
 
-
-
 \begin{problem}[5B-7]
 \begin{enumerate}[label=(\alph*)]
   \item Give an example of $S, T \in \mathcal{L}(\F^2)$ such that the minimal polynomial of $ST$ does not equal the minimal polynomial of $TS$.
   \item Suppose $V$ is finite-dimensional and $S, T \in \mathcal{L}(V)$. Prove that if at least one of $S, T$ is invertible, then the minimal polynomial of $ST$ equals the minimal polynomial of $TS$.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  (a) Let \( S=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix} \) and \( T=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix} \). Then \( ST=0 \) and \( TS=\begin{pmatrix}
+    1 & 0 \\
+    0 & 0
+  \end{pmatrix} \). Hence, the minimal polynomial of \( ST \) is \( x \), while the minimal polynomial of \( TS \) is \( x(x-1) \).
+  \par
+  (b) If \( S \) is invertible, then \( ST=S(TS)S^{-1} \), which implies that \( ST \) and \( TS \) are similar. Hence, they have the same minimal polynomial. The case when \( T \) is invertible can be proved similarly.
+\end{solution}
+
+
+
 
 \begin{problem}[5B-16]
 Suppose $a_0, \ldots, a_{n-1} \in \F$. Let $T$ be the operator on $\F^n$ whose matrix (with respect to the standard basis) is
@@ -164,6 +180,16 @@ a_0 + a_1 z + \cdots + a_{n-1}z^{n-1} + z^n.
 \]
 \end{problem}
 
+\begin{proof}
+  Take \( v_k=(0,\dots,0,\overset{k \text{-th}}{1},0,\dots,0)\transpose \) where the $1$ is in the $k$-th position. Then from the representation matrix of \( T \), we can infer that
+  \[ Tv_1=v_2, \  Tv_2=v_3, \  \ldots, \  Tv_{n-1}=v_n, \  Tv_n=-a_0v_1-a_1v_2-\cdots-a_{n-1}v_{n-1} \]
+  Denote the minimal polynomial of \( T \) by \( m(x) \). If \( \deg m<n \), then \( m(T)(v_1) \) is a linear comnbinition of \( v_1,\dots,v_{n} \) with not-all-zero coefficients, which contradicts the definition of \( m \). Hence, \( \deg m\ge n \). On the other hand, it's easy to verify that
+  \[ T^n v_1=-a_0v_1-a_1v_2-\cdots-a_{n-1}v_{n-1}\implies \left( \sum_{k=0}^{n-1}a_kT^k+T_n \right)(v_1)=0. \]\par
+  Denote \( p(x)=\sum_{k=0}^{n-1}a_kx^k+x^n \), then \( \deg p=n \) and \( p(T)v_1=0 \). And similarly, \( p(T)v_k=p(T)T^{k-1}(v_1)=0 \). Therefore, \( p(T)=0 \), which indicates \( p(x)=m(x) \).
+\end{proof}
+
+
+
 \begin{problem}[5B-20]
 Suppose $T \in \mathcal{L}(\F^4)$ is such that the eigenvalues of $T$ are $3, 5, 8$. Prove that
 \[
@@ -171,9 +197,22 @@ Suppose $T \in \mathcal{L}(\F^4)$ is such that the eigenvalues of $T$ are $3, 5,
 \]
 \end{problem}
 
+\begin{proof}
+  The minimal polynomial of \( T \) is a product of powers of \( x-3, x-5, x-8 \), say \( m(x)=(x-3)^{\alpha_1}(x-5)^{\alpha_2}(x-8)^{\alpha_3} \), where \( \alpha_1,\alpha_2,\alpha_3\in\N_+ \). Note that \( \deg m\le 4 \), hence \( \alpha_1\le 4-1-1=2 \), which means \( (x-3)^{\alpha_1}\left|(x-3)^2\right. \). The similar argument applies to \( (x-5)^{\alpha_2} \) and \( (x-8)^{\alpha_3} \). Therefore, \( m(x)\left|\,(x-3)^2(x-5)^2(x-8)^2\right. \), which implies that \( (T-3I)^2(T-5I)^2(T-8I)^2=0 \).
+\end{proof}
+
+
+
 \begin{problem}[5B-21]
-Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that the minimal polynomial of $T$ has degree at most $1 + \dim\operatorname{range} T$.
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that the minimal polynomial of $T$ has degree at most $1 + \dim\im T$.
 \end{problem}
+
+\begin{proof}
+  Denote the minimal polynomial of \( T \) by \( m_T(x) \). Note that \( m_T(x) \) divides the characteristic polynomial of \( T \) which has degree at most \( \dim V \). Apply the same argument to \( T|_{\im T} \), we have \( \deg m_{T|_{\im T}}\le\dim\im T \). \par
+  For any vector \( v\in V \), \( T(v)\in\im T \), which means \( m_{T|_{\im T}}(T(v))=0 \). Therefore, \( m_T(x) \) divides \( m_{T|_{\im T}}(x)x \), and hence \( \deg m_T(x)\le 1 + \dim\im T \).
+\end{proof}
+
+
 
 \begin{problem}[5B-22]
 Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that $T$ is invertible if and only if
