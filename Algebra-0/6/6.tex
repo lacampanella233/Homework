@@ -1,0 +1,285 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Algebra-0}{2026 Spring}{6}
+
+\begin{document}
+
+
+\begin{problem}[5A-29]
+Suppose $T \in \mathcal{L}(\R^3)$ and $-4$, $5$, and $\sqrt{7}$ are eigenvalues of $T$. Prove that there exists $x \in \R^3$ such that
+\[
+Tx - 9x = (-4, 5, \sqrt{7}).
+\]
+\end{problem}
+
+\begin{proof}
+  Since $-4$, $5$, and $\sqrt{7}$ are eigenvalues of $T\in \mathcal{L}(\R^3)$, we can infer that \( 9 \) is not an eigenvalue, hence \( \ker (T-9I)=\left\{ 0 \right\} \). Therefore, \( T-9I \) is injective. Since \( \R^3 \) is finite-dimensional, injectivity implies surjectivity. Thus, for any vector \( v \) in \( \R^3 \), there exists a vector \( x \in \R^3 \) such that \( Tx-9x=v \). Take \( v=(-4,5,\sqrt{7}) \), then the problem has been proved.
+\end{proof}
+
+
+
+\begin{problem}[5A-30]
+Suppose $T \in \mathcal{L}(V)$ and
+\[
+(T - 2I)(T - 3I)(T - 4I) = 0.
+\]
+Suppose $\lambda$ is an eigenvalue of $T$. Prove that $\lambda = 2$ or $\lambda = 3$ or $\lambda = 4$.
+\end{problem}
+
+\begin{proof}
+  Take \( v\neq0 \) such that \( Tv=\lambda v \). Then
+  \[ 0=(T-2I)(T-3I)(T-4I)v=(\lambda-2)(\lambda-3)(\lambda-4)v\implies\lambda\in \left\{ 2, 3, 4 \right\}. \]
+\end{proof}
+
+
+
+\begin{problem}[5A-38]
+Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and $U$ is a subspace of $V$ invariant under $T$. The quotient operator $T/U \in \mathcal{L}(V/U)$ is defined by
+\[
+(T/U)(v + U) = Tv + U
+\]
+for each $v \in V$.
+\begin{enumerate}[label=(\alph*)]
+	\item Show that the definition of $T/U$ makes sense (which requires using the condition that $U$ is invariant under $T$) and show that $T/U$ is an operator on $V/U$.
+	\item Show that each eigenvalue of $T/U$ is an eigenvalue of $T$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) For any \( v_1,v_2\in V \) such that \( v_1+U=v_2+U \), we know that \( u:=v_1-v_2\in U \). Then
+  \begin{align*}
+    (T/U)(v_1+U) &=T(v_1)+U = T(v_2+u)+U = T(v_2)+Tu+U\\
+    &= T(v_2)+U = (T/U)(v_2+U).
+  \end{align*}
+  Then \( T/U \) is well-defined.\par
+  (b) Take an eigenvalue and corresponding eigenvector of \( T/U \), say \( \lambda \) and \( v+U \). Note that \( v+U \neq U \), so \( v \notin U \). Then \( Tv+U=(T/U)(v+U)=\lambda(v+U)=\lambda v+U \), which implies that \( Tv=\lambda v+u \) for some \( u\in U \). \par
+  If \( \lambda \) is not an eigenvalue of \( T \), then \( T-\lambda I \) is injective in \( V \), as well as in \( U \) (because \( U \) is T-invariant). Then there exists \( u_0\in U \) such that \( Tu_0-\lambda u_0=u\in U \). \par
+  Set \( v'=v-u_0 \). Since \( v\notin U \), we have \( v'\neq 0 \). And by the definition of \( u_0 \), we have
+  \[ Tv'=Tv-Tu_0=\lambda v+u-(\lambda u_0+u)=\lambda (v-u_0)=\lambda v'. \]
+  This contradicts the assumption that \( \lambda \) is not an eigenvalue of \( T \). Therefore, \( \lambda \) is an eigenvalue of \( T \).
+\end{proof}
+
+
+
+\begin{problem}[5A-42]
+Define $T \in \mathcal{L}(\F^n)$ by
+\[
+T(x_1, x_2, x_3, \ldots, x_n) = (x_1, 2x_2, 3x_3, \ldots, nx_n).
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item Find all eigenvalues and eigenvectors of $T$.
+	\item Find all subspaces of $\F^n$ that are invariant under $T$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) The representation of \( T \) under the standard basis is \( \operatorname{diag}(1,2,\dots,n) \), then all eigenvalues and eigenvectors of \( T \) are
+  \[ k\text{ and }(0,\dots,0,\overset{(k\text{ th})}{1},0,\dots,0), \quad k=1,2,\dots,n. \]\par
+  (b) We will prove that the invariant subspaces of \( T \) are exactly those spanned by a subset of the standard basis, i.e. those of the form
+  \[ V_S:=\left\{ a_1,\dots,a_n \in\F^n:\, a_i=0 \text{ for all } i\notin S \right\},\text{ where } S \subseteq \{1,2,\dots,n\}. \]\par
+  Obviously, \( V_S \) is invariant under \( T \) for any \( S \subseteq \{1,2,\dots,n\} \). \par
+  Conversely, take an invariant subspace \( U \) of \( T \). For any \( v=(a_1,a_2,\dots,a_n) \), Define 
+  \[ N(v)=\left\{ k\in\left\{ 1,2,\dots,n \right\}:a_k\neq 0 \right\}, \]
+  \[ v_-=\min\left\{ \abs{a_i}:i\in N(v) \right\},\quad v_+=\max\left\{ \abs{a_i}:i\in N(v) \right\}. \]
+  Then, let \( S=\bigcup_{u\in U}^{}N(u) \). We will show that \( U=V_S \). Obviously \( U\subset V_S \), so it suffices to prove that \( V_S\subset U \).\par
+  First, we will show that there exists \( x\in U \) such that \( N(x)=S \). Denote \( S \) by \( S:=\left\{ s_1<\dots<s_m \right\} \). For each \( s_i \), there exists \( u_i\in U \) such that \( s_i\in N(u_i) \). We will construct \( x \) inductively by following steps:
+  \begin{itemize}
+    \item Take \( x_1=u_1 \). Then the \( s_1 \)-th component of \( x_1 \) is nonzero.
+    \item Once we have chosen \( x_k \) such that \( s_i \)-th component of \( x_k \) is nonzero for all \( 1\le i\le k \). If the \( s_{k+1} \)-th component of \( x_k \) is nonzero, then take \( x_{k+1}=x_k \); otherwise let
+    \[ x_{k+1} = x_k + \frac{(x_{k})_-}{2(u_{k+1})_+} u_{k+1}. \]
+    The \( s_{k+1} \)-th component of \( x_{k+1} \) is nonzero due to the choice of \( u_{k+1} \); for any \( s_{i(\le k)} \)-th component of \( x_{k+1} \), we have
+    \[ \abs{x_{k+1}^{(s_i)}}
+    =\abs{x_{k}^{(s_i)}+\frac{(x_{k})_-}{2(u_{k+1})_+}u_{k+1}^{s_i}}
+    \ge \abs{x_{k}^{(s_i)}}-\frac{(x_{k})_-}{2(u_{k+1})_+}\abs{u_{k+1}^{(s_i)}}
+    \ge \abs{x_{k}^{(s_i)}}-\frac{1}{2}(x_k)_->0. \]
+    Then the \( s_i \)-th component of \( x_{k+1} \) is nonzero. \par
+    Hence, we have constructed \( x_{k+1} \) such that the \( s_i \)-th (\( 1\le i\le k+1 \)) components are nonzero.
+    \item Finally, we have \( x=x_m \) such that \( N(x)=S \).
+  \end{itemize}\par
+  Next, we will show that \( V_S\subset\sspan\left\{ x,Tx,\dots,T^{m-1}x \right\}\subset U \).\par
+  Denote \( a_i:=x^{(s_i)} \) for any \( 1\le i\le m \). Then, for any \( v\in V \) (\( v^{(s_i)}=b_i \)), the equation
+  \[\left\{
+    \begin{matrix}
+      \lambda_1a_1&+\lambda_2a_1&+\lambda_3a_1&+\dots&+\lambda_m a_1&=b_1,\\
+      \lambda_1a_2&+\lambda_2 2a_2&+\lambda_3 2^2a_2&+\dots&+\lambda_m 2^{m-1}a_2&=b_2,\\
+      \lambda_1a_3&+\lambda_2 3a_3&+\lambda_3 3^2a_3&+\dots&+\lambda_m 3^{m-1}a_3&=b_3,\\
+      \dots\\
+      \lambda_1a_m&+\lambda_2 ma_m&+\lambda_m m^2 a_m&+\dots&+\lambda_m m^{m-1}a_m&=b_m
+    \end{matrix}
+  \right.\]
+  has a solution \( (\lambda_1,\dots,\lambda_m) \) because the coefficient matrix is a Vandermonde matrix. Hence, 
+  \[ v=\sum_{i=1}^{m} \lambda_i T^{i-1}x \in \sspan\left\{ x,Tx,\dots,T^{m-1}x \right\}\subset U. \]
+  Therefore, \( V_S\subset U \). \par
+  In conclusion, the invariant subspaces of \( T \) are exactly those of the form \( V_S \) for some \( S\subseteq \{1,2,\dots,n\} \).
+\end{solution}
+
+
+
+\begin{problem}[5A-43]
+Suppose that $V$ is finite-dimensional, $\dim V > 1$, and $T \in \mathcal{L}(V)$. Prove that
+\[
+\{p(T) : p \in \mathcal{P}(\F)\} \neq \mathcal{L}(V).
+\]
+\end{problem}
+
+\begin{proof}
+  Denote \( P=\left\{ p(T):p\in \mathcal{P}(\F) \right\}\neq \mathcal{L}(V) \). It's easy to verify that \( P \) is a subspace of \( \mathcal{L}(V) \). \par
+  Denote \( d:=\deg\min_T(x)\le n \). We will show that \( \dim P= d < n^2=\dim\mathcal{L}(V) \), which implies \( P \neq \mathcal{L}(V) \). \par
+  First, \( I,T,T^2,\dots,T^{d-1} \) is linearly independent in \( \mathcal{L}(V) \), otherwise there exists not-all-zero \( a_0, a_1, \dots, \) \(a_{d-1} \in \F \) such that
+  \[ \sum_{k=0}^{d-1}a_kT^k=0\implies\min_T(x)\left|\,\sum_{k=0}^{d-1}a_kx^k\right.\implies a_k=0 \text{ for all }0\le k\le d-1, \]
+  which contradicts the choice of \( a_0,a_1,\dots,a_{d-1} \). Hence, \( \dim P\ge d \).\par
+  Next, we will show that \( I,T,T^2,\dots,T^{d-1} \) spans \( P \). For any \( p(T)\in P \), we can write \( p(x)=q(x)\min_T(x)+r(x) \) for some \( q,r\in \mathcal{P}(\F) \) such that \( r=0 \) or \( \deg r < d \). Then
+  \[ p(T)=q(T)\min{}_T(T)+r(T)=r(T)\in\sspan\left\{ I,T,T^2,\dots,T^{d-1} \right\}. \]
+  Hence, \( \dim P\le d \). \par
+  In conclusion, \( \dim P=d < n^2=\dim\mathcal{L}(V) \), which implies \( P \neq \mathcal{L}(V) \).
+\end{proof}
+
+
+
+\begin{problem}[5B-7]
+\begin{enumerate}[label=(\alph*)]
+  \item Give an example of $S, T \in \mathcal{L}(\F^2)$ such that the minimal polynomial of $ST$ does not equal the minimal polynomial of $TS$.
+  \item Suppose $V$ is finite-dimensional and $S, T \in \mathcal{L}(V)$. Prove that if at least one of $S, T$ is invertible, then the minimal polynomial of $ST$ equals the minimal polynomial of $TS$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) Let \( S=\begin{pmatrix}
+    0 & 0 \\
+    1 & 0
+  \end{pmatrix} \) and \( T=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix} \). Then \( ST=0 \) and \( TS=\begin{pmatrix}
+    1 & 0 \\
+    0 & 0
+  \end{pmatrix} \). Hence, the minimal polynomial of \( ST \) is \( x \), while the minimal polynomial of \( TS \) is \( x(x-1) \).
+  \par
+  (b) If \( S \) is invertible, then \( ST=S(TS)S^{-1} \), which implies that \( ST \) and \( TS \) are similar. Hence, they have the same minimal polynomial. The case when \( T \) is invertible can be proved similarly.
+\end{solution}
+
+
+
+
+\begin{problem}[5B-16]
+Suppose $a_0, \ldots, a_{n-1} \in \F$. Let $T$ be the operator on $\F^n$ whose matrix (with respect to the standard basis) is
+\[
+\begin{pmatrix}
+0 & 0 & 0 & \cdots & 0 & -a_0 \\
+1 & 0 & 0 & \cdots & 0 & -a_1 \\
+0 & 1 & 0 & \cdots & 0 & -a_2 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & 0 & \cdots & 0 & -a_{n-2} \\
+0 & 0 & 0 & \cdots & 1 & -a_{n-1}
+\end{pmatrix}.
+\]
+Here all entries of the matrix are $0$ except for all $1$'s on the line under the diagonal and the entries in the last column (some of which might also be $0$). Show that the minimal polynomial of $T$ is the polynomial
+\[
+a_0 + a_1 z + \cdots + a_{n-1}z^{n-1} + z^n.
+\]
+\end{problem}
+
+\begin{proof}
+  Take \( v_k=(0,\dots,0,\overset{k \text{-th}}{1},0,\dots,0)\transpose \) where the $1$ is in the $k$-th position. Then from the representation matrix of \( T \), we can infer that
+  \[ Tv_1=v_2, \  Tv_2=v_3, \  \ldots, \  Tv_{n-1}=v_n, \  Tv_n=-a_0v_1-a_1v_2-\cdots-a_{n-1}v_{n-1} \]
+  Denote the minimal polynomial of \( T \) by \( m(x) \). If \( \deg m<n \), then \( m(T)(v_1) \) is a linear comnbinition of \( v_1,\dots,v_{n} \) with not-all-zero coefficients, which contradicts the definition of \( m \). Hence, \( \deg m\ge n \). On the other hand, it's easy to verify that
+  \[ T^n v_1=-a_0v_1-a_1v_2-\cdots-a_{n-1}v_{n-1}\implies \left( \sum_{k=0}^{n-1}a_kT^k+T_n \right)(v_1)=0. \]\par
+  Denote \( p(x)=\sum_{k=0}^{n-1}a_kx^k+x^n \), then \( \deg p=n \) and \( p(T)v_1=0 \). And similarly, \( p(T)v_k=p(T)T^{k-1}(v_1)=0 \). Therefore, \( p(T)=0 \), which indicates \( p(x)=m(x) \).
+\end{proof}
+
+
+
+\begin{problem}[5B-20]
+Suppose $T \in \mathcal{L}(\F^4)$ is such that the eigenvalues of $T$ are $3, 5, 8$. Prove that
+\[
+(T-3I)^2(T-5I)^2(T-8I)^2=0.
+\]
+\end{problem}
+
+\begin{proof}
+  The minimal polynomial of \( T \) is a product of powers of \( x-3, x-5, x-8 \), say \( m(x)=(x-3)^{\alpha_1}(x-5)^{\alpha_2}(x-8)^{\alpha_3} \), where \( \alpha_1,\alpha_2,\alpha_3\in\N_+ \). Note that \( \deg m\le 4 \), hence \( \alpha_1\le 4-1-1=2 \), which means \( (x-3)^{\alpha_1}\left|(x-3)^2\right. \). The similar argument applies to \( (x-5)^{\alpha_2} \) and \( (x-8)^{\alpha_3} \). Therefore, \( m(x)\left|\,(x-3)^2(x-5)^2(x-8)^2\right. \), which implies that \( (T-3I)^2(T-5I)^2(T-8I)^2=0 \).
+\end{proof}
+
+
+
+\begin{problem}[5B-21]
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that the minimal polynomial of $T$ has degree at most $1 + \dim\im T$.
+\end{problem}
+
+\begin{proof}
+  Denote the minimal polynomial of \( T \) by \( m_T(x) \). Note that \( m_T(x) \) divides the characteristic polynomial of \( T \) which has degree at most \( \dim V \). Apply the same argument to \( T|_{\im T} \), we have \( \deg m_{T|_{\im T}}\le\dim\im T \). \par
+  For any vector \( v\in V \), \( T(v)\in\im T \), which means \( m_{T|_{\im T}}(T(v))=0 \). Therefore, \( m_T(x) \) divides \( m_{T|_{\im T}}(x)x \), and hence \( \deg m_T(x)\le 1 + \dim\im T \).
+\end{proof}
+
+
+
+\begin{problem}[5B-22]
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that $T$ is invertible if and only if
+\[
+I \in \operatorname{span}(T, T^2, \ldots, T^{\dim V}).
+\]
+\end{problem}
+
+\begin{proof}
+  Let \( n \) be the dimension of \( V \). On the one hand, Suppose that
+  \[ I=a_1T+a_2T^2+\dots+a_nT^n. \]
+  Set \( S=a_1I+a_2T+\dots+a_nT^{n-1} \). Then \( ST=TS=a_1T+a_2T^2+\dots+a_nT^n=I \), which means \( S=T^{-1} \).\par
+  On the other hand, if \( T\notin\sspan \left\{ T,T^2,\dots,T^n \right\} \), then take the minimal polynomial of \( T \), say \( m_T(x) \). Then we have \( m_T(0)=0 \), i.e.
+  \[ m_T(x)=a_1x+a_2x^2+\dots+a_dx^d \]
+  for some \( d\le n \) and \( a_1,\dots,a_d\in\F \). Since \( a_1I+a_2T+\dots+a_dT^{d-1} \) is not zero (because \( m_T(x) \) is the minimal polynomial), there exists \( u,v\neq0 \) such that
+  \[ u=(a_1I+a_2T+\dots+a_dT^{d-1})(v). \]
+  Then \( T(u)=0 \) and \( u\neq 0 \), and conseqently \( T \) is not invertible.
+\end{proof}
+
+
+
+\begin{problem}[5B-25]
+Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and $U$ is a subspace of $V$ that is invariant under $T$.
+\begin{enumerate}[label=(\alph*)]
+  \item Prove that the minimal polynomial of $T$ is a polynomial multiple of the minimal polynomial of the quotient operator $T/U$.
+  \item Prove that
+  \[
+  (\text{minimal polynomial of } T|_U)\times(\text{minimal polynomial of } T/U)
+  \]
+  is a polynomial multiple of the minimal polynomial of $T$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) It suffices to show that \( m_T(T/U)=0 \). For any \( v+U\in V/U \), we have \( m_T(T/U)(v+U)=m_T(T)(v)+U=0+U=0 \). Hence, \( m_T(T/U)=0 \), which implies that \( m_T(x) \) is a polynomial multiple of the minimal polynomial of \( T/U \).\par
+  (b) It suffices to show that \( m_{T|_U}(T)m_{T/U}(T)=0 \). For any \( u\in U \), we have \( m_{T|_U}(T)(u)=m_{T|_U}(T|_U)(u)=0 \). For any \( v+U\in V/U \), we have
+  \[
+    m_{T/U}(T)(v+U)
+    \subset m_{T/U}(T)(v)+U
+    =m_{T/U}(T/U)(v+U)
+    =U.
+  \]
+  Specifically, \( m_{T/U}(T)(v)=:u\in U \). Then
+  \[ m_{T|_U}(T)m_{T/U}(T)(v)=m_{T|_U}(T)(u)=m_{T|_U}(T|_U)(u)=0. \]
+\end{proof}
+
+
+
+\begin{problem}[5B-29]
+Show that every operator on a finite-dimensional vector space of dimension at least two has an invariant subspace of dimension two.
+\end{problem}
+
+\begin{note}
+  We will only consider the situation where the corresponding field is \( \R \) or \( \C \). 
+\end{note}
+
+\begin{proof}
+  Denote the linear transformation by \( T\in \mathcal{L}(V) \), and its minimal polynomial by \( m(x) \). \par
+  We will prove the problem by induction on \( \dim V=:n \). The statement obviously holds for \( n=2 \). Assume that the statement holds for any vector space of dimension less than \( n \). We will show that it also holds for \( V \).\par
+  If \( m(x) \) has two or more relatively prime factors, then \( m(x) \) can be decomposed as \( m(x)=m_1(x)m_2(x) \), where \( \gcd(m_1,m_2)=1 \). Denote \( U_1=\ker m_1(T), U_2=\ker m_2(T) \). Then \( V=U_1\oplus U_2 \), and \( U_{1,2}\neq V \), hence \( 1\le\dim U_{1,2}\le n-1 \). Since \( n\ge 3 \), either \( \dim U_1\ge 2 \) or \( \dim U_2\ge 2 \). Then, use the induction hypothesis on \( T|_{U_i} \), where \( \dim U_i\ge 2,\ i\in \left\{ 1,2 \right\} \). \par
+  Otherwise, \( m(x) \) has the form \( p(x)^\alpha \), where \( p(x) \) is irreducible on \( \F[x] \).
+  \begin{itemize}
+    \item If \( \F=\R \) and \( \deg p(x)=2 \). Since \( p(T)^{\alpha-1} \) is not zero, there exists \( v\in V \) such that \( p(T)^{\alpha-1}(v)\neq 0 \). Let's prove that \( U=\sspan\left\{ p(T)^{\alpha-1}(v),p(T)^{\alpha-1}T(v) \right\} \) is the desired invariant subspace of dimension two. Otherwise there exists \( \lambda\in\R \) such that \( p(T)^{\alpha-1}T(v)=\lambda p(T)^{\alpha-1}(v) \). Then
+    \[ 0=p(T)\circ p(T)^{\alpha-1}(v)=p(\lambda)p(T)^{\alpha-1}(v)\implies p(\lambda)=0, \]
+    which contradicts the irreducibility of \( p(x) \). Hence, \( U \) is the desired invariant subspace of dimension two.
+    \item If \( \deg p(x)=1 \). Then \( T \) has an eigenvector, denoted as \( v_1 \). Let \( W=\sspan \{v_1\} \). Since \( m_{T/W}(x) \) divides \( m_T(x) \), then \( m_{T/W}(x) \) is also a power of \( p(x) \), which implies that \( T/W \) has an eigenvector, denoted as \( v_2+W \). Then \( v_1,v_2 \) are linearly independent, and \( U=\sspan\{v_1,v_2\} \) is the desired invariant subspace of dimension two.
+  \end{itemize}
+\end{proof}
+
+\end{document}
