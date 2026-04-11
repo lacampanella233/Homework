@@ -54,7 +54,7 @@ for each $v \in V$.
   \end{align*}
   Then \( T/U \) is well-defined.\par
   (b) Take an eigenvalue and corresponding eigenvector of \( T/U \), say \( \lambda \) and \( v+U \). Note that \( v+U \neq U \), so \( v \notin U \). Then \( Tv+U=(T/U)(v+U)=\lambda(v+U)=\lambda v+U \), which implies that \( Tv=\lambda v+u \) for some \( u\in U \). \par
-  If \( \lambda \) is not an eigenvector of \( T \), then \( T-\lambda I \) is injective in \( V \), as well as in \( U \) (because \( U \) is T-invariant). Then there exists \( u_0\in U \) such that \( Tu_0-\lambda u_0=u\in U \). \par
+  If \( \lambda \) is not an eigenvalue of \( T \), then \( T-\lambda I \) is injective in \( V \), as well as in \( U \) (because \( U \) is T-invariant). Then there exists \( u_0\in U \) such that \( Tu_0-\lambda u_0=u\in U \). \par
   Set \( v'=v-u_0 \). Since \( v\notin U \), we have \( v'\neq 0 \). And by the definition of \( u_0 \), we have
   \[ Tv'=Tv-Tu_0=\lambda v+u-(\lambda u_0+u)=\lambda (v-u_0)=\lambda v'. \]
   This contradicts the assumption that \( \lambda \) is not an eigenvalue of \( T \). Therefore, \( \lambda \) is an eigenvalue of \( T \).
@@ -222,9 +222,14 @@ I \in \operatorname{span}(T, T^2, \ldots, T^{\dim V}).
 \end{problem}
 
 \begin{proof}
-  Let \( n \) be the dimension of \( V \). Suppose that
+  Let \( n \) be the dimension of \( V \). On the one hand, Suppose that
   \[ I=a_1T+a_2T^2+\dots+a_nT^n. \]
-  Set \( S=a_1I+a_2T+\dots+a_nT^{n-1} \). Then \( ST=TS=a_1T+a_2T^2+\dots+a_nT^n=I \), which means \( S=T^{-1} \).
+  Set \( S=a_1I+a_2T+\dots+a_nT^{n-1} \). Then \( ST=TS=a_1T+a_2T^2+\dots+a_nT^n=I \), which means \( S=T^{-1} \).\par
+  On the other hand, if \( T\notin\sspan \left\{ T,T^2,\dots,T^n \right\} \), then take the minimal polynomial of \( T \), say \( m_T(x) \). Then we have \( m_T(0)=0 \), i.e.
+  \[ m_T(x)=a_1x+a_2x^2+\dots+a_dx^d \]
+  for some \( d\le n \) and \( a_1,\dots,a_d\in\F \). Since \( a_1I+a_2T+\dots+a_dT^{d-1} \) is not zero (because \( m_T(x) \) is the minimal polynomial), there exists \( u,v\neq0 \) such that
+  \[ u=(a_1I+a_2T+\dots+a_dT^{d-1})(v). \]
+  Then \( T(u)=0 \) and \( u\neq 0 \), and conseqently \( T \) is not invertible.
 \end{proof}
 
 
