@@ -25,7 +25,7 @@ also converges.
     \abs{S_m-S_n} & = \abs{s_mb_m-s_nb_n+\sum_{k=n}^{m-1}s_k(b_k-b_{k+1})} \\
     & \le \abs{s_mb_m-s_nb_n}+\sum_{k=n}^{m-1}\abs{s_k}\cdot\abs{b_k-b_{k+1}}
     < \frac{\varepsilon}{2}+M\sum_{k=n}^{m-1}\abs{b_k-b_{k+1}} \\
-    & = \frac{\varepsilon}{2}+M\abs{b_{n+1}-b_m} \text{ (This is because $\{b_n\}$ is monotone)}\\
+    & = \frac{\varepsilon}{2}+M\abs{b_{n}-b_m} \text{ (This is because $\{b_n\}$ is monotone)}\\
     &< \varepsilon.
   \end{align*}
   Therefore, \( \sum a_nb_n \) is a Cauchy series, and \( \sum a_nb_n \) converges.
@@ -55,7 +55,7 @@ are integers, and infinitely many of them are nonzero. Prove that its radius of 
 \end{problem}
 
 \begin{proof}
-  It suffices to show that \( \limsup_{n\to\infty}\sqrt[n]{a_n}\ge 1 \). For any positive integer \( N \), there exists \( n>N \) such that \( a_n\ge 1 \) (since infinitely many of the coeffecients are nonzero), then the conclusion holds.
+  It suffices to show that \( \limsup_{n\to\infty}\sqrt[n]{\abs{a_n}}\ge 1 \). For any positive integer \( N \), there exists \( n>N \) such that \( \abs{a_n}\ge 1 \) (since infinitely many of the coeffecients are nonzero), then the conclusion holds.
 \end{proof}
 
 
@@ -156,6 +156,105 @@ Let $\{s_n\}$ be a sequence of complex numbers, and define its arithmetic means 
   Because \(\varepsilon>0\) is arbitrary, \(\lim_{n\to\infty}s_n=\sigma\).
 \end{proof}
 
+
+
+\begin{problem}[4-1]
+Let $f$ be a real-valued function defined on $\mathbb{R}^1$. Assume that for every $x\in\mathbb{R}^1$,
+\[
+\lim_{h\to 0}\bigl[f(x+h)-f(x-h)\bigr]=0.
+\]
+Does this imply that $f$ is continuous?
+\end{problem}
+
+\begin{solution}
+  No. Let
+  \[ f(x)=\begin{cases}
+    1, & \text{if } x=0;\\
+    0, & \text{if } x\ne 0.
+  \end{cases} \]
+  Then for any $x\in\mathbb{R}^1$,
+  \[ \lim_{h\to 0}\bigl[f(x+h)-f(x-h)\bigr]=0, \]
+  but $f$ is not continuous at $x=0$.
+
+\end{solution}
+
+
+
+\begin{problem}[4-3]
+Let $f$ be a continuous real-valued function on a metric space $X$. Let
+\[
+Z(f)=\{p\in X: f(p)=0\}
+\]
+(the zero set of $f$). Prove that $Z(f)$ is closed.
+\end{problem}
+
+\begin{proof}
+  We will prove that for any \( p\in X \) such that there exists \( \{p_n\}_{n\ge 1}\subset Z(f) \) such that \( \lim_{n\to\infty}p_n=p \), then \( p\in Z(p) \).\par
+  Suppose the contray, then \( f(p)\ne 0 \). Since \( f \) is continuous at \( p \), there exists \( \varepsilon>0 \) such that for any \( q\in X \) with \( d(p,q)<\varepsilon \), we have \( \abs{f(q)-f(p)}<\abs{f(p)}/2 \). In particular, for sufficiently large \( n \), we have \( d(p,p_n)<\varepsilon \), hence
+  \[ \abs{f(p_n)-f(p)}<\frac{\abs{f(p)}}{2}. \]\par
+  However, \( f(p_n)=0 \) for all \( n\in\N_+ \), so \( \abs{f(p)}<\abs{f(p)}/2 \), which is a contradiction. Therefore, \( p\in Z(f) \), and \( Z(f) \) is closed.
+\end{proof}
+
+\begin{problem}[4-7]
+If $E\subset X$ and $f$ is a function defined on $X$, then the restriction of $f$ to $E$ means the function $g$ with domain $E$ such that for every $p\in E$, $g(p)=f(p)$.
+
+Define $f$ and $g$ on $\mathbb{R}^2$ by
+\[
+f(0,0)=g(0,0)=0,
+\]
+and for $(x,y)\ne(0,0)$,
+\[
+f(x,y)=\frac{xy^2}{x^2+y^4},\qquad g(x,y)=\frac{xy^2}{x^2+y^6}.
+\]
+Prove that $f$ is bounded on $\mathbb{R}^2$, $g$ is unbounded in every neighborhood of $(0,0)$, and $f$ is not continuous at $(0,0)$. However, the restrictions of both $f$ and $g$ to every straight line in $\mathbb{R}^2$ are continuous.
+\end{problem}
+
+\begin{proof}
+  (1) First, we will show that \( f \) is bounded on \( \R^2 \). For any \( (x,y)\in\R^2\setminus\{(0,0)\} \), we have
+  \[ \abs{f(x,y)}=\frac{\abs{x}\cdot y^2}{x^2+y^4}\le\frac{\abs{x}\cdot y^2}{2\abs{x}y^2}=\frac{1}{2}. \]\par
+  Hence \( f \) is bounded on \( \R^2 \). \par
+  (2) Next, we will show that \( g \) is unbounded in every neighborhood of \( (0,0) \). For any positive number \( \varepsilon \), let  \( x=\varepsilon^3 \) and \( y=\varepsilon \), then we have
+  \[ g(x,y)=\frac{\varepsilon^3\cdot\varepsilon^2}{\varepsilon^6+\varepsilon^6}=\frac{1}{2\varepsilon}, \]
+  which can be arbitrarily large by choosing sufficiently small \( \varepsilon \). Therefore, \( g \) is unbounded in every neighborhood of \( (0,0) \). \par
+  (3) Next, we will show that \( f \) is not continuous at \( (0,0) \). Let \( x=y^2 \), then
+  \[ \lim_{y\to 0}f(y^2,y)=\lim_{y\to 0}\frac{y^4}{2y^4}=\frac{1}{2}\neq f(0,0). \]\par
+  Then \( f \) is not continuous at \( (0,0) \). \par
+  (4) Finally, we will show that the restrictions of both \( f \) and \( g \) to every straight line in \( \R^2 \) are continuous. \begin{itemize}
+    \item If the line has the form \( x=c \), then
+    \[ f(c,y)=\frac{c y^2}{c^2+y^4}. \]
+    If \( c=0 \), then \( f(c,y)=0 \), which is obviously continous; If \( c\neq 0 \), then the denominator of \( f \) is not zero, and hence \( f(c,y) \) is continuous. \par
+    \item If the line has the form \( y=kx+c \) with \( c\neq 0 \), then
+    \[ f(x,y)=f(x,kx+c)=\frac{x(kx+c)^2}{x^2+(kx+c)^4}. \]
+    Since the denominator is not zero, \( f(x,kx+c) \) is continuous.\par
+    \item If the line has the form \( y=kx \), then
+    \[ f(x,y)=f(x,kx)=\frac{k^2 x^3}{x^2+k^4 x^4}=\frac{k^2}{k^4x+1/x}\text{ (for \( x\neq 0 \))}. \]
+    Then \( \lim_{x\to 0}f(x,kx)=0=f(0,0) \), and hence \( f(x,kx) \) is continuous.
+  \end{itemize}\par
+  The same argument applies to \( g \). Therefore, the restrictions of both \( f \) and \( g \) to every straight line in \( \R^2 \) are continuous.
+\end{proof}
+
+
+
+\begin{problem}[4-14]
+Let $I=[0,1]$ be the closed unit interval. Suppose $f$ is a continuous map from $I$ into $I$. Prove that there exists at least one $x\in I$ such that
+\[
+f(x)=x.
+\]
+\end{problem}
+
+\begin{proof}
+  Define
+  \[ A=\left\{ x\in[0,1]:f(x)\ge x \right\}. \]\par
+  Since \( f(0)=0\ge 0 \), we have \( 0\in A \), and therefore \( A\neq\varnothing \), and hence \( \xi:=\sup A \) is a finite number. Moreover, we have \( \xi\in[0,1] \) since \( A\subset[0,1] \).\par
+  We will prove that \( f(\xi)=\xi \). Denote \( g(x)=f(x)-x \), then \( g \) is continuous on \( [0,1] \). \par
+  If \( f(\xi)>\xi \), then \( g(\xi)>0 \). Then, there exists \( \delta>0 \), such that for any \( x\in(\xi-\delta,\xi+\delta) \), 
+  \[ \abs{g(x)-g(\xi)}<\frac{g(\xi)}{2}\implies g(x)>\frac{g(\xi)}{2}>0. \]
+  Take \( x_1\in(\xi,\xi+\delta) \), we have \( f(x_1)>x_1 \) and consequently \( x_1\in A \), which contradicts the definition of \( \xi \). \par
+  If \( f(\xi)<\xi \), then \( g(\xi)<0 \). Then, there exists \( \delta>0 \), such that for any \( x\in(\xi-\delta,\xi+\delta) \),
+  \[ \abs{g(x)-g(\xi)}<\frac{-g(\xi)}{2}\implies g(x)<\frac{g(\xi)}{2}<0. \]
+  Take \( x_2\in(\xi-\delta,\xi) \), we have \( f(x)<x \) for any \( x\in(x_2,\xi) \), and therefore (combining with the definition of \( \xi \)) for any \( x\in(x_2,1] \). Then, \( x_2 \) is an upper bound less than \( \xi \). This contradicts the definition of \( \xi \). \par
+  Therefore, \( f(\xi)=\xi \), and there exists at least one \( x\in I \) such that \( f(x)=x \).
+\end{proof}
 
 
 \end{document}

@@ -1,13 +1,15 @@
 # Fdb version 4
-["pdflatex"] 1775670473.41822 "d:/程昊一/Homework/Analysis-0/6/6.tex" "6.pdf" "6" 1775670474.49239 0
-  "6.aux" 1775670474 162 59504cb8f8bee0a3f0488d753cb23a1e "pdflatex"
-  "6.out" 1775670474 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "6.tex" 1775670472 7734 d51241f4d388170152a61af1ead31698 ""
+["pdflatex"] 1775926205.74047 "d:/程昊一/Homework/Analysis-0/6/6.tex" "6.pdf" "6" 1775926206.78714 0
+  "6.aux" 1775926206 162 f042405b684a8c860cba07045d113040 "pdflatex"
+  "6.out" 1775926206 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "6.tex" 1775926205 13587 9f452703b7f8a4e5d5b35d889132e60d ""
   "c:/Windows/Fonts/msyh.ttc" 1756564701 19704352 1e10e74402e59d54499af795caf0b135 ""
   "c:/Windows/Fonts/simkai.ttf" 1711630440 11789376 868a8b82664dfab00a95e3e30eaa705a ""
+  "c:/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1751704149 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1751704995 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/sfd/ttf2pk/UGBK.sfd" 1751710451 182544 bcd31d5d273400b38612a969fcab55f9 ""
   "c:/texlive/2025/texmf-dist/fonts/sfd/ttf2pk/Unicode.sfd" 1751710451 103212 c249c63d38b8b55408aee52d643b0c18 ""
+  "c:/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1751704629 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1751703469 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1751703469 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1751703469 1004 54797486969f23fa377b128694d548df ""
@@ -64,6 +66,7 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1751703469 31099 342ef5a582aacbd3346f3cf4579679fa ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1751703469 31764 459c573c03a4949a528c2cc7f557e217 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1751703469 34694 870c211f62cb72718a00e353f14f254d ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb" 1751704149 138258 6525c253f16cededa14c7fd0da7f67b2 ""
   "c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1751707206 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "c:/texlive/2025/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1751703571 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "c:/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1751703866 40635 c40361e206be584d448876bba8a64a3b ""
@@ -163,8 +166,8 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1751710906 5512713 d5293fe2524c042fff1d1aaaba621917 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1751711061 3346133 a455951bd44c3d6cc0fcd01d149be5bf ""
   "c:/texlive/2025/texmf.cnf" 1751710880 713 e69b156964470283e0530f5060668171 ""
-  "d:/程昊一/Homework/Analysis-0/6/6.tex" 1775670472 7734 d51241f4d388170152a61af1ead31698 ""
-  "homework.sty" 1774873487 4837 c0fdb029f7a9ee7d8b9d2b0b623acc46 ""
+  "d:/程昊一/Homework/Analysis-0/6/6.tex" 1775926205 13587 9f452703b7f8a4e5d5b35d889132e60d ""
+  "homework.sty" 1775880419 4837 c0fdb029f7a9ee7d8b9d2b0b623acc46 ""
   (generated)
   "6.aux"
   "6.log"
