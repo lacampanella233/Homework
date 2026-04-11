@@ -221,6 +221,14 @@ I \in \operatorname{span}(T, T^2, \ldots, T^{\dim V}).
 \]
 \end{problem}
 
+\begin{proof}
+  Let \( n \) be the dimension of \( V \). Suppose that
+  \[ I=a_1T+a_2T^2+\dots+a_nT^n. \]
+  Set \( S=a_1I+a_2T+\dots+a_nT^{n-1} \). Then \( ST=TS=a_1T+a_2T^2+\dots+a_nT^n=I \), which means \( S=T^{-1} \).
+\end{proof}
+
+
+
 \begin{problem}[5B-25]
 Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and $U$ is a subspace of $V$ that is invariant under $T$.
 \begin{enumerate}[label=(\alph*)]
@@ -233,8 +241,40 @@ Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and $U$ is a subspace
 \end{enumerate}
 \end{problem}
 
+\begin{proof}
+  (a) It suffices to show that \( m_T(T/U)=0 \). For any \( v+U\in V/U \), we have \( m_T(T/U)(v+U)=m_T(T)(v)+U=0+U=0 \). Hence, \( m_T(T/U)=0 \), which implies that \( m_T(x) \) is a polynomial multiple of the minimal polynomial of \( T/U \).\par
+  (b) It suffices to show that \( m_{T|_U}(T)m_{T/U}(T)=0 \). For any \( u\in U \), we have \( m_{T|_U}(T)(u)=m_{T|_U}(T|_U)(u)=0 \). For any \( v+U\in V/U \), we have
+  \[
+    m_{T/U}(T)(v+U)
+    \subset m_{T/U}(T)(v)+U
+    =m_{T/U}(T/U)(v+U)
+    =U.
+  \]
+  Specifically, \( m_{T/U}(T)(v)=:u\in U \). Then
+  \[ m_{T|_U}(T)m_{T/U}(T)(v)=m_{T|_U}(T)(u)=m_{T|_U}(T|_U)(u)=0. \]
+\end{proof}
+
+
+
 \begin{problem}[5B-29]
 Show that every operator on a finite-dimensional vector space of dimension at least two has an invariant subspace of dimension two.
 \end{problem}
+
+\begin{note}
+  We will only consider the situation where the corresponding field is \( \R \) or \( \C \). 
+\end{note}
+
+\begin{proof}
+  Denote the linear transformation by \( T\in \mathcal{L}(V) \), and its minimal polynomial by \( m(x) \). \par
+  We will prove the problem by induction on \( \dim V=:n \). The statement obviously holds for \( n=2 \). Assume that the statement holds for any vector space of dimension less than \( n \). We will show that it also holds for \( V \).\par
+  If \( m(x) \) has two or more relatively prime factors, then \( m(x) \) can be decomposed as \( m(x)=m_1(x)m_2(x) \), where \( \gcd(m_1,m_2)=1 \). Denote \( U_1=\ker m_1(T), U_2=\ker m_2(T) \). Then \( V=U_1\oplus U_2 \), and \( U_{1,2}\neq V \), hence \( 1\le\dim U_{1,2}\le n-1 \). Since \( n\ge 3 \), either \( \dim U_1\ge 2 \) or \( \dim U_2\ge 2 \). Then, use the induction hypothesis on \( T|_{U_i} \), where \( \dim U_i\ge 2,\ i\in \left\{ 1,2 \right\} \). \par
+  Otherwise, \( m(x) \) has the form \( p(x)^\alpha \), where \( p(x) \) is irreducible on \( \F[x] \).
+  \begin{itemize}
+    \item If \( \F=\R \) and \( \deg p(x)=2 \). Since \( p(T)^{\alpha-1} \) is not zero, there exists \( v\in V \) such that \( p(T)^{\alpha-1}(v)\neq 0 \). Let's prove that \( U=\sspan\left\{ p(T)^{\alpha-1}(v),p(T)^{\alpha-1}T(v) \right\} \) is the desired invariant subspace of dimension two. Otherwise there exists \( \lambda\in\R \) such that \( p(T)^{\alpha-1}T(v)=\lambda p(T)^{\alpha-1}(v) \). Then
+    \[ 0=p(T)\circ p(T)^{\alpha-1}(v)=p(\lambda)p(T)^{\alpha-1}(v)\implies p(\lambda)=0, \]
+    which contradicts the irreducibility of \( p(x) \). Hence, \( U \) is the desired invariant subspace of dimension two.
+    \item If \( \deg p(x)=1 \). Then \( T \) has an eigenvector, denoted as \( v_1 \). Let \( W=\sspan \{v_1\} \). Since \( m_{T/W}(x) \) divides \( m_T(x) \), then \( m_{T/W}(x) \) is also a power of \( p(x) \), which implies that \( T/W \) has an eigenvector, denoted as \( v_2+W \). Then \( v_1,v_2 \) are linearly independent, and \( U=\sspan\{v_1,v_2\} \) is the desired invariant subspace of dimension two.
+  \end{itemize}
+\end{proof}
 
 \end{document}
