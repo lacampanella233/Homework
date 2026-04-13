@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Physics-0}{2026 Spring}{5}
+
+\begin{document}
+
+Notice: the gravity acceleration \( g \) is treated as \( g=10\,\mathrm{m/s^2} \) in numerical calculation.
+
+\begin{problem}
+(20 pts) A $45\,\mathrm{kg}$ person stands up in a $60\,\mathrm{kg}$ canoe that is $5\,\mathrm{m}$ long. The person walks from a point $1\,\mathrm{m}$ from one end to a point $1\,\mathrm{m}$ from the other end. If you ignore resistance to motion of the canoe in the water, how far does the canoe move during this process?
+\end{problem}
+
+\begin{solution}
+  Denote the mass of the person as $m_\mathrm{p}=45\,\mathrm{kg}$, the mass of the canoe as $m_\mathrm{c}=60\,\mathrm{kg}$, and the displacement of the person w.r.t. the canoe as $d=5-1-1=3\,\mathrm{m}$. Since there are no external forces acting on the system, we have
+  \[ v_\mathrm{p}m_\mathrm{p}+v_\mathrm{c}m_\mathrm{c}=0, \]
+  where $v_\mathrm{p}$ and $v_\mathrm{c}$ are the velocities of the person and the canoe w.r.t the river, respectively. Integrate the above equation over time, we have
+  \[ \Delta x_\mathrm{c}m_\mathrm{c}+\Delta x_\mathrm{p}m_\mathrm{p}=0. \]
+  Since $\Delta x_\mathrm{p}=\Delta x_\mathrm{c}+d$, we have
+  \[ \abs{\Delta x_\mathrm{c}}=\frac{d m_\mathrm{p}}{m_\mathrm{c}+m_\mathrm{p}}=1.2857\,\mathrm{m}. \]
+\end{solution}
+
+
+
+\begin{problem}
+(20 pts) A $12\,\mathrm{kg}$ ball is launched at an angle of $55^\circ$ above the horizontal with an initial speed of $150\,\mathrm{m/s}$. At its highest point, the ball explodes into two fragments, one three times heavier than the other. The two fragments reach the ground at the same time. Assume there is no air resistance. If the heavier fragment lands back at the point from which the ball was launched, find:
+\begin{enumerate}[label=(\alph*)]
+	\item (10pts) The location where the lighter fragment lands.
+	\item (10pts) How much energy is released in the explosion.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  Denote \( \alpha=55^\circ \), \( v_0=150\,\mathrm{m/s} \) and \( 4m=12\,\mathrm{kg} \). The horizontal velocity \( v_{\parallel}=v_0\cos \alpha \) remains constant. Since the two fragments reach the ground simutaneously, the relative velocity of two fragments at the explosion point is parallel to the ground.\par
+  Denote the velocity of the heavier fragment w.r.t the ball at the time of explosion as \( v_1>0 \), and \( v_2>0 \) for the lighter one. Then, from the momentum conservation, we get \( 3mv_1=mv_2 \), i.e. \( 3v_1=v_2 \). \par
+  Since the heavier fragment lands back at the point from which the ball was launched, the speed of the heavier fragment w.r.t the ground at the time of explosion is equal to that of the ball. Thus, we have \( v_{\parallel}-v_1=-v_{\parallel} \), i.e. \( v_1=2v_{\parallel} \). Thus, we have \( v_2=6v_{\parallel} \). \par
+  Denote the time from launch to explosion as \( t \). We have \( gt=v_{\perp}=v_0\sin \alpha \). Thus, the horizontal distance from the explosion point to the landing point of the lighter fragment is \( (v_2+v_{\parallel}t)=7v_{\parallel}t \). Therefore, \par
+  (a) The location where the lighter fragment lands is at
+  \[ 8v_{\parallel}t=\frac{8 v_0\cos\alpha \,v_0\sin \alpha}{g}=8457.23\,\mathrm{m}. \] \par
+  (b) In the reference frame of the ball at the time of explosion, the kinetic energy of the ball is \( 0 \), and of the two fragments is
+  \[ \frac{1}{2}\cdot 3mv_1^2+\frac{1}{2}\cdot mv_2^2=24mv_{\parallel}^2. \]
+  Thus, the energy released in the explosion is \( 24mv_{\parallel}^2 \), which is
+  \[ 24mv_0^2\cos^2\alpha=5.33\times 10^5\,\mathrm{J}. \]
+\end{solution}
+
+
+
+\begin{problem}
+(35 pts) Consider two balls of masses $m$ and $M=2m$. At time $t=0$, you release the ball of mass $M$ from a distance $h=20\,\mathrm{m}$ above the Earth's surface. One second later, you release the second ball of mass $m$ from the same distance $h$ above the ground. Ignore air resistance and assume all collisions are elastic.
+\begin{enumerate}[label=(\alph*)]
+	\item (5pts) Find the time $t$ that it takes the ball of mass $M$ to reach the ground.
+	\item (10pts) Find the time and the distance above the ground where the first collision between the balls takes place.
+	\item (10pts) Compute the velocities (speed and direction) of the two balls right after the first collision.
+	\item (10pts) Find the maximum distance above the ground reached by the ball of mass $m$ after the collision.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) The time \( t_1 \) that it takes the ball of mass \( M \) to reach the ground is given by
+  \[ t_1=\sqrt{\frac{2h}{g}}=2\,\mathrm{s}. \] \par
+  (b) Denote \( t_0=1\,\mathrm{s} \) and the time of the first collision as \( t_\mathrm{c} \). The distance above the ground of the two balls at time \( t \) are given by
+  \[ h_M(t)=\begin{cases}
+    h-\frac{1}{2}gt^2,&0\le t\le t_1 \\
+    h-\frac{1}{2}g(2t_1-t)^2,&t_1<t\le t_\mathrm{c} 
+  \end{cases}, \quad
+  h_m(t)=\begin{cases}
+    h,&0\le t\le t_0 \\
+    h-\frac{1}{2}g(t-t_0)^2,&t_0<t\le t_\mathrm{c}
+  \end{cases} \]
+  Solving the equation \( h_M(t)=h_m(t) \), we get 
+  \[ t_\mathrm{c}=\frac{t_0+2t_1}{2}=2.5\,\mathrm{s} \]
+  and the distance above the ground where the first collision takes place is
+  \[ h_M(t_\mathrm{c})=h_m(t_\mathrm{c})=h-\frac{1}{8}g(2t_1-t_0)^2=8.75\,\mathrm{m}. \]
+  (c) Denote the velocities of the two balls and the center of mass right before the first collision as \( v_M \), \( v_m \) and \( v_\mathrm{c} \) respectively. Denote the velocities of the two balls right after the first collision as \( v_M' \) and \( v_m' \) with the positive direction being upwards. Since the collision is elastic, we have
+  \[ v_M'=-v_M+2v_\mathrm{c}, \quad v_m'=-v_m+2v_\mathrm{c}. \]
+  Also, we have
+  \[ v_M=\left.\frac{\d h_M(t)}{\d t}\right|_{t=t_\mathrm{c}}=g\left( t_1-\frac{t_0}{2} \right)=15\, \mathrm{m/s},\quad v_m=\left.\frac{\d h_m(t)}{\d t}\right|_{t=t_\mathrm{c}}=g\left( \frac{t_0}{2}-t_1 \right)=-15\, \mathrm{m/s}, \]
+  and 
+  \[ v_\mathrm{c}=\frac{mv_m+Mv_M}{m+M}=5\, \mathrm{m/s}. \]
+  Then, we can compute the velocities of the two balls right after the first collision as
+  \[ v_M'=-5\, \mathrm{m/s}, \quad v_m'=25\, \mathrm{m/s}. \]
+  (d) The maximum distance above the ground reached by the ball of mass \( m \) after the collision is given by
+  \[ h+\frac{v_m'^2}{2g}=40\,\mathrm{m}. \]
+\end{solution}
+
+
+
+\begin{problem}
+(25 pts) Two identical masses are released from rest in a smooth and frictionless hemispherical bowl of radius $R$ as shown in the figure below.
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.4\textwidth]{PB4.png}
+  \label{}
+\end{figure}
+\begin{enumerate}
+	\item (15pts) If the masses stick together when they collide, how high above the bottom of the bowl will they go after colliding?
+	\item (10pts) Compare the initial and final gravitational potential energies and explain the result.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) Denote the mass of each ball as \( m \). The velocity of the upper ball right before the collision is given by
+  \[ v=\sqrt{2gR}. \]
+  Since the two balls stick together when they collide, from the momentum conservation, we have
+  \[ 2mv' = mv, \]
+  where \( v' \) is the velocity of the two balls right after the collision. Denote the height which the two balls will reach after colliding as \( h \). From the energy conservation, we have
+  \[ \frac{1}{2}2mv'^2=2mgh\implies h=\frac{R}{4}. \]
+  (b) The initial gravitational potential energy of the system is given by
+  \[ U_\mathrm{i}=mgR. \]
+  The final gravitational potential energy of the system is given by
+  \[ U_\mathrm{f}=2mgh=\frac{mgR}{2}. \]
+  The final gravitational potential energy is less than the initial gravitational potential energy. This is because the collision is inelastic, which dissipates some mechanical energy of the system.
+\end{solution}
+
+
+
+\end{document}
