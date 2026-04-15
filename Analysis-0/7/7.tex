@@ -5,5 +5,97 @@
 
 \begin{document}
 
+\begin{problem}[4-2]
+Let $f$ be a continuous mapping from a metric space $X$ into a metric space $Y$. Prove that for every set $E\subset X$,
+\[
+f(\overline{E})\subset \overline{f(E)},
+\]
+where $\overline{E}$ denotes the closure of $E$. Give an example showing that $f(\overline{E})$ can be a proper subset of $\overline{f(E)}$.
+\end{problem}
+
+\begin{proof}
+  Take \( p\in\overline{E} \). We will show that \( f(p)\in\overline{f(E)} \), i.e. for any \( \varepsilon>0 \), there exists \( q\in E \) such that \( d(f(p),f(q))<\varepsilon \).\par
+  Since \( f \) is continuous at \( p \), there exists \( \delta>0 \) such that for any \( x\in X \) with \( d(p,x)<\delta \), we have \( d(f(p),f(x))<\varepsilon \). Since \( p\in\overline{E} \), there exists \( q\in E \) such that \( d(p,q)<\delta \). Thus, we have \( d(f(p),f(q))<\delta \), which completes the proof of \( f(\overline{E})\subset \overline{f(E)} \).\par
+  For the second part, let \( X=Y=\R \) with the metric \( d(x,y)=\abs{x-y} \), and \( f(x)=\arctan x \). Then, for \( E=\R \), we have \( f(E)=f(\overline{E})=(-\pi/2,\pi/2) \) but \( \overline{f(E)}=[-\pi/2,\pi/2] \), which shows that \( f(\overline{E}) \) is a proper subset of \( \overline{f(E)} \).
+\end{proof}
+
+
+
+\begin{problem}[4-4]
+Let $f$ and $g$ be continuous mappings from a metric space $X$ into a metric space $Y$, and let $E$ be a dense subset of $X$.
+
+Prove that $f(E)$ is dense in $f(X)$. If $g(p)=f(p)$ for every $p\in E$, prove that $g(p)=f(p)$ for every $p\in X$. (In other words, a continuous mapping is determined by its values on a dense subset of its domain.)
+\end{problem}
+
+\begin{proof}
+  By the previous problem, we have \( f(\overline{E})\subset \overline{f(E)} \). Since \( E \) is dense in \( X \), we have \( \overline{E}=X \), which implies that \( f(X)\subset \overline{f(E)} \). Thus, \( f(E) \) is dense in \( f(X) \).\par
+  For the second part, let 
+  \[ h:\ X\to\R,\ x\to d(f(x),g(x)). \]\par
+  It's not hard to verify that \( h \) is continuous on \( X \) and \( h(p)=0 \) for every \( p\in E \). Since \( E \) is dense in \( X \), we have \( \{0\} \) is dense in \( h(X) \). Since \( h(X) \) is a subset of \( \R \), we have \( h(X)=\{0\} \), which implies that \( f(p)=g(p) \) for every \( p\in X \).
+\end{proof}
+
+
+
+\begin{problem}[4-6]
+If $f$ is defined on $E$, then the graph of $f$ is the set of points $(x,f(x))$ with $x\in E$. In particular, if $E$ is a subset of the real numbers and $f$ is real-valued, then the graph of $f$ is a subset of the plane.
+
+Assume $E$ is compact. Prove that $f$ is continuous on $E$ if and only if its graph is compact.
+\end{problem}
+
+\begin{proof}
+  Denote \( g(x)=(x,f(x)) \) as a function from \( E \) to \( \R^2 \), and define \( S=g(E) \). Then \( g \) is continuous if \( f \) is continuous. Assume that \( E\times f(E) \) is equipped with the product topology.\par
+  (1) ``\( \implies \)''. For any open cover \( \{G_\alpha\} \) of \( S \), we have \( \tilde{G}_\alpha:=g^{-1}(G_\alpha\cap S) \) is an open cover of \( E \). Since \( E \) is compact, there exists a finite subcover \( \{\tilde{G}_{\alpha_i}\} \) of \( E \). Then, \( \{G_{\alpha_i}\} \) is a finite subcover of \( S \), which implies that \( S \) is compact.\par
+  (2) ``\( \impliedby \)''. For any \( x\in E \) and \( \varepsilon>0 \), we will prove that there exists \( \delta>0 \) such that \( \abs{f(x)-f(y)}<\varepsilon \) for any \( y\in N_\delta(x) \).\par
+  Denote
+  \[ G=N_{\varepsilon}(x)\times N_{\varepsilon}(f(x)),\ G_n=\left( E-\overline{N}_{\varepsilon/n}(x) \right)\times f(E), \]
+  where \( \overline{N} \) denote the closed neighborhood. Then, by the definition of product topology, \( G \) and \( G_{n} \) is open in \( E\times f(E) \). \par
+  Since for every \( y\neq x \), we have \( (y,f(y))\in G_n \) for sufficiently large \( n \), and \( (x,f(x))\in G \), therefore \( \{G\}\cup\{G_n:\ n\in\N\} \) is an open cover of \( S \). Since \( S \) is compact, there exists a finite subcover \( \{G\}\cup\{G_{n_i}:\ i=1,2,\cdots,k\} \) of \( S \). Let \( N=\max\{n_i:\ i=1,2,\cdots,k\} \). Then, for any \( y\in E \) with \( \abs{x-y}<\varepsilon/N \), we have \( (y,f(y))\in G \), which implies that \( \abs{f(x)-f(y)}<\varepsilon \).\par
+  Take \( \delta=\varepsilon/N \), we have \( \abs{f(x)-f(y)}<\varepsilon \) for any \( y\in N_\delta(x) \), which completes the proof.
+\end{proof}
+
+
+
+\begin{problem}[4-8]
+Let $f$ be a uniformly continuous real-valued function on a bounded set $E\subset \mathbb{R}^1$. Prove that $f$ is bounded on $E$.
+
+If the boundedness assumption on $E$ is removed, show that this conclusion need not hold.
+\end{problem}
+
+\begin{proof}
+  Since \( f(E) \) is not bounded, there exists a sequence \( \{x_n\}\in E \) such thath \( \abs{f(x_{n+1})}>1+\abs{f(x_{n})} \) for all \( n\ge 1 \). Since \( E \) is bounded, there exists a subsequence \( \{x_{n_k}\} \) of \( \{x_n\} \) such that \( x_{n_k}\to x_0 \) for some \( x_0\in\R \). Since \( f \) is uniformly continuous on \( E \), then for any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( x,y\in E \) with \( \abs{x-y}<\delta \), we have \( \abs{f(x)-f(y)}<\varepsilon \). Take \( k_0 \) such that \( \abs{x_{n_k}-x_0}<\delta/2 \) for any \( k\ge k_0 \). Then, for any \( k,l\ge k_0 \), we have
+  \[\abs{f(x_{n_k})-f(x_{n_l})}<\varepsilon, \]
+  which contradicts the fact that \( \abs{f(x_{n+m})}>m+\abs{f(x_{n})} \) for all \( m,n\ge 1 \).\par
+  For the second part, let \( E=\R \) and \( f(x)=x \). Then, \( f \) is uniformly continuous on \( E \) but \( f(E) \) is not bounded.
+\end{proof}
+
+
+
+\begin{problem}[4-9]
+Prove that the requirement in the definition of uniform continuity can be expressed in terms of diameters as follows: for every $\varepsilon>0$, there exists $\delta>0$ such that for every $E\subset X$ with $\operatorname{diam}(E)<\delta$, one has $\operatorname{diam}(f(E))<\varepsilon$.
+\end{problem}
+
+\begin{proof}
+  First, we will show that the original definition of uniform continuity implies the diameter version. For any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( x,y\in X \) with \( d(x,y)<\delta \), we have \( d(f(x),f(y))<\varepsilon \). For any \( E\subset X \) with \( \operatorname{diam}(E)<\delta \), we have \( d(x,y)<\delta \) for any \( x,y\in E \). Thus, we have \( d(f(x),f(y))<\varepsilon \) for any \( x,y\in E \), which implies that \( \operatorname{diam}(f(E))<\varepsilon \).\par
+  Next, we will show that the diameter version implies the original definition of uniform continuity. For any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( E\subset X \) with \( \operatorname{diam}(E)<\delta \), we have \( \operatorname{diam}(f(E))<\varepsilon \). For any \( x,y\in X \) with \( d(x,y)<\delta \), we have \( \operatorname{diam}(\{x,y\})=d(x,y)<\delta \). Thus, we have \( \operatorname{diam}(f(\{x,y\}))<\varepsilon \), which implies that \( d(f(x),f(y))<\varepsilon \).\par
+  This completes the proof.
+\end{proof}
+
+
+
+\begin{problem}[4-12]
+The composition of uniformly continuous functions is uniformly continuous.
+
+State this assertion precisely, and prove it.
+\end{problem}
+
+\begin{proof}
+  Let \( X,Y,Z \) be metric spaces, and \( f:\ X\to Y \), \( g:\ Y\to Z \) be uniformly continuous functions. We will show that the composition \( g\circ f:\ X\to Z \) is uniformly continuous.\par
+  For any \( \varepsilon>0 \), since \( g \) is uniformly continuous on \( Y \), there exists \( \delta_1>0 \) such that for any \( y_1,y_2\in Y \) with \( d(y_1,y_2)<\delta_1 \), we have \( d(g(y_1),g(y_2))<\varepsilon \). Since \( f \) is uniformly continuous on \( X \), there exists \( \delta_2>0 \) such that for any \( x_1,x_2\in X \) with \( d(x_1,x_2)<\delta_2 \), we have \( d(f(x_1),f(x_2))<\delta_1 \). Thus, for any \( x_1,x_2\in X \) with \( d(x_1,x_2)<\delta_2 \), we have
+  \[ d(g(f(x_1)),g(f(x_2)))<\varepsilon, \]
+  which implies that \( g\circ f:\ X\to Z \) is uniformly continuous.\par
+  This completes the proof.
+\end{proof}
+
+
 
 \end{document}
