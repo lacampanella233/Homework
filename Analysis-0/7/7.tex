@@ -82,6 +82,32 @@ Prove that the requirement in the definition of uniform continuity can be expres
 
 
 
+
+\begin{problem}[4-10]
+Supply the details of the following alternative proof of Theorem 4.19:
+
+If $f$ is not uniformly continuous, then there exists $\varepsilon>0$ and two sequences $\{p_n\},\{q_n\}$ in $X$ such that
+\[
+d_X(p_n,q_n)\to 0,
+\]
+but
+\[
+d_Y\bigl(f(p_n),f(q_n)\bigr)>\varepsilon
+\]
+for all $n$.
+Use Theorem 2.37 to derive a contradiction.
+\end{problem}
+
+\begin{proof}
+  Suppose that \( f \) is not uniformly continuous. Then, there exists \( \varepsilon>0 \) such that for any \( \delta>0 \), there exist \( p,q\in X \) with \( d(p,q)<\delta \) but \( d(f(p),f(q))>\varepsilon \). For each \( n\in\N \), take \( p_n,q_n\in X \) such that \( d(p_n,q_n)<1/n \) but \( d(f(p_n),f(q_n))>\varepsilon \). Then, we have \( d(p_n,q_n)\to 0 \) but \( d(f(p_n),f(q_n))>\varepsilon \) for all \( n \).\par
+  Since \( \{p_n\} \) lies in a compact metric space \( X \), there exists a subsequence \( \{p_{n_k}\} \) of \( \{p_n\} \) such that \( p_{n_k}\to p_0 \) for some \( p_0\in X \). Since \( d(p_{n_k},q_{n_k})<1/n_k \), we have \( q_{n_k}\to p_0 \) as well. Since \( f \) is continuous at \( p_0 \), we have \( f(p_{n_k})\to f(p_0) \) and \( f(q_{n_k})\to f(p_0) \). Thus, we have
+  \[ d(f(p_{n_k}),f(q_{n_k}))\to 0, \]
+  which contradicts the fact that \( d(f(p_{n_k}),f(q_{n_k}))>\varepsilon \) for all \( k \).\par
+  This completes the proof.
+\end{proof}
+
+
+
 \begin{problem}[4-12]
 The composition of uniformly continuous functions is uniformly continuous.
 
@@ -95,6 +121,129 @@ State this assertion precisely, and prove it.
   which implies that \( g\circ f:\ X\to Z \) is uniformly continuous.\par
   This completes the proof.
 \end{proof}
+
+
+
+\begin{problem}[4-15]
+Let $f$ be a mapping of $X$ into $Y$. If for every open set $V\subset X$, the image $f(V)$ is open in $Y$, then $f$ is called an open mapping.
+
+Prove that every continuous open mapping of $\mathbb{R}^1$ into $\mathbb{R}^1$ is monotone.
+\end{problem}
+
+\begin{proof}
+  Suppose that \( f \) is not monotone. Then, there exist \( a,b,c\in\R \) with \( a<c<b \) such that \( f(c)>\max\{f(a),f(b)\} \) or \( f(c)<\min\{f(a),f(b)\} \). Without loss of generality, we assume that \( f(c)>\max\{f(a),f(b)\} \). \par
+  Let \( \eta=\sup\{f(x):a<x<b\} \). Since \( f \) is continuous on \( (a,b) \), and \( \eta\ge f(c)>\max\{f(a),f(b)\} \), there exist \( \xi\in(a,b) \) such that \( f(\xi)=\eta \). \par
+  Let \( \eta'=\inf\{f(x):a<x<b\} \). For every \( y\in(\eta',\eta] \), there exists \( x\in(a,b) \) such that \( \eta'<f(x)<y<f(\xi)=\eta \), therefore by the continuity of \( f \), there exists \( \xi_y\in(a,b) \) such that \( f(\xi_y)=y \). Thus, we have \( (\eta',\eta]\subset f((a,b)) \), hence
+  \[ f((a,b))=(\eta',\eta]\text{ or }[\eta',\eta], \]
+  which is a contradiction since \( f \) is an open mapping and \( (a,b) \) is open in \( \mathbb{R}^1 \).\par
+  This completes the proof.
+\end{proof}
+
+
+
+\begin{problem}[4-18]
+Every rational number $x$ can be written in the form $x=m/n$, where $n>0$ and $m,n$ are integers with no common factor. When $x=0$, take $n=1$. Consider the function $f$ on $\mathbb{R}^1$ defined by
+\[
+f(x)=
+\begin{cases}
+0, & \text{if } x \text{ is irrational},\\
+\dfrac{1}{n}, & \text{if } x=\dfrac{m}{n}.
+\end{cases}
+\]
+Prove that $f$ is continuous at every irrational point, and that at every rational point $f$ has a simple discontinuity.
+\end{problem}
+
+\begin{proof}
+  (1) For any irrational point \( x_0 \), we will show that \( f \) is continuous at \( x_0 \).\par
+  For any \( \varepsilon>0 \), there exists \( N\in\N \) such that \( 1/N<\varepsilon \). Since the set of rational numbers with denominator less than or equal to \( N \) is finite, there exists \( \delta>0 \) such that for any rational number \( m/n \) with \( n\le N \), we have \( d(x_0,m/n)\ge\delta \). \par
+  Thus, for any \( x\in\R \) with \( d(x,x_0)<\delta \), we have either \( x \) is irrational and \( f(x)=0=f(x_0) \), or \( x=m/n \) is rational with \( n>N \) and \( f(x)=1/n<1/N<\varepsilon \). In either case, we have \( d(f(x),f(x_0))<\varepsilon \), which implies that \( f \) is continuous at every irrational point.\par
+  (2) For any rational point \( x_0=m_0/n_0 \), we will show that \( f \) has a simple discontinuity at \( x_0 \). If \( f \) is continous at \( x_0\in\Q \), then for any sequence \( \{x_n\} \) with \( x_n\to x_0 \), we have \( f(x_n)\to f(x_0)=1/n_0 \). \par
+  However, we can take a sequence \( \{x_n\} \) of irrational numbers such that \( x_n\to x_0 \), which implies that \( f(x_n)=0\to 0\neq 1/n_0 \). Thus, \( f \) is not continuous at any rational point.\par
+  This completes the proof.
+\end{proof}
+
+
+
+\begin{problem}[4-20]
+Let $E$ be a nonempty subset of a metric space $X$. Define the distance from $x\in X$ to $E$ by
+\[
+\rho_E(x)=\inf_{z\in E} d(x,z).
+\]
+\begin{itemize}
+  \item[(a)] Prove that $\rho_E(x)=0$ if and only if $x\in \overline{E}$.
+  \item[(b)] For all $x,y\in X$, prove that
+  \[
+  \left|\rho_E(x)-\rho_E(y)\right|\le d(x,y).
+  \]
+\end{itemize}
+Then use this to prove that $\rho_E$ is uniformly continuous on $X$.
+\end{problem}
+
+\begin{proof}
+  (a) If \( x\in\overline{E} \), then for any \( \varepsilon>0 \), there exists \( z\in E \) such that \( d(x,z)<\varepsilon \). Thus \( \rho_E(x)=\inf_{z\in E} d(x,z)\le d(x,z)<\varepsilon \). Since \( \varepsilon \) is arbitrary, we have \( \rho_E(x)=0 \).\par
+  Conversely, if \( \rho_E(x)=0 \), then for any \( \varepsilon>0 \), there exists \( z\in E \) such that \( d(x,z)<\varepsilon \). Thus, \( x\in\overline{E} \).\par
+  (b) For any \( x,y\in X \), we have
+  \[\abs{\rho_E(x)-\rho_E(y)}=\abs{\inf_{z_1\in E}d(x,z_1)-\inf_{z_2\in E}d(y,z_2)}\le\inf_{z\in E}\abs{d(x,z)-d(y,z)}\le d(x,y). \]
+\end{proof}
+
+
+
+\begin{problem}[4-23]
+A real-valued function $f$ on $(a,b)$ is called convex if, whenever $a<x<b$, $a<y<b$, and $0<\lambda<1$,
+\[
+f\bigl(\lambda x+(1-\lambda)y\bigr)\le \lambda f(x)+(1-\lambda)f(y).
+\]
+Prove that every convex function is continuous. Then prove that every increasing convex function of a convex function is convex. (For example, if $f$ is convex, then $e^f$ is also convex.)
+
+If $f$ is convex on $(a,b)$ and $a<s<t<u<b$, prove that
+\[
+\frac{f(t)-f(s)}{t-s}\le \frac{f(u)-f(s)}{u-s}\le \frac{f(u)-f(t)}{u-t}.
+\]
+\end{problem}
+
+\begin{proof}
+  We will prove the inequality first. For any \( a<s<t<u<b \), we have
+  \[ t=\lambda s+(1-\lambda)u, \]
+  where \( \lambda=(u-t)/(u-s) \). Since \( f \) is convex, we have
+  \[ f(t)\le \lambda f(s)+(1-\lambda)f(u), \]
+  which implies that
+  \[ \frac{f(t)-f(s)}{t-s}\le \frac{f(u)-f(s)}{u-s}. \]
+  Similarly, we have
+  \[ f(t)\le \lambda' u+(1-\lambda')s, \]
+  where \( \lambda'=(t-s)/(u-s) \). Thus, we have
+  \[ \frac{f(u)-f(s)}{u-s}\le \frac{f(u)-f(t)}{u-t}. \]
+  This completes the proof of the inequality.\par
+  Next, we will show that \( f \) is continuous. For any \( a<x_0<b \), select \( a_0,b_0 \in (a,b) \) such that \( a_0<x_0<b_0 \). Then, for any \( x\in(x_0,b_0) \), we have
+  \[ \frac{f(x_0)-f(a_0)}{x_0-a_0}\le \frac{f(x)-f(x_0)}{x-x_0}\implies f(x)\ge f(x_0)+\frac{f(x_0)-f(a_0)}{x_0-a_0}(x-x_0), \]
+  \[ \frac{f(x)-f(x_0)}{x-x_0}\le \frac{f(b_0)-f(x_0)}{b_0-x_0}\implies f(x)\le f(x_0)+\frac{f(b_0)-f(x_0)}{b_0-x_0}(x-x_0). \]\par
+  The same argument and conclusion holds for \( x\in(a_0,x_0) \). Then, we have
+  \begin{multline*}
+    f(x_0)=\lim_{x\to x_0}\left( f(x_0)+\frac{f(b_0)-f(x_0)}{b_0-x_0}(x-x_0) \right)\\
+    \le\lim_{x\to x_0}f(x)\\
+    \le\lim_{x\to x_0} \left( f(x_0)+\frac{f(x_0)-f(a_0)}{x_0-a_0}(x-x_0) \right)=f(x_0),
+  \end{multline*}
+  which implies \( \lim_{x\to x_0}f(x) \) exists and equals \( f(x_0) \). Thus, \( f \) is continuous at \( x_0 \). Since \( x_0 \) is arbitrary, we have \( f \) is continuous on \( (a,b) \).\par
+  Finally, we will show that if \( g:\R\to\R \) is an increasing convex function and \( f:\ (a,b)\to\R \) is a convex function, then the composition \( g\circ f:\ (a,b)\to\R \) is convex.\par
+  For any \( a<x,y<b \) and \( 0<\lambda<1 \), we have
+  \[ f(\lambda x+(1-\lambda)y)\le \lambda f(x)+(1-\lambda)f(y). \]
+  Since \( g \) is increasing, we have
+  \[ g(f(\lambda x+(1-\lambda)y))\le g(\lambda f(x)+(1-\lambda)f(y)). \]
+  Since \( g \) is convex, we have
+  \[ g(\lambda f(x)+(1-\lambda  )f(y))\le \lambda g(f(x))+(1-\lambda)g(f(y)). \]\par
+  Thus, we have
+  \[ g(f(\lambda x+(1-\lambda)y))\le \lambda g(f(x))+(1-\lambda)g(f(y)), \]
+  which implies that \( g\circ f:\ (a,b)\to\R \) is convex.\par
+\end{proof}
+
+
+
+\begin{problem}[4-26]
+Let $X$, $Y$, and $Z$ be metric spaces, with $Y$ compact. Let $f$ map $X$ into $Y$, let $g$ be a one-to-one continuous mapping of $Y$ into $Z$, and for each $x\in X$ define $h(x)=g\bigl(f(x)\bigr)$.
+
+Prove that if $h$ is uniformly continuous, then $f$ is uniformly continuous.
+\end{problem}
+
+
 
 
 
