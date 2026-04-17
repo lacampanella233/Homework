@@ -232,7 +232,7 @@ If $f$ is convex on $(a,b)$ and $a<s<t<u<b$, prove that
   \[ g(\lambda f(x)+(1-\lambda  )f(y))\le \lambda g(f(x))+(1-\lambda)g(f(y)). \]\par
   Thus, we have
   \[ g(f(\lambda x+(1-\lambda)y))\le \lambda g(f(x))+(1-\lambda)g(f(y)), \]
-  which implies that \( g\circ f:\ (a,b)\to\R \) is convex.\par
+  which implies that \( g\circ f:\ (a,b)\to\R \) is convex.
 \end{proof}
 
 
@@ -243,7 +243,10 @@ Let $X$, $Y$, and $Z$ be metric spaces, with $Y$ compact. Let $f$ map $X$ into $
 Prove that if $h$ is uniformly continuous, then $f$ is uniformly continuous.
 \end{problem}
 
-
+\begin{proof}
+  Without loss of generality, we assume that \( Z=g(Y) \). Then \( f=g^{-1}\circ h \). Hence, it suffices to show that \( g^{-1}:\ Z\to Y \) is uniformly continuous. \par
+  Since \( g \) is continuous and \( Y \) is compact, we have \( Z=g(Y) \) is compact as well. For any closed set \( F\in Y \), \( F \) is compact in \( Y \), hence \( g(F) \) is compact in \( Z \). Since \( Z \) is a metric space, \( g(F) \) is closed in \( Z \). Thus, \( g^{-1} \) is continuous. Since \( Z \) is compact, we have \( g^{-1}: \) is uniformly continuous.
+\end{proof}
 
 
 
