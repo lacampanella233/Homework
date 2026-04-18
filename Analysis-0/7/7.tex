@@ -15,7 +15,7 @@ where $\overline{E}$ denotes the closure of $E$. Give an example showing that $f
 
 \begin{proof}
   Take \( p\in\overline{E} \). We will show that \( f(p)\in\overline{f(E)} \), i.e. for any \( \varepsilon>0 \), there exists \( q\in E \) such that \( d(f(p),f(q))<\varepsilon \).\par
-  Since \( f \) is continuous at \( p \), there exists \( \delta>0 \) such that for any \( x\in X \) with \( d(p,x)<\delta \), we have \( d(f(p),f(x))<\varepsilon \). Since \( p\in\overline{E} \), there exists \( q\in E \) such that \( d(p,q)<\delta \). Thus, we have \( d(f(p),f(q))<\delta \), which completes the proof of \( f(\overline{E})\subset \overline{f(E)} \).\par
+  Since \( f \) is continuous at \( p \), there exists \( \delta>0 \) such that for any \( x\in X \) with \( d(p,x)<\delta \), we have \( d(f(p),f(x))<\varepsilon \). Since \( p\in\overline{E} \), there exists \( q\in E \) such that \( d(p,q)<\delta \). Thus, we have \( d(f(p),f(q))<\varepsilon \), which completes the proof of \( f(\overline{E})\subset \overline{f(E)} \).\par
   For the second part, let \( X=Y=\R \) with the metric \( d(x,y)=\abs{x-y} \), and \( f(x)=\arctan x \). Then, for \( E=\R \), we have \( f(E)=f(\overline{E})=(-\pi/2,\pi/2) \) but \( \overline{f(E)}=[-\pi/2,\pi/2] \), which shows that \( f(\overline{E}) \) is a proper subset of \( \overline{f(E)} \).
 \end{proof}
 
@@ -246,6 +246,75 @@ Prove that if $h$ is uniformly continuous, then $f$ is uniformly continuous.
 \begin{proof}
   Without loss of generality, we assume that \( Z=g(Y) \). Then \( f=g^{-1}\circ h \). Hence, it suffices to show that \( g^{-1}:\ Z\to Y \) is uniformly continuous. \par
   Since \( g \) is continuous and \( Y \) is compact, we have \( Z=g(Y) \) is compact as well. For any closed set \( F\in Y \), \( F \) is compact in \( Y \), hence \( g(F) \) is compact in \( Z \). Since \( Z \) is a metric space, \( g(F) \) is closed in \( Z \). Thus, \( g^{-1} \) is continuous. Since \( Z \) is compact, we have \( g^{-1}: \) is uniformly continuous.
+\end{proof}
+
+
+
+\begin{problem}[5-7]
+Assume that $f'(x)$ and $g'(x)$ exist, $g'(x)\neq 0$, and $f(x)=g(x)=0$. Prove that
+\[
+\lim_{t\to x}\frac{f(t)}{g(t)}=\frac{f'(x)}{g'(x)}.
+\]
+(This also holds for complex-valued functions.)
+\end{problem}
+
+\begin{proof}
+  By the definition of derivative, we have
+  \[ f'(x)=\lim_{t\to x}\frac{f(t)}{t-x},\ g'(x)=\lim_{t\to x}\frac{g(t)}{t-x}. \]
+  Then, for any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( t\in\R \) with \( 0<\abs{t-x}<\delta \), we have
+  \[ \abs{\frac{f(t)}{t-x}-f'(x)}<\varepsilon,\ \abs{\frac{g(t)}{t-x}-g'(x)}<\varepsilon. \]
+  Thus, for any \( t\in\R \) with \( 0<\abs{t-x}<\delta \), 
+  \begin{align*}
+    \abs{\frac{f(t)}{g(t)}-\frac{f'(x)}{g'(x)}}&=\abs{\frac{f(t)}{t-x}\frac{t-x}{g(t)}-\frac{f'(x)}{g'(x)}}\\
+    &\le \abs{\frac{f(t)}{t-x}-f'(x)}\abs{\frac{t-x}{g(t)}}+\abs{f'(x)}\cdot\abs{\frac{t-x}{g(t)}-\frac{1}{g'(x)}}\\
+    &<\varepsilon\abs{\frac{t-x}{g(t)}}+\abs{f'(x)}\abs{\frac{g(t)}{t-x}-g'(x)}\abs{\frac{t-x}{g(t)g'(t)}}\\
+    &<\varepsilon \left( g'(x)+\varepsilon \right)+\varepsilon \abs{f'(x)}\frac{1}{(\abs{g'(x)}-\varepsilon)g'(x)}.
+  \end{align*}\par
+  Since \( \varepsilon \) is arbitrary, we have
+  \[ \lim_{t\to x}\frac{f(t)}{g(t)}=\frac{f'(x)}{g'(x)}. \]
+  This completes the proof.
+\end{proof}
+
+
+
+\begin{problem}[5-13]
+Let $a,c\in\mathbb{R}$ with $c>0$, and let $f$ be defined on $[-1,1]$ by
+\[
+f(x)=
+\begin{cases}
+|x|^a\sin\bigl(|x|^{-c}\bigr), & x\neq 0,\\
+0, & x=0.
+\end{cases}
+\]
+Prove the following statements:
+\begin{itemize}
+  \item[(a)] $f$ is continuous if and only if $a>0$.
+  \item[(b)] $f'(0)$ exists if and only if $a>1$.
+  \item[(c)] $f'$ is bounded if and only if $a\ge 1+c$.
+  \item[(d)] $f'$ is continuous if and only if $a>1+c$.
+\end{itemize}
+\end{problem}
+
+\begin{proof}
+  (a) If \( a>0 \), then for any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( x\in\R \) with \( \abs{x}<\delta \), we have \( \abs{f(x)}\le \abs{x}^a<\varepsilon \). Thus, \( f \) is continuous at \( 0 \). Since \( f \) is continuous at every nonzero point, we have \( f \) is continuous on \( [-1,1] \).\par
+  Conversely, if \( a\le 0 \), then there exists a sequence \( \{t_n\} \) with \( t_n\to 0^+ \) such that \( \abs{t_n}^{-c}=(4n+1)\pi/2 \) for all \( n\ge 1 \). Thus, we have \( f(t_n)=\abs{t_n}^a\sin(\abs{t_n}^{-c})=\abs{t_n}^a\to 1 \text{ or }\infty \), which implies that \( f \) is not continuous at \( 0 \).\par
+  (b) If \( a>1 \), then for any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( x\in\R \) with \( \abs{x}<\delta \), we have
+  \[ \abs{\frac{f(x)-f(0)}{x-0}-0}=\abs{\frac{f(x)}{x}}\le \abs{x}^{a-1}<\varepsilon. \]
+  Thus, \( f'(0)=0 \) exists.\par
+  Conversely, if \( a\le 1 \), then take \( \{t_n\} \) as in the proof of (a), and \( \{s_n\} \) such that \( s_n\to 0^+ \) and \( \abs{s_n}^{-c}=(2n)\pi \) for all \( n\ge 1 \). Then, we have 
+  \[ \abs{\frac{f(t_n)}{t_n}}=\abs{t_n}^{a-1}\to 1 \text{ or }\infty,\ \abs{\frac{f(s_n)}{s_n}}=0 \], which implies that \( f'(0) \) does not exist.\par
+  (c) For \( x>0 \), we have
+  \[ f'(x) = a x^{a-1} \sin(x^{-c}) - c x^{a-c-1} \cos(x^{-c}). \]
+  If \( a\ge 1+c>1 \), then \( \abs{ax^{a-1}\sin(x^{-c})} \le a\abs{x}^{a-1} \) is bounded on \( (0,1] \), and \( \abs{c x^{a-c-1} \cos(x^{-c})} \le c x^{a-c-1} \) is also bounded on \( (0,1] \). Thus, \( f' \) is bounded on \( (0,1] \). Since \( f' \) is bounded on \( [-1,0) \) as well, we have \( f' \) is bounded on \( [-1,1] \).\par
+  Conversely, if \( a<1+c \), then take \( \{s_n\} \) as in the proof of (b). Then, we have
+  \[ f'(s_n)=-cs_n^{a-c-1}\to-\infty, \]
+  which implies that \( f' \) is not bounded on \( [-1,1] \).\par
+  (d) If \( a>1+c \), then \( f'(0)=0 \) exists by (b). Then,
+  \[ \abs{ax^{a-1}\sin(x^{-c})}=a\abs{x}^{a-1}\to 0,\ \abs{c x^{a-c-1} \cos(x^{-c})}=c x^{a-c-1}\to 0\ (x\to 0). \]
+  Hence \( \lim_{x\to 0}f'(x)=0 \), therefore \( f' \) is continuous at \( 0 \). Since \( f' \) is continuous at every nonzero point, we have \( f' \) is continuous on \( [-1,1] \).\par
+  Conversely, if \( a\le 1+c \), then take \( \{s_n\} \) as in the proof of (b). Then, we have
+  \[ f'(s_n)=-cs_n^{a-c-1}\to -c \text{ or } -\infty, \]
+  which implies that \( f' \) is not continuous at \( 0 \).
 \end{proof}
 
 
