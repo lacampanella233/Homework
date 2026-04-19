@@ -119,4 +119,96 @@ Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that $T$ has
 \end{proof}
 
 
+\begin{problem}[5D-1]
+Suppose $V$ is a finite-dimensional complex vector space and $T \in \mathcal{L}(V)$.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that if $T^4 = I$, then $T$ is diagonalizable.
+\item Prove that if $T^4 = T$, then $T$ is diagonalizable.
+\item Give an example of an operator $T \in \mathcal{L}(\mathbb{C}^2)$ such that $T^4 = T^2$ and $T$ is not diagonalizable.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) We have
+  \[ (T-I)(T+I)(T-\i I)(T+\i I)=0. \]
+  Since the four polynomials \( z-1,z+1,z-\i,z+\i \) are pairwise relatively prime, we have \( V = E(1,T)\oplus E(-1,T)\oplus E(\i,T)\oplus E(-\i,T) \). Therefore, \( T \) is diagonalizable.\par
+  (b) Similar to (a), we have
+  \[ V=E(0,T)\oplus E(1,T)\oplus E(\omega,T)\oplus E(\omega^2,T),\text{ where } \omega=e^{2\pi i/3}. \]
+  Therefore, \( T \) is diagonalizable.\par
+  (c) Let \( T \in \mathcal{L}(\mathbb{C}^2) \) be defined by \( T(z,w)=(0,z) \) for all \( (z,w)\in\mathbb{C}^2 \). Then \( T^2(z,w)=T(0,z)=(0,0) \), so \( T^2=0 \), but \( T \) is not diagonalizable since \( T \) has only one eigenvalue \( 0 \) but the eigenspace \( E(0,T) \) is one-dimensional.
+\end{proof}
+
+
+
+\begin{problem}[5D-3]
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that if the operator $T$ is diagonalizable, then
+\[
+V = \ker T \oplus \im T.
+\]
+\end{problem}
+
+\begin{proof}
+  Let \( \{v_1,v_2,\dots,v_n\} \) be all the nonzero eigenvectors of \( T \) such that \( Tv_k = \lambda_k v_k \) for all \( k=1,\dots,n \). Then \( \{v_1,v_2,\dots,v_n\} \) is a basis of \( V \). It's clear that
+  \[ \ker T=\sspan\{v_i:\lambda_i=0\} \text{ and } \im T=\sspan\{v_i:\lambda_i\neq 0\}. \]
+  Then \( V= \ker T \oplus \im T \).
+\end{proof}
+
+
+
+\begin{problem}[5D-5]
+Suppose $V$ is a finite-dimensional complex vector space and $T \in \mathcal{L}(V)$. Prove that $T$ is diagonalizable if and only if
+\[
+V = \ker(T - \lambda I) \oplus \im(T - \lambda I)
+\]
+for every $\lambda \in \mathbb{C}$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)'': Let \( \{\lambda_i\} \) be all the eigenvalues of \( T \) and \( \{v_i\} \) be the corresponding eigenvectors. Then \( \{v_i\} \) is a basis of \( V \). For any \( \lambda \in \mathbb{C} \), similar to the previous problem, we have
+  \[ \ker (T-\lambda I) = \sspan\{v_i: \lambda_i = \lambda\}\text{ and }\im (T-\lambda I) = \sspan\{v_i: \lambda_i \neq \lambda\}. \]
+  Therefore, \( V=\ker (T-\lambda I)\oplus \im (T-\lambda I) \).\par
+  ``\( \impliedby \)'': We will prove first that
+  \[ \ker(T-\lambda I)^k=\ker(T-\lambda I) \text{ for any } k\geq 1. \]
+  We will use induction on \( k \). The case \( k=1 \) is trivial. Assume that the statement holds for some \( k\geq 1 \). For any \( v\in \ker(T-\lambda I)^{k+1} \), we have \( (T-\lambda I)v\in \ker(T-\lambda I)^k=\ker(T-\lambda I) \). Therefore, \( (T-\lambda I)v\in \ker(T-\lambda I)\cap\im (T-\lambda I)=\{0\} \), which implies that \( v\in \ker(T-\lambda I) \). Therefore, \( \ker(T-\lambda I)^{k+1}=\ker(T-\lambda I) \).\par
+  Denote all distinct eigenvalues of \( T \) by \( \lambda_1,\dots,\lambda_m \). Denote the  minimal polynomial by \( m(\lambda)=(\lambda-\lambda_1)^{d_1}\cdots(\lambda-\lambda_m)^{d_m} \). Then
+  \[ V=\bigoplus_{k=1}^{m}\ker(T-\lambda_k I)^{d_k}=\bigoplus_{k=1}^{m}\ker(T-\lambda_k I). \]
+  Therefore, \( T \) is diagonalizable.
+\end{proof}
+
+
+
+\begin{problem}[5D-11]
+Find $T \in \mathcal{L}(\mathbb{C}^3)$ such that $6$ and $7$ are eigenvalues of $T$ and such that $T$ does not have a diagonal matrix with respect to any basis of $\mathbb{C}^3$.
+\end{problem}
+
+\begin{solution}
+  Take \( T(z_1,z_2,z_3)=(7z_1, 6z_2+z_3, 6z_3) \). Then \( T \) has eigenvalues \( 6 \) and \( 7 \), but \( T \) is not diagonalizable since the eigenspace \( E(6,T) \) is one-dimensional.
+\end{solution}
+
+
+
+\begin{problem}[5D-16]
+Suppose that $T \in \mathcal{L}(V)$ is diagonalizable. Let $\lambda_1, \ldots, \lambda_m$ denote the distinct eigenvalues of $T$. Prove that a subspace $U$ of $V$ is invariant under $T$ if and only if there exist subspaces $U_1, \ldots, U_m$ of $V$ such that $U_k \subseteq E(\lambda_k, T)$ for each $k$ and
+\[
+U = U_1 \oplus \cdots \oplus U_m.
+\]
+\end{problem}
+
+\begin{proof}
+  ``\( \impliedby \)'': Since \( E(\lambda_k, T) \) is invariant under \( T \) for each \( k \), the subspace \( U_k \subseteq E(\lambda_k, T) \) is also invariant under \( T \). Therefore, \( U = U_1 \oplus \cdots \oplus U_m \) is invariant under \( T \).\par
+  
+\end{proof}
+
+
+
+\begin{problem}[5D-18]
+Suppose that $T \in \mathcal{L}(V)$ is diagonalizable and $U$ is a subspace of $V$ that is invariant under $T$. Prove that the quotient operator $T/U$ is a diagonalizable operator on $V/U$.
+\end{problem}
+
+\begin{problem}[5D-19]
+Prove or give a counterexample: If $T \in \mathcal{L}(V)$ and there exists a subspace $U$ of $V$ that is invariant under $T$ such that $T|_U$ and $T/U$ are both diagonalizable, then $T$ is diagonalizable.
+\end{problem}
+
+
+
 \end{document}
