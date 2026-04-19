@@ -43,7 +43,20 @@ on the diagonal.
 \end{problem}
 
 \begin{proof}
-  Denote the diagonal entries of the matrix of \( T^{-1} \) by \( \mu_1,\dots,\mu_n \). By the previous problem, the matrix of \( TT^{-1} = I \) is upper-triangular with \( \lambda_1 \mu_1, \ldots, \lambda_n \mu_n \) on the diagonal. Since the matrix of \( I \) has \( 1 \) on the diagonal, we have \( \lambda_k \mu_k = 1 \) for all \( k = 1,\dots,n \). Therefore, \( \mu_k = 1/\lambda_k \) for all \( k = 1,\dots,n \).
+  Denote \( M=\mathcal{M}(T) \) which is upper triangular. We will prove by induction on \( n=\dim V \). \par
+  The case \( n=1 \) is trivial. Suppose that the statement holds for \( n-1 \). We can select a basis of \( V \) with respect to which the matrix of \( T \) is upper triangular. Then we can write
+  \[ M=\begin{pmatrix}
+    a & X\\
+    0 & A
+  \end{pmatrix}, M^{-1}=\begin{pmatrix}
+    b & Y\\
+    Z & B
+  \end{pmatrix}, \text{ where }a,b\in\F,\ X, Y\in F^{1\times(n-1)},\ Z \in F^{(n-1)\times 1}\]
+  and \( A\in\F^{(n-1)\times(n-1)} \) is an upper-triangular matrix.\par
+  Since \( MM^{-1}=I \), we have
+  \[ ab+XZ=1,\ AB=I_{n-1},\ aY+XB=0,\ AZ=0. \]\par
+  By the induction hypothesis, \( B=A^{-1} \) is upper triangular with diagonal entries \( \{1/\lambda:\lambda\) is diagonal entries of \( A\} \). Since \( A \) is invertible and \( AZ=0 \), we have \( Z=0 \). Then \( ab+XZ=1 \) implies that \( b=1/a \). \par
+  This completes the proof.
 \end{proof}
 
 
