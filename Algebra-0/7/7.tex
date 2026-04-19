@@ -1,0 +1,307 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Algebra-0}{2026 Spring}{7}
+
+\begin{document}
+
+\begin{problem}[5C-1]
+Prove or give a counterexample: If $T \in \mathcal{L}(V)$ and $T^2$ has an upper-triangular matrix with respect to some basis of $V$, then $T$ has an upper-triangular matrix with respect to some basis of $V$.
+\end{problem}
+
+\begin{solution}
+  We give a counterexample. Let $V = \mathbb{R}^2$ and let $T \in \mathcal{L}(V)$ be defined by rotating every vector in $V$ by $90^\circ$ counterclockwise. Then \( T^2=-I \), which obviously has an upper-triangular matrix. However, \( T \) does not have an upper-triangular matrix with respect to any basis of \( V \) since it has no eigenvalues in \( \mathbb{R} \).
+\end{solution}
+
+
+
+\begin{problem}[5C-2]
+Suppose $A$ and $B$ are upper-triangular matrices of the same size, with $\alpha_1, \ldots, \alpha_n$ on the diagonal of $A$ and $\beta_1, \ldots, \beta_n$ on the diagonal of $B$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $A + B$ is an upper-triangular matrix with $\alpha_1 + \beta_1, \ldots, \alpha_n + \beta_n$ on the diagonal.
+\item Show that $AB$ is an upper-triangular matrix with $\alpha_1\beta_1, \ldots, \alpha_n\beta_n$ on the diagonal.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) Denote \( M_{ij} \) as the \( (i,j) \)-th entry of a matrix \( M \). Since \( A \) and \( B \) are upper-triangular, we have \( A_{ij} = 0 \) and \( B_{ij} = 0 \) for all \( i > j \). Therefore, for all \( i > j \) and \( k \), we have
+  \[ (A + B)_{ij} = A_{ij} + B_{ij} = 0 + 0 = 0,\ (A+B)_{kk}=A_{kk}+B_{kk}=\alpha_k+\beta_k. \]\par
+  (b) For all \( i > j \), we have
+  \[ (AB)_{ij} = \sum_{k=1}^n A_{ik} B_{kj} = 0, \]
+  since for each term in the sum, either \( i > k \) or \( k > j \). For the diagonal entries, we have
+  \[ (AB)_{kk} = \sum_{j=1}^n A_{kj} B_{jk} = A_{kk} B_{kk} = \alpha_k \beta_k. \]
+\end{proof}
+
+
+
+\begin{problem}[5C-3]
+Suppose $T \in \mathcal{L}(V)$ is invertible and $v_1, \ldots, v_n$ is a basis of $V$ with respect to which the matrix of $T$ is upper triangular, with $\lambda_1, \ldots, \lambda_n$ on the diagonal. Show that the matrix of $T^{-1}$ is also upper triangular with respect to the basis $v_1, \ldots, v_n$, with
+\[
+\frac{1}{\lambda_1}, \ldots, \frac{1}{\lambda_n}
+\]
+on the diagonal.
+\end{problem}
+
+\begin{proof}
+  Denote \( M=\mathcal{M}(T) \) which is upper triangular. We will prove by induction on \( n=\dim V \). \par
+  The case \( n=1 \) is trivial. Suppose that the statement holds for \( n-1 \). We can select a basis of \( V \) with respect to which the matrix of \( T \) is upper triangular. Then we can write
+  \[ M=\begin{pmatrix}
+    a & X\\
+    0 & A
+  \end{pmatrix}, M^{-1}=\begin{pmatrix}
+    b & Y\\
+    Z & B
+  \end{pmatrix}, \text{ where }a,b\in\F,\ X, Y\in F^{1\times(n-1)},\ Z \in F^{(n-1)\times 1}\]
+  and \( A\in\F^{(n-1)\times(n-1)} \) is an upper-triangular matrix.\par
+  Since \( MM^{-1}=I \), we have
+  \[ ab+XZ=1,\ AB=I_{n-1},\ aY+XB=0,\ AZ=0. \]\par
+  By the induction hypothesis, \( B=A^{-1} \) is upper triangular with diagonal entries \( \{1/\lambda:\lambda\) is diagonal entries of \( A\} \). Since \( A \) is invertible and \( AZ=0 \), we have \( Z=0 \). Then \( ab+XZ=1 \) implies that \( b=1/a \). \par
+  This completes the proof.
+\end{proof}
+
+
+
+\begin{problem}[5C-8]
+Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and there exists a nonzero vector $v \in V$ such that $T^2v + 2Tv = -2v$.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that if $\mathbb{F} = \mathbb{R}$, then there does not exist a basis of $V$ with respect to which $T$ has an upper-triangular matrix.
+\item Prove that if $\mathbb{F} = \mathbb{C}$ and $A$ is an upper-triangular matrix that equals the matrix of $T$ with respect to some basis of $V$, then $-1 + i$ or $-1 - i$ appears on the diagonal of $A$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) Denote the matrix of \( T \) with respect to some basis of \( V \) by \( A \), such that \( A \) is upper triangular. Then the matrix of \( T^2+2T+2I \) is \( A^2+2A+2I \), which is also upper triangular and with diagonal entries \( \lambda^2+2\lambda+2 \), where \( \lambda \) is a diagonal entry of \( A \). Since \( \lambda\in\R \), we have \( \lambda^2+2\lambda+2>0 \), which shows that \( A^2+2A+2I \) is invertible. However, since \( T^2v + 2Tv = -2v \), we have \( (T^2+2T+2I)v = 0 \), which contradicts the invertibility of \( A^2+2A+2I \).\par
+  (b) The same argument as in (a) shows that \( A^2+2A+2I \) is not invertible, which means that there exists a diagonal entry \( \lambda \) of \( A \) such that \( \lambda^2+2\lambda+2=0 \). Solving this equation gives \( \lambda = -1 + i \) or \( \lambda = -1 - i \).
+\end{proof}
+
+
+
+\begin{problem}[5C-12]
+Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$ has an upper-triangular matrix with respect to some basis of $V$, and $U$ is a subspace of $V$ that is invariant under $T$.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that $T|_U$ has an upper-triangular matrix with respect to some basis of $U$.
+\item Prove that the quotient operator $T/U$ has an upper-triangular matrix with respect to some basis of $V/U$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) Let \( v_1,\dots,v_n \) be a basis of \( V \) such that the matrix of \( T \) with respect to this basis is upper triangular, and let \( V_k=\sspan\{v_1,\dots,v_k\} \). Then, \( \dim V_k=k \), and \( \{0\}=V_0\subset V_1\subset\dots\subset V_n=V \) is a sequence of subspaces that are invariant under \( T \).\par
+  We will show that \( \{0\}=(V_0\cap U)\subset (V_1\cap U)\subset\dots\subset (V_n\cap U)=U \) is a sequence of subspaces that are invariant under \( T|_U \) with \( \dim (V_{k+1}\cap U)-\dim (V_k\cap U)\le 1 \) for all \( k=0,\dots,n-1 \). Since \( V_{k+1} = V_k + \sspan\{v_{k+1}\} \), we have
+  \[ V_{k+1}\cap U = (V_k + \sspan\{v_{k+1}\})\cap U = (V_k\cap U) + (\sspan\{v_{k+1}\}\cap U). \]
+  Therefore
+  \[ \dim(V_{k+1}\cap U)=\dim(V_k\cap U)+\dim(\sspan\{v_{k+1}\}\cap U)-\dim(V_k\cap\sspan\{v_{k+1}\}\cap U)\le\dim(V_k\cap U)+1. \]\par
+  Denote \( m=\dim U \). Then there exists \( 0=i_0<i_1<\dots<i_m=n \) such that \( \dim(V_{i_k}\cap U)=k \) for all \( k=0,\dots,m \). Pick \( u_k\in (V_{i_k}\cap U)-(V_{i_{k-1}}\cap U) \), then \( \{u_1,\dots,u_m\} \) is a basis of \( U \). Moreover, for any \( 1\le k\le m \), \( \{u_1,\dots,u_k\} \) is a basis of \( V_{i_k}\cap U \). Therefore, the matrix of \( T|_U \) with respect to the basis \( u_1,\dots,u_m \) is upper triangular.\par
+  (b) We will consider the sequence of subspaces
+  \[ \{0\}=(V_0+U)/U\subset (V_1+U)/U\subset\dots\subset (V_n+U)/U=V/U. \]
+  Note that
+  \begin{align*}
+    \dim \left( (V_{k+1}+U)/U \right) &= \dim (V_{k+1}+U) - \dim U 
+    = \dim V_{k+1} + \dim U - \dim (V_{k+1}\cap U) - \dim U \\
+    &= \dim V_{k+1} - \dim (V_{k+1}\cap U) 
+    \le 1+\dim V_k - \dim (V_k\cap U) \\
+    &= 1+\dim \left( (V_k+U)/U \right).
+  \end{align*}\par
+  Then the similar argument as in (a) shows that there exists a basis of \( V/U \) with respect to which the matrix of \( T/U \) is upper triangular.
+\end{proof}
+
+
+
+\begin{problem}[5C-13]
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Suppose there exists a subspace $U$ of $V$ that is invariant under $T$ such that $T|_U$ has an upper-triangular matrix with respect to some basis of $U$ and also $T/U$ has an upper-triangular matrix with respect to some basis of $V/U$. Prove that $T$ has an upper-triangular matrix with respect to some basis of $V$.
+\end{problem}
+
+\begin{proof}
+  Denote \( \{u_1,\dots,u_m\} \) the basis of \( U \) such that the matrix of \( T|_U \) with respect to this basis is upper triangular, and denote \( \{v_1+U,\dots,v_n+U\} \) the basis of \( V/U \) such that the matrix of \( T/U \) with respect to this basis is upper triangular. We will show that \( \{u_1,\dots,u_m,v_1,\dots,v_n\} \) is a basis of \( V \) such that the matrix of \( T \) with respect to this basis is upper triangular.\par
+  First, for any \( 1\le k\le m \), we have \( \sspan\{u_1,\dots,u_k\} \) is \( T \)-invariant since the matrix of \( T|_U \) with respect to the basis \( u_1,\dots,u_m \) is upper triangular. Next, for any \( 1\le k\le n \), we have
+  \[ T(v_k)+U=(T/U)(v_k+U)\in \sspan\{v_1+U,\dots,v_k+U\} \subset \sspan\{u_1,\dots,u_m,v_1,\dots,v_k\}+U \]
+  \[ \implies T(v_k)\in \sspan\{u_1,\dots,u_m,v_1,\dots,v_k\}. \]
+  Then, \( \sspan\{u_1,\dots,u_m,v_1,\dots,v_k\} \) is \( T \)-invariant for all \( 1\le k\le n \). Therefore, the matrix of \( T \) with respect to the basis \( u_1,\dots,u_m,v_1,\dots,v_n \) is upper triangular.
+\end{proof}
+
+
+
+\begin{problem}[5C-14]
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that $T$ has an upper-triangular matrix with respect to some basis of $V$ if and only if the dual operator $T^*$ has an upper-triangular matrix with respect to some basis of the dual space $V^*$.
+\end{problem}
+
+\begin{proof}
+  Since \( V \) is finite-dimensional, we can treat \( V^{**} \) as \( V \). Then we only need to show ``\( \implies \)''. \par
+  Let \( \mathcal{B}:=\{ v_1,\dots,v_n \} \) be a basis of \( V \) such that the matrix of \( T \) with respect to this basis is upper triangular, and let \( \mathcal{B}^*:=\{ \varphi_1,\dots,\varphi_n \} \) be the dual basis of \( V^* \). Then we have
+  \[ \mathcal{M}(T,\mathcal{B})=\left( \mathcal{M}(T^*,\mathcal{B}^*) \right)\transpose. \]\par
+  Then the matrix of \( T^* \) with respect to the basis \( \mathcal{B}^* \) is lower-triangular matrix, which implies that the matrix of \( T^* \) with respect to the basis \( \{\varphi_n,\varphi_{n-1},\dots,\varphi_1\} \) is upper triangular.
+\end{proof}
+
+
+\begin{problem}[5D-1]
+Suppose $V$ is a finite-dimensional complex vector space and $T \in \mathcal{L}(V)$.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that if $T^4 = I$, then $T$ is diagonalizable.
+\item Prove that if $T^4 = T$, then $T$ is diagonalizable.
+\item Give an example of an operator $T \in \mathcal{L}(\mathbb{C}^2)$ such that $T^4 = T^2$ and $T$ is not diagonalizable.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) We have
+  \[ (T-I)(T+I)(T-\i I)(T+\i I)=0. \]
+  Since the four polynomials \( z-1,z+1,z-\i,z+\i \) are pairwise relatively prime, we have \( V = E(1,T)\oplus E(-1,T)\oplus E(\i,T)\oplus E(-\i,T) \). Therefore, \( T \) is diagonalizable.\par
+  (b) Similar to (a), we have
+  \[ V=E(0,T)\oplus E(1,T)\oplus E(\omega,T)\oplus E(\omega^2,T),\text{ where } \omega=e^{2\pi i/3}. \]
+  Therefore, \( T \) is diagonalizable.\par
+  (c) Let \( T \in \mathcal{L}(\mathbb{C}^2) \) be defined by \( T(z,w)=(0,z) \) for all \( (z,w)\in\mathbb{C}^2 \). Then \( T^2(z,w)=T(0,z)=(0,0) \), so \( T^2=0 \), but \( T \) is not diagonalizable since \( T \) has only one eigenvalue \( 0 \) but the eigenspace \( E(0,T) \) is one-dimensional.
+\end{proof}
+
+
+
+\begin{problem}[5D-3]
+Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that if the operator $T$ is diagonalizable, then
+\[
+V = \ker T \oplus \im T.
+\]
+\end{problem}
+
+\begin{proof}
+  Let \( \{v_1,v_2,\dots,v_n\} \) be all the nonzero eigenvectors of \( T \) such that \( Tv_k = \lambda_k v_k \) for all \( k=1,\dots,n \). Then \( \{v_1,v_2,\dots,v_n\} \) is a basis of \( V \). It's clear that
+  \[ \ker T=\sspan\{v_i:\lambda_i=0\} \text{ and } \im T=\sspan\{v_i:\lambda_i\neq 0\}. \]
+  Then \( V= \ker T \oplus \im T \).
+\end{proof}
+
+
+
+\begin{problem}[5D-5]
+Suppose $V$ is a finite-dimensional complex vector space and $T \in \mathcal{L}(V)$. Prove that $T$ is diagonalizable if and only if
+\[
+V = \ker(T - \lambda I) \oplus \im(T - \lambda I)
+\]
+for every $\lambda \in \mathbb{C}$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)'': Let \( \{\lambda_i\} \) be all the eigenvalues of \( T \) and \( \{v_i\} \) be the corresponding eigenvectors. Then \( \{v_i\} \) is a basis of \( V \). For any \( \lambda \in \mathbb{C} \), similar to the previous problem, we have
+  \[ \ker (T-\lambda I) = \sspan\{v_i: \lambda_i = \lambda\}\text{ and }\im (T-\lambda I) = \sspan\{v_i: \lambda_i \neq \lambda\}. \]
+  Therefore, \( V=\ker (T-\lambda I)\oplus \im (T-\lambda I) \).\par
+  ``\( \impliedby \)'': We will prove first that
+  \[ \ker(T-\lambda I)^k=\ker(T-\lambda I) \text{ for any } k\geq 1. \]
+  We will use induction on \( k \). The case \( k=1 \) is trivial. Assume that the statement holds for some \( k\geq 1 \). For any \( v\in \ker(T-\lambda I)^{k+1} \), we have \( (T-\lambda I)v\in \ker(T-\lambda I)^k=\ker(T-\lambda I) \). Therefore, \( (T-\lambda I)v\in \ker(T-\lambda I)\cap\im (T-\lambda I)=\{0\} \), which implies that \( v\in \ker(T-\lambda I) \). Therefore, \( \ker(T-\lambda I)^{k+1}=\ker(T-\lambda I) \).\par
+  Denote all distinct eigenvalues of \( T \) by \( \lambda_1,\dots,\lambda_m \). Denote the  minimal polynomial by \( m(\lambda)=(\lambda-\lambda_1)^{d_1}\cdots(\lambda-\lambda_m)^{d_m} \). Then
+  \[ V=\bigoplus_{k=1}^{m}\ker(T-\lambda_k I)^{d_k}=\bigoplus_{k=1}^{m}\ker(T-\lambda_k I). \]
+  Therefore, \( T \) is diagonalizable.
+\end{proof}
+
+
+
+\begin{problem}[5D-11]
+Find $T \in \mathcal{L}(\mathbb{C}^3)$ such that $6$ and $7$ are eigenvalues of $T$ and such that $T$ does not have a diagonal matrix with respect to any basis of $\mathbb{C}^3$.
+\end{problem}
+
+\begin{solution}
+  Take \( T(z_1,z_2,z_3)=(7z_1, 6z_2+z_3, 6z_3) \). Then \( T \) has eigenvalues \( 6 \) and \( 7 \), but \( T \) is not diagonalizable since the eigenspace \( E(6,T) \) is one-dimensional.
+\end{solution}
+
+
+
+\begin{problem}[5D-16]
+Suppose that $T \in \mathcal{L}(V)$ is diagonalizable. Let $\lambda_1, \ldots, \lambda_m$ denote the distinct eigenvalues of $T$. Prove that a subspace $U$ of $V$ is invariant under $T$ if and only if there exist subspaces $U_1, \ldots, U_m$ of $V$ such that $U_k \subseteq E(\lambda_k, T)$ for each $k$ and
+\[
+U = U_1 \oplus \cdots \oplus U_m.
+\]
+\end{problem}
+
+\begin{proof}
+  ``\( \impliedby \)'': Since \( E(\lambda_k, T) \) is invariant under \( T \) for each \( k \), the subspace \( U_k \subseteq E(\lambda_k, T) \) is also invariant under \( T \). Therefore, \( U = U_1 \oplus \cdots \oplus U_m \) is invariant under \( T \).\par
+  ``\( \implies \)'': Let \( U_k=U\cap E(\lambda_k,T) \), we will show that \( U=U_1 \oplus \cdots \oplus U_m \). Since \( \bigoplus_{k=1}^{m}E(\lambda_k,T)=V \) is direct sum, we have \( \bigoplus_{k=1}^{m}U_k \) is also direct sum. For any \( u\in U \), we can write \( u=u_1+\cdots+u_m \) with \( u_k\in E(\lambda_k,T) \) for all \( k=1,\dots,m \). Since \( U \) is invariant under \( T \), we have
+  \[ u_k=\prod_{i\neq k}^{}\frac{(T-\lambda_i I)}{\lambda_k-\lambda_i}(u)\in U\implies u_k\in U\cap E(\lambda_k,T)=U_k \]
+   for all \( k=1,\dots,m \). Therefore, \( U_1 \oplus \cdots \oplus U_m\subset U \). On the other hand, for any \( u_k\in U_k \), we have \( u_k\in U \) and \( u_1+\dots+u_k\in U \). Therefore, \( U=U_1 \oplus \cdots \oplus U_m \).
+\end{proof}
+
+
+
+\begin{problem}[5D-18]
+Suppose that $T \in \mathcal{L}(V)$ is diagonalizable and $U$ is a subspace of $V$ that is invariant under $T$. Prove that the quotient operator $T/U$ is a diagonalizable operator on $V/U$.
+\end{problem}
+
+\begin{proof}
+  Denote the distinct eigenvectors of \( T \) by \( v_1,\dots,v_n \) with \( Tv_k=\lambda_kv_k \). Then we have
+  \[ (T/U)(v_k+U) = Tv_k+U = \lambda_k v_k+U = \lambda_k (v_k+U) \]
+  for all \( k=1,\dots,n \). Then \( v_k+U \) is an eigenvector of \( T/U \) corresponding to the eigenvalue \( \lambda_k \). \par
+  Note that \( \sspan\{v_k+U:1\le k\le n\}=\sspan\{v_k:1\le k\le n\}+U=V/U \), so we can pick a subset of \( \{v_k+U:1\le k\le n\} \) as a basis of \( V/U \). Therefore, \( T/U \) is diagonalizable.
+\end{proof}
+
+
+
+\begin{problem}[5D-19]
+Prove or give a counterexample: If $T \in \mathcal{L}(V)$ and there exists a subspace $U$ of $V$ that is invariant under $T$ such that $T|_U$ and $T/U$ are both diagonalizable, then $T$ is diagonalizable.
+\end{problem}
+
+\begin{proof}
+  We give a counterexample. Let \( T \in \mathcal{L}(\mathbb{C}^2) \) be defined by \( T(z,w)=(z+w, w) \) for all \( (z,w)\in\mathbb{C}^2 \). Then \( T|_{\sspan\{(0,1)\}} \) is diagonalizable and \( T/\sspan\{(0,1)\} \) is also diagonalizable, but \( T \) is not diagonalizable since the eigenspace \( E(1,T) \) is one-dimensional.
+\end{proof}
+
+
+
+\begin{problem}[5E-4]
+Prove or give a counterexample: If $A$ is a diagonal matrix and $B$ is an upper-triangular matrix of the same size as $A$, then $A$ and $B$ commute.
+\end{problem}
+
+\begin{solution}
+  We give a counterexample. Take
+  \[ A=\begin{pmatrix}
+    1 & 0 \\
+    0 & 2
+  \end{pmatrix},\ B=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}. \]
+  Then 
+  \[ AB=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}\neq\begin{pmatrix}
+    0 & 2 \\
+    0 & 0
+  \end{pmatrix}=BA. \]
+\end{solution}
+
+
+
+\begin{problem}[5E-7]
+Suppose $V$ is a complex vector space, $S \in \mathcal{L}(V)$ is diagonalizable, and $T \in \mathcal{L}(V)$ commutes with $S$. Prove that there is a basis of $V$ such that $S$ has a diagonal matrix with respect to this basis and $T$ has an upper-triangular matrix with respect to this basis.
+\end{problem}
+
+\begin{proof}
+  Let \( \{\lambda_i\} \) be all the distinct eigenvalues of \( S \). Then for any \( \lambda_k \) and any \( v\in E(\lambda_k,S) \), we have
+  \[ S(Tv)=T(Sv)=T(\lambda_k v)=\lambda_k (Tv), \]
+  which implies that \( Tv\in E(\lambda_k,S) \). Therefore, \( E(\lambda_k,S) \) is invariant under \( T \) for all \( k \). Then we can pick a basis of \( E(\lambda_k,S) \) with respect to which the matrix of \( T|_{E(\lambda_k,S)} \) is upper triangular for all \( k \). \par
+  Then the union of these bases is a basis of \( V \), with respect to which the matrix of \( S \) is diagonal and the matrix of \( T \) is upper triangular. Moreover, since \( V=\bigoplus_{k=1}^{n} E(\lambda_k,S) \), we can infer that \( \mathcal{M}(T) \) is block diagonal with blocks \( \mathcal{M}(T|_{E(\lambda_k,S)}) \) for \( k=1,\dots,n \), which is upper triangular. 
+\end{proof}
+
+
+
+\begin{problem}[5E-9]
+Suppose $V$ is a finite-dimensional nonzero complex vector space. Suppose that $\mathcal{E} \subseteq \mathcal{L}(V)$ is such that $S$ and $T$ commute for all $S, T \in \mathcal{E}$.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that there is a vector in $V$ that is an eigenvector for every element of $\mathcal{E}$.
+\item Prove that there is a basis of $V$ with respect to which every element of $\mathcal{E}$ has an upper-triangular matrix.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) We will use induction on \( \dim V \). The case \( \dim V=1 \) is trivial. Assume that the statement holds for any complex vector space with dimension less than \( n \) for some \( n\geq 2 \). \par
+  Let \( S\in\mathcal{E} \) be a non-scalar operator, then there exists an eigenvalue \( \lambda \) of \( S \) such that the eigenspace \( E(\lambda,S) \) is a nonzero proper subspace of \( V \). Since \( S \) commutes with every element of \( \mathcal{E} \), we can infer that \( E(\lambda,S) \) is \( T- \)invariant for all \( T\in\mathcal{E} \). \par
+  Then we can apply the induction hypothesis to \( E(\lambda,S) \) and infer that there exists a vector in \( E(\lambda,S) \) that is an eigenvector for every element of \( \mathcal{E} \).\par
+  (b) We will use induction on \( \dim V \). The case \( \dim V=1 \) is trivial. Assume that the statement holds for any complex vector space with dimension less than \( n \) for some \( n\geq 2 \). \par
+  From (a), we can pick a vector \( v \) that is an eigenvector for every element of \( \mathcal{E} \). Denote \( U=\sspan\{v\} \), and select a subspace \( W \) of \( V \) such that \( V=U\oplus W \). Denote \( P \) as the projection from \( V \) to \( W \) along \( U \). For any \( T\in\mathcal{E} \), define \( f(T)\in \mathcal{L}(W) \) by \( f(T)(w)=P(Tw) \) for all \( w\in W \). Then for any \( S,T\in \mathcal{E} \), we have
+  \[ f(S)f(T)(w)=P(SP(Tw))=P(STw)=P(TSw)=P(TP(Sw))=f(T)f(S)(w). \]\par
+  Therefore, \( f(S) \) and \( f(T) \) commute for all \( S,T\in\mathcal{E} \). Since \( \dim W < \dim V \), we can apply the induction hypothesis to \( W \) and infer that there exists a basis \( \mathcal{B}' \) of \( W \) with respect to which every element of \( f(\mathcal{E}) \) has an upper-triangular matrix.\par
+  Consider the basis \( \mathcal{B}=\{v\}\cup \mathcal{B}' \) of \( V \). Then it's easy to check that for all \( T\in \mathcal{E} \), we have
+  \[ \mathcal{M}(T,\mathcal{B})=\begin{pmatrix}
+    \lambda & * \\
+    0 & \mathcal{M}(f(T),\mathcal{B}')
+  \end{pmatrix}, \]
+  where \( Tv=\lambda v \) for all \( v\in U \).Since \( \mathcal{M}(f(T),\mathcal{B}') \) is upper triangular, we have \( \mathcal{M}(T,\mathcal{B}) \) is also upper triangular.
+\end{proof}
+
+
+
+
+\end{document}
