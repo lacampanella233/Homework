@@ -196,7 +196,9 @@ U = U_1 \oplus \cdots \oplus U_m.
 
 \begin{proof}
   ``\( \impliedby \)'': Since \( E(\lambda_k, T) \) is invariant under \( T \) for each \( k \), the subspace \( U_k \subseteq E(\lambda_k, T) \) is also invariant under \( T \). Therefore, \( U = U_1 \oplus \cdots \oplus U_m \) is invariant under \( T \).\par
-  
+  ``\( \implies \)'': Let \( U_k=U\cap E(\lambda_k,T) \), we will show that \( U=U_1 \oplus \cdots \oplus U_m \). Since \( \bigoplus_{k=1}^{m}E(\lambda_k,T)=V \) is direct sum, we have \( \bigoplus_{k=1}^{m}U_k \) is also direct sum. For any \( u\in U \), we can write \( u=u_1+\cdots+u_m \) with \( u_k\in E(\lambda_k,T) \) for all \( k=1,\dots,m \). Since \( U \) is invariant under \( T \), we have
+  \[ u_k=\prod_{i\neq k}^{}\frac{(T-\lambda_i I)}{\lambda_k-\lambda_i}(u)\in U\implies u_k\in U\cap E(\lambda_k,T)=U_k \]
+   for all \( k=1,\dots,m \). Therefore, \( U_1 \oplus \cdots \oplus U_m\subset U \). On the other hand, for any \( u_k\in U_k \), we have \( u_k\in U \) and \( u_1+\dots+u_k\in U \). Therefore, \( U=U_1 \oplus \cdots \oplus U_m \).
 \end{proof}
 
 
@@ -205,9 +207,87 @@ U = U_1 \oplus \cdots \oplus U_m.
 Suppose that $T \in \mathcal{L}(V)$ is diagonalizable and $U$ is a subspace of $V$ that is invariant under $T$. Prove that the quotient operator $T/U$ is a diagonalizable operator on $V/U$.
 \end{problem}
 
+\begin{proof}
+  Denote the distinct eigenvectors of \( T \) by \( v_1,\dots,v_n \) with \( Tv_k=\lambda_kv_k \). Then we have
+  \[ (T/U)(v_k+U) = Tv_k+U = \lambda_k v_k+U = \lambda_k (v_k+U) \]
+  for all \( k=1,\dots,n \). Then \( v_k+U \) is an eigenvector of \( T/U \) corresponding to the eigenvalue \( \lambda_k \). \par
+  Note that \( \sspan\{v_k+U:1\le k\le n\}=\sspan\{v_k:1\le k\le n\}+U=V/U \), so we can pick a subset of \( \{v_k+U:1\le k\le n\} \) as a basis of \( V/U \). Therefore, \( T/U \) is diagonalizable.
+\end{proof}
+
+
+
 \begin{problem}[5D-19]
 Prove or give a counterexample: If $T \in \mathcal{L}(V)$ and there exists a subspace $U$ of $V$ that is invariant under $T$ such that $T|_U$ and $T/U$ are both diagonalizable, then $T$ is diagonalizable.
 \end{problem}
+
+\begin{proof}
+  We give a counterexample. Let \( T \in \mathcal{L}(\mathbb{C}^2) \) be defined by \( T(z,w)=(z+w, w) \) for all \( (z,w)\in\mathbb{C}^2 \). Then \( T|_{\sspan\{(0,1)\}} \) is diagonalizable and \( T/\sspan\{(0,1)\} \) is also diagonalizable, but \( T \) is not diagonalizable since the eigenspace \( E(1,T) \) is one-dimensional.
+\end{proof}
+
+
+
+\begin{problem}[5E-4]
+Prove or give a counterexample: If $A$ is a diagonal matrix and $B$ is an upper-triangular matrix of the same size as $A$, then $A$ and $B$ commute.
+\end{problem}
+
+\begin{solution}
+  We give a counterexample. Take
+  \[ A=\begin{pmatrix}
+    1 & 0 \\
+    0 & 2
+  \end{pmatrix},\ B=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}. \]
+  Then 
+  \[ AB=\begin{pmatrix}
+    0 & 1 \\
+    0 & 0
+  \end{pmatrix}\neq\begin{pmatrix}
+    0 & 2 \\
+    0 & 0
+  \end{pmatrix}=BA. \]
+\end{solution}
+
+
+
+\begin{problem}[5E-7]
+Suppose $V$ is a complex vector space, $S \in \mathcal{L}(V)$ is diagonalizable, and $T \in \mathcal{L}(V)$ commutes with $S$. Prove that there is a basis of $V$ such that $S$ has a diagonal matrix with respect to this basis and $T$ has an upper-triangular matrix with respect to this basis.
+\end{problem}
+
+\begin{proof}
+  Let \( \{\lambda_i\} \) be all the distinct eigenvalues of \( S \). Then for any \( \lambda_k \) and any \( v\in E(\lambda_k,S) \), we have
+  \[ S(Tv)=T(Sv)=T(\lambda_k v)=\lambda_k (Tv), \]
+  which implies that \( Tv\in E(\lambda_k,S) \). Therefore, \( E(\lambda_k,S) \) is invariant under \( T \) for all \( k \). Then we can pick a basis of \( E(\lambda_k,S) \) with respect to which the matrix of \( T|_{E(\lambda_k,S)} \) is upper triangular for all \( k \). \par
+  Then the union of these bases is a basis of \( V \), with respect to which the matrix of \( S \) is diagonal and the matrix of \( T \) is upper triangular. Moreover, since \( V=\bigoplus_{k=1}^{n} E(\lambda_k,S) \), we can infer that \( \mathcal{M}(T) \) is block diagonal with blocks \( \mathcal{M}(T|_{E(\lambda_k,S)}) \) for \( k=1,\dots,n \), which is upper triangular. 
+\end{proof}
+
+
+
+\begin{problem}[5E-9]
+Suppose $V$ is a finite-dimensional nonzero complex vector space. Suppose that $\mathcal{E} \subseteq \mathcal{L}(V)$ is such that $S$ and $T$ commute for all $S, T \in \mathcal{E}$.
+\begin{enumerate}[label=(\alph*)]
+\item Prove that there is a vector in $V$ that is an eigenvector for every element of $\mathcal{E}$.
+\item Prove that there is a basis of $V$ with respect to which every element of $\mathcal{E}$ has an upper-triangular matrix.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) We will use induction on \( \dim V \). The case \( \dim V=1 \) is trivial. Assume that the statement holds for any complex vector space with dimension less than \( n \) for some \( n\geq 2 \). \par
+  Let \( S\in\mathcal{E} \) be a non-scalar operator, then there exists an eigenvalue \( \lambda \) of \( S \) such that the eigenspace \( E(\lambda,S) \) is a nonzero proper subspace of \( V \). Since \( S \) commutes with every element of \( \mathcal{E} \), we can infer that \( E(\lambda,S) \) is \( T- \)invariant for all \( T\in\mathcal{E} \). \par
+  Then we can apply the induction hypothesis to \( E(\lambda,S) \) and infer that there exists a vector in \( E(\lambda,S) \) that is an eigenvector for every element of \( \mathcal{E} \).\par
+  (b) We will use induction on \( \dim V \). The case \( \dim V=1 \) is trivial. Assume that the statement holds for any complex vector space with dimension less than \( n \) for some \( n\geq 2 \). \par
+  From (a), we can pick a vector \( v \) that is an eigenvector for every element of \( \mathcal{E} \). Denote \( U=\sspan\{v\} \), and select a subspace \( W \) of \( V \) such that \( V=U\oplus W \). Denote \( P \) as the projection from \( V \) to \( W \) along \( U \). For any \( T\in\mathcal{E} \), define \( f(T)\in \mathcal{L}(W) \) by \( f(T)(w)=P(Tw) \) for all \( w\in W \). Then for any \( S,T\in \mathcal{E} \), we have
+  \[ f(S)f(T)(w)=P(SP(Tw))=P(STw)=P(TSw)=P(TP(Sw))=f(T)f(S)(w). \]\par
+  Therefore, \( f(S) \) and \( f(T) \) commute for all \( S,T\in\mathcal{E} \). Since \( \dim W < \dim V \), we can apply the induction hypothesis to \( W \) and infer that there exists a basis \( \mathcal{B}' \) of \( W \) with respect to which every element of \( f(\mathcal{E}) \) has an upper-triangular matrix.\par
+  Consider the basis \( \mathcal{B}=\{v\}\cup \mathcal{B}' \) of \( V \). Then it's easy to check that for all \( T\in \mathcal{E} \), we have
+  \[ \mathcal{M}(T,\mathcal{B})=\begin{pmatrix}
+    \lambda & * \\
+    0 & \mathcal{M}(f(T),\mathcal{B}')
+  \end{pmatrix}, \]
+  where \( Tv=\lambda v \) for all \( v\in U \).Since \( \mathcal{M}(f(T),\mathcal{B}') \) is upper triangular, we have \( \mathcal{M}(T,\mathcal{B}) \) is also upper triangular.
+\end{proof}
+
 
 
 
