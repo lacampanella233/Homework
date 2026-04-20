@@ -6,4 +6,114 @@
 \begin{document}
 
 
+\begin{problem}
+(20pts) Consider a spacecraft of mass $m$ at rest on the surface of a planet of mass $M$
+and radius $R$. How much work must the spacecraft engines perform to move the
+spacecraft to a circular orbit a distance $R$ from the surface of the planet?
+\end{problem}
+
+\begin{solution}
+  When a spacecraft is on a circular orbit of radius $2R$, the gravitational force provides the centripetal force. Denote the speed of the spacecraft on the circular orbit as $v$. We have
+  \[ m\frac{v^2}{2R}= \frac{GMm}{(2R)^2}\implies v= \sqrt{\frac{GM}{2R}} \]
+  Then the mechanical energy of the spacecraft on the circular orbit is
+  \[ E= \frac{1}{2}mv^2 - \frac{GMm}{2R}= -\frac{GMm}{4R} \]
+  The mechanical energy of the spacecraft on the surface of the planet is
+  \[ E_0= -\frac{GMm}{R} \]\par
+  Therefore, the work that the spacecraft engines must perform to move the spacecraft to the circular orbit is
+  \[ W= E- E_0= \frac{3GMm}{4R} \]
+\end{solution}
+
+
+
+\begin{problem}
+(30pts) Consider two spheres with radius $R$ and masses $m$ and $2m$ in empty space
+(far away from any other forces). The spheres are released from rest with their centers
+a distance $d$ apart. They accelerate towards each other due to their gravitational
+attraction.
+
+\begin{enumerate}[label=(\alph*)]
+	\item (15pts) Compute the relative velocity between the spheres when they collide (note
+	that the spheres have radii $R$ and cannot be treated as point particles).
+	\item (15pts) How far does the first sphere (of mass $m$) move when the spheres collide?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  Since the gravitational pontential produced by a sphere outside itself is the same as that produced by a point mass located at its center, we can treat the two spheres as point masses located at their centers when the distance between their centers is greater than $2R$.\par
+  Denote the speed of the lighter sphere in the center-of-mass frame as $v_1$ and the speed of the heavier sphere as $v_2$. Since the total momentum is conserved, we have
+  \[ mv_1= 2mv_2\implies v_1= 2v_2 \]
+  The total mechanical energy of the system is conserved, then we have
+  \[ -\frac{2Gm^2}{d} = \frac{1}{2}mv_1^2 + \frac{1}{2}(2m)v_2^2-\frac{2Gm^2}{2R}\implies v_1=2v_2=2\sqrt{\frac{Gm(d-2R)}{3dR}}. \]
+  Then the relative velocity between the spheres when they collide is
+  \[ v_1+v_2=\sqrt{\frac{3Gm(d-2R)}{dR}}. \]\par
+  (b) Denote the displacement of the lighter sphere in the center-of-mass frame as $x_1$ and the displacement of the heavier sphere as $x_2$. Since the total momentum is conserved, we have
+  \[ m x_1=2mx_2,\ x_1+x_2=d-2R\implies x_1=\frac{2}{3}(d-2R). \]
+\end{solution}
+
+
+
+\begin{problem}
+(20pts) The density of planets is generally not uniform: they are densest at the center
+and have decreasing density toward the surface. Model a planet as a spherically
+symmetric object with the same radius as the Earth, and a density that decreases
+linearly with distance from the center. Let the densities at the center and the surface
+of the planet be $15\times10^3\,kg/m^3$ and $2\times10^3\,kg/m^3$, respectively. Find the acceleration
+due to gravity at the surface of this planet.
+\end{problem}
+
+\begin{solution}
+  Denote the radius of Earth as \( R_0=6.4 \times 10^6 \, \text{m} \) and the density at the center and the surface of the planet as \( \rho_\mathrm{c}=15 \times 10^3 \, \text{kg/m}^3 \) and \( \rho_\mathrm{s}=2 \times 10^3 \, \text{kg/m}^3 \), respectively. Since the density decreases linearly with distance from the center, we can express the density as a function of radius \( r \) as
+  \[ \rho(r) = \rho_\mathrm{c} - \left( \frac{\rho_\mathrm{c} - \rho_\mathrm{s}}{R_0} \right) r. \]
+  The total mass of the planet can be calculated by integrating the density over the volume of the planet:
+  \[ M = \int_0^{R_0} 4\pi r^2 \rho(r) \d r = \int_0^{R_0} 4\pi r^2 \left( \rho_\mathrm{c} - \left( \frac{\rho_\mathrm{c} - \rho_\mathrm{s}}{R_0} \right) r \right) \d r=\pi R_0^3\left( \frac{\rho_\mathrm{c}}{3}+\rho_\mathrm{s} \right). \]\par
+  The acceleration due to gravity at the surface of the planet is
+  \[ a = \frac{GM}{R_0^2}=\pi G R_0\left( \frac{\rho_\mathrm{c}}{3}+\rho_\mathrm{s} \right). \]
+  Substituting the values of \( G \), \( R_0 \), \( \rho_\mathrm{c} \), and \( \rho_\mathrm{s} \) gives
+  \[ a=9.35\,\mathrm{m/s^2}. \]
+\end{solution}
+
+
+
+\begin{problem}
+(30pts) Let $f(x,y,z)=x^2y^2+y^2z^2+z^2x^2$.
+
+\begin{enumerate}[label=(\alph*)]
+	\item (10pts) Compute the vector field $\bo{F}={\nabla}f$. Sketch the vector field on
+	the $xy$-plane with $z=0$.
+	\item (10pts) Compute the divergence and the curl of $\bo{F}$.
+	\item (10pt) Consider an arbitrary scalar field $\phi(x,y,z)$. Assuming that $\Phi$ is a $C^2$
+	function (such that all of its first and second partial derivatives exist and are
+	continuous), show that all of the curl of the gradient of $\phi$ vanishes.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) We have
+  \[ \bo{F}=\left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z} \right) = \left( 2xy^2 + 2xz^2, 2x^2y + 2yz^2, 2y^2z + 2x^2z \right). \]\par
+  The sketch of the vector field on the \( xy \)-plane with \( z=0 \) is shown below:
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{PLOT.pdf}
+    \label{}
+  \end{figure}\par
+  (b) The divergence of \( \bo{F} \) is
+  \begin{align*}
+    \nabla\cdot\bo{F}
+    &= \frac{\partial}{\partial x}(2xy^2 + 2xz^2) + \frac{\partial}{\partial y}(2x^2y + 2yz^2) + \frac{\partial}{\partial z}(2y^2z + 2x^2z) \\
+    &= 2y^2 + 2z^2 + 2x^2 + 2z^2 + 2y^2 + 2x^2 \\
+    &= 4x^2 + 4y^2 + 4z^2.
+  \end{align*}
+  The curl of \( \bo{F} \) is \( 0 \) according to (c).\par
+  (c) We have
+  \begin{align*}
+    \nabla\times(\nabla\phi)
+    &= \left( \partial_y(\nabla\phi)_z- \partial_z(\nabla\phi)_y, \partial_z(\nabla\phi)_x - \partial_x(\nabla\phi)_z, \partial_x(\nabla\phi)_y - \partial_y(\nabla\phi)_x \right)\\
+    &= \left( \partial_y\partial_z\phi - \partial_z\partial_y\phi, \partial_z\partial_x\phi - \partial_x\partial_z\phi, \partial_x\partial_y\phi - \partial_y\partial_x\phi \right) \\
+    &= (0, 0, 0).
+  \end{align*}
+  Note that \( \phi \) is a \( C^2 \) function, so the order of partial derivatives can be interchanged.
+\end{solution}
+
+
+
 \end{document}
