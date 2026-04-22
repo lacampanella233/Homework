@@ -6,4 +6,154 @@
 \begin{document}
 
 
+\begin{problem}[5-1]
+Let $f$ be defined for all real numbers. Assume that for every pair of real numbers $x$ and $y$,
+\[
+|f(x)-f(y)|\le (x-y)^2.
+\]
+Prove that $f$ is a constant function.
+\end{problem}
+
+\begin{proof}
+  If there exists \( x< y \) such that \( f(x) \ne f(y) \), then take a positive integer \( N \) such that \( (y-x)^2<N\abs{f(y)-f(x)} \). Divide the interval \( [x,y] \) into \( N \) equal subintervals, and let \( x_0=x, x_1, \ldots, x_N=y \) be the endpoints of these subintervals, such that \( x_{k}-x_{k-1}=(y-x)/N:=\Delta \). Then for any \( 1\le k\le N \), 
+  \[ \abs{f(x_{k})-f(x_{k-1})} \le (x_{k}-x_{k-1})^2 = \Delta^2. \]
+  Summing these inequalities from $k=1$ to $k=N$, we get
+  \[ \abs{f(y)-f(x)} \le \sum_{k=1}^{N}\abs{f(x_{k})-f(x_{k-1})} \le N\Delta^2 = \frac{(y-x)^2}{N}. \]
+  This contradicts our assumption that $ (y-x)^2<N\abs{f(y)-f(x)} $. Therefore, $ f(x) = f(y) $ for all $ x, y \in \mathbb{R} $, and $ f $ is a constant function.
+\end{proof}
+
+
+
+\begin{problem}[5-4]
+Let $C_0,\ldots,C_n$ be real constants, and suppose
+\[
+C_0+\frac{C_1}{2}+\cdots+\frac{C_{n-1}}{n}+\frac{C_n}{n+1}=0.
+\]
+Prove that the equation
+\[
+C_0+C_1x+\cdots+C_{n-1}x^{n-1}+C_nx^n=0
+\]
+has at least one real root in $(0,1)$.
+\end{problem}
+
+\begin{proof}
+  Define
+  \[ f(x)=C_0x+\frac{C_1}{2}x^2+\dots+\frac{C_{n-1}}{n}x^n+\frac{C_n}{n+1}x^{n+1}. \]
+  Then \( f(0)=0 \) and \( f(1)=C_0+\frac{C_1}{2}+\cdots+\frac{C_{n-1}}{n}+\frac{C_n}{n+1}=0 \). By Rolle's theorem, there exists some \( c\in (0,1) \) such that \( f'(c)=0 \). Note that
+  \[ f'(x)=C_0+C_1x+\cdots+C_{n-1}x^{n-1}+C_nx^n. \]
+  Therefore, \( f'(c)=0 \) implies that the equation \( C_0+C_1x+\cdots+C_{n-1}x^{n-1}+C_nx^n=0 \) has at least one real root in \( (0,1) \).
+\end{proof}
+
+
+
+\begin{problem}[5-5]
+Let $f$ be defined and differentiable for all $x>0$, and assume that $f'(x)\to 0$ as $x\to +\infty$.
+Define
+\[
+g(x)=f(x+1)-f(x).
+\]
+Prove that $g(x)\to 0$ as $x\to +\infty$.
+\end{problem}
+
+\begin{proof}
+  By the mean value theorem, for each \( x>0 \), there exists some \( c_x \in (x, x+1) \) such that
+  \[ g(x)=f(x+1)-f(x)=f'(c_x)(x+1-x)=f'(c_x). \]
+  Since \( c_x \to +\infty \) as \( x \to +\infty \) and \( f'(x) \to 0 \) as \( x \to +\infty \), we have \( g(x)=f'(c_x) \to 0 \) as \( x \to +\infty \).
+\end{proof}
+
+
+
+\begin{problem}[5-6]
+Assume:
+\begin{enumerate}[label=(\alph*)]
+	\item $f$ is continuous on $x\ge 0$;
+	\item $f'(x)$ exists for $x>0$;
+	\item $f(0)=0$;
+	\item $f'$ is increasing.
+\end{enumerate}
+Let
+\[
+g(x)=\frac{f(x)}{x}\qquad (x>0).
+\]
+Prove that $g$ is increasing.
+\end{problem}
+
+\begin{proof}
+  Suppose the contrary, that is, there exist \( 0<a<b \) such that \( g(a) > g(b) \). By the mean value theorem, there exists some \( c \in (a,b) \) such that
+  \[ f(b)-f(a)=f'(c)(b-a). \]
+  Since \( g(a) > g(b) \), we have
+  \[ f'(c)=\frac{f(b)-f(a)}{b-a}=\frac{g(b)b-g(a)a}{b-a}<\frac{g(a)b-g(a)a}{b-a}=g(a). \]\par
+  By the mean value theorem again, there exists some \( d \in (0,a) \) such that
+  \[ f(a)-f(0)=f'(d)(a-0)\implies f'(d)=g(a). \]
+  Since \( f' \) is increasing and \( d < c \), we have \( f'(d) \le f'(c) \), which contradicts \( f'(d) = g(a) > f'(c) \). Therefore, \( g \) is increasing.
+\end{proof}
+
+
+
+\begin{problem}[5-9]
+Let $f$ be a continuous real-valued function on $\mathbb{R}$.
+Assume that $f'(x)$ exists for every $x\ne 0$, and that $f'(x)\to 3$ as $x\to 0$.
+Question: does $f'(0)$ necessarily exist?
+\end{problem}
+
+\begin{solution}
+Yes. We will prove that 
+\[ f'(0)=\lim_{x\to 0}\frac{f(x)-f(0)}{x}=3. \]\par
+First of all, by \( \lim_{x\to 0}f'(x)=3 \), we know that \( f \) is differentiable at some neighbourhood of 0. For any \( \varepsilon>0 \), there exists a \( \delta>0 \) such that for all \( 0<|x|<\delta \), we have \( |f'(x)-3|<\varepsilon \). Then for all \( 0<|x|<\delta \), by the mean value theorem, there exists some \( c_x \in (0,x)\text{ or } (x,0) \) such that
+\[ \frac{f(x)-f(0)}{x}=f'(c_x)\in(3-\varepsilon,3+\varepsilon). \]\par
+This implies that \( \lim_{x\to 0}(f(x)-f(0))/{x}=3 \), and thus \( f'(0) \) exists and equals 3.\par
+\end{solution}
+
+
+
+\begin{problem}[5-11]
+Let $f$ be defined in a neighborhood of $x$, and assume $f''(x)$ exists. Prove that
+\[
+\lim_{h\to 0}\frac{f(x+h)+f(x-h)-2f(x)}{h^2}=f''(x).
+\]
+Give an example showing that this limit may still exist even when $f''(x)$ does not exist.
+\end{problem}
+
+\begin{problem}[5-17]
+Let $f$ be a real-valued function on $[-1,1]$ that is three times differentiable, and suppose
+\[
+f(-1)=0,\qquad f(0)=0,\qquad f(1)=1,\qquad f'(0)=0.
+\]
+Prove that there exists some $x\in(-1,1)$ such that
+\[
+f^{(3)}(x)\ge 3.
+\]
+Note: for the function $\tfrac12(x^3+x^2)$, equality is attained.
+\end{problem}
+
+\begin{problem}[5-22]
+Let $f$ be a real function on $(-\infty,\infty)$. If $f(x)=x$, then $x$ is called a fixed point of $f$.
+\begin{enumerate}[label=(\alph*)]
+	\item If $f$ is differentiable and $f'(t)\ne 1$ for every real $t$, prove that $f$ has at most one fixed point.
+	\item Prove that
+	\[
+	f(t)=t+(1+e^t)^{-1}
+	\]
+	has no fixed point, although for every real $t$ one has $0<f'(t)<1$.
+	\item However, if there is a constant $A<1$ such that for every real $t$,
+	\[
+	|f'(t)|\le A,
+	\]
+	prove that $f$ has a fixed point $x$, and moreover
+	\[
+	x=\lim_{n\to\infty}x_n,
+	\]
+	where $x_1$ is any real number and for $n=1,2,3,\ldots$,
+	\[
+	x_{n+1}=f(x_n).
+	\]
+	\item Prove that the method in (c) can be implemented along the zig-zag path
+	\[
+	(x_1,x_2)\to(x_2,x_2)\to(x_2,x_3)\to(x_3,x_3)\to(x_3,x_4)\to\cdots.
+	\]
+\end{enumerate}
+\end{problem}
+
+
+
 \end{document}
