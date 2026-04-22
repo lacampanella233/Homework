@@ -114,6 +114,20 @@ Let $f$ be defined in a neighborhood of $x$, and assume $f''(x)$ exists. Prove t
 Give an example showing that this limit may still exist even when $f''(x)$ does not exist.
 \end{problem}
 
+\begin{proof}
+  Since \( f''(x) \) exists, by the Taylor's formula with the Peano's form of the remainder, we have
+  \[ f(x+h)=f(x)+f'(x)h+\frac{f''(x)}{2}h^2+o(h^2). \]
+  Then
+  \begin{align*}
+    &\lim_{h\to 0}\frac{f(x+h)+f(x-h)-2f(x)}{h^2}\\
+    =&\lim_{h\to 0}\frac{1}{h^2}\left[ \left( f(x)+f'(x)h+\frac{f''(x)}{2}h^2+o(h^2) \right)+\left( f(x)-f'(x)h+\frac{f''(x)}{2}h^2+o(h^2) \right)-2f(x) \right]\\
+    =&\lim_{h\to 0}\frac{f''(x)h^2+o(h^2)}{h^2}\\
+    =&f''(x).
+  \end{align*}
+\end{proof}
+
+
+
 \begin{problem}[5-17]
 Let $f$ be a real-valued function on $[-1,1]$ that is three times differentiable, and suppose
 \[
@@ -126,13 +140,22 @@ f^{(3)}(x)\ge 3.
 Note: for the function $\tfrac12(x^3+x^2)$, equality is attained.
 \end{problem}
 
+\begin{proof}
+  Denote \( g(x)=f(x)-\frac{1}{2}(x^3+x^2) \), then \( g(-1)=g(0)=g(1)=g'(0)=0 \), and \( g^{(3)}(x)=f^{(3)}(x)-3 \).\par
+  Suppose the contrary, that is, \( g^{(3)}(x)<0 \) for all \( x\in(-1,1) \), then \( g'' \) is strictly decreasing on \( (-1,1) \). Then, either \( g''(x)>0 \) for all \( x\in(0,1) \) or \( g''(x)<0 \) for all \( x\in(-1,0) \). \par
+  If \( g''(x)>0 \) for all \( x\in(0,1) \), then \( g' \) is strictly increasing on \( (0,1) \). Since \( g'(0)=0 \), we have \( g'(x)>0 \) for all \( x\in(0,1) \). This contradicts the fact that \( g(1)=0 \).\par
+  If \( g''(x)<0 \) for all \( x\in(-1,0) \), then we can get a contradiction in a similar way. Therefore, there exists some \( x\in(-1,1) \) such that \( g^{(3)}(x)\ge 0 \), which implies that \( f^{(3)}(x)\ge 3 \).
+\end{proof}
+
+
+
 \begin{problem}[5-22]
 Let $f$ be a real function on $(-\infty,\infty)$. If $f(x)=x$, then $x$ is called a fixed point of $f$.
 \begin{enumerate}[label=(\alph*)]
 	\item If $f$ is differentiable and $f'(t)\ne 1$ for every real $t$, prove that $f$ has at most one fixed point.
 	\item Prove that
 	\[
-	f(t)=t+(1+e^t)^{-1}
+	f(t)=t+(1+\e^t)^{-1}
 	\]
 	has no fixed point, although for every real $t$ one has $0<f'(t)<1$.
 	\item However, if there is a constant $A<1$ such that for every real $t$,
@@ -153,6 +176,24 @@ Let $f$ be a real function on $(-\infty,\infty)$. If $f(x)=x$, then $x$ is calle
 	\]
 \end{enumerate}
 \end{problem}
+
+\begin{proof}
+  (a) Suppose the contrary, if \( f(x)=x \) and \( f(y)=y \) for some \( x\ne y \), then by the mean value theorem, there exists some \( c \in (x,y) \) such that
+  \[ f'(c)=\frac{f(y)-f(x)}{y-x}=1, \]
+  which contradicts the assumption that \( f'(t)\ne 1 \) for every real \( t \). Therefore, \( f \) has at most one fixed point.\par
+  (b) Since \( (1+\e^t)^{-1}\neq 0 \) for all real \( t \), we have \( f(t)=t+(1+\e^t)^{-1}\neq t \) for all real \( t \). Therefore, \( f \) has no fixed point. \par
+  Note that
+  \[ f'(t)=1-\frac{\e^t}{(1+\e^t)^2}>1-1=0, \]
+  and obviously \( f'(t)<1 \) for all real \( t \). Therefore, \( 0<f'(t)<1 \) for all real \( t \).\par
+  (c) Suppose the contrary, that is \( f(x) \neq x \) for all \( x \in \mathbb{R} \). Then by the continuity of \( f \), we have either \( f(x)>x \) for all \( x \in \mathbb{R} \) or \( f(x)<x \) for all \( x \in \mathbb{R} \). We only consider the former case, and the latter case can be treated similarly. \par
+  If \( f(x)>x \) for all \( x \in \mathbb{R} \), then for any \( x>0 \), ther e exists some \( \xi_x\in(0,x) \), such that
+  \[ f(x)-f(0)=f'(\xi_x)(x-0)\le A x. \]
+  So we conclude that \( x<f(x)\le Ax+f(0) \) for all \( x>0 \), which contradicts the fact that \( A<1 \). Therefore, \( f \) has a fixed point \( x \).\par
+  Next we will prove that \( x=\lim_{n\to\infty}x_n \). For any \( n\ge 1 \), we have (by the mean value theorem)
+  \[ \abs{x_{n+2}-x_{n+1}}=\abs{f(x_{n+1})-f(x_n)}= \abs{f'(\xi_n)(x_{n+1}-x_n)}\le A\abs{x_{n+1}-x_n}. \]
+  This implies (maybe with a little effort) that \( \{x_n\} \) is a Cauchy sequence, and hence converges to some limit \( x \). THen, take \( n\to\infty \) in the equation \( x_{n+1}=f(x_n) \), we get \( x=f(x) \), which implies that \( x \) is the fixed point of \( f \). Therefore, \( x=\lim_{n\to\infty}x_n \).\par
+  (d) Actually, the method in (c) is exactly the same as the zig-zag path described in (d). Therefore, the conclusion in (c) also holds for the zig-zag path.
+\end{proof}
 
 
 

@@ -24,7 +24,7 @@
   \newcommand{\homework@noteprefix}{题目}
   \newcommand{\homework@notesuffix}{的注记}
   \newcommand{\homework@homeworkname}{作业}
-  \newcommand{\homework@lemmaname}{引理}      % <--- 新增
+  \newcommand{\homework@lemmaname}{引理}
 \else
   % 英文设置
   \newcommand{\homework@problemname}{Problem}
@@ -33,7 +33,7 @@
   \newcommand{\homework@noteprefix}{Note for Problem }
   \newcommand{\homework@notesuffix}{}
   \newcommand{\homework@homeworkname}{Homework}
-  \newcommand{\homework@lemmaname}{Lemma}      % <--- 新增
+  \newcommand{\homework@lemmaname}{Lemma}
 \fi
 
 % 页面设置
@@ -41,7 +41,7 @@
 
 % 颜色定义
 \definecolor{shadecolor}{RGB}{241, 241, 255}
-\definecolor{lembg}{RGB}{255, 255, 224}        % <--- 新增淡黄色背景
+\definecolor{lembg}{RGB}{255, 255, 224}
 
 % 计数器
 \newcounter{problemname}
@@ -130,6 +130,15 @@
 \newcommand{\im}{\operatorname{im}}
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\sspan}{\operatorname{span}}
+
+% 设置行间公式的间距
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize%
+    \setlength\abovedisplayskip{0pt}%
+    \setlength\belowdisplayskip{0pt}%
+    \setlength\abovedisplayshortskip{-8pt}%
+    \setlength\belowdisplayshortskip{0pt}%
+}
 
 % 制作标题并输出GitHub链接
 \if@homework@zh
