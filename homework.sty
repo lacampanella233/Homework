@@ -1,5 +1,5 @@
 % homework.sty
-\ProvidesPackage{homework}[2026/03/06 v1.2 Homework template package with lemma fix]
+\ProvidesPackage{homework}
 
 % 声明选项
 \newif\if@homework@zh
@@ -36,6 +36,9 @@
   \newcommand{\homework@lemmaname}{Lemma}      % <--- 新增
 \fi
 
+% 英文字体设置（需 XeLaTeX 或 LuaLaTeX）
+\setmainfont{Times New Roman}
+
 % 页面设置
 \geometry{a4paper, scale=0.8}
 
@@ -67,7 +70,7 @@
     \stepcounter{problemname}\par\noindent
     \boxed{\textbf{\homework@problemname\ \arabic{problemname}}%
     \IfValueT{#1}{\,\textrm{(#1)}}.}%
-    \if@homework@zh\kaishu\fi    % 使正文为楷体（仅中文）
+    \if@homework@zh\kaishu\else\itshape\fi    % 中文楷体 / 英文斜体
 }
 {\end{shaded}\par}
 
