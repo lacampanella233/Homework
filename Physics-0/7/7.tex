@@ -20,7 +20,9 @@
   \( \varphi \) can be solvedd by the Poisson's equation in the spherical coordinates:
   \[ \nabla^2\varphi(\bo{r})= 4\pi G \rho\ (r<R) 
   \implies \frac{1}{r^2}\frac{\d}{\d r}\left( r^2\frac{\d \varphi(r)}{\d r}\right)=4\pi G\rho 
-  \implies \varphi(r) = \frac{2}{3}\pi G \rho r^2+C. \]
+  \implies \varphi(r) = \frac{2}{3}\pi G \rho r^2+C. \]\par
+  We will take \( C=0 \). Then the potential energy of the particle is
+  \[ m\varphi(\bo{r}) = \frac{2}{3}\pi G m \rho r^2. \]
   (b) The force can be computed by
   \[ \bo{F}=-\nabla\varphi(\bo{r})= -\frac{\d \varphi(r)}{\d r}\bo{e}_r = -\frac{4}{3}\pi G \rho r \bo{e}_r. \]
 \end{solution}
@@ -82,9 +84,15 @@
   \begin{align*}
     \bo{E}(\bo{r})
     &=\frac{1}{r^2}\left( q\frac{\hat{\bo{r}}-\bo{d}/r}{\abs{\hat{\bo{r}}-\bo{d}/r}^3}+ q\frac{\hat{\bo{r}}+\bo{d}/r}{\abs{\hat{\bo{r}}+\bo{d}/r}^3}- q\frac{\hat{\bo{r}}}{\abs{\hat{\bo{r}}}^3} \right)\\
-    &\approx\frac{q}{r^2}\left\{ \left( \hat{\bo{r}}-\frac{1}{r}\bo{d} \right)\left( 1-3\hat{\bo{r}}\cdot\frac{\bo{d}}{r} \right)+\left( \hat{\bo{r}}+\frac{1}{r}\bo{d} \right)\left( 1+3\hat{\bo{r}}\cdot\frac{\bo{d}}{r} \right)-\hat{\bo{r}} \right\}\\
-    &\approx\frac{q}{r^2}\left( \hat{\bo{r}}+\frac{6\hat{\bo{r}}\cdot\bo{d}}{r^2}\bo{d} \right).
-  \end{align*}
+    &\approx\frac{q}{r^2}\left\{ \left( \hat{\bo{r}}-\frac{1}{r}\bo{d} \right)\left( 1+3\hat{\bo{r}}\cdot\frac{\bo{d}}{r} \right)+\left( \hat{\bo{r}}+\frac{1}{r}\bo{d} \right)\left( 1-3\hat{\bo{r}}\cdot\frac{\bo{d}}{r} \right)-\hat{\bo{r}} \right\}\\
+    &\approx\frac{q}{r^2}\left( \hat{\bo{r}}-\frac{6\hat{\bo{r}}\cdot\bo{d}}{r^2}\bo{d} \right).
+  \end{align*}\par
+  The leading term is 
+  \[ \bo{E}^{(0)}(\bo{r})= \frac{q}{r^2}\hat{\bo{r}}. \]
+  This is beacuse the total charge of the system is \( +q \).\par
+  (d) The next term in the expansion is
+  \[ \bo{E}^{(1)}(\bo{r})=0. \]
+  This is beacuse the dipole moment of the system is zero.
 \end{solution}
 
 
