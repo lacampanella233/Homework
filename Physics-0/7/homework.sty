@@ -1,5 +1,5 @@
 % homework.sty
-\ProvidesPackage{homework}[2026/03/06 v1.2 Homework template package with lemma fix]
+\ProvidesPackage{homework}
 
 % 声明选项
 \newif\if@homework@zh
@@ -12,6 +12,7 @@
 \RequirePackage[UTF8]{ctex}
 \RequirePackage{amsmath, amsthm, amssymb, bm, framed, enumitem, url, float}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
+\RequirePackage{newtxtext}
 \RequirePackage{xparse}
 \RequirePackage{xcolor} % <--- 修改：由 color 改为 xcolor，以支持 \colorlet
 
@@ -35,6 +36,8 @@
   \newcommand{\homework@homeworkname}{Homework}
   \newcommand{\homework@lemmaname}{Lemma}      % <--- 新增
 \fi
+
+% 英文字体设置（pdfLaTeX）
 
 % 页面设置
 \geometry{a4paper, scale=0.8}
@@ -67,7 +70,7 @@
     \stepcounter{problemname}\par\noindent
     \boxed{\textbf{\homework@problemname\ \arabic{problemname}}%
     \IfValueT{#1}{\,\textrm{(#1)}}.}%
-    \if@homework@zh\kaishu\fi    % 使正文为楷体（仅中文）
+    \if@homework@zh \kaishu \else \itshape \fi    % 中文楷体 / 英文斜体
 }
 {\end{shaded}\par}
 
@@ -79,7 +82,7 @@
     \begin{shaded}
     \par\noindent
     \textbf{\homework@lemmaname}\ \IfValueT{#1}{(#1)}.\space
-    \if@homework@zh\kaishu\fi
+    \if@homework@zh \kaishu \else \itshape \fi    % 中文楷体 / 英文斜体
 }
 {
     \end{shaded}
