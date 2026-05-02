@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.7.5)  22 APR 2026 18:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.7.5)  3 MAY 2026 01:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -24,7 +24,7 @@ File: size10.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip50
 \bibindent=\dimen141
 ) (./homework.sty
-Package: homework 2026/03/06 v1.2 Homework template package with lemma fix
+Package: homework 
  (c:/texlive/2025/texmf-dist/tex/latex/ctex/ctex.sty (c:/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2025-01-18 L3 programming layer (loader) 
  (c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -455,9 +455,13 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthC=\skip73
 \f@nch@widthR=\skip74
 \@temptokenb=\toks36
-) (c:/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+) (c:/texlive/2025/texmf-dist/tex/latex/newtx/newtxtext.sty
+Package: newtxtext 2024/04/01 v1.744(Michael Sharpe) latex and unicode latex support for TeXGyreTermesX
+ `newtxtext' v1.744, 2024/04/01 Text macros taking advantage of TeXGyre Termes and its extensions (msharpe) (c:/texlive/2025/texmf-dist/tex/latex/xpatch/xpatch.sty
+Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
+ (c:/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2024-08-16 L3 Experimental document command parser
-) (c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+)) (c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
  (c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
@@ -473,13 +477,73 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (c:/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+ (c:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex (c:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks37
+\XKV@tempa@toks=\toks38
 )
-\c@problemname=\count311
+\XKV@depth=\count311
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (c:/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+) (c:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.sty (c:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.tex
+\xs_counta=\count312
+\xs_countb=\count313
+)
+Package: xstring 2023/08/22 v1.86 String manipulations (CT)
+) (c:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (c:/texlive/2025/texmf-dist/tex/latex/carlisle/scalefnt.sty)
+LaTeX Font Info:    Setting ntxLF sub-encoding to TS1/0 on input line 24.
+LaTeX Font Info:    Setting ntxTLF sub-encoding to TS1/0 on input line 24.
+LaTeX Font Info:    Setting ntxOsF sub-encoding to TS1/0 on input line 24.
+LaTeX Font Info:    Setting ntxTOsF sub-encoding to TS1/0 on input line 24.
+ (c:/texlive/2025/texmf-dist/tex/generic/kastrup/binhex.tex)
+\ntx@tmpcnta=\count314
+\ntx@cnt=\count315
+ (c:/texlive/2025/texmf-dist/tex/latex/fontaxes/fontaxes.sty
+Package: fontaxes 2020/07/21 v1.0e Font selection axes
+LaTeX Info: Redefining \upshape on input line 29.
+LaTeX Info: Redefining \itshape on input line 31.
+LaTeX Info: Redefining \slshape on input line 33.
+LaTeX Info: Redefining \swshape on input line 35.
+LaTeX Info: Redefining \scshape on input line 37.
+LaTeX Info: Redefining \sscshape on input line 39.
+LaTeX Info: Redefining \ulcshape on input line 41.
+LaTeX Info: Redefining \textsw on input line 47.
+LaTeX Info: Redefining \textssc on input line 48.
+LaTeX Info: Redefining \textulc on input line 49.
+)
+\tx@sixem=\dimen173
+\tx@y=\dimen174
+\tx@x=\dimen175
+\tx@tmpdima=\dimen176
+\tx@tmpdimb=\dimen177
+\tx@tmpdimc=\dimen178
+\tx@tmpdimd=\dimen179
+\tx@tmpdime=\dimen180
+\tx@tmpdimf=\dimen181
+\tx@dimA=\dimen182
+\tx@dimAA=\dimen183
+\tx@dimB=\dimen184
+\tx@dimBB=\dimen185
+\tx@dimC=\dimen186
+LaTeX Info: Redefining \oldstylenums on input line 902.
+)
+\c@problemname=\count316
 ) (c:/texlive/2025/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.enc
 File: UTF8.enc 2021/10/16 4.8.5
 ) (c:/texlive/2025/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.chr
 File: UTF8.chr 2021/10/16 4.8.5
-) (./8.aux)
+)
+LaTeX Font Info:    Trying to load font information for OT1+ntxtlf on input line 6.
+ (c:/texlive/2025/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
+File: ot1ntxtlf.fd 2021/05/24 v1.0 font definition file for OT1/ntx/tlf
+)
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 10.53937pt on input line 6.
+ (./8.aux)
 \openout1 = `8.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
@@ -566,17 +630,17 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
  (c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count312
-\scratchdimen=\dimen173
+\scratchcounter=\count317
+\scratchdimen=\dimen187
 \scratchbox=\box60
-\nofMPsegments=\count313
-\nofMParguments=\count314
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count315
-\MPscratchDim=\dimen174
-\MPnumerator=\count316
-\makeMPintoPDFobject=\count317
-\everyMPtoPDFconversion=\toks38
+\nofMPsegments=\count318
+\nofMParguments=\count319
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count320
+\MPscratchDim=\dimen188
+\MPnumerator=\count321
+\makeMPintoPDFobject=\count322
+\everyMPtoPDFconversion=\toks40
 ) (c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -623,6 +687,16 @@ Package hyperref Info: Link coloring OFF on input line 6.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+\c@mv@tabular=\count323
+\c@mv@boldtabular=\count324
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 18.06749pt on input line 6.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 15.05624pt on input line 6.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
+(Font)              scaled to size 18.06749pt on input line 6.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 12.045pt on input line 6.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -639,26 +713,72 @@ LaTeX Font Info:    Trying to load font information for C70+zhkai on input line 
  (c:/texlive/2025/texmf-dist/tex/latex/zhmetrics/c70zhkai.fd
 File: c70zhkai.fd 2009/09/23 4.8.2
 )
+LaTeX Font Info:    Trying to load font information for OT1+ntxtt on input line 6.
+ (c:/texlive/2025/texmf-dist/tex/latex/newtx/ot1ntxtt.fd
+File: ot1ntxtt.fd 2012/04/20 v3.1
+)
+LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
+(Font)              scaled to size 10.53937pt on input line 6.
+
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <10.53937> not available
 (Font)              size <10.95> substituted on input line 6.
 
+LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
+(Font)              scaled to size 10.53937pt on input line 9.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 7.0pt on input line 9.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 5.0pt on input line 9.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
+(Font)              scaled to size 10.53937pt on input line 9.
 
 
 (c:/texlive/2025/texmf-dist/tex/generic/ctex/zhmap/ctex-zhmap-windows.tex
 File: ctex-zhmap-windows.tex 2022/07/14 v2.5.10 Windows font map loader for pdfTeX and DVIPDFMx (CTEX)
 {c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{UGBK.sfd}{Unicode.sfd}) [1
 
-]
+{c:/texlive/2025/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}]
 
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
+(Font)              scaled to size 10.0pt on input line 108.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
+(Font)              scaled to size 10.0pt on input line 108.
 [2]
 
 [3]
 
-[4] (./8.aux)
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
+
+ []
+
+
+
+[5]
+
+[6]
+
+[7]
+LaTeX Font Info:    Trying to load font information for TS1+ntxtlf on input line 397.
+ (c:/texlive/2025/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd
+File: ts1ntxtlf.fd 2015/01/18 v1.0 fd file for TS1/ntxtlf
+)
+LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
+(Font)              scaled to size 10.53937pt on input line 397.
+
+
+[8{c:/texlive/2025/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}]
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
+(Font)              scaled to size 7.0pt on input line 416.
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
+(Font)              scaled to size 5.0pt on input line 416.
+
+
+[9] (./8.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
-L3 programming layer <2022/07/14>
+L3 programming layer <2020/03/25>
  ***********
 
 
@@ -669,18 +789,18 @@ Package rerunfilecheck Info: File `8.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 15095 strings out of 473190
- 244873 string characters out of 5719980
- 670450 words of memory out of 5000000
- 38048 multiletter control sequences out of 15000+600000
- 577782 words of font info for 105 fonts, out of 8000000 for 9000
+ 16543 strings out of 473190
+ 269679 string characters out of 5719980
+ 693336 words of memory out of 5000000
+ 39409 multiletter control sequences out of 15000+600000
+ 595873 words of font info for 131 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 95i,11n,97p,797b,544s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 8.pdf (4 pages, 187703 bytes).
+ 95i,12n,97p,797b,625s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/Windows/Fonts/simkai.ttf><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmb.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmr.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
+Output written on 8.pdf (9 pages, 270140 bytes).
 PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
- 87 compressed objects within 1 object stream
- 13 named destinations out of 1000 (max. 500000)
+ 176 PDF objects out of 1000 (max. 8388607)
+ 123 compressed objects within 2 object streams
+ 30 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
