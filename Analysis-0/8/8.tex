@@ -1,0 +1,465 @@
+\documentclass{article}
+\usepackage[en]{homework}
+
+\config{Analysis-0}{2026 Spring}{8}
+
+\begin{document}
+
+
+\begin{problem}[5-1]
+Let $f$ be defined for all real numbers. Assume that for every pair of real numbers $x$ and $y$,
+\[
+|f(x)-f(y)|\le (x-y)^2.
+\]
+Prove that $f$ is a constant function.
+\end{problem}
+
+\begin{proof}
+  If there exists \( x< y \) such that \( f(x) \ne f(y) \), then take a positive integer \( N \) such that \( (y-x)^2<N\abs{f(y)-f(x)} \). Divide the interval \( [x,y] \) into \( N \) equal subintervals, and let \( x_0=x, x_1, \ldots, x_N=y \) be the endpoints of these subintervals, such that \( x_{k}-x_{k-1}=(y-x)/N:=\Delta \). Then for any \( 1\le k\le N \), 
+  \[ \abs{f(x_{k})-f(x_{k-1})} \le (x_{k}-x_{k-1})^2 = \Delta^2. \]
+  Summing these inequalities from $k=1$ to $k=N$, we get
+  \[ \abs{f(y)-f(x)} \le \sum_{k=1}^{N}\abs{f(x_{k})-f(x_{k-1})} \le N\Delta^2 = \frac{(y-x)^2}{N}. \]
+  This contradicts our assumption that $ (y-x)^2<N\abs{f(y)-f(x)} $. Therefore, $ f(x) = f(y) $ for all $ x, y \in \mathbb{R} $, and $ f $ is a constant function.
+\end{proof}
+
+
+
+\begin{problem}[5-4]
+Let $C_0,\ldots,C_n$ be real constants, and suppose
+\[
+C_0+\frac{C_1}{2}+\cdots+\frac{C_{n-1}}{n}+\frac{C_n}{n+1}=0.
+\]
+Prove that the equation
+\[
+C_0+C_1x+\cdots+C_{n-1}x^{n-1}+C_nx^n=0
+\]
+has at least one real root in $(0,1)$.
+\end{problem}
+
+\begin{proof}
+  Define
+  \[ f(x)=C_0x+\frac{C_1}{2}x^2+\dots+\frac{C_{n-1}}{n}x^n+\frac{C_n}{n+1}x^{n+1}. \]
+  Then \( f(0)=0 \) and \( f(1)=C_0+\frac{C_1}{2}+\cdots+\frac{C_{n-1}}{n}+\frac{C_n}{n+1}=0 \). By Rolle's theorem, there exists some \( c\in (0,1) \) such that \( f'(c)=0 \). Note that
+  \[ f'(x)=C_0+C_1x+\cdots+C_{n-1}x^{n-1}+C_nx^n. \]
+  Therefore, \( f'(c)=0 \) implies that the equation \( C_0+C_1x+\cdots+C_{n-1}x^{n-1}+C_nx^n=0 \) has at least one real root in \( (0,1) \).
+\end{proof}
+
+
+
+\begin{problem}[5-5]
+Let $f$ be defined and differentiable for all $x>0$, and assume that $f'(x)\to 0$ as $x\to +\infty$.
+Define
+\[
+g(x)=f(x+1)-f(x).
+\]
+Prove that $g(x)\to 0$ as $x\to +\infty$.
+\end{problem}
+
+\begin{proof}
+  By the mean value theorem, for each \( x>0 \), there exists some \( c_x \in (x, x+1) \) such that
+  \[ g(x)=f(x+1)-f(x)=f'(c_x)(x+1-x)=f'(c_x). \]
+  Since \( c_x \to +\infty \) as \( x \to +\infty \) and \( f'(x) \to 0 \) as \( x \to +\infty \), we have \( g(x)=f'(c_x) \to 0 \) as \( x \to +\infty \).
+\end{proof}
+
+
+
+\begin{problem}[5-6]
+Assume:
+\begin{enumerate}[label=(\alph*)]
+	\item $f$ is continuous on $x\ge 0$;
+	\item $f'(x)$ exists for $x>0$;
+	\item $f(0)=0$;
+	\item $f'$ is increasing.
+\end{enumerate}
+Let
+\[
+g(x)=\frac{f(x)}{x}\qquad (x>0).
+\]
+Prove that $g$ is increasing.
+\end{problem}
+
+\begin{proof}
+  Suppose the contrary, that is, there exist \( 0<a<b \) such that \( g(a) > g(b) \). By the mean value theorem, there exists some \( c \in (a,b) \) such that
+  \[ f(b)-f(a)=f'(c)(b-a). \]
+  Since \( g(a) > g(b) \), we have
+  \[ f'(c)=\frac{f(b)-f(a)}{b-a}=\frac{g(b)b-g(a)a}{b-a}<\frac{g(a)b-g(a)a}{b-a}=g(a). \]\par
+  By the mean value theorem again, there exists some \( d \in (0,a) \) such that
+  \[ f(a)-f(0)=f'(d)(a-0)\implies f'(d)=g(a). \]
+  Since \( f' \) is increasing and \( d < c \), we have \( f'(d) \le f'(c) \), which contradicts \( f'(d) = g(a) > f'(c) \). Therefore, \( g \) is increasing.
+\end{proof}
+
+
+
+\begin{problem}[5-8]
+Assume $f'$ is continuous on $[a,b]$, $\varepsilon>0$, and $a\le x\le b$, $a\le t\le b$.
+Prove that there exists $\delta>0$ such that whenever $0<|t-x|<\delta$, one has
+\[
+\left|\frac{f(t)-f(x)}{t-x}-f'(x)\right|<\varepsilon.
+\]
+(Equivalently, if $f'$ is continuous on $[a,b]$, then $f$ is uniformly differentiable on $[a,b]$.)
+Does this remain true for vector-valued functions?
+\end{problem}
+
+\begin{proof}
+  Because \( f' \) is continuous on \( [a,b] \), we have \( f' \) is uniformly continuous on \( [a,b] \). Therefore, for any \( \varepsilon > 0 \), there exists some \( \delta > 0 \) such that for any \( t' \in [a,b] \) with \( |t'-x| < \delta \), we have \( \abs{f'(t')-f'(x)} < \varepsilon \).\par
+  For any \( t \in [a,b] \) with \( 0 < |t-x| < \delta \), by the mean value theorem, there exists some \( c_t \in (x,t)\text{ or } (t,x) \) such that
+  \[ \frac{f(t)-f(x)}{t-x} = f'(c_t). \]\par
+  Obviously \( \abs{c_t-x}\le\abs{t-x}<\delta \), then
+  \[ \left|\frac{f(t)-f(x)}{t-x}-f'(x)\right| = \abs{f'(c_t)-f'(x)} < \varepsilon. \]\par
+  The statement also remains true for vector-valued functions. Just apply the conclusion to each component of the vector-valued function, and we can get the desired result.
+\end{proof}
+
+
+
+\begin{problem}[5-9]
+Let $f$ be a continuous real-valued function on $\mathbb{R}$.
+Assume that $f'(x)$ exists for every $x\ne 0$, and that $f'(x)\to 3$ as $x\to 0$.
+Question: does $f'(0)$ necessarily exist?
+\end{problem}
+
+\begin{solution}
+Yes. We will prove that 
+\[ f'(0)=\lim_{x\to 0}\frac{f(x)-f(0)}{x}=3. \]\par
+First of all, by \( \lim_{x\to 0}f'(x)=3 \), we know that \( f \) is differentiable at some neighbourhood of 0. For any \( \varepsilon>0 \), there exists a \( \delta>0 \) such that for all \( 0<|x|<\delta \), we have \( |f'(x)-3|<\varepsilon \). Then for all \( 0<|x|<\delta \), by the mean value theorem, there exists some \( c_x \in (0,x)\text{ or } (x,0) \) such that
+\[ \frac{f(x)-f(0)}{x}=f'(c_x)\in(3-\varepsilon,3+\varepsilon). \]\par
+This implies that \( \lim_{x\to 0}(f(x)-f(0))/{x}=3 \), and thus \( f'(0) \) exists and equals 3.\par
+\end{solution}
+
+
+
+\begin{problem}[5-10]
+Let $f$ and $g$ be complex-valued differentiable functions on $(0,1)$. As $x\to 0$, assume
+\[
+f(x)\to 0,\quad g(x)\to 0,\quad f'(x)\to A,\quad g'(x)\to B,
+\]
+where $A,B$ are complex numbers and $B\ne 0$. Prove that
+\[
+\lim_{x\to 0}\frac{f(x)}{g(x)}=\frac{A}{B}.
+\]
+Compare with Example 5.18. Hint:
+\[
+\frac{f(x)}{g(x)}=\left(\frac{f(x)}{x}-A\right)\frac{x}{g(x)}+A\frac{x}{g(x)}.
+\]
+Apply Theorem 5.13 to the real and imaginary parts of $f(x)/x$ and $g(x)/x$.
+\end{problem}
+
+\begin{proof}
+  Use the same method as in Problem 5-9, we can prove that \( \lim_{x\to 0}f(x)/x=A \) and \( \lim_{x\to 0}g(x)/x=B \). Then
+  \begin{align*}
+    \lim_{x\to 0}\frac{f(x)}{g(x)}
+    &=\lim_{x\to 0}\left(\frac{f(x)}{x}-A\right)\frac{x}{g(x)}+\lim_{x\to 0}A\frac{x}{g(x)}\\
+    &=\lim_{x\to 0}\left(\frac{f(x)}{x}-A\right)\lim_{x\to 0}\frac{x}{g(x)}+A\lim_{x\to 0}\frac{x}{g(x)}\\
+    &=0\cdot\frac{1}{B}+A\cdot\frac{1}{B}=\frac{A}{B}.
+  \end{align*}
+\end{proof}
+
+
+
+\begin{problem}[5-11]
+Let $f$ be defined in a neighborhood of $x$, and assume $f''(x)$ exists. Prove that
+\[
+\lim_{h\to 0}\frac{f(x+h)+f(x-h)-2f(x)}{h^2}=f''(x).
+\]
+Give an example showing that this limit may still exist even when $f''(x)$ does not exist.
+\end{problem}
+
+\begin{proof}
+  Since \( f''(x) \) exists, by the Taylor's formula with the Peano's form of the remainder, we have
+  \[ f(x+h)=f(x)+f'(x)h+\frac{f''(x)}{2}h^2+o(h^2). \]
+  Then
+  \begin{align*}
+    &\lim_{h\to 0}\frac{f(x+h)+f(x-h)-2f(x)}{h^2}\\
+    =&\lim_{h\to 0}\frac{1}{h^2}\left[ \left( f(x)+f'(x)h+\frac{f''(x)}{2}h^2+o(h^2) \right)+\left( f(x)-f'(x)h+\frac{f''(x)}{2}h^2+o(h^2) \right)-2f(x) \right]\\
+    =&\lim_{h\to 0}\frac{f''(x)h^2+o(h^2)}{h^2}\\
+    =&f''(x).
+  \end{align*}\par
+  We will give an example which meets the requirement. Take
+  \[ f(x)=\begin{cases}
+    1,&x>0\\
+    0,&x=0\\
+    -1,&x<0
+  \end{cases} \]
+  Then \( f''(0) \) does not exist, but
+  \[ \lim_{h\to 0}\frac{f(h)+f(-h)-2f(0)}{h^2} = \lim_{h\to 0}\frac{1-1-0}{h^2} = 0. \]
+  This shows that the limit may still exist even when \( f''(0) \) does not exist.
+\end{proof}
+
+
+
+\begin{problem}[5-14]
+Let $f$ be a differentiable real function on $(a,b)$. Prove that $f$ is convex if and only if $f'$ is increasing. Assume further that $f''(x)$ exists for all $x\in(a,b)$. Prove that $f$ is convex if and only if $f''(x)\ge 0$ for all $x\in(a,b)$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)'': Suppose \( f \) is convex, we will prove that for any \( x<y \), we have \( f'(x)\le f'(y) \). \par
+  For any \( \xi\in N_{(y-x)/3}(x) \) and \( \eta\in N_{(y-x)/3}(y) \), since \( \max\{\xi,x\}<\min\{\eta,y\} \) and \( f \) is convex, we have
+  \[ \frac{f(\xi)-f(x)}{\xi-x}\le \frac{f(\eta)-f(y)}{\eta-y}. \]
+  Letting \( \xi\to x \) and \( \eta\to y \), we get \( f'(x)\le f'(y) \).\par
+  ``\( \impliedby \)'': Suppose \( f' \) is increasing, we will prove that for any \( x<y \) and \( \lambda\in(0,1) \), we have
+  \[ f(\lambda x+(1-\lambda)y)\le\lambda f(x)+(1-\lambda) f(y). \]
+  By the mean value theorem, there exists some \( \xi\in(x,\lambda x+(1-\lambda)y) \) and \( \eta\in(\lambda x+(1-\lambda)y,y) \) such that
+  \[ \frac{f(\lambda x+(1-\lambda)y)-f(x)}{\lambda x+(1-\lambda)y-x}=f'(\xi),\quad \frac{f(y)-f(\lambda x+ (1-\lambda)y)}{y-(\lambda x+(1-\lambda)y)}=f'(\eta). \]
+  Note that \( \xi\le\eta \), then \( f'(\xi)\le f'(\eta) \), which implies that
+  \[ \frac{f(\lambda x+(1-\lambda)y)-f(x)}{\lambda x+(1-\lambda)y-x}\le \frac{f(y)-f(\lambda x+(1-\lambda)y)}{y-(\lambda x+(1-\lambda)y)}. \]
+  This is equivalent to \( f(\lambda x+(1-\lambda)y)\le\lambda f(x)+(1-\lambda) f(y) \).\par
+  For thee second part, note that
+  \[ f''(x)\ge 0,\forall x\in(a,b)\Leftrightarrow f'\text{ is increasing on }(a,b). \]
+  Hence the conclusion follows from the first part.
+\end{proof}
+
+
+
+\begin{problem}[5-17]
+Let $f$ be a real-valued function on $[-1,1]$ that is three times differentiable, and suppose
+\[
+f(-1)=0,\qquad f(0)=0,\qquad f(1)=1,\qquad f'(0)=0.
+\]
+Prove that there exists some $x\in(-1,1)$ such that
+\[
+f^{(3)}(x)\ge 3.
+\]
+Note: for the function $\tfrac12(x^3+x^2)$, equality is attained.
+\end{problem}
+
+\begin{proof}
+  Denote \( g(x)=f(x)-\frac{1}{2}(x^3+x^2) \), then \( g(-1)=g(0)=g(1)=g'(0)=0 \), and \( g^{(3)}(x)=f^{(3)}(x)-3 \).\par
+  Suppose the contrary, that is, \( g^{(3)}(x)<0 \) for all \( x\in(-1,1) \), then \( g'' \) is strictly decreasing on \( (-1,1) \). Then, either \( g''(x)<0 \) for all \( x\in(0,1) \)(which corresponds to the case where \( g''(0)\le 0 \)) or \( g''(x)>0 \) for all \( x\in(-1,0) \)(which corresponds to the case where \( g''(0)\ge 0 \)). \par
+  If \( g''(x)<0 \) for all \( x\in(0,1) \), then \( g' \) is strictly decreasing on \( (0,1) \). Since \( g'(0)=0 \), we have \( g'(x)<0 \) for all \( x\in(0,1) \). This contradicts the fact that \( g(1)=0 \).\par
+  If \( g''(x)>0 \) for all \( x\in(-1,0) \), then we can get a contradiction in a similar way. Therefore, there exists some \( x\in(-1,1) \) such that \( g^{(3)}(x)\ge 0 \), which implies that \( f^{(3)}(x)\ge 3 \).
+\end{proof}
+
+
+
+\begin{problem}[5-19]
+Let $f$ be defined on $(-1,1)$ and assume $f'(0)$ exists. Let $-1<a_n<b_n<1$ with $a_n\to 0$ and $b_n\to 0$ as $n\to\infty$. Define the difference quotient
+\[
+D_n=\frac{f(b_n)-f(a_n)}{b_n-a_n}.
+\]
+Prove the following statements:
+\begin{enumerate}[label=(\alph*)]
+  \item If $a_n<0<b_n$, then $\lim D_n=f'(0)$.
+  \item If $0<a_n<b_n$ and $\frac{b_n}{b_n-a_n}$ is bounded, then $\lim D_n=f'(0)$.
+  \item If $f'$ is continuous on $(-1,1)$, then $\lim D_n=f'(0)$.
+\end{enumerate}
+Give an example where $f$ is differentiable on $(-1,1)$ but $f'$ is discontinuous at $0$, and $a_n,b_n\to 0$ such that $\lim D_n$ exists but $\lim D_n\ne f'(0)$.
+\end{problem}
+
+\begin{proof}
+  (a) WLOG, assume \( f'(0)>0 \). For any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( x\in(-\delta,\delta) \), 
+  \[ \abs{\frac{f(x)-f(0)}{x-0}-f'(0)}<\varepsilon. \] \par
+  Since \( \lim a_n=\lim b_n=0 \), there exists \( N \) such that for any \( n>N \), \( a_n,b_n\in(-\delta,\delta) \). Thus
+  \[ f(a_i)\in\left( a_n\left( f'(0)+\varepsilon \right), a_n\left( f'(0)-\varepsilon \right) \right),\quad
+    f(b_n)\in\left( b_n\left( f'(0)-\varepsilon \right),b_n\left( f'(0)+\varepsilon \right) \right). \]\par
+    Hence
+    \begin{align*}
+      \frac{f(b_n)-f(a_n)}{b_n-a_n}
+      &<\frac{b_n(f'(0)+\varepsilon)-a_n(f'(0)-\varepsilon)}{b_n-a_n}
+      =f'(0)+\frac{b_n+a_n}{b_n-a_n}\varepsilon<f'(0)+\varepsilon,\\
+      \frac{f(b_n)-f(a_n)}{b_n-a_n}
+      &>\frac{b_n(f'(0)-\varepsilon)-a_n(f'(0)+\varepsilon)}{b_n-a_n}
+      =f'(0)-\frac{b_n+a_n}{b_n-a_n}\varepsilon>f'(0)-\varepsilon.
+    \end{align*}\\[-12pt]
+    \[ \implies \abs{\frac{f(b_n)-f(a_n)}{b_n-a_n}-f'(0)}<\varepsilon. \]\par
+    Therefore, \( \lim D_n=f'(0) \).\par
+  (b) WLOG, assume \( f'(0)>0 \). Assume that \( b_n<K'(b_n-a_n) \) for some \( K'>1 \) and all \( n\in\N_+ \). Then
+  \[ a_n<\frac{K'}{K'-1}b_n=Kb_n,\text{ where } K=\frac{K'}{K'-1}\in(0,1). \]
+  For any \( \varepsilon>0 \), there exists \( \delta>0 \) such that for any \( x\in(-\delta,\delta) \), 
+  \[ \abs{\frac{f(x)-f(0)}{x-0}-f'(0)}<\frac{1-K}{1+K}\varepsilon. \]\par
+  Thus
+  \begin{align*}
+    \frac{f(b_n)-f(a_n)}{b_n-a_n}
+    &=\frac{1}{b_n-a_n}\left( \frac{f(b_n)-f(0)}{b_n-0}b_n-\frac{f(a_n)-f(0)}{a_n-0}a_n \right)\\
+    &<\frac{1}{b_n-a_n}\left( \left( f'(0)+\frac{1-K}{1+K}\varepsilon \right)b_n-\left( f'(0)-\frac{1-K}{1+K}\varepsilon \right)a_n \right)\\
+    &=f'(0)+\frac{1-K}{1+K}\frac{b_n+a_n}{b_n-a_n}\varepsilon\\
+    &<f'(0)+\frac{1-K}{1+K}\frac{b_n+Kb_n}{b_n-Kb_n}\varepsilon\\
+    &=f'(0)+\varepsilon,
+  \end{align*}
+  and similarly,
+  \[ \frac{f(b_n)-f(a_n)}{b_n-a_n}>f'(0)-\varepsilon. \]\par
+  Therefore, \( \lim D_n=f'(0) \). \par
+  (c) For any \( n\in\N_+ \), by the mean value theorem, there exists some \( \xi_n\in(a_n,b_n) \) such that
+  \[ D_n=\frac{f(b_n)-f(a_n)}{b_n-a_n}=f'(\xi_n). \]
+  Since \( \lim a_n=\lim b_n=0 \), we have \( \lim \xi_n=0 \). By the continuity of \( f' \) at 0, we have \( \lim D_n=\lim f'(\xi_n)=f'(0) \).\par
+  Lastly, we give an example which meets the rerquirement. Take
+  \[ f(x)=x^2\sin\left( \frac{1}{x} \right), \]
+  and
+  \[ a_n=\frac{1}{2n\pi+\pi/2}, \quad b_n=\frac{1}{2n\pi}. \]\par
+  Then \( f'(0)=0 \), and
+  \begin{align*}
+    \frac{f(b_n)-f(a_n)}{b_n-a_n}
+    &=\left( 0-\left( 2n\pi+\frac{\pi}{2} \right)^{-2} \right)/\left( \frac{1}{2n\pi}- \frac{1}{2n\pi+\pi/2} \right)\\
+    &=-\left( \frac{(2n\pi+\pi/2)^2}{2n\pi}-\left( 2n\pi+\frac{\pi}{2} \right) \right)^{-1}\\
+    &=-\frac{8n}{(4n+1)\pi}\to -\frac{2}{\pi}\neq 0.\quad (n\to\infty)
+  \end{align*}\par
+  Then \( \lim D_n\neq f'(0) \).
+\end{proof}
+
+
+
+
+\begin{problem}[5-20]
+State and prove an inequality of the following kind: it can be derived from Taylor's theorem, and it remains valid for vector-valued functions.
+\end{problem}
+
+\begin{solution}
+  We will prove the following inequality which is easily derived from Taylor's theorem: for any \( f:\R\to\R^n\in C^{k+1} \), \( x,y\in\mathbb{R} \) and \( k\in\N_+ \), we have
+  \[ \abs{f(y)-\sum_{i=1}^{k}\frac{f^{(i)}(x)}{i!}(y-x)^i}
+  \le\frac{1}{(k+1)!}\sup_{0\le t\le 1} \abs{f^{(k+1)}(x+t(y-x))}\abs{y-x}^{k+1}. \]\par
+  That is beacuse, from Taylor's theorem with the integral form of the remainder, we have
+  \[ f(y)=\sum_{i=1}^{k}\frac{f^{(i)}(x)}{i!}(y-x)^i+\int_0^1 \frac{f^{(k+1)}(x+s(y-x))}{k!}((1-s)(y-x))^{k+1} ds. \]\par
+  Combining this with
+  \[ \abs{f^{(k+1)}(\xi)}\le\sup_{0\le t\le 1} \abs{f^{(k+1)}(x+t(y-x))}, \]
+  we obtain the desired inequality.
+\end{solution}
+
+
+
+\begin{problem}[5-22]
+Let $f$ be a real function on $(-\infty,\infty)$. If $f(x)=x$, then $x$ is called a fixed point of $f$.
+\begin{enumerate}[label=(\alph*)]
+	\item If $f$ is differentiable and $f'(t)\ne 1$ for every real $t$, prove that $f$ has at most one fixed point.
+	\item Prove that
+	\[
+	f(t)=t+(1+\e^t)^{-1}
+	\]
+	has no fixed point, although for every real $t$ one has $0<f'(t)<1$.
+	\item However, if there is a constant $A<1$ such that for every real $t$,
+	\[
+	|f'(t)|\le A,
+	\]
+	prove that $f$ has a fixed point $x$, and moreover
+	\[
+	x=\lim_{n\to\infty}x_n,
+	\]
+	where $x_1$ is any real number and for $n=1,2,3,\ldots$,
+	\[
+	x_{n+1}=f(x_n).
+	\]
+	\item Prove that the method in (c) can be implemented along the zig-zag path
+	\[
+	(x_1,x_2)\to(x_2,x_2)\to(x_2,x_3)\to(x_3,x_3)\to(x_3,x_4)\to\cdots.
+	\]
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) Suppose the contrary, if \( f(x)=x \) and \( f(y)=y \) for some \( x\ne y \), then by the mean value theorem, there exists some \( c \in (x,y) \) such that
+  \[ f'(c)=\frac{f(y)-f(x)}{y-x}=1, \]
+  which contradicts the assumption that \( f'(t)\ne 1 \) for every real \( t \). Therefore, \( f \) has at most one fixed point.\par
+  (b) Since \( (1+\e^t)^{-1}\neq 0 \) for all real \( t \), we have \( f(t)=t+(1+\e^t)^{-1}\neq t \) for all real \( t \). Therefore, \( f \) has no fixed point. \par
+  Note that
+  \[ f'(t)=1-\frac{\e^t}{(1+\e^t)^2}>1-1=0, \]
+  and obviously \( f'(t)<1 \) for all real \( t \). Therefore, \( 0<f'(t)<1 \) for all real \( t \).\par
+  (c) Suppose the contrary, that is \( f(x) \neq x \) for all \( x \in \mathbb{R} \). Then by the continuity of \( f \), we have either \( f(x)>x \) for all \( x \in \mathbb{R} \) or \( f(x)<x \) for all \( x \in \mathbb{R} \). We only consider the former case, and the latter case can be treated similarly. \par
+  If \( f(x)>x \) for all \( x \in \mathbb{R} \), then for any \( x>0 \), ther e exists some \( \xi_x\in(0,x) \), such that
+  \[ f(x)-f(0)=f'(\xi_x)(x-0)\le A x. \]
+  So we conclude that \( x<f(x)\le Ax+f(0) \) for all \( x>0 \), which contradicts the fact that \( A<1 \). Therefore, \( f \) has a fixed point \( x \).\par
+  Next we will prove that \( x=\lim_{n\to\infty}x_n \). For any \( n\ge 1 \), we have (by the mean value theorem)
+  \[ \abs{x_{n+2}-x_{n+1}}=\abs{f(x_{n+1})-f(x_n)}= \abs{f'(\xi_n)(x_{n+1}-x_n)}\le A\abs{x_{n+1}-x_n}. \]
+  This implies (maybe with a little effort) that \( \{x_n\} \) is a Cauchy sequence, and hence converges to some limit \( x \). THen, take \( n\to\infty \) in the equation \( x_{n+1}=f(x_n) \), we get \( x=f(x) \), which implies that \( x \) is the fixed point of \( f \). Therefore, \( x=\lim_{n\to\infty}x_n \).\par
+  (d) Actually, the method in (c) is exactly the same as the zig-zag path described in (d). Therefore, the conclusion in (c) also holds for the zig-zag path.
+\end{proof}
+
+
+
+\begin{problem}[5-23]
+Let
+\[
+f(x)=\frac{x^3+1}{3}.
+\]
+This function has three fixed points, say $\alpha,\beta,\gamma$, with
+\[
+-2<\alpha<-1,\quad 0<\beta<1,\quad 1<\gamma<2.
+\]
+Pick any $x_1$ and define $\{x_n\}$ by $x_{n+1}=f(x_n)$.
+\begin{enumerate}[label=(\alph*)]
+  \item If $x_1<\alpha$, prove that $x_n\to-\infty$ as $n\to\infty$.
+  \item If $\alpha<x_1<\gamma$, prove that $x_n\to\beta$ as $n\to\infty$.
+  \item If $\gamma<x_1$, prove that $x_n\to+\infty$ as $n\to\infty$.
+\end{enumerate}
+Hence $\beta$ can be found by this method, but $\alpha$ and $\gamma$ cannot.
+\end{problem}
+
+\begin{proof}
+  (a) We will prove the following inequality first: for any \( x<\alpha \), we have \( f(x)<x<\alpha \) and 
+  \[ \abs{f(x)-\alpha}>f'(\alpha)\abs{x-\alpha}. \]\par
+  The first inequality is the direct consequence of the fact that \( \alpha \) is the least fixed point of \( f \) and \( f(x) \) is increasing on \( (-\infty,\infty) \). For the second inequality, note that for any \( x<\alpha \),
+  \[ f'(x)=x^2>\alpha^2=f'(\alpha). \]\par
+  Then by the mean value theorem, there exists some \( \xi_x\in(x,\alpha) \) such that
+  \[ \abs{f(x)-\alpha}=\abs{f(x)-f(\alpha)}=\abs{f'(\xi_x)(x-\alpha)}>\abs{f'(\alpha)(x-\alpha)}. \]\par
+  Combining this inequality with \( f'(\alpha)=\alpha^2>1 \), we get
+  \[ \abs{x_n-\alpha}>(f'(\alpha))^{n-1}\abs{x_1-\alpha}\to+\infty\implies x_n\to-\infty. \]\par
+  (c) The proof is rather similar to (a). We only need to prove the following inequality: for any \( x>\gamma \), we have \( f(x)>x>\gamma \) and
+  \[ \abs{f(x)-\gamma}>f'(\gamma)\abs{x-\gamma}. \]
+  Then the conclusion follows.\par
+  (b) We will first deal with the case where \( x_1\in(\alpha,\beta) \). Note that \( f(x)>x \) for any \( x\in(\alpha,\beta) \), then \( x_1<x_2<\dots<\beta \). Since \( f \) is monotone increasing on \( (-\infty,\infty) \), we have \( f(x)<\beta \) for any \( x\in(\alpha,\beta) \). Hence, for any \( n\ge 1 \), we have \( x_{n}<x_{n+1}<\beta \). This implies that \( \{x_n\} \) is increasing and bounded, and hence converges to some limit \( x \). Then, take \( n\to\infty \) in the equation \( x_{n+1}=f(x_n) \), we get \( x=f(x) \), which implies that \( x \) is a fixed point of \( f \). Therefore, \( x=\beta \).\par
+  The case where \( x_1\in(\beta,\gamma) \) can be treated similarly. \end{proof}
+
+
+\begin{problem}[5-25]
+Let $f$ be twice differentiable on $[a,b]$, with $f(a)<0$, $f(b)>0$. Assume that for all $x\in[a,b]$,
+\[
+f'(x)\ge \delta>0\quad\text{and}\quad 0\le f''(x)\le M.
+\]
+Let $\xi$ be the unique point in $(a,b)$ such that $f(\xi)=0$. Consider the Newton iteration and complete the details below.
+\begin{enumerate}[label=(\alph*)]
+  \item Choose $x_1\in(\xi,b)$ and define
+  \[
+  x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}.
+  \]
+  Use a geometric interpretation via the tangent line of the graph of $f$.
+  \item Prove that $x_{n+1}<x_n$ and $\lim_{n\to\infty}x_n=\xi$.
+  \item Use Taylor's theorem to show that there exists $t_n\in(\xi,x_n)$ such that
+  \[
+  x_{n+1}-\xi=\frac{f''(t_n)}{2f'(x_n)}(x_n-\xi)^2.
+  \]
+  \item Let $A=M/(2\delta)$ and derive the inequality
+  \[
+  0\le x_{n+1}-\xi\le \frac{1}{A}\bigl[A(x_1-\xi)\bigr]^{2^n}.
+  \]
+  Compare with Chapter 3, Exercises 16 and 18.
+  \item Prove that Newton's method is equivalent to finding fixed points of
+  \[
+  g(x)=x-\frac{f(x)}{f'(x)}.
+  \]
+  What is the behavior of $g'(x)$ as $x$ approaches $\xi$?
+  \item Let $f(x)=x^{1/3}$ for $x\in(-\infty,\infty)$. What happens to Newton's method?
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) As shown below.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{plot1.pdf}
+  \end{figure}\par
+  (b) First, we will show that for any \( x_0\in(\xi,b) \), we have 
+  \[ x_0-\frac{f(x_0)}{f'(x_0)}\ge\xi. \]\par
+  Note that \( f'(x) \) is increasing on \( (a,b) \), since \( f''(x)\ge 0 \). If \( x_1:=x_0-(f(x_0))/(f'(x_0))<\xi \), then by the mean value theorem, there exists some \( \eta\in(\xi,x_0) \) such that
+  \[ f'(\eta)=\frac{f(x_0)-f(\xi)}{x_0-\xi}>\frac{f(x_0)}{x_0-x_1}=f'(x_0), \]
+  which contradicts the fact that \( \eta<x_0 \). Therefore, \( x_1\ge\xi \). Then, by induction, we can prove that \( x_n\ge\xi \) for all \( n\in\N_+ \). Moreover, since \( f \) is monotone increasing on \( (\xi,b) \), we have \( f(x_n)\ge 0 \) for all \( n\in\N_+ \). Hence,
+  \[ x_{n+1}=x_{n}-\frac{f(x_n)}{f'(x_n)}<x_n. \] \par
+  Since \( \{x_n\} \) is decreasing and bounded, it converges to some limit \( x \). Then, take \( n\to\infty \) in the equation \( x_{n+1}=x_n-(f(x_n))/(f'(x_n)) \), we get \( x=x-(f(x))/(f'(x)) \), which implies that \( f(x)=0 \). Since \( \xi \) is the unique point in \( (a,b) \) such that \( f(\xi)=0 \), we have \( x=\xi \). Therefore, \( \lim_{n\to\infty}x_n=\xi \).\par
+  (c) Use Taylor's theorem with the Lagrange's form of the remainder at \( x_n \), there exists some \( t_n\in(\xi,x_n) \) such that
+  \[ f(\xi)-\left( f(x_n)+f'(x_n)(\xi-x_n) \right) = \frac{f''(t_n)}{2}(\xi-x_n)^2. \]
+  By the definition of \( x_{n+1} \), we have
+  \begin{align*}
+    f(\xi)-\left( f(x_n)+f'(x_n)(\xi-x_n) \right)
+    &=f'(x_n)\left( x_n-\xi-\frac{f(x_n)}{f'(x_n)} \right)\\
+    &=f'(x_n)(x_{n+1}-\xi).
+  \end{align*}\par
+  Therefore 
+  \[ x_{n+1}-\xi=\frac{f''(t_n)}{2f'(x_n)}(\xi-x_n)^2. \]\par
+  (d) Since \( f''(x_n)\le M \) and \( f'(x_n)\ge \delta \), we have
+  \[ x_{n+1}-\xi\le \frac{M}{2\delta}(\xi-x_n)^2\implies (A(x_{n+1}-\xi))\le (A(x_{n}-\xi))^2. \]\par
+  By induction, we get
+  \[ 0\le A(x_{n+1}-\xi)\le\left[ A(x_1-\xi) \right]^{2^{n}}. \]\par
+  (e) Take a fixed point of \( g(x) \), say \( \xi \). Then
+  \[ 0=\xi-g(\xi)=\frac{f(\xi)}{f'(\xi)}\implies f(\xi)=0. \]\par
+  Note that \( g(x)=x-(f(x))/(f'(x)) \), so \( g'(x)=1-(f'(x)f'(x)-f(x)f''(x))/(f'(x))^2 \). Since \( f(\xi)=0 \), we have \( g'(\xi)=0 \). Therefore, as \( x \) approaches \( \xi \), \( g'(x) \) approaches \( 0 \).\par
+  (f) Newton's method may be invalid for this function, sincee \( f'(0) \) does not exist.   
+\end{proof}
+
+
+
+\end{document}
