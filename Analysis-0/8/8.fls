@@ -362,6 +362,11 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/tex-gyre/ts1-qtmr.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/ntx-Italic-tlf-ot1.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/ntx-Italic-tlf-ot1.tfm
+INPUT ./plot1.pdf
+INPUT ./plot1.pdf
+INPUT ./plot1.pdf
+INPUT ./plot1.pdf
+INPUT ./plot1.pdf
 INPUT 8.aux
 INPUT ./8.out
 INPUT ./8.out

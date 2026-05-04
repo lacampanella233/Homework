@@ -278,7 +278,7 @@ Give an example where $f$ is differentiable on $(-1,1)$ but $f'$ is discontinuou
   Then \( f'(0)=0 \), and
   \begin{align*}
     \frac{f(b_n)-f(a_n)}{b_n-a_n}
-    &=\left.\left( 0-\left( 2n\pi+\frac{\pi}{2} \right)^{-2} \right)\right/\left( \frac{1}{2n\pi}- \frac{1}{2n\pi+\pi/2} \right)\\
+    &=\left( 0-\left( 2n\pi+\frac{\pi}{2} \right)^{-2} \right)/\left( \frac{1}{2n\pi}- \frac{1}{2n\pi+\pi/2} \right)\\
     &=-\left( \frac{(2n\pi+\pi/2)^2}{2n\pi}-\left( 2n\pi+\frac{\pi}{2} \right) \right)^{-1}\\
     &=-\frac{8n}{(4n+1)\pi}\to -\frac{2}{\pi}\neq 0.\quad (n\to\infty)
   \end{align*}\par
@@ -440,6 +440,39 @@ Let $\xi$ be the unique point in $(a,b)$ such that $f(\xi)=0$. Consider the Newt
   \item Let $f(x)=x^{1/3}$ for $x\in(-\infty,\infty)$. What happens to Newton's method?
 \end{enumerate}
 \end{problem}
+
+\begin{proof}
+  (a) As shown below.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{plot1.pdf}
+  \end{figure}\par
+  (b) First, we will show that for any \( x_0\in(\xi,b) \), we have 
+  \[ x_0-\frac{f(x_0)}{f'(x_0)}\ge\xi. \]\par
+  Note that \( f'(x) \) is increasing on \( (a,b) \), since \( f''(x)\ge 0 \). If \( x_1:=x_0-(f(x_0))/(f'(x_0))<\xi \), then by the mean value theorem, there exists some \( \eta\in(\xi,x_0) \) such that
+  \[ f'(\eta)=\frac{f(x_0)-f(\xi)}{x_0-\xi}>\frac{f(x_0)}{x_0-x_1}=f'(x_0), \]
+  which contradicts the fact that \( \eta<x_0 \). Therefore, \( x_1\ge\xi \). Then, by induction, we can prove that \( x_n\ge\xi \) for all \( n\in\N_+ \). Moreover, since \( f \) is monotone increasing on \( (\xi,b) \), we have \( f(x_n)\ge 0 \) for all \( n\in\N_+ \). Hence,
+  \[ x_{n+1}=x_{n}-\frac{f(x_n)}{f'(x_n)}<x_n. \] \par
+  Since \( \{x_n\} \) is decreasing and bounded, it converges to some limit \( x \). Then, take \( n\to\infty \) in the equation \( x_{n+1}=x_n-(f(x_n))/(f'(x_n)) \), we get \( x=x-(f(x))/(f'(x)) \), which implies that \( f(x)=0 \). Since \( \xi \) is the unique point in \( (a,b) \) such that \( f(\xi)=0 \), we have \( x=\xi \). Therefore, \( \lim_{n\to\infty}x_n=\xi \).\par
+  (c) Use Taylor's theorem with the Lagrange's form of the remainder at \( x_n \), there exists some \( t_n\in(\xi,x_n) \) such that
+  \[ f(\xi)-\left( f(x_n)+f'(x_n)(\xi-x_n) \right) = \frac{f''(t_n)}{2}(\xi-x_n)^2. \]
+  By the definition of \( x_{n+1} \), we have
+  \begin{align*}
+    f(\xi)-\left( f(x_n)+f'(x_n)(\xi-x_n) \right)
+    &=f'(x_n)\left( x_n-\xi-\frac{f(x_n)}{f'(x_n)} \right)\\
+    &=f'(x_n)(x_{n+1}-\xi).
+  \end{align*}\par
+  Therefore 
+  \[ x_{n+1}-\xi=\frac{f''(t_n)}{2f'(x_n)}(\xi-x_n)^2. \]\par
+  (d) Since \( f''(x_n)\le M \) and \( f'(x_n)\ge \delta \), we have
+  \[ x_{n+1}-\xi\le \frac{M}{2\delta}(\xi-x_n)^2\implies (A(x_{n+1}-\xi))\le (A(x_{n}-\xi))^2. \]\par
+  By induction, we get
+  \[ 0\le A(x_{n+1}-\xi)\le\left[ A(x_1-\xi) \right]^{2^{n}}. \]\par
+  (e) Take a fixed point of \( g(x) \), say \( \xi \). Then
+  \[ 0=\xi-g(\xi)=\frac{f(\xi)}{f'(\xi)}\implies f(\xi)=0. \]\par
+  Note that \( g(x)=x-(f(x))/(f'(x)) \), so \( g'(x)=1-(f'(x)f'(x)-f(x)f''(x))/(f'(x))^2 \). Since \( f(\xi)=0 \), we have \( g'(\xi)=0 \). Therefore, as \( x \) approaches \( \xi \), \( g'(x) \) approaches \( 0 \).\par
+  (f) Newton's method may be invalid for this function, sincee \( f'(0) \) does not exist.   
+\end{proof}
 
 
 
