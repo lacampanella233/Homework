@@ -355,11 +355,6 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/ntx-Regular-tlf-ot1r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/newtx/ntx-Bold-tlf-ot1.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/txbmiaX.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/ntx-Bold-tlf-ot1r.tfm
-INPUT c:/texlive/2025/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd
-INPUT c:/texlive/2025/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd
-INPUT c:/texlive/2025/texmf-dist/tex/latex/newtx/ts1ntxtlf.fd
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/tex-gyre/ts1-qtmr.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/ntx-Italic-tlf-ot1.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/newtx/ntx-Italic-tlf-ot1.tfm
 INPUT ./plot1.pdf
@@ -385,7 +380,6 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
-INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmb.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmr.pfb
