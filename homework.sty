@@ -12,6 +12,7 @@
 \RequirePackage[UTF8]{ctex}
 \RequirePackage{amsmath, amsthm, amssymb, bm, framed, enumitem, url, float}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
+\RequirePackage{newtxtext}
 \RequirePackage{xparse}
 \RequirePackage{xcolor} % <--- 修改：由 color 改为 xcolor，以支持 \colorlet
 
@@ -24,7 +25,7 @@
   \newcommand{\homework@noteprefix}{题目}
   \newcommand{\homework@notesuffix}{的注记}
   \newcommand{\homework@homeworkname}{作业}
-  \newcommand{\homework@lemmaname}{引理}      % <--- 新增
+  \newcommand{\homework@lemmaname}{引理}
 \else
   % 英文设置
   \newcommand{\homework@problemname}{Problem}
@@ -33,18 +34,17 @@
   \newcommand{\homework@noteprefix}{Note for Problem }
   \newcommand{\homework@notesuffix}{}
   \newcommand{\homework@homeworkname}{Homework}
-  \newcommand{\homework@lemmaname}{Lemma}      % <--- 新增
+  \newcommand{\homework@lemmaname}{Lemma}
 \fi
 
-% 英文字体设置（需 XeLaTeX 或 LuaLaTeX）
-\setmainfont{Times New Roman}
+% 英文字体设置（pdfLaTeX）
 
 % 页面设置
 \geometry{a4paper, scale=0.8}
 
 % 颜色定义
 \definecolor{shadecolor}{RGB}{241, 241, 255}
-\definecolor{lembg}{RGB}{255, 255, 224}        % <--- 新增淡黄色背景
+\definecolor{lembg}{RGB}{255, 255, 224}
 
 % 计数器
 \newcounter{problemname}
@@ -70,7 +70,7 @@
     \stepcounter{problemname}\par\noindent
     \boxed{\textbf{\homework@problemname\ \arabic{problemname}}%
     \IfValueT{#1}{\,\textrm{(#1)}}.}%
-    \if@homework@zh\kaishu\else\itshape\fi    % 中文楷体 / 英文斜体
+    \if@homework@zh \kaishu \else \itshape \fi    % 中文楷体 / 英文斜体
 }
 {\end{shaded}\par}
 
@@ -82,7 +82,7 @@
     \begin{shaded}
     \par\noindent
     \textbf{\homework@lemmaname}\ \IfValueT{#1}{(#1)}.\space
-    \if@homework@zh\kaishu\fi
+    \if@homework@zh \kaishu \else \itshape \fi    % 中文楷体 / 英文斜体
 }
 {
     \end{shaded}
@@ -137,10 +137,10 @@
 % 设置行间公式的间距
 \expandafter\def\expandafter\normalsize\expandafter{%
     \normalsize%
-    \setlength\abovedisplayskip{0pt}%
-    \setlength\belowdisplayskip{0pt}%
+    \setlength\abovedisplayskip{2pt}%
+    \setlength\belowdisplayskip{2pt}%
     \setlength\abovedisplayshortskip{-8pt}%
-    \setlength\belowdisplayshortskip{0pt}%
+    \setlength\belowdisplayshortskip{2pt}%
 }
 
 % 制作标题并输出GitHub链接
