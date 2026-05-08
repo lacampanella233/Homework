@@ -1,0 +1,205 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{代数\,-\,0}{2026 春季}{9}
+
+\begin{document}
+
+
+\begin{problem}[7C-2]
+设算子 $T \in \mathcal{L}(\F^4)$ (关于标准基) 的矩阵是
+\[
+\begin{pmatrix}
+2 & -1 & 0 & 0 \\
+-1 & 2 & -1 & 0 \\
+0 & -1 & 2 & -1 \\
+0 & 0 & -1 & 2
+\end{pmatrix}.
+\]
+证明: $T$ 是可逆正算子.
+\end{problem}
+
+\begin{proof}
+  不难求出 \( T \) 有 \( 4 \) 个两两正交的特征向量:
+  \[ \begin{pmatrix}
+    -1 \\ \frac{1}{2}(1+\sqrt{5}) \\ -\frac{1}{2}(1+\sqrt{5}) \\ 1
+  \end{pmatrix}, \begin{pmatrix}
+    1 \\ \frac{1}{2}(1-\sqrt{5}) \\ \frac{1}{2}(1-\sqrt{5}) \\ 1
+  \end{pmatrix}, \begin{pmatrix}
+    -1 \\ \frac{1}{2}(1-\sqrt{5}) \\ -\frac{1}{2}(1-\sqrt{5}) \\ 1
+  \end{pmatrix}, \begin{pmatrix}
+    1 \\ \frac{1}{2}(1+\sqrt{5}) \\ \frac{1}{2}(1+\sqrt{5}) \\ 1 
+  \end{pmatrix}. \]
+  而且四个特征值均为正的: 
+  \[ \frac{1}{2}(5+\sqrt{5}), \frac{1}{2}(3+\sqrt{5}), \frac{1}{2}(5-\sqrt{5}), \frac{1}{2}(3-\sqrt{5}). \]
+  因此 \( T \) 为可逆正算子.
+\end{proof}
+
+
+
+\begin{problem}[7C-7]
+设 $S \in \mathcal{L}(V)$ 是可逆正算子, $T \in \mathcal{L}(V)$ 是正算子. 证明: $S + T$ 可逆.
+\end{problem}
+
+\begin{proof}
+  对于任意的非零 \( v\in V \), 由于 \( S \) 是可逆的正算子, 因此 \( \inprod{Sv}{v} > 0 \). 又因为 \( T \) 是正算子, 所以 \( \inprod{Tv}{v} \ge 0 \). 于是
+  \[
+  \inprod{(S + T)v}{v} = \inprod{Sv}{v} + \inprod{Tv}{v} > 0.
+  \]
+  这说明 \( S + T \) 可逆.
+\end{proof}
+
+
+
+\begin{problem}[7C-18]
+设 $S$ 和 $T$ 是 $V$ 上的正算子. 证明: $ST$ 是正算子, 当且仅当 $S$ 和 $T$ 可交换.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 由 \( ST \) 是正算子, 知 \( ST \) 是自伴算子. 因此
+  \[ ST=(ST)^*=T^*S^*=TS. \]\par
+  ``\( \impliedby \)''. 由于 \( S \) 与 \( T \) 可交换, 故
+  \[ (ST)^*=T^*S^*=TS=ST, \]
+  因此 \( ST \) 是自伴算子. 因为 \( S,T \) 可交换而两者均可对角化, 因而 \( S,T \) 存在公共的特征向量基 \( \{e_1,\dots,e_n\} \). 设 \( Sv_i=\lambda_iv_i \), \( T v_i=\mu_i v_i \). 由 \( S,T \) 为正算子, 知 \( \lambda_o\ge 0 \), \( \mu_i\ge 0 \). 于是 \( ST \) 的所有特征值 \( \lambda_i\mu_i\ge 0 \), 从而 \( ST \) 是正算子.
+\end{proof}
+
+
+
+\begin{problem}[7C-22]
+设 $T \in \mathcal{L}(V)$ 是正算子, $u \in V$ 满足 $\lVert u \rVert = 1$ 且 $\lVert Tu \rVert \ge \lVert Tv \rVert$ 对所有 $\lVert v \rVert = 1$ 的 $v \in V$ 成立. 证明: $u$ 是 $T$ 的特征向量, 对应于其最大的特征值.
+\end{problem}
+
+\begin{proof}
+  由 \( T \) 为正算子, 知存在一组标准正交基 \( \{e_1,\dots,e_n\} \) , 使得 每一个 \( e_i \) 都是 \( T \) 的特征向量. 设 \( Te_i=\lambda_i e_i \), 则 \( \lambda_i\ge 0 \). 不妨设 \( \lambda=\lambda_1=...=\lambda_k>\lambda_{k+1}\ge...\ge\lambda_n \ge 0 \).  将 \( u \) 展开为 \( u=\sum_{i=1}^n\alpha_ie_i \), 则对于任意的 \( v=\sum_{i=1}^n\beta_ie_i \) 满足 \( \abs{v} = 1 \), 有
+  \[ \abs{Tu}^2=\sum_{i=1}^{n}\abs{\alpha_i}^2\lambda_i^2\ge\abs{Tv}^2= \sum_{i=1}^{n}\abs{\beta_i}^2\lambda_i^2,\text{ 且 }\sum_{i=1}^{n}\abs{\alpha_i}^2=\sum_{i=1}^{n}\abs{\beta_i}^2=1. \]\par
+  取 \( \beta_1=1 \), \( \beta_2=\dots=\beta_n=0 \), 则 \( \sum_{i=1}^{n}\abs{\alpha_i}^2\lambda_i^2\ge \lambda^2 \). 因此
+  \[ 0=\left( \sum_{i=1}^{n}\abs{\alpha_i}^2\lambda_i^2 \right)-\lambda^2
+  =\sum_{i=1}^{n}\abs{\alpha_i}^2(\lambda_i^2-\lambda^2)
+  =-\sum_{i=k+1}^{n}(\lambda^2-\lambda_i^2)\abs{\alpha_i}^2\le 0. \]
+  则对于任意的 \( i\ge k+1 \), 都有 \( \alpha_i=0 \). 于是 \( u \) 是 \( T \) 的特征向量, 对应于其最大的特征值 \( \lambda \).
+\end{proof}
+
+
+
+\begin{problem}[7C-24]
+设 $S$ 和 $T$ 是 $V$ 上的正算子. 证明: $\ker(S + T) = \ker S \cap \ker T$.
+\end{problem}
+
+\begin{proof}
+  一方面, 显然 \( \ker S \cap\ker T\subset \ker(S+T) \). 下面来证明 \( \ker (S+T)\subset \ker S\cap\ker T \). 对于任意的 \( v\in\ker(S+T) \), 由于 \( S,T \) 都是正算子, 知 \( \inprod{Sv}{v}\ge 0 \), \( \inprod{Tv}{v}\ge 0 \). 又因为 \( \inprod{(S+T)v}{v}=0 \), 因此 \( \inprod{Sv}{v}=\inprod{Tv}{v}=0 \). 从而 \( v\in\ker S \) 且 \( v\in\ker T \), 即 \( v\in\ker S \cap\ker T \).
+\end{proof}
+
+
+
+\begin{problem}[7D-3]
+(a) 证明: $V$ 上的两幺正算子之积是幺正算子.
+
+(b) 证明: $V$ 上的幺正算子的逆是幺正算子.
+
+{\heiti 注.} 本题表明, $V$ 上的幺正子构成的集合是一个群, 这个群上的运算就是两算子之间通常的乘法.
+\end{problem}
+
+\begin{proof}
+  (a) 注意到
+  \[ (ST)^*ST=T^*S^*ST=I, \]
+  因此 \( ST \) 是幺正算子.\par
+  (b) 注意到
+  \[ (T^{-1})^*T^{-1}=(T^*)^{-1}T^{-1}=(TT^*)^{-1}=I, \]
+  因此 \( T^{-1} \) 是幺正算子.
+\end{proof}
+
+
+
+\begin{problem}[7D-4]
+设 $\F = \C$, 且 $A,B \in \mathcal{L}(V)$ 是自伴的. 证明: $A + \i B$ 是幺正的, 当且仅当 $AB = BA$ 且 $A^2 + B^2 = I$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 由于 \( A+\i B \) 是幺正算符, 因此
+  \[ I=(A+\i B)^*(A+\i B)=(A^*-\i B^*)(A+\i B)=A^2+B^2+\i(AB-BA). \]
+  同理, 有
+  \[ I=I^*=\left( A^2+B^2+\i(AB-BA) \right)^*=A^2+B^2-\i(AB-BA). \]
+  由上两式, 得到
+  \[ A^2+B^2=I, \quad AB=BA. \]\par
+  ``\( \impliedby \)''. 假设 $AB = BA$ 且 $A^2 + B^2 = I$. 则
+  \[ (A+\i B)^*(A+\i B)=(A^*-\i B^*)(A+\i B)=A^2+B^2+\i(AB-BA)=I. \]
+  因此 \( A+\i B \) 是幺正算符.
+\end{proof}
+
+
+
+\begin{problem}[7D-10]
+设 $\F = \C$, 且 $T \in \mathcal{L}(V)$ 是使得 $\abs{Tv} \le \abs{v}$ 对所有 $v \in V$ 都成立的自伴算子.
+
+(a) 证明: $I - T^2$ 是正算子.
+
+(b) 证明: $T + \i\sqrt{I - T^2}$ 是幺正算子.
+\end{problem}
+
+\begin{proof}
+  (a) 对于任意的 \( v\in V \), 由于 \( T \) 是自伴算子, 因此
+  \[ \inprod{(I-T^2)v}{v}=\abs{v}^2-\inprod{Tv}{Tv}\ge 0. \]
+  从而 \( I-T^2 \) 是正算子.\par
+  (b) 注意到
+  \[ \left( T+\i\sqrt{I-T^2} \right)^*\left( T+\i\sqrt{I-T^2} \right)=(T-\i\sqrt{I-T^2})(T+\i\sqrt{I-T^2})=I. \]
+  上面的等式用到了 \( T \) 与 \( \sqrt{I-T^2} \) 可交换的事实. 因此 \( T+\i\sqrt{I-T^2} \) 是幺正算子.
+\end{proof}
+
+
+
+\begin{problem}[7D-15]
+设 $T$ 是 $V$ 上的幺正算子, $T - I$ 可逆.
+
+(a) 证明: $(T + I)(T - I)^{-1}$ 是斜算子, (意即等于其伴随的负).
+
+(b) 证明: 如果 $\F = \C$, 那么 $\i(T + I)(T - I)^{-1}$ 是自伴算子.
+
+{\heiti 注.} 函数 $z \mapsto \i(z + 1)(z - 1)^{-1}$ 将 $\C$ 中的单位圆 (除了 $1$ 这个点) 映到 $\R$ 中. 因此 (b) 呈现了幺正子和 $\C$ 中的单位圆之间的类比, 以及自伴子和 $\R$ 之间的类比.
+\end{problem}
+
+\begin{proof}
+  (a) 注意到
+  \begin{align*}
+    &\left( (T+I)(T-I)^{-1} \right)^* 
+    = ((T-I)^{-1})^*(T+I)^* 
+    = (T^{-1}-I)^{-1}(T^{-1}+I) \\
+    =& (T(T^{-1}-I))^{-1}T(T^{-1}+I) 
+    = (I-T)^{-1}(T+I) 
+    = -(T+I)(T-I)^{-1}.
+  \end{align*}
+  因此 \( (T+I)(T-I)^{-1} \) 是斜算子.\par
+  (b) 注意到
+  \[ \left( \i(T+I)(T-I)^{-1} \right)^* 
+  = -\i \left( -(T+I)(T-I)^{-1} \right)
+  = \i(T+I)(T-I)^{-1}. \]
+  因此 \( \i(T+I)(T-I)^{-1} \) 是自伴算子.
+\end{proof}
+
+
+
+\begin{problem}[7D-16]
+设 $\F = \C$, 且 $T \in \mathcal{L}(V)$ 是自伴的. 证明: $(T + \i I)(T - \i I)^{-1}$ 是幺正算子, 且 $1$ 不是该算子的特征值.
+\end{problem}
+
+\begin{proof}
+  注意到
+  \begin{align*}
+    \left( (T+\i I)(T-\i I)^{-1} \right)^* 
+    =& ((T-\i I)^{-1})^*(T+\i I)^* 
+    = (T+\i I)^{-1}(T-\i I) \\
+    =& (T-\i I)(T+\i I)^{-1},
+  \end{align*}
+  因此
+  \[ \left( (T+\i I)(T-\i I)^{-1} \right)^* \left( (T+\i I)(T-\i I)^{-1} \right)
+  =(T-\i I)(T+\i I)^{-1}(T+\i I)(T-\i I)^{-1}
+  =I. \]
+  所以 \( (T+\i I)(T-\i I)^{-1} \) 是幺正算子.\par
+  下面来证明 \( 1 \) 不是 \( (T+\i I)(T-\i I)^{-1} \) 的特征值. 否则, 设 \( (T+\i I)(T-\i I)^{-1}v=v \) 对某个非零 \( v\in V \) 成立. \par
+  由于 \( T-\i I \) 不可逆 (否则 \( \i \) 是 \( T \) 的特征值, 这与 \( T \) 自伴矛盾), 因此存在非零向量 \( u \) 使得 \( v=(T-\i I)u \). 将 \( v \) 代入 \( (T+\i I)(T-\i I)^{-1}v=v \), 得到
+  \[ (T+\i I)u = (T-\i I)u. \]
+  这意味着 \( 2\i I u = 0 \), 从而 \( u = 0 \), 矛盾. 因此 \( 1 \) 不是 \( (T+\i I)(T-\i I)^{-1} \) 的特征值.
+\end{proof}
+
+
+
+\end{document}
