@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1778260352.47907 "d:/程昊一/Homework/Algebra-0/9/9.tex" "9.pdf" "9" 1778260354.05873 0
-  "9.aux" 1778260353 162 59504cb8f8bee0a3f0488d753cb23a1e "pdflatex"
-  "9.out" 1778260353 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "9.tex" 1778260351 8231 0823d88f4e9afdb84dd0b5652c091877 ""
+["pdflatex"] 1778260375.47324 "d:/程昊一/Homework/Algebra-0/9/9.tex" "9.pdf" "9" 1778260377.00976 0
+  "9.aux" 1778260376 162 59504cb8f8bee0a3f0488d753cb23a1e "pdflatex"
+  "9.out" 1778260376 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "9.tex" 1778260373 8435 0823d88f4e9afdb84dd0b5652c091877 ""
   "c:/Windows/Fonts/msyh.ttc" 1756564701 19704352 1e10e74402e59d54499af795caf0b135 ""
   "c:/Windows/Fonts/simhei.ttf" 1711630440 9755440 983b60188a8e5a7c29c06c674f428b3d ""
   "c:/Windows/Fonts/simkai.ttf" 1711630440 11789376 868a8b82664dfab00a95e3e30eaa705a ""
@@ -279,8 +279,8 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1751710906 5512713 d5293fe2524c042fff1d1aaaba621917 ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1751711061 3346133 a455951bd44c3d6cc0fcd01d149be5bf ""
   "c:/texlive/2025/texmf.cnf" 1751710880 713 e69b156964470283e0530f5060668171 ""
-  "d:/程昊一/Homework/Algebra-0/9/9.tex" 1778260351 8231 0823d88f4e9afdb84dd0b5652c091877 ""
-  "homework.sty" 1778072901 5168 20a6b2444e66881deccaa98f2dccbcd1 ""
+  "d:/程昊一/Homework/Algebra-0/9/9.tex" 1778260373 8435 0823d88f4e9afdb84dd0b5652c091877 ""
+  "homework.sty" 1778260373 5168 20a6b2444e66881deccaa98f2dccbcd1 ""
   (generated)
   "9.aux"
   "9.log"
