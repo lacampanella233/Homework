@@ -1,9 +1,120 @@
 \documentclass{article}
 \usepackage[en]{homework}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 
 \config{Physics-0}{2026 Spring}{8}
 
 \begin{document}
 
+\begin{problem}
+Consider a particle of mass $m$, charge $q$, and initial speed $v_0 = 5 \times 10^3\,\mathrm{m/s}$ projected into a uniform electric field between two parallel plates of length $25\,\mathrm{m}$. The electric field is directed downward between the plates with magnitude $\abs{\bo{E}} = 800\,\mathrm{N/C}$ and vanishes outside of the plates. After passing through the field, the object reaches a wall at a distance of $50\,\mathrm{m}$, where it is found to have been deflected downward a distance $d = 1.25\,\mathrm{m}$. Ignoring gravity and air resistance, compute the object's charge-to-mass ratio $q/m$.
+
+\par\medskip
+\begin{center}
+\begin{tikzpicture}[x=0.1cm,y=0.1cm,>=Stealth]
+  % Plates
+  \draw[thick] (0,3.75) -- (25,3.75);
+  \draw[thick] (0,-3.75) -- (25,-3.75);
+  % Electric field arrows
+  \foreach \x in {3,8,13,18,23} {
+    \draw[->] (\x,3) -- (\x,-3);
+  }
+  \node at (28,-2.5) {$\bo{E}$};
+  % Particle path
+  \draw[dashed] (-5,0) -- (75,0);
+  \fill (-7,0) circle (0.6);
+  \draw[->] (-7,0) -- (-2,0);
+  \node at (-5,4.5) {$v_0$};
+  % Wall
+  \draw[thick] (75,7.5) -- (75,-7.5);
+  \draw[<->] (78,0) -- (78,-6.25);
+  \fill (75,-6.25) circle (0.6);
+  \node[right] at (78,-3.125) {$d$};
+  % Distances
+  \draw[<->] (0,7) -- (25,7);
+  \node at (12.5,8.5) {$25\,\mathrm{m}$};
+  \draw[<->] (25,7) -- (75,7);
+  \node at (50,8.5) {$50\,\mathrm{m}$};
+\end{tikzpicture}
+\end{center}
+\end{problem}
+
+\begin{solution}
+  Denote the length of the parallel plate by \( l=25\,\mathrm{m} \) and the distance between the wall and the plate by \( L=50\,\mathrm{m} \). \par
+  The particle will stay at the uniform electric feild for a time \( t_1=L/v_0 \) and then move in the free space for a time \( t_2=l/v_0 \). \par
+  The acceleration of the particle in the electric field is \( a=qE/m \). Then the virtical speed of the particle when it leaves the electric field is \( v_y=a t_1 \). Hence the virtical displacement of the particle in the electric feild is
+  \[ d_1=\frac{1}{2}a t_1^2, \]
+  and the virtical displacement of the particle in the free space is
+  \[ d_2=t_2v_y. \]\par
+  By the relation \( d=d_1+d_2 \), we can solve the charge-to-mass ratio of the particle as
+  \[ \frac{q}{m}=\frac{2v_0^2d}{El(l+2L)}=25\,\mathrm{C/kg}. \]
+\end{solution}
+
+
+
+
+\begin{problem}
+Positive charge $Q$ is distributed uniformly along the positive $y$-axis (between $y = 0$ and $y = a$) as shown in the figure below.
+\begin{enumerate}[label=(\alph*)]
+  \item Calculate the $x$- and $y$-components of the electric field produced by the charge distribution $Q$ at the point $P$ on the positive $x$-axis.
+  \item Compute the leading contribution to the magnitude of the electric field in the limit $x \gg a$. Does the result fit your expectations? Explain why.
+\end{enumerate}
+
+\par\medskip
+\begin{center}
+\begin{tikzpicture}[>=Stealth]
+  \draw[->] (-0.4,0) -- (4.6,0) node[right] {$x$};
+  \draw[->] (0,-0.4) -- (0,4.6) node[above] {$y$};
+  \draw[very thick] (0,0) -- (0,3.5);
+  \node[left] at (0,1.8) {$Q$};
+  \node[left] at (0,3.5) {$a$};
+  \node[left] at (0,-0.2) {$0$};
+  \fill (3.4,0) circle (0.06);
+  \node[above] at (3.4,0) {$P$};
+\end{tikzpicture}
+\end{center}
+\end{problem}
+
+\begin{solution}
+  (a) Denote \( P=(x_0,0) \). The \( x \)- component of the electric feild is given by
+  \[ E_x=\int_{y=0}^{a}\frac{Q\d y}{a}\frac{1}{4\pi \varepsilon_0}\frac{x_0}{(x_0^2+y^2)^{3/2}}
+  = \int_{\theta=0}^{\arctan (a/x_0)}\frac{Qx_0\d\theta}{a\cos^2\theta}\frac{1}{4\pi\varepsilon_0}\frac{\cos^3\theta}{x_0^2}
+  =\frac{Q}{4\pi\varepsilon_0}\frac{1}{x_0\sqrt{x_0^2+a^2}}. \]
+  The \( y \)- component of the electric feild is given by
+  \begin{align*}
+    E_y&=- \int_{y=0}^{a}\frac{Q\d y}{a}\frac{1}{4\pi \varepsilon_0}\frac{y}{(x_0^2+y^2)^{3/2}}
+    = -\int_{\theta=0}^{\arctan (a/x_0)}\frac{Qx_0\d\theta}{a\cos^2\theta}\frac{1}{4\pi\varepsilon_0}\frac{x_0\tan\theta\cos^3\theta}{x_0^3}\\
+    &=-\frac{Q}{4\pi\varepsilon_0ax_0}\left( 1- \frac{x_0}{\sqrt{x_0^2+a^2}} \right).
+  \end{align*} \par
+  (b) The leading contribution to the magnitude of the electric feild in the limit \( x_0\gg a \) is given by
+  \[ E=\sqrt{E_x^2+E_y^2}\approx \frac{Q}{4\pi\varepsilon_0x_0^2}. \]\par
+  This result fit the expections, since the system can be treated as a point charge \( Q \) when \( x_0\gg a \).
+\end{solution}
+
+
+
+\begin{problem}
+In class (and the problems above), we have considered the electric field of different charge configurations in three spatial dimensions, where the electric field of a single point particle in spherical coordinates reads
+\[ \bo{E}(\bo{r}) = \frac{kq}{r^2}\,\hat{\bo{r}}. \]
+In this problem, we will consider a world that has only two spatial dimensions. The electric field of a point particle in two dimensions is given by
+\[ \bo{E}(\bo{r}) = \frac{\tilde{k}q}{r}\,\hat{\bo{r}}, \]
+where the particle is located at the origin of a polar coordinate system $(r,\theta)$ and the constant $\tilde{k}$ has units of $\mathrm{N\,m/C^2}$.
+\begin{enumerate}[label=(\alph*)]
+  \item Consider a test particle of charge $q_0$ at a location $\bo{r}$. What is the potential energy of the system? How much work does it take to move the particle to infinity?
+  \item Compute the electric field of an infinite long line with uniform linear charge density $\lambda$. How does this result compare to the electric field of an infinite plane in three dimensions?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) The potential is
+  \[ U=\int_{x=r_0}^{r}\frac{\tilde{k}qq_0}{x}\d x = \tilde{k}qq_0\ln\left(\frac{r_0}{r}\right) = -\tilde{k}qq_0\ln\left( \frac{r}{r_0} \right), \]
+  where we define the potential energy is \( 0 \) when \( r=r_0 \). Hence the work to move the particle to infinity is also infinity.\par
+  (b) Suppose the line charge is along the \( y \)-axis. The electric feild at a point \( P(x_0,0) \) on the \( x \)-axis is given by
+  \[ E_x=\int_{-\infty}^{+\infty}\frac{k\lambda\d y x_0}{(x_0^2+y^2)^{3/2}}
+  =\int_{-\pi/2}^{\pi/2}\frac{k \lambda x_0^2\cos^3\theta\d\tan\theta}{x_0^3}
+  =\frac{2k\lambda}{x_0}. \]\par
+  This result is similar to the electric feild of a point charge in two dimensions, which is also proportional to \( 1/x_0 \).
+\end{solution}
 
 \end{document}
