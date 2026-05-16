@@ -1,9 +1,302 @@
-\documentclass{article}
-\usepackage[en]{homework}
+﻿\documentclass{article}
+\usepackage[zh]{homework}
 
-\config{Analysis-0}{2026 Spring}{9}
+\config{分析\,-\,0}{2026 春季}{9}
 
 \begin{document}
 
+以下作业中, 若未加声明, \( P:x_0<x_1<\dots<x_n \) 均指的是区间 \( [x_0,x_n] \) 的划分, 并且做如下符号约定: 
+\begin{itemize}
+  \item \( \Delta x_i=x_i-x_{i-1} \), \( \xi_i \in [x_{i-1}, x_i] \);
+  \item \( \left\|P\right\|=\max_{1\le i \le n} \Delta x_i \); 
+  \item \( m_i=\inf_{x \in [x_{i-1}, x_i]} f(x) \), \( M_i=\sup_{x \in [x_{i-1}, x_i]} f(x) \), \( \omega_i=M_i-m_i \);
+  \item \( L(f, P)=\sum_{i=1}^{n} m_i \Delta x_i \), \( U(f, P)=\sum_{i=1}^{n} M_i \Delta x_i \).
+\end{itemize}
+
+\begin{problem}
+设 $x_0 \in [a, b]$. 定义函数
+\[ 
+f(x) = \begin{cases} 1, & x = x_0, \\ 0, & x \neq x_0. \end{cases} 
+\]
+证明 $f \in \mathscr{R}[a, b]$, 且 $\int_a^b f(x) \d x = 0$.
+\end{problem}
+
+\begin{proof}
+  我们来证明: \( \lim_{\|P\|\to 0}\sum_{i=1}^{n}f(\xi_i)\Delta x_i = 0 \). 对于任意的 \( \varepsilon>0 \), 取 \( 0<\delta<\varepsilon/2 \). 则对于任意的划分 \( \|P\|<\delta \), 设 \( x_0\in[x_{k-1},x_k] \). 则对于任意的 \( i\ne k,k+1 \), 均有 \( f(\xi_i)=0 \). 而 \( f(\xi_k)\le 1 \), \( f(\xi_{k+1})\le 1 \). 因此
+  \[ \sum_{i=1}^{n}f(\xi_i)\Delta x_i = f(\xi_k)\Delta x_k + f(\xi_{k+1})\Delta x_{k+1} \le \Delta x_k + \Delta x_{k+1} \le 2\delta < \varepsilon. \]
+
+  因此 \( \lim_{\|P\|\to 0}\sum_{i=1}^{n}f(\xi_i)\Delta x_i = 0 \).
+\end{proof}
+
+
+
+\begin{problem}
+证明以下 Riemann 积分的性质:
+
+(a) (线性性) 设 $f, g \in \mathscr{R}[a, b]$, $c \in \mathbb{R}$, 则 $f + g, cf \in \mathscr{R}[a, b]$, 且
+\[ \int_a^b (f + g) \d x = \int_a^b f \d x + \int_a^b g \d x, \]
+\quad
+\[ \int_a^b cf \d x = c \int_a^b f \d x. \]
+
+(b) (保序性) 设 $f, g \in \mathscr{R}[a, b]$, 且 $f(x) \le g(x), \forall x \in [a, b]$, 则
+\[ \int_a^b f \d x \le \int_a^b g \d x. \]
+ \quad
+\[ \left| \int_a^b f \d x \right| \le \int_a^b |f| \d x. \]
+
+(c) (区间可加性) 设 $a < c < b$. $f \in \mathscr{R}[a, b]$ 当且仅当 $f \in \mathscr{R}[a, c]$ 且 $f \in \mathscr{R}[c, b]$. 此时,
+\[ \int_a^b f \d x = \int_a^c f \d x + \int_c^b f \d x. \]
+若进一步约定
+\[ \int_b^a f \d x = - \int_a^b f \d x, \quad \int_a^a f \d x = 0, \]
+则区间可加性对任意 $a, b, c$ 都成立.
+
+(d) 若 $f, g \in \mathscr{R}[a, b]$, 则 $fg \in \mathscr{R}[a, b]$.
+\end{problem}
+
+\begin{proof}
+  (a) 设 \( I= \int_a^b f \d x \), \( J= \int_a^b g \d x \). 对于任意的划分 \( P \), 均有
+  \[ \sum_{i=1}^{n}cf(\xi_i)\Delta x_i=c \sum_{i=1}^{n}f(\xi_i)\Delta x_i, \]
+  因此 \( \int_a^b cf \d x = c \int_a^b f \d x \).
+
+  接下来证明 \( \int_a^b (f+g)\d x=I+J \). 对于任意的 \( \varepsilon>0 \), 存在 \( \delta_1 \) 使得对于任意的划分 \( P \) 满足 \( \|P\|<\delta_1 \) 时, \( \left|\sum_{i=1}^{n}f(\xi_i)\Delta x_i - I\right|<\varepsilon/2 \). 同样的, 存在 \( \delta_2 \) 使得对于任意的划分 \( P \) 满足 \( \|P\|<\delta_2 \) 时, \( \left|\sum_{i=1}^{n}g(\xi_i)\Delta x_i - J\right|<\varepsilon/2 \). 
+
+  取 \( \delta=\min\{\delta_1,\delta_2\} \), 则对于任意的划分 \( P \) 满足 \( \|P\|<\delta \) 时, 有
+  \[ \abs{\sum_{i=1}^n(f+g)(\xi_i)\Delta x_i-(I+J)}
+  \le \abs{\sum_{i=1}^n f(\xi_i)\Delta x_i - I} + \abs{\sum_{i=1}^n g(\xi_i)\Delta x_i - J} < \varepsilon. \]
+  因此 \( \lim_{\|P\|\to 0}\sum_{i=1}^{n}(f+g)(\xi_i)\Delta x_i = I+J \).
+
+  (b) 先证明第一个不等式. 设 \( I= \int_a^b f \d x \), \( J= \int_a^b g \d x \). 若 \( I>J \), 则取 \( \varepsilon=(I-J)/2 \). 则存在 \( \delta_1 \) 使得对于任意的划分 \( P \) 满足 \( \|P\|<\delta_1 \) 时, \( \left|\sum_{i=1}^{n}f(\xi_i)\Delta x_i - I\right|<\varepsilon \). 同样的, 存在 \( \delta_2 \) 使得对于任意的划分 \( P \) 满足 \( \|P\|<\delta_2 \) 时, \( \left|\sum_{i=1}^{n}g(\xi_i)\Delta x_i - J\right|<\varepsilon \).
+
+  由 \( \varepsilon \) 的取法, 可以得到 \( \sum_{i=1}^{n}f(\xi_i)\Delta x_i>\sum_{i=1}^{n}g(\xi_i)\Delta x_i \). 而这与 \( f(x) \le g(x), \forall x \in [a, b] \) 矛盾. 因此 \( I \le J \).
+
+  再来证明第二个不等式. 事实上, 对于任意的划分 \( P \), 均有
+  \[ \left|\sum_{i=1}^{n}f(\xi_i)\Delta x_i\right| \le \sum_{i=1}^{n}|f(\xi_i)|\Delta x_i. \]
+  因此, 与上面类似地, 可以证明 \( \left|\int_a^b f \d x\right| \le \int_a^b |f| \d x \).
+
+  (c) 先证明 \( f\in \mathscr{R}[a,b] \) 等价于 \( f\in \mathscr{R}[a,c] \) 且 \( f\in \mathscr{R}[c,b] \). 定义函数
+  \[ \chi_1(x)
+  = \begin{cases} 1, & x \in [a, c], \\ 0, & x \in (c, b]. \end{cases}, 
+  \chi_2(x)
+  = \begin{cases} 1, & x \in [c, b], \\ 0, & x \in [a, c). \end{cases} \]
+  不难知道 \( \chi_1 \) 与 \( \chi_2 \) 都是 \( [a, b] \) 上的 Riemann 可积函数. 因此, 由 (d) 可知, 若 \( f \) 可积, 则 \( f\chi_1 \) 可积, 因而 \( f \) 在 \( [a, c] \) 上可积; 同样的, \( f\chi_2 \) 可积, 因而 \( f \) 在 \( [c, b] \) 上可积.
+
+  接下来证明: 若 \( f \) 在 \( [a, c] \) 与 \( [c, b] \) 上可积, 则 \( f \) 在 \( [a, b] \) 上可积, 且 \( \int_a^b f \d x = \int_a^c f \d x + \int_c^b f \d x \). 事实上, 定义
+  \[ f_1(x) = \begin{cases} f(x), & x \in [a, c], \\ 0, & x \in (c, b]. \end{cases} \]
+  \[ f_2(x) = \begin{cases} 0, & x \in [a, c), \\ f(x), & x \in [c, b]. \end{cases} \]
+  则 \( f = f_1 + f_2 \), 且 \( f_1 \) 和 \( f_2 \) 都在 \( [a, b] \) 上可积. 由 (a) 知 \( f \) 在 \( [a, b] \) 上可积, 且
+  \[ \int_a^b f \d x = \int_a^b f_1 \d x + \int_a^b f_2 \d x = \int_a^c f \d x + \int_c^b f \d x. \]
+
+  (d)设 \( f \) 在 \( A\in [a,b] \) 中不连续, \( g \) 在 \( B\in [a,b] \) 中不连续. 则 \( fg \) 至多在 \( A\cup B \) 中不连续. 而由 Lebesgue 定理, \( A \) 与 \( B \) 均为零测集, 因此 \( A\cup B \) 是零测集. 因此 \( fg \) 在 \( [a,b] \) 上可积.
+\end{proof}
+
+
+
+\begin{problem}
+设 $f$ 在 $[a, b]$ 上连续, 且 $\int_a^b f(x) \d x = 0$. 证明存在 $c \in [a, b]$ 使 $f(c) = 0$.
+\end{problem}
+
+\begin{proof}
+  采用反证法. 若结论不成立, 则由 \( f \) 连续知 \( f \) 在 \( [a,b] \) 上恒正或恒负. 不妨设为前者. 取 \( m=\inf_{x\in[a,b]}f(x)>0 \), 则
+  \[ 0=\int_a^b f(x)\d x\ge m(b-a)>0, \]
+  矛盾. 因此存在 \( c \in [a, b] \) 使 \( f(c) = 0 \).
+\end{proof}
+
+
+
+\begin{problem}
+判断下列函数在指定区间上是否 Riemann 可积, 并给出证明 (基于 Darboux 准则):
+
+(a) 
+\[ 
+f(x) = \begin{cases} 1, & x \in [0, 1] \cap \mathbb{Q}, \\ 0, & x \in [0, 1] \setminus \mathbb{Q}. \end{cases} 
+\]
+
+(b) 
+\[ 
+f(x) = \begin{cases} \frac{1}{q}, & x = \frac{p}{q} \text{ 为既约真分数}, x \in [0, 1], \\ 0, & x \text{ 为无理数或} 0, x \in [0, 1]. \end{cases} 
+\]
+提示: 任给 $\epsilon > 0$, 使 $f(x) \ge \epsilon$ 的点的集合是有限集.
+\end{problem}
+
+\begin{solution}
+  (a) 对于任意的划分 \( P \), \( m_i=0 \) 且 \( M_i=1 \). 因此 \( L(f,P)=0 \) 且 \( U(f,P)=1 \). 由 Darboux 准则知 \( f \) 不可积.
+
+  (b) 对于任意的划分 \( P \), \( m_i=0 \), 因此 \( L(f,P)=0 \). 
+  
+  对于任意的 \( \varepsilon>0 \), 设 \( A=\{x\in[0,1]:f(x)\ge \varepsilon/2\} \). 则 \( A \) 为有限集, 设为 \( A=\{a_1<\dots<a_n\} \). 取 
+  \[ \delta=\min\left( \{\abs{x-y}:x,y\in A,x<y\} \cup \{\varepsilon/(4n),a_1/2,(1-a_n)/2\} \right). \] 
+
+  考虑以 \( 0 \), \( 1 \), \( a\pm\delta \) (\( a\in A \)) 为端点的划分 \( P \). 由 \( \delta \) 的取法, 知
+  \[ 0<a_1-\delta<a_1<a_1+\delta<\dots<a_n-\delta<a_n+\delta<1. \]
+  则
+  \begin{align*}
+    U(f,P) & = \sum_{i=1}^{n} M_i \Delta x_i 
+    \le n\cdot 2\delta \cdot 1 + \left( 1-2n\delta \right) \cdot \frac{\varepsilon}{2} < \frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon.
+  \end{align*}
+
+  结合 \( L(f,P)=0 \), 知 \( U(f,P)-L(f,P)<\varepsilon \). 因此 \( f \) 可积, 且 \( \int_0^1 f(x) \d x=0 \).
+\end{solution}
+
+
+
+\begin{problem}
+设 $f \in \mathscr{R}[a, b]$. 定义变上限积分 $F(x) = \int_a^x f(t) \d t$, 其中 $a \le x \le b$. 证明 $F$ 在 $[a, b]$ 上连续.
+\end{problem}
+
+\begin{proof}
+  由 \( f\in\mathscr{R}[a,b] \) 知 \( f \) 在 \( [a,b] \) 上有界, 设 \( M=\sup_{x\in[a,b]}|f(x)| \). 则对于任意的 \( \varepsilon>0 \) 以及 \( \abs{x,y}<\varepsilon \), 均有
+  \[ \abs{F(x)-F(y)} = \abs{\int_a^x f(t)\d t - \int_a^y f(t)\d t} = \abs{\int_y^x f(t)\d t} \le M\abs{x-y} < M\varepsilon. \]
+  因此 \( F \) 在 \( [a,b] \) 上一致连续, 从而在 \( [a,b] \) 上连续.
+\end{proof}
+
+
+
+\begin{problem}
+令 $C$ 是 Cantor 集 (阅读第 2 章 2.44 节中 Cantor 集的构造过程). 设 $f$ 是 $[0, 1]$ 上的有界实函数, 它在 $C$ 以外的每点连续, 试证 $f \in \mathscr{R}[0, 1]$.
+\end{problem}
+
+\begin{proof}
+  由于 \( f \) 在 \( [a,b] \) 上有界, 设 \( M=\sup_{x\in[a,b]}|f(x)| \).
+
+  我们先来证明: 对于任意的 \( \varepsilon>0 \), 存在有限个不交的开区间 \( (u_i,v_i) \) (\( 1\le i\le n \)), 使得这些开区间的总长不超过 \( \varepsilon \), 并且 \( C \subseteq \bigcup_{i=1}^n (u_i,v_i) \). 事实上, 定义 \( E_n \) 为 Cantor 集构造过程中第 \( n \) 步得到的集合, 例如 
+  \[ E_1=\left[ 0,\frac{1}{3} \right]\cup\left[ \frac{2}{3},1 \right],\quad
+  E_2=\left[ 0,\frac{1}{9} \right]\cup\left[ \frac{2}{9},\frac{1}{3} \right]\cup\left[ \frac{2}{3},\frac{7}{9} \right]\cup\left[ \frac{8}{9},1 \right]. \]
+
+  对每一个 \( n\ge 1 \), 我们定义 \( \tilde{E}_n \) 为所有形如 \( \left( a-3^{-n-1},b+3^{-n-1} \right) \) 的开区间的并, 其中 \( [a,b] \) 是构成 \( E_n \) 的其中一个闭区间. 则 \( \tilde{E}_n \) 是有限个不交的开区间的并, 且 \( C \subseteq E_n \subseteq \tilde{E}_n \). 同时, \( \tilde{E}_n \) 的总长为 \( E_n \) 的总长的 \( 1+2\cdot 3^{-n-1} \) 倍. 因此, 存在 \( N \) 使得 \( \tilde{E}_N \) 的总长不超过 \( \varepsilon \). 取 \( (u_i,v_i) \) 为 \( \tilde{E}_N \) 中的开区间, 则满足要求.
+
+  接下来证明原问题. 取开集 \( E=\tilde{E}_N \). 则 \( f \) 在 \( [0,1]-E \) 上连续. 而 \( [0,1]-E \) 是紧集, 因此 \( f \) 在 \( [0,1]-E \) 上一致连续. 因此, 存在 \( \delta>0 \) 使得对于任意的 \( x,y\in[0,1]-E \) 满足 \( |x-y|<\delta \) 时, 有 \( |f(x)-f(y)|<\varepsilon \).
+
+  选定划分点 \( 0 \), \( 1 \), 以及 \( u_i, v_i \) 中的在 \( (0,1) \) 中的点, 再进行适当的加细(在上述的相邻两点之间等距地插入足够多的点), 得到一个划分 \( P \), 满足 \( \|P\|<\delta \). 则对于任意的 \( i \) 满足 \( (x_{i-1},x_i)\subset E \), 均有 \( M_i-m_i \le 2M \); 对于任意的 \( i \) 满足 \( (x_{i-1},x_i)\subset [0,1]-E \), 均有 \( M_i-m_i<\varepsilon \). 因此
+\[ U(f,P)-L(f,P) = \sum_{i=1}^n \omega_i \Delta x_i \le 2M\cdot \varepsilon + \varepsilon \cdot 1 = (2M+1)\varepsilon. \]
+
+  由于 \( \varepsilon \) 是任意的, 因此 \( f \) 可积.
+\end{proof}
+
+
+
+\begin{problem}
+假定 $f$ 是 $(0, 1]$ 上的实函数, 对于每个 $c > 0$, $f \in \mathscr{R}[c, 1]$. 定义
+\[ \int_0^1 f(x) \d x = \lim_{c \to 0} \int_c^1 f(x) \d x, \]
+设该极限存在且有限.
+
+(a) 若 $f \in \mathscr{R}[0, 1]$, 证明这个定义与标准定义相同.
+
+(b) 构造一个函数 $f$ 满足上述极限存在, 然而把 $f$ 换作 $|f|$ 这极限变不存在.
+\end{problem}
+
+\begin{solution}
+  (a) 与题目 5 类似地, 可以证明: 函数 \( F(x) = \int_x^1 f(t) \d t \) 在 \( [0,1] \) 上连续, 因此 \( F(0)=\lim_{x\to 0+} F(x) \).
+
+  (b) 取 \( (0,1] \) 中的点如下:
+  \[ a_0=1,\quad a_n=1-\frac{6}{\pi^2}\left( 1+\frac{1}{2^2}+\dots+\frac{1}{n^2} \right),\quad b_n=\frac{1}{2}(a_n+a_{n-1}).\quad (n\ge 1) \]
+  则 \( a_0>b_1>a_1>b_2>a_2>\dots \) 且 \( \lim_{n\to\infty}a_n=0 \). 定义函数
+  \[ f(x)= \begin{cases}
+    n, & x \in (b_n,a_{n-1}], \\
+    -n, & x \in (a_n,b_n]. \\
+  \end{cases}(n\ge 1) \]
+
+一方面, 不难计算出
+\[ \int_x^1 f(t) \d t = \begin{cases}
+  n(a_{n-1}-x), & x \in (b_n,a_{n-1}], \\
+  n(x-a_n), & x \in (a_n,b_n]. \\
+\end{cases} \]
+因此对于 \( x\in(a_n,a_{n-1}] \), 有
+\[ 0\le\int_x^1 f(t) \d t \le \frac{n}{2}(a_{n-1}-a_{n})=\frac{3}{\pi^2n}. \]
+因此 \( \lim_{x\to 0+} \int_x^1 f(t) \d t=0 \).
+
+另一方面, 可以计算出
+\[ \int_x^1 f(t) \d t = \frac{6}{\pi^2}\sum_{k=1}^{n-1}\frac{1}{k}+n(a_{n-1}-x), \quad x \in (b_n,a_{n-1}]. \]
+由于调和级数发散, 因此 \( \lim_{x\to 0+} \int_x^1 |f(t)| \d t = \infty \).
+\end{solution}
+
+
+
+\begin{problem}
+设 $a$ 是固定实数, 对于大于 $a$ 的任意数 $b$, $f \in \mathscr{R}[a, b]$. 定义
+\[ \int_a^\infty f(x) \d x = \lim_{b \to \infty} \int_a^b f(x) \d x, \]
+设该极限存在并有限. 这时便称左端的 (反常) 积分收敛. 如果把 $f$ 换作 $|f|$ 它仍然收敛, 就称它绝对收敛.
+
+假定 $f(x) \ge 0$, 并且在 $[1, \infty)$ 上单调递减. 试证
+\[ \int_1^\infty f(x) \d x \text{ 收敛} \iff \sum_{n=1}^\infty f(n) \text{ 收敛}. \]
+(这是关于级数收敛性的积分判别法.)
+\end{problem}
+
+\begin{proof}
+  只需注意到下面两个不等关系即可:
+  \[ \int_{1}^t f(x)\d x 
+  \le \int_{1}^{\lceil t \rceil} f(x) 
+  \le \int_{1}^{\lceil t \rceil} f(\lfloor x \rfloor)\d x 
+  = \sum_{n=1}^{\lceil t \rceil-1} f(n); \]
+  \quad
+  \[ \sum_{n=1}^{N}f(n)
+  =f(1)+ \sum_{n=2}^{N}f(n)
+  = f(1) + \int_{1}^{N} f(\lceil x \rceil)\d x
+  \le f(1) + \int_1^N f(x) \d x. \]
+\end{proof}
+
+
+
+\begin{problem}
+设 $p$ 与 $q$ 都是正实数, 满足
+\[ \frac{1}{p} + \frac{1}{q} = 1, \]
+证明下列命题:
+
+(a) 假设 $u \ge 0$ 且 $v \ge 0$, 那么
+\[ uv \le \frac{u^p}{p} + \frac{v^q}{q}, \]
+等号当且仅当 $u^p = v^q$ 时成立.
+
+(b) 假设 $f, g \in \mathscr{R}[a, b]$, $f \ge 0, g \ge 0$, 并且
+\[ \int_a^b f^p \d x = 1 = \int_a^b g^q \d x. \]
+那么
+\[ \int_a^b fg \d x \le 1. \]
+
+(c) 假设 $f, g \in \mathscr{R}[a, b]$, 证明
+\[ \left| \int_a^b fg \d x \right| \le \left\{ \int_a^b |f|^p \d x \right\}^{1/p} \left\{ \int_a^b |g|^q \d x \right\}^{1/q} \]
+这是 Holder 不等式. 当 $p = q = 2$ 时称为 Schwarz 不等式.
+\end{problem}
+
+\begin{proof}
+  (a) 由加权的 Jensen 不等式知
+  \[ \ln\left( \frac{u^p}{p} + \frac{v^q}{q} \right) \ge \frac{1}{p} \ln(u^p) + \frac{1}{q} \ln(v^q) = \ln(u) + \ln(v) = \ln(uv). \]
+  因此
+  \[ uv \le \frac{u^p}{p} + \frac{v^q}{q}. \]
+  等号当且仅当 $u^p = v^q$ 时成立.
+
+  (b) 由 (a) 知
+  \[ fg \le \frac{f^p}{p} + \frac{g^q}{q}. \]
+  因此
+  \[ \int_a^b fg \d x \le \int_a^b \frac{f^p}{p} + \frac{g^q}{q} \d x = 1. \]
+
+  (c) 设
+  \[ A = \int_a^b |f|^p \d x , \quad B = \int_a^b |g|^q \d x , \quad \tilde{f}=\frac{\abs{f}}{A^{1/p}}, \quad \tilde{g}=\frac{\abs{g}}{B^{1/q}}. \]
+  则
+  \[ \int_{a}^{b}\abs{f}^p\d x=\int_{a}^{b}\abs{g}^q\d x=1. \]
+  由 (b) 中的结论, 知 \( \int_a^b \tilde{f} \tilde{g} \d x \le 1 \). 因此
+  \[ \abs{\int_{a}^{b}fg\d x}
+  \le \int_{a}^{b}\abs{f}\abs{g}\d x
+  = A^{1/p} B^{1/q} \int_{a}^{b}\tilde{f}\tilde{g}\d x 
+  \le A^{1/p} B^{1/q}
+  =\left\{ \int_a^b |f|^p \d x \right\}^{1/p} \left\{ \int_a^b |g|^q \d x \right\}^{1/q}. \]
+
+\end{proof}
+
+
+
+\begin{problem}
+对 $u \in \mathscr{R}[a, b]$ 定义
+\[ \|u\|_2 = \left\{ \int_a^b |u|^2 \d x \right\}^{1/2}. \]
+设 $f, g, h \in \mathscr{R}[a, b]$, 证明三角不等式
+\[ \|f - h\|_2 \le \|f - g\|_2 + \|g - h\|_2. \]
+\end{problem}
+
+\begin{proof}
+  记 \( u=f-g \), \( v=g-h \). 则 \( u,v\in\mathscr{R}[a,b] \). 只需要证明 \( \|u+v\|\le\|u\|+\|v\| \). 注意到
+  \begin{align*}
+    \|u+v\|^2 & = \int_a^b |u+v|^2 \d x 
+    = \int_a^b |u|^2 + 2uv + |v|^2 \d x
+    = \|u\|^2 + 2\int_a^b uv \d x + \|v\|^2 \\
+    & \le \|u\|^2 + 2\|u\|\|v\| + \|v\|^2 = (\|u\|+\|v\|)^2.
+  \end{align*}
+  其中第二行的不等号是由于 Cauchy-Schwarz 不等式. 因此 \( \|u+v\| \le \|u\| + \|v\| \).
+\end{proof}
 
 \end{document}
