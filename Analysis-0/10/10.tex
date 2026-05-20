@@ -1,9 +1,124 @@
 \documentclass{article}
-\usepackage[en]{homework}
+\usepackage[zh]{homework}
 
-\config{Analysis-0}{2026 Spring}{10}
+\config{分析\,-\,0}{2026 春季}{10}
 
 \begin{document}
+
+\begin{problem}
+设 $f \in \mathcal{R}[a,b]$, 证明 $f$ 至少有一个连续点. (不能直接使用 Lebesgue 准则.)
+\end{problem}
+
+\begin{proof}
+  反证法. 按照下一道题目的题干中的方法定义振幅 \( \omega_f(x) \). 则 \( \omega_f(x) \) 对于所有的 \( x \in [a,b] \) 都大于零. 设 \( \varepsilon=\min\{\omega_f(x):x\in[a,b]\}>0 \). 则对于任意的划分 \( P \), 均有
+  \[ U(f,P)-L(f,P) = \sum_{i=1}^{n}\Delta x_i \omega_f(x_i) \ge \varepsilon (b-a)>0. \]
+
+  这与 \( f \in \mathcal{R}[a,b] \) 矛盾.
+\end{proof}
+
+
+
+\begin{problem}
+设 $f:[a,b] \to \R$ 有界. 定义 $f$ 在 $x \in [a,b]$ 的振幅为
+\[
+\omega_f(x) = \lim_{\delta \to 0^+} \sup\{\abs{f(s) - f(t)} : s,t \in N_\delta(x) \cap [a,b]\}.
+\]
+给定 $\varepsilon > 0$, 定义
+\[
+D_\varepsilon = \{x \in [a,b] : \omega_f(x) \ge \varepsilon\}.
+\]
+\begin{enumerate}[label=(\alph*)]
+	\item 证明 $\omega_f(x)$ 定义中的极限一定存在.
+	\item 证明 $f$ 在 $x$ 处连续当且仅当 $\omega_f(x)=0$.
+	\item 证明 $D_\varepsilon$ 是闭集.
+	\item 设 $f \in \mathcal{R}[a,b]$, 证明 $D_\varepsilon$ 是零测集.
+	\item 令 $D_f$ 是 $f$ 在 $[a,b]$ 上的间断点集, 设 $D_f$ 是零测集, 证明 $f \in \mathcal{R}[a,b]$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 注意到, 对于 \( 0<\delta<\delta' \), 有 \( (N_\delta(x)\cap[a,b])\subset  (N_{\delta'}(x)\cap[a,b]) \), 因而 \( \sup\{\abs{f(s) - f(t)} : s,t \in N_\delta(x) \cap [a,b]\} \) 关于 $\delta$ 单调递减, 且有下界 \( 0 \), 故极限存在.
+
+  (b) 若 \( f \) 在 \( x \) 处连续, 则根据定义, 对于任意的 \( \varepsilon>0 \), 存在 \( \delta>0 \), 使得对于任意的 \( t\in N_\delta(x)\cap[a,b] \), 都有 \( \abs{f(t)-f(x)}<\varepsilon/2 \). 从而对于任意的 \( s,t\in N_\delta(x)\cap[a,b] \), 都有 \( \abs{f(s)-f(t)}<\varepsilon \). 因此\( \omega_f(x)=0 \). 
+
+  反之, 若 \( \omega_f(x)=0 \), 则对于任意的 \( \varepsilon>0 \), 存在 \( \delta>0 \), 使得对于任意的 \( s,t\in N_\delta(x)\cap[a,b] \), 都有 \( \abs{f(s)-f(t)}<\varepsilon \). 取 \( s=x \), 则对于任意的 \( t\in N_\delta(x)\cap[a,b] \), 都有 \( \abs{f(t)-f(x)}<\varepsilon \). 因此\( f \) 在 \( x \) 处连续.
+
+  (c) 只需证明 \( D_\varepsilon \) 的补集
+  \[ D_\varepsilon^c = \{x \in [a,b] : \omega_f(x) < \varepsilon\} \]
+  是开集. 对于 \( x_0\in D_\varepsilon^c \), 由于 \( \omega_f(x_0)<\varepsilon \), 则存在 \( \delta_0 \), 使得
+  \[ \sup\{\abs{f(s) - f(t)} : s,t \in N_{\delta_0}(x_0) \cap [a,b]\}=:\varepsilon_0 < \varepsilon. \]
+
+  我们来证明: 对于任意的 \( x\in N_{\delta_0}(x_0)\cap[a,b] \), 都有 \( \omega_f(x)\le \varepsilon_0<\varepsilon \). 取 \( \delta=\delta_0-\abs{x-x_0}>0 \) (因为 \( x\in N_{\delta_0}(x_0) \)), 则不难知道 \( (N_\delta(x)\cap[a,b])\subset (N_{\delta_0}(x_0)\cap[a,b]) \). 从而
+  \[ \sup\{\abs{f(s) - f(t)} : s,t \in N_\delta(x) \cap [a,b]\} \le \sup\{\abs{f(s) - f(t)} : s,t \in N_{\delta_0}(x_0) \cap [a,b]\}=\varepsilon_0. \]
+  因此 \( \omega_f(x)\le \varepsilon_0<\varepsilon \), 从而 \( x\in D_\varepsilon^c \). 这说明 \( N_{\delta_0}(x_0)\cap[a,b]\subset D_\varepsilon^c \), 从而 \( D_\varepsilon^c \) 是开集, \( D_\varepsilon \) 是闭集.
+
+  (d) 对于任意的正实数 \( \eta \), 由于 \( f \in \mathcal{R}[a,b] \), 则存在划分 \( P \), 使得 
+  \[ \sum_{i=1}^{n}\Delta x_i \omega_i < \frac{1}{2}\varepsilon\eta ,\]
+  其中
+  \[ \omega_i = \sup\{\abs{f(s) - f(t)} : s,t \in [x_{i-1}, x_i]\}. \]
+
+  对于 \( 1\le i\le n \), 记闭区间 \( E_i=[x_{i-1},x_i] \), 开区间 \( O_i=\left( x_{i-1}-\frac{1}{2}\Delta x_i, x_{i}+\frac{1}{2}\Delta x_i \right) \). 则 \( E_i\subset O_i \), 且 \( |O_i|=2 \Delta x_i \). 记
+  \[ \left\{ i: \exists\, x\in E_i, \omega_f(x)\ge \varepsilon \right\}=:I\subset J:=\left\{ j: \omega_j\ge \varepsilon \right\}. \]
+
+  则 \( D_\varepsilon \subset \bigcup_{i\in I} E_i \subset \bigcup_{i\in I} O_i\subset \bigcup_{j\in J} O_j \). 由于
+  \[ \frac{1}{2}\eta \varepsilon>\sum_{i=1}^{n}\Delta x_i \omega_i\ge \sum_{j\in J} \frac{1}{2}|O_j|\varepsilon
+  \implies \sum_{j\in J}^{}|O_j| < \eta, \]
+  再结合 \( \eta \) 的任意性, 知 \( D_\varepsilon \) 可以被总长度任意小的开区间覆盖. 因此 \( D_\varepsilon \) 是零测集.
+
+  (e) 由于任意的 \( \varepsilon>0 \), 都有 \( D_\varepsilon\subset D_f \), 则 \( D_\varepsilon \) 是零测集. 任取 \( \eta>0 \), 则对于任意的 \( \varepsilon>0 \), 都存在可数的开区间集合 \( \{O_i\} \), 使得 \( D_\varepsilon\subset \bigcup_i O_i \) 且 \( \sum_i |O_i|<\eta \). 而由 \( D_\varepsilon \) 是闭的, 因此存在有限的开区间集合 \( \{O_i\}_{i=1}^n \), 使得 \( D_\varepsilon\subset \bigcup_{i=1}^n O_i \) 且 \( \sum_{i=1}^n |O_i|<\eta \). 
+
+  由于 \( [a,b]- D_\varepsilon \) 上任意一点关于 \( f \) 的振幅都小于 \( \varepsilon \), 因此对于任意的 \( x\in [a,b]-\bigcup_{i=1}^n O_i \), 存在 \( x \) 的开邻域 \( U(x) \), 使得对于任意的 \( s,t\in U(x)\cap[a,b] \), 都有 \( \abs{f(s)-f(t)}<\varepsilon \). 记 \( E= [a,b]-\bigcup_{i=1}^n O_i \), 则 \( E \) 为闭集, 并且 \( E\subset\bigcup_{x\in E}U(x) \), 从而存在子覆盖, 设为 \( \bigcup_{j=1}^{m}U_j \). 
+
+  考虑所有 \( O_i \) 与 \( U_j \) 的端点, 将这些点视为划分点, 构成一个划分 \( P:a=x_0<x_1<\dots<x_N=b \). 设 \( M=\sup\{\abs{f(s)-f(t)}:s,t\in[a,b]\} \). 则对于任意的 \( 1\le k\le N \), 均有 \( \omega_k\le M \). 
+  
+  从而
+ \[ U(f,P)-L(f,P) = \sum_{j}\Delta x_j \omega_j 
+ \le \abs{\bigcup_{i=1}^{n}O_i}M + \left( (b-a)-\abs{\bigcup_i O_i} \right)\varepsilon
+ <\eta M+(b-a)\varepsilon. \]
+
+ 由 \( \varepsilon \) 与 \( \eta \) 的任意性, 知 \( \eta M+(b-a)\varepsilon \) 可以任意小. 因此 \( f \in \mathcal{R}[a,b] \).
+\end{proof}
+
+
+
+\begin{problem}
+设 $f$ 在 $[a,b]$ 上满足 $f \ge 0$, $f$ 连续且 $\int_a^b f(x)\,\d x = 0$. 证明对一切 $x \in [a,b]$, $f(x)=0$.
+\end{problem}
+
+\begin{problem}
+设 $f:[a,b] \to \R$ 有界.
+\begin{enumerate}[label=(\alph*)]
+	\item 若已知 $f^2 \in \mathcal{R}[a,b]$, 是否必然 $f \in \mathcal{R}[a,b]$? 证明或举出反例.
+	\item 若已知 $f^3 \in \mathcal{R}[a,b]$, 答案是否改变?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+设 $f$ 和 $g$ 在 $[a,b]$ 上均有界, $f \in \mathcal{R}[a,b]$.
+\begin{enumerate}[label=(\alph*)]
+	\item 若 $f$ 和 $g$ 只在有限个点上取值不同, 证明 $g \in \mathcal{R}[a,b]$, 且 $\int_a^b f(x)\,\d x = \int_a^b g(x)\,\d x$.
+	\item 若 $f$ 和 $g$ 在可数无穷多个点上取值不同, 结论是否成立? 证明或举出反例.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+计算下列定积分或不定积分:
+\begin{enumerate}[label=(\alph*)]
+	\item $\int_1^e \frac{1}{x}\,\d x$.
+	\item $\int (3x^2 - 2x + 1)\,\d x$.
+	\item $\int_{-1}^2 \abs{x - 1}\,\d x$.
+	\item 设
+	\[
+	f(x) =
+	\begin{cases}
+		x^2, & 0 \le x < 1, \\
+		2 - x, & 1 \le x \le 2.
+	\end{cases}
+	\]
+	求 $\int_0^2 f(x)\,\d x$.
+\end{enumerate}
+\end{problem}
+
 
 
 \end{document}
