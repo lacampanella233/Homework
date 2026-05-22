@@ -10,10 +10,14 @@
 \end{problem}
 
 \begin{proof}
-  反证法. 按照下一道题目的题干中的方法定义振幅 \( \omega_f(x) \). 则 \( \omega_f(x) \) 对于所有的 \( x \in [a,b] \) 都大于零. 设 \( \varepsilon=\min\{\omega_f(x):x\in[a,b]\}>0 \). 则对于任意的划分 \( P \), 均有
-  \[ U(f,P)-L(f,P) = \sum_{i=1}^{n}\Delta x_i \omega_f(x_i) \ge \varepsilon (b-a)>0. \]
+  根据黎曼可积的性质, 对于任意区间 \( [c,d] \subset [a,b] \) 以及 \( \varepsilon > 0 \), 必然存在闭子区间 \( I \subset [c,d] \), 使得对于任意的 \( s,t\in I \), 均有 \( |f(s)-f(t)| < \varepsilon \). 否则, 若在所有闭子区间上函数的振幅均不小于 \( \varepsilon \), 则任意划分 \( P \) 下均有 \( U(f,P)-L(f,P) \ge \varepsilon(d-c) > 0 \), 这与 \( f \in \mathcal{R}[c,d] \) 矛盾.
 
-  这与 \( f \in \mathcal{R}[a,b] \) 矛盾.
+  据此我们可以构造一个闭区间套: 
+  取 \( \varepsilon_1 = 1 \), 存在闭区间 \( I_1 \subset [a,b] \), 使得 \( f \) 在 \( I_1 \) 上的振幅小于 \( 1 \).
+  取 \( \varepsilon_2 = 1/2 \), 由于 \( f \in \mathcal{R}(I_1) \), 可以在 \( I_1 \) 的内部再次找到闭区间 \( I_2 \subset I_1 \) (使得 \( I_2 \) 的端点与 \( I_1 \) 不同), 使得 \( f \) 在 \( I_2 \) 上的振幅小于 \( 1/2 \), 并要求 \( |I_2| \le \frac{1}{2}|I_1| \).
+  以此类推, 对于正整数 \( n \), 存在闭区间 \( I_n \subset I_{n-1} \), 且 \( I_n \) 在 \( I_{n-1} \) 的内部, 使得 \( f \) 在 \( I_n \) 上的振幅小于 \( 1/n \), 且 \( |I_n| \to 0 \).
+
+  由闭区间套定理, 存在唯一的点 \( x_0 \in \bigcap_{n=1}^\infty I_n \). 由于 \( I_n \) 始终在 \( I_{n-1} \) 内部, \( x_0 \) 必存在一个开邻域包含于 \( I_{n-1} \) 中. 对于任意的 \( \varepsilon > 0 \), 存在 \( N \), 使得 \( 1/N < \varepsilon \). 于是存在 \( \delta > 0 \) 使得 \( N_\delta(x_0) \subset I_N \), 从而在这个邻域内任意两点函数值之差均小于 \( 1/N < \varepsilon \). 由连续的 \(\varepsilon-\delta\) 定义知 \( f \) 在 \( x_0 \) 处连续.
 \end{proof}
 
 
@@ -173,9 +177,15 @@ f(\xi) \ge A, \quad f(\eta) \le A.
 \end{problem}
 
 \begin{proof}
-  由 \( A \) 的定义, 有 \( \int_{a}^{b}(f(x)-A)\d x=0 \). 若不存在 \( \xi\in[a,b] \) 使得 \( f(\xi)\ge A \), 则 \( f-A \) 在 \( [a,b] \) 上恒负, 因而在 \( [a,b] \) 上的积分为 \( 0 \), 矛盾. 同理, 若不存在 \( \eta\in[a,b] \) 使得 \( f(\eta)\le A \), 则 \( f-A \) 在 \( [a,b] \) 上恒正, 因而在 \( [a,b] \) 上的积分为 \( 0 \), 矛盾.
+  由 \( A \) 的定义, 有 \( \int_{a}^{b}(f(x)-A)\d x=0 \). 
+  
+  若不存在 \( \xi\in[a,b] \) 使得 \( f(\xi)\ge A \), 则记 \( g(x) = f(x)-A \), 有 \( g(x)<0 \) 对所有 \( x\in[a,b] \) 成立. 由于 \( f \in \mathcal{R}[a,b] \), 则 \( g \in \mathcal{R}[a,b] \). 根据第一题的结论, \( g \) 在 \( [a,b] \) 上至少存在一个连续点 \( x_0 \). 由 \( g(x_0)<0 \) 及连续性, 存在 \( x_0 \) 的一个邻域 \( I = N_\delta(x_0)\cap[a,b] \), 使得对于任意的 \( x\in I \), 都有 \( g(x) < \frac{1}{2}g(x_0) < 0 \). 从而
+  \[ \int_{a}^{b}g(x)\d x = \int_I g(x)\d x + \int_{[a,b]-I} g(x)\d x \le \frac{1}{2}g(x_0)|I| + 0 < 0, \]
+  这与 \( \int_{a}^{b}g(x)\d x=0 \) 矛盾. 
 
-因此存在 \( \xi, \eta\in[a,b] \) 使得 \( f(\xi)\ge A \) 且 \( f(\eta)\le A \).
+  同理, 若不存在 \( \eta\in[a,b] \) 使得 \( f(\eta)\le A \), 则记 \( h(x)=f(x)-A>0 \) 对所有 \( x \in [a,b] \) 恒成立. 同理利用第一题结论可知其积分严格大于 \( 0 \), 这与积分为 \( 0 \) 矛盾.
+
+  因此存在 \( \xi, \eta\in[a,b] \) 使得 \( f(\xi)\ge A \) 且 \( f(\eta)\le A \).
 \end{proof}
 
 
@@ -192,7 +202,37 @@ I(\lambda) = \int_a^b f(x)\cos \lambda x\,\d x.
 \end{problem}
 
 \begin{proof}
-  我们直接来证明 (b). 
+  (a) 由于 \( f \) 在 \( [a,b] \) 上单调，由积分第二中值定理，对于任意 \( \lambda > 0 \)，存在 \( \xi \in [a,b] \)，使得
+  \[ I(\lambda) = \int_a^b f(x)\cos (\lambda x)\,\d x = f(a) \int_a^\xi \cos (\lambda x)\,\d x + f(b) \int_\xi^b \cos (\lambda x)\,\d x. \]
+  计算右端的积分，可得
+  \[ I(\lambda) = f(a) \frac{\sin(\lambda \xi) - \sin(\lambda a)}{\lambda} + f(b) \frac{\sin(\lambda b) - \sin(\lambda \xi)}{\lambda}. \]
+  由于 \( \abs{\sin t} \le 1 \)，所以
+  \[ \abs{I(\lambda)} \le \frac{2\abs{f(a)} + 2\abs{f(b)}}{\lambda}. \]
+  当 \( \lambda \to \infty \) 时，右端趋于 \( 0 \)。因此 \( \lim_{\lambda \to \infty} I(\lambda) = 0 \).
+
+  (b) 由于 \( f\in C([a,b]) \), 因此 \( f \) 在 \( [a,b] \) 上一致连续. 设 \( \varepsilon>0 \), 则存在 \( \delta>0 \), 使得对于任意的 \( s,t\in[a,b] \), 若 \( \abs{s-t}<\delta \), 则 \( \abs{f(s)-f(t)}<\varepsilon \). 
+
+  取足够大的 \( \lambda \), 使得 \( 2\pi/\lambda < \delta \). 设 \( x_1,x_2,\dots,x_n \) 是 \( [a,b] \) 中从小到大的所有 \( 2\pi/\lambda \) 的整数倍, 则 \( a\le x_0<x_1<\dots<x_n\le b \). 由 \( \delta \) 以及 \( \lambda \) 的定义, 有如下估计:
+  \[ \abs{\int_{a}^{x_1}f(x)\cos(\lambda x)\d x}
+  \le \int_{a}^{x_1}\abs{f(x)}\d x
+  \le (f(a)+\varepsilon)(x_1-a)
+  \le \frac{2\pi}{\lambda}(\abs{f(a)}+\varepsilon), \]
+  以及类似地,
+  \[ \abs{\int_{x_n}^{b}f(x)\cos(\lambda x)\d x}\le \frac{2\pi}{\lambda}(\abs{f(b)}+\varepsilon). \]
+
+  对于 \( 1\le k\le n-1 \), 则有
+  \[ \abs{\int_{x_k}^{x_{k+1}}f(x)\cos(\lambda x)\d x}
+  =\abs{\int_{x_k}^{x_{k+1}}(f(x)-f(x_k))\cos(\lambda x)\d x}
+  \le \int_{x_k}^{x_{k+1}}\abs{f(x)-f(x_k)}\d x
+  \le \varepsilon \frac{2\pi}{\lambda} .\]
+
+  综合上述估计, 就有
+  \begin{align*}
+    \abs{I(\lambda)}
+    &\le \frac{2\pi}{\lambda}(f(a)+f(b)+2\varepsilon) + (n-1)\varepsilon \frac{2\pi}{\lambda} \\
+    &\le \frac{2\pi}{\lambda}(f(a)+f(b)+2\varepsilon)+(b-a)\varepsilon.
+  \end{align*}
+  因此, \( \lim_{\lambda\to\infty}\abs{I(\lambda)} \le (b-a)\varepsilon \). 再由 \( \varepsilon \) 的任意性, 知 \( \lim_{\lambda\to\infty}I(\lambda)=0 \).
 \end{proof}
 
 
@@ -208,6 +248,36 @@ I(\lambda) = \int_a^b f(x)\cos \lambda x\,\d x.
   \item $\int_0^{\pi/2} \frac{1}{\cos x + \sin x}\,\d x$.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  (a) \[ \int \frac{x+1}{x^2-5x+6}\d x=\int\left( \frac{4}{x-3}-\frac{3}{x-2} \right)\d x = 4\ln|x-3| - 3\ln|x-2| + C. \]
+
+  (b) \[ \int \frac{x^3+x^2+x+1}{x^2+1}\d x=\int \left( x+1 \right) \d x = \frac{1}{2}x^2 + x + C. \]
+
+  (c) \[ \int x^2\ln x\d x= \frac{1}{3}x^3\ln x-\int \frac{1}{3}x^3\cdot\frac{1}{x}\d x = \frac{1}{3}x^3\ln x - \frac{1}{9}x^3 + C. \]
+
+  (d) \begin{align*}
+    \int \sin^3 x\cos^2 x\d x
+    &=-\int \sin^2x\cos^2 x\d\cos x
+    =-\int (1-\cos^2 x)\cos^2 x\d\cos x\\
+    &=\frac{1}{5}\cos^5 x-\frac{1}{3}\cos^3 x+C.
+  \end{align*}
+
+  (e) 注意到
+  \[ \cos^4x=\frac{1}{4}(1+\cos 2x)^2=\frac{1}{4}+\frac{1}{2}\cos 2x + \frac{1}{4}\cdot \frac{1}{2}(\cos 4x+1)=\frac{3}{8}+\frac{1}{2}\cos 2x + \frac{1}{32}\cos 4x, \]
+  因此
+  \[ \int\cos^4 x\d x=\frac{3}{8}x+\frac{1}{4}\sin 2x+ \frac{1}{32}\sin 4x +C. \]
+
+  (f) \begin{align*}
+    \int_{0}^{\pi/2}\frac{1}{\sin x+\cos x}\d x
+    &=\frac{1}{\sqrt{2}}\int_{0}^{\pi/2}\frac{1}{\sin(x+\pi/4)}\d x
+    =\frac{1}{\sqrt{2}}\ln\abs{\frac{1-\cos(x+\pi/4)}{\sin(x+\pi/4)}}\Big|_0^{\pi/2}\\
+    &=\frac{1}{\sqrt{2}}\left( \ln\left( \sqrt{2}+1 \right)-\ln\left( \sqrt{2}-1 \right) \right)
+    =\sqrt{2}\ln\left( 1+\sqrt{2} \right).
+  \end{align*}
+\end{solution}
+
+
 
 \begin{problem}
 假设 $f \in C^1([a,b])$, $f(a)=f(b)=0$, 并且
@@ -225,6 +295,22 @@ I(\lambda) = \int_a^b f(x)\cos \lambda x\,\d x.
 提示: 利用第 9 次作业中证明的 Schwarz 不等式.
 \end{problem}
 
+\begin{proof}
+  由分部积分公式, 
+  \begin{align*}
+    I&:=\int_a^b x f(x)f'(x)\d x
+    =\int_{a}^{b}xf(x)\d f(x)=\left. xf^2(x) \right|_a^b - \int_a^b f(x)(xf'(x)+f(x))\d x=-I-1,
+  \end{align*}
+  因此 \( I=-\frac{1}{2} \). 
+
+  由 Schwarz 不等式, 有
+  \[ \left( \int_{a}^{b}(f'(x))^2\d x \right)\left( \int_{a}^{b}(xf(x))^2\d x \right)
+  \ge \left( \int_{a}^{b}xf(x)f'(x)\d x \right)^2=\frac{1}{4}. \]
+  若等号成立, 则存在常数 \( c \), 使得对于任意的 \( x\in[a,b] \), 都有 \( f'(x)=cxf(x) \), 从而 \( f(x)=Ae^{cx^2/2} \), 其中 \( A \) 是常数. 由 \( f(a)=f(b)=0 \), 则 \( A=0 \), 从而 \( f \) 恒为 \( 0 \), 矛盾. 因此不等式中的等号不能成立.
+\end{proof}
+
+
+
 \begin{problem}
 设 $f \in \mathcal{R}[a,b]$. 定义
 \[
@@ -241,6 +327,35 @@ I(\lambda) = \int_a^b f(x)\cos \lambda x\,\d x.
 g(t) = \frac{x_i - t}{\Delta x_i} f(x_{i-1}) + \frac{t - x_{i-1}}{\Delta x_i} f(x_i).
 \]
 \end{problem}
+
+\begin{proof}
+  根据黎曼可积的一个充分必要条件, 对于任意的正实数 \( \varepsilon' \) 和 \( \eta \), 均存在一个划分 \( P \), 使得振幅不小于 \( \varepsilon' \) 的区间长度之和小于 \( \eta \). 设 \( S \) 是这样的 \( i \) 的集合, 使得 \( \omega_i\ge \varepsilon' \). 设 \( M=\sup f([a,b])-\inf f([a,b]) \). 
+
+  按照题目中的提示定义 \( g \). 则 \( g \) 是分段线性的, 且在分割点处连续, 故 \( g \) 在 \( [a,b] \) 上为连续函数. 并且, 我们有估计:
+  \[ \omega_i<\begin{cases}
+    \varepsilon', & i\notin S, \\
+    M, & i\in S.
+  \end{cases} \]
+  因此, 
+
+  \begin{align*}
+    \left\|f-g\right\|_1
+    &=\int_a^b \abs{f(x)-g(x)}\d x
+    \le \sum_{i=1}^{n}\int_{x_{i-1}}^{x_i}\omega_i\d x
+    =\sum_{i\in S}\omega_i\Delta x_i + \sum_{i\notin S}\omega_i\Delta x_i\\
+    &<M\sum_{i\in S}\Delta x_i + \varepsilon'\sum_{i\notin S}\Delta x_i
+    <M\eta + \varepsilon'(b-a),
+  \end{align*}
+  并且同理, 
+  \begin{align*}
+    \left\|f-g\right\|_2^2
+    &=\int_a^b \abs{f(x)-g(x)}^2\d x
+    <M^2\eta + (\varepsilon')^2(b-a).
+  \end{align*}
+  根据 \( \varepsilon' \) 与 \( \eta \) 的任意性, 知可以选取合适的 \( \varepsilon' \) 和 \( \eta \), 使得 \( \left\|f-g\right\|_1 < \varepsilon \) 以及 \( \left\|f-g\right\|_2 < \varepsilon \).
+\end{proof}
+
+
 
 \begin{problem}
 定义
@@ -262,6 +377,55 @@ f(x) = \int_x^{x+1} \sin(t^2)\,\d t.
   \item 求 $x f(x)$ 当 $x \to \infty$ 时的上, 下极限.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+  (a) 
+  \begin{align*}
+    f(x)
+    &=\int_x^{x+1}\sin(t^2)\d t
+    =\int_{x^2}^{(x+1)^2}\frac{\sin u}{2\sqrt{u}}\d u
+    =-\int_{x^2}^{(x+1)^2}\frac{\d\cos u}{2\sqrt{u}}\\
+    &=\frac{\cos u}{2\sqrt{u}}\Big|_{(x+1)^2}^{x^2}-\int_{x^2}^{(x+1)^2}\frac{\cos u}{4u^{3/2}}\d u
+    =\frac{1}{2}\left( \frac{\cos(x^2)}{x}-\frac{\cos(x+1)}{x+1} \right)\\
+    &=\frac{\cos(x^2)}{2x} - \frac{\cos[(x+1)^2]}{2(x+1)} - \int_{x^2}^{(x+1)^2} \frac{\cos u}{4u^{3/2}}\d u.
+  \end{align*}
+  因此
+  \begin{align*}
+    \abs{f(x)}
+    &< \frac{1}{2x}+\frac{1}{2(x+1)}+\int_{x^2}^{(x+1)^2}\frac{1}{4u^{3/2}}\d u
+    =\frac{1}{2x}+\frac{1}{2(x+1)}+\left( \frac{1}{2x}-\frac{1}{2(x+1)} \right)\\
+    &=\frac{1}{x}.
+  \end{align*}
+
+  (b) 由 (a) 的结果, 可知
+  \begin{align*}
+    r(x) 
+    &= 2x f(x) - \cos(x^2) + \cos[(x+1)^2]
+    = \cos((x+1)^2)\left( 1-\frac{x}{x+1} \right) - \int_{x^2}^{(x+1)^2}\frac{x\cos u}{2u^{3/2}}\d u\\
+    &=\frac{\cos((x+1)^2)}{x+1}-\int_{x^2}^{(x+1)^2}\frac{x\cos u}{2u^{3/2}}\d u.
+  \end{align*}
+  因此
+  \begin{align*}
+    \abs{r(x)}
+    &\le\abs{\frac{\cos((x+1)^2)}{x+1}}+\abs{\int_{x^2}^{(x+1)^2}\frac{x\cos u}{2u^{3/2}}\d u}\\
+    &<\frac{1}{x}+x\left( \frac{1}{x}-\frac{1}{x+1} \right)
+    <\frac{2}{x}.
+  \end{align*}
+
+  (c) 我们来证明: \( \limsup_{x\to\infty}xf(x)=1 \), 并且 \( \liminf_{x\to\infty}xf(x)=-1 \). 我们在这里只给出前者的构造, 因为这与后者是完全类似的.
+
+  不难知道, 对任意实数 \( a \), \( \{\sqrt{an}\} \) 在 \( (0,1) \) 中稠密, 其中 \( \{\cdot\} \) 表示小数部分. 因此存在正整数列 \( \{n_k\} \), 使得
+  \[ \left\{\sqrt{\frac{2}{\pi}n_k}\right\} \to \frac{1}{2}-\frac{1}{2\pi}. \]
+  取 \( x_k=\sqrt{2n_k\pi} \), 则 \( \cos(x_k^2)=1 \), 并且
+  \[ \left\{ \frac{(x_k+1)^2}{2\pi} \right\}=\left\{ \sqrt{\frac{2}{\pi}n_k}+\frac{1}{2\pi} \right\}\to \frac{1}{2}
+  \implies \cos[(x_k+1)^2] \to -1. \]
+  因此 \( \cos(x_k^2)-\cos((x_k+1)^2)\to 2 \). 再由 \( n_k\to\infty \) 知 \( x_k\to\infty \), 从而 \( r(x_k)\to 0 \). 因此
+  \[ \limsup_{x\to\infty}xf(x)\ge \lim_{k\to\infty}x_kf(x_k)=\lim_{k\to\infty}\frac{\cos(x_k^2)-\cos((x_k+1)^2)+r(x_k)}{2}=1. \]
+
+  另一方面, 由
+  \[ xf(x)=\frac{1}{2}\left( \cos(x^2)-\cos((x+1)^2) \right)+\frac{1}{2}r(x)<1+\frac{1}{x}\to 1,\ (x\to\infty) \]
+  知 \( \limsup_{x\to\infty}xf(x)\le 1 \). 因此 \( \limsup_{x\to\infty}xf(x)=1 \).
+\end{solution}
 
 
 
