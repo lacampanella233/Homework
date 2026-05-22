@@ -88,6 +88,7 @@
 | `\im`       | 线性映射的像空间    | `\operatorname{im}` |
 | `\rank`     | 矩阵的秩            | `\operatorname{rank}` |
 | `\sspan`    | 向量空间的生成子空间 | `\operatorname{span}` |
+| `\diag`     | 对角矩阵            | `\operatorname{diag}` |
 | `\inprod{...}{...}` | 内积符号 | `\left\langle ... , ... \right\rangle` |
 
 注: 之所以使用`\sspan`而不是`\span`, 是因为`\span`在LaTeX中已经被定义为表格环境中的命令, 直接使用会导致冲突.
