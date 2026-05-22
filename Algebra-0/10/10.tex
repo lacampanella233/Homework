@@ -1,0 +1,316 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{代数\,-\,0}{2026 春季}{10}
+
+\begin{document}
+
+\begin{problem}[7E-4]
+设 $T \in \mathcal{L}(V, W)$, $s_1$ 是 $T$ 的最大奇异值, $s_n$ 是 $T$ 的最小奇异值. 证明:
+\[
+\{ \|T v\| : v \in V \text{ 且 } \|v\| = 1 \} = [s_n, s_1].
+\]
+\end{problem}
+
+\begin{proof}
+  由奇异值的定义, 存在一组标准正交基 \( e_1, \ldots, e_n \) , 使得 \( T^*T \) 在这组基下的矩阵是对角矩阵, 其对角线元素为 \( s_1^2, \ldots, s_n^2 \) . 对任意 \( v \in V \) , 可以将 \( v \) 表示为 \( v = \sum_{i=1}^n a_i e_i \) , 其中 \( a_i = \inprod{v}{e_i} \) . 则
+  \[ \abs{Tv}^2=\inprod{T^*Tv}{v}= \sum_{i=1}^n s_i^2 |a_i|^2 \begin{cases}
+\le s_1^2 \sum_{i=1}^n |a_i|^2 = s_1^2 |v|^2 = s_1^2, \\
+\ge s_n^2 \sum_{i=1}^n |a_i|^2 = s_n^2 |v|^2 = s_n^2.
+  \end{cases} \]
+  因此对于 \( \abs{v}=1 \), 有 \( \abs{Tv} \in [s_n, s_1] \).
+
+  另一方面, 考虑单位球面上的一条曲线 \( e(\theta)=e_1\cos\theta+e_n\sin\theta \) , 其中 \( \theta\in[0,\pi/2] \) . 由于 \( e_1, e_n \) 是正交的单位向量, 故 
+  \[ \abs{e(\theta)}^2 = \cos^2\theta+\sin^2\theta = 1. \]
+  此时计算可得
+  \[ \abs{Te(\theta)}^2 = \inprod{T^*Te(\theta)}{e(\theta)} = s_1^2\cos^2\theta + s_n^2\sin^2\theta. \]
+  特别地, \( \abs{Te(0)}=s_1 \) , \( \abs{Te(\pi/2)}=s_n \) . 由于映射 \( \theta\mapsto \abs{Te(\theta)} \) 在区间 \( [0,\pi/2] \) 上连续, 根据介值定理, 它能取到区间 \( [s_n, s_1] \) 上的所有值, 因此存在 \( \abs{v}=1 \) 使得 \( \abs{Tv} \) 遍历整个闭区间.
+  
+  综上所述, \( \{ \|T v\| : v \in V \text{ 且 } \|v\| = 1 \} = [s_n, s_1] \).
+\end{proof}
+
+
+
+\begin{problem}[7E-8]
+设 $T \in \mathcal{L}(V, W)$. 设 $s_1 \ge s_2 \ge \cdots \ge s_m > 0$, $e_1, \ldots, e_m$ 是 $V$ 中的规范正交组, $f_1, \ldots, f_m$ 是 $W$ 中的规范正交组, 使得
+\[
+T v = s_1 \langle v, e_1 \rangle f_1 + \cdots + s_m \langle v, e_m \rangle f_m
+\]
+对任一 $v \in V$ 都成立.
+\begin{enumerate}[label=(\alph*)]
+\item 证明: $f_1, \ldots, f_m$ 是 $\im T$ 的规范正交基.
+\item 证明: $e_1, \ldots, e_m$ 是 $(\ker T)^\perp$ 的规范正交基.
+\item 证明: $s_1, \ldots, s_m$ 是 $T$ 的正奇异值.
+\item 证明: 如果 $k \in \{1, \ldots, m\}$, 那么 $e_k$ 是 $T^* T$ 的特征向量, 对应特征值是 $s_k^2$.
+\item 证明:
+\[
+T T^* w = s_1^2 \langle w, f_1 \rangle f_1 + \cdots + s_m^2 \langle w, f_m \rangle f_m
+\]
+对所有 $w \in W$ 成立.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 由于 \( f_1,\dots,f_n \) 是 \( W \) 中的规范正交组, 只需证明它们张成了 \( \im T \) . 由题目, 对于任意的 \( v\in V \), 有
+  \[ Tv=\sum_{i=1}^{m}\left( s_i \inprod{v}{e_i} \right)f_i\in\sspan\{f_1,\dots,f_m\}
+  \implies \im T \subseteq \sspan\{f_1,\dots,f_m\}. \]
+
+  另一方面, 由 \( T(e_i/s_i)=f_i \) 知 \( f_i\in\im T \) , 从而 \( \sspan\{f_1,\dots,f_m\}\subseteq \im T \) . 因此 \( f_1,\dots,f_m \) 是 \( \im T \) 的规范正交基.
+
+  (b) 同样地, 只需要证明 \( (\ker T)^\perp=\sspan\{e_1,\dots,e_m\} \). 一方面, 对于任意的 \( e_i \) 以及 \( v\in\ker T \), 由于 \( Tv=0 \) 而 \( f_1,\dots,f_m \) 线性无关, 因此 \( s_i \inprod{v}{e_i}=0 \), 因此 \( \inprod{v}{e_i}=0 \), 从而 \( e_i\in(\ker T)^\perp \), 因此 \( \sspan\{e_1,\dots,e_m\}\subseteq (\ker T)^\perp \) .
+
+  另一方面, \( \dim (\ker T)^\perp=\dim V-\dim\ker T=\dim\im T= m \), 因此 \( (\ker T)^\perp=\sspan\{e_1,\dots,e_m\} \).
+
+  (c) 不难验证
+  \[ T^*(w)=\sum_{i=1}^{m}s_i \inprod{f_i}{w}e_i. \]
+  因此
+  \[ T^*T(v)=\sum_{i=1}^{m}\sum_{j=1}^{m}s_j \inprod{f_j}{s_i \inprod{v}{e_i}f_i}e_j
+  =\sum_{i=1}^{m}s_i^2 \inprod{v}{e_i}e_i. \]
+  因此 \( s_1,\dots,s_m \) 是 \( T \) 的正奇异值.
+
+  (d) 由上式可知 \( T^*T(e_k)=s_k^2 e_k \) , 因此 \( e_k \) 是 \( T^*T \) 的特征向量, 对应特征值是 \( s_k^2 \) .
+
+  (e) 这与 (c) 中的推导类似:
+  \[ TT^*(w)=\sum_{i=1}^{m} \sum_{j=1}^{m} s_i \inprod{s_j \inprod{f_j}{w}e_j}{e_i}f_i
+  =\sum_{i=1}^{m}s_i^2 \inprod{w}{f_i}f_i. \]
+\end{proof}
+
+
+
+\begin{problem}[7E-11]
+设 $T \in \mathcal{L}(V, W)$, $v_1, \ldots, v_n$ 是 $V$ 的规范正交基. 令 $s_1, \ldots, s_n$ 表示 $T$ 的奇异值.
+\begin{enumerate}[label=(\alph*)]
+\item 证明: $\|T v_1\|^2 + \cdots + \|T v_n\|^2 = s_1^2 + \cdots + s_n^2$.
+\item 证明: 如果 $W = V$ 且 $T$ 是正算子, 那么 $\langle T v_1, v_1 \rangle + \cdots + \langle T v_n, v_n \rangle = s_1 + \cdots + s_n$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 由奇异值分解, 知存在一组 \( V \) 的规范正交基 \( e_1,\dots,e_n \) , 使得 
+  \[ \abs{Tv}^2=\sum_{i=1}^{n}s_i^2 \abs{\inprod{v}{e_i}}^2. \]
+  由于 \( v_1,\dots,v_n \) 是 \( V \) 的规范正交基, 有
+  \[ \sum_{i=1}^n |Tv_i|^2 = \sum_{i=1}^n \sum_{j=1}^n s_j^2 |\inprod{v_i}{e_j}|^2 = \sum_{j=1}^n s_j^2 \sum_{i=1}^n |\inprod{v_i}{e_j}|^2 = \sum_{j=1}^n s_j^2. \]
+
+  (b) 由于 \( T \) 是正算子(从而也是自伴的), 根据谱定理, 它的奇异值即为其特征值 \( s_1,\dots,s_n \) , 并且存在由 \( T \) 的特征向量构成的 \( V \) 的规范正交基 \( e_1,\dots,e_n \) , 使得 \( Te_j=s_je_j \) .
+  将任意 \( v_i \) 在这组基下展开为 \( v_i = \sum_{j=1}^n \inprod{v_i}{e_j}e_j \) , 则
+  \begin{align*}
+    \sum_{i=1}^n \inprod{Tv_i}{v_i} 
+    &= \sum_{i=1}^n \inprod{\sum_{j=1}^n s_j \inprod{v_i}{e_j}e_j}{v_i} 
+    = \sum_{i=1}^n \sum_{j=1}^n s_j \inprod{v_i}{e_j} \inprod{e_j}{v_i} \\
+    &= \sum_{j=1}^n s_j \sum_{i=1}^n \abs{\inprod{v_i}{e_j}}^2 = \sum_{j=1}^n s_j.
+  \end{align*}
+  最后一个等号成立是因为 \( v_1,\dots,v_n \) 是规范正交基, 由 Parseval 等式有 \( \sum_{i=1}^n \abs{\inprod{v_i}{e_j}}^2 = \abs{e_j}^2 = 1 \) .
+\end{proof}
+
+
+
+\begin{problem}[7E-12]
+\begin{enumerate}[label=(\alph*)]
+\item 给出一例: 一个有限维向量空间, 其上一个算子 $T$, 使得 $T^2$ 的奇异值不等于 $T$ 的奇异值的平方.
+\item 设 $T \in \mathcal{L}(V)$ 是正规算子. 证明: $T^2$ 的奇异值等于 $T$ 的奇异值的平方.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) 取 \( V=\R^2 \), \( T(x,y)=(y,0) \) . 则 \( T^2=0 \) , 因此 \( T^2 \) 的奇异值为 \( 0 \) , 而 \( T \) 的奇异值为 \( 1,0 \) .
+
+  (b) 因为 \( T \) 是正规算子, 所以 \( T \) 与 \( T^* \) 交换, 即 \( T^*T = TT^* \) . 
+  考察算子 \( (T^2)^*(T^2) \) :
+  \[ (T^2)^*(T^2) = (T^*)^2 T^2 = T^* (T^* T) T = T^* (T T^*) T = (T^* T) (T^* T) = (T^*T)^2. \]
+  由定义, \( T \) 的奇异值是正算子 \( T^*T \) 的特征值的非负平方根. 设 \( T^*T \) 的特征值为 \( \lambda_1, \dots, \lambda_n \) (其中 \( \lambda_i \ge 0 \)), 则 \( T \) 的奇异值为 \( \sqrt{\lambda_1}, \dots, \sqrt{\lambda_n} \) .
+  而 \( (T^2)^*(T^2) = (T^*T)^2 \), 因此其特征值为 \( \lambda_1^2, \dots, \lambda_n^2 \) .
+  所以 \( T^2 \) 的奇异值（即 \( (T^2)^*(T^2) \) 特征值的非负平方根）为 \( \lambda_1, \dots, \lambda_n \) , 这恰好是 \( T \) 的奇异值的平方.
+\end{solution}
+
+
+
+\begin{problem}[7F-5]
+设 $U$ 是有限维内积空间, $T \in \mathcal{L}(V, U)$, $S \in \mathcal{L}(U, W)$. 证明:
+\[
+\|S T\| \le \|S\| \, \|T\|.
+\]
+\end{problem}
+
+\begin{proof}
+  取 \( v\in V \), \( \abs{v}=1 \) 且 \( \abs{ST(v)}=\|ST\| \). 则(注意\( Tv\neq 0 \), 否则 \( \abs{ST(v)}=0 \))
+  \[ \|ST\|=\abs{ST(v)}=\frac{\abs{ST(v)}}{\abs{T(v)}}=\abs{S\left( \frac{Tv}{\abs{Tv}} \right)}\abs{Tv}\le \|S\|\|T\|. \]
+\end{proof}
+
+
+
+\begin{problem}[7F-14]
+设 $U$ 和 $W$ 是 $V$ 的子空间且 $\|P_U - P_W\| < 1$. 证明: $\dim U = \dim W$.
+\end{problem}
+
+\begin{proof}
+  反证法. 若 \( \dim U<\dim W \), 则 \( \dim U^\perp+\dim W>\dim V \), 因此 \( U^\perp\cap W\neq\{0\} \). 取 \( v\in U^\perp\cap W \), 且 \( \abs{v}=1 \). 则 \( P_U(v)=0 \) , \( P_W(v)=v \) , 从而 \( \|P_U-P_W\|\ge\abs{(P_U-P_W)(v)}=1 \) , 矛盾. 同理可得 \( \dim U>\dim W \) 也会导致矛盾. 因此 \( \dim U=\dim W \) .
+\end{proof}
+
+
+
+\begin{problem}[7F-19]
+证明: 如果 $T \in \mathcal{L}(V, W)$, 那么 $\|T^* T\| = \|T\|^2$.
+
+注: $\|T^* T\|$ 的这个表达式, 引出了 C*-代数 (C*-algebras) 这一重要学科.
+\end{problem}
+
+\begin{proof}
+  设 \( T \) 的奇异值为 \( s_1\ge s_2\ge \cdots \ge s_n \) . 则 \( T^*T \) 的特征值为 \( s_1^2\ge s_2^2\ge \cdots \ge s_n^2 \) , 且 \( T^*T \) 在某个规范正交基下是对角矩阵, 从而 \( \|T^*T\|=s_1^2=\|T\|^2 \) .
+\end{proof}
+
+
+
+\begin{problem}[7F-24]
+设 $T \in \mathcal{L}(V)$ 可逆. 证明:
+\[
+\|T^{-1}\| = \|T\|^{-1} \Longleftrightarrow \frac{T}{\|T\|} \text{ 是幺正算子}.
+\]
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 设 \( T \) 的所有奇异值为 \( s_1\ge s_2\ge\dots\ge s_n \). 由于 \( T \) 可逆, 故 \( s_n>0 \), 且 \( T^{-1} \) 的所有奇异值为 \( s_n^{-1}\ge s_{n-1}^{-1}\ge\dots\ge s_1^{-1} \). 故 \( \|T^{-1}\|=s_n^{-1}=\|T\|^{-1}=s_1^{-1} \), 即 \( s_1=s_n \). 这说明 \( T \) 的所有奇异值都相等, 设为 \( s \). 则总有 \( \abs{Tv}=s\abs{v} \), 即 \( s^{-1}T \) (即 \( T/\|T\| \)) 是保距映射, 故为幺正的.
+
+  ``\( \impliedby \)''. 由 \( T/\|T\| \) 为幺正算子, 知对于任意的 \( v\in V \), 有 \( \abs{Tv}=\|T\|\abs{v} \), 即 \( \abs{T^{-1}v}=\|T\|^{-1}\abs{v} \). 由线性映射的范数的定义, 有 \( \|T^{-1}\|=\|T\|^{-1} \). 
+\end{proof}
+
+
+
+\begin{problem}[7F-27]
+设 $T \in \mathcal{L}(V)$, $s_1, \ldots, s_n$ 是 $T$ 的奇异值. 令 $e_1, \ldots, e_n$ 和 $f_1, \ldots, f_n$ 都是 $V$ 的规范正交基, 使得
+\[
+T v = s_1 \langle v, e_1 \rangle f_1 + \cdots + s_n \langle v, e_n \rangle f_n
+\]
+对所有 $v \in V$ 成立. 定义 $S \in \mathcal{L}(V)$ 为
+\[
+S v = \langle v, e_1 \rangle f_1 + \cdots + \langle v, e_n \rangle f_n.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明: $S$ 是么正的且 $\|T - S\| = \max\{ |s_1 - 1|, \ldots, |s_n - 1| \}$.
+\item 证明: 如果 $E \in \mathcal{L}(V)$ 是么正的, 那么 $\|T - E\| \ge \|T - S\|$.
+\end{enumerate}
+
+注: 本题所求的是, (在幺正算子当中) 尽可能接近给定算子 $T$ 的幺正算子 $S$.
+\end{problem}
+
+\begin{proof}
+  (a) \( S \) 将一组规范正交基 \( e_1,\dots,e_n \) 映射到另一组规范正交基 \( f_1,\dots,f_n \) , 因此 \( S \) 是幺正的. 另一方面, 记 \( M=\max\{\abs{s_i-1}:1\le i\le n\} \). 对于任意的 \( v\in V \) , 满足 \( \abs{v}=1 \), 均有
+  \[ \abs{(T-S)v}= \abs{\sum_{i=1}^{n}(s_i-1) \inprod{v}{e_i}f_i}=\sum_{i=1}^{n}\abs{s_i-1}^2\abs{\inprod{v}{e_i}}^2\le M^2 \sum_{i=1}^{n}\abs{\inprod{v}{e_i}}^2=M^2. \]
+  从而 \( \|T-S\|\le M \). 
+  
+  另一方面, 不妨设 \( \abs{s_1-1}=M \), 则 \( \|T-S\|\ge \abs{(T-S)e_1}=\abs{s_1-1}=M \) , 从而 \( \|T-S\|=M \).
+
+  (b) 仍然不妨设 \( \abs{s_1-1}=M \). 则
+  \begin{align*}
+    \abs{(T-E)e_1}^2 
+    &= \abs{s_1f_1-Ee_1}^2
+    = s_1^2+\abs{Ee_1}^2-2\Re(\inprod{Ee_1}{s_1f_1}) \\
+    &\ge s_1^2+1-2\abs{s_1f_1}\abs{Ee_1}
+    =\abs{s_1-1}^2=M^2.
+  \end{align*}
+  从而 \( \|T-E\|\ge M=\|T-S\| \) .
+\end{proof}
+
+
+
+\begin{problem}[7F-30]
+设 $T \in \mathcal{L}(V)$, 而 $S \in \mathcal{L}(V)$ 是幺正算子, $R \in \mathcal{L}(V)$ 是使得 $T = S R$ 的正算子. 证明: $R = \sqrt{T^* T}$.
+
+注: 本题表明, 如果我们将 $T$ 写成一个幺正算子和一个正算子的乘积 (如 7.93 的极分解所示), 那么其中的正算子就等于 $\sqrt{T^* T}$.
+\end{problem}
+
+\begin{proof}
+  由于 \( R \) 是正算子, 因此 \( R \) 自伴. 而
+  \[ T^*T=(SR)^*(SR)=R^*S^*SR=R^2, \]
+  结合 \( T^*T \) 为正算子, 可得 \( R=\sqrt{T^*T} \) .
+\end{proof}
+
+
+
+\begin{problem}[8A-2]
+设 $T \in \mathcal{L}(V)$, $m$ 是正整数, $v \in V$, 且 $T^{m-1} v \ne 0$ 但 $T^m v = 0$. 证明: $v$, $T v$, $T^2 v$, $\ldots$, $T^{m-1} v$ 是线性无关的.
+
+注: 本习题的结果将被用于 8.45 的证明中.
+\end{problem}
+
+\begin{proof}
+  采用反证法. 若 \( v,Tv,\dots,T^{m-1}v \) 线性相关, 则存在 \( a_k,a_{k+1},\dots,a_{m-1} \), 其中 \( 0\le k\le m-1 \) 且 \( a_k\neq 0 \) , 使得 \( a_k T^kv + a_{k+1} T^{k+1} v + \cdots + a_{m-1} T^{m-1} v = 0 \). 作用 \( T^{m-1-k} \) 于等式两端, 得到 \( a_k T^{m-1} v = 0 \), 这与 \( T^{m-1} v \ne 0 \) 矛盾. 因此 \( v,Tv,\dots,T^{m-1}v \) 线性无关.
+\end{proof}
+
+
+
+\begin{problem}[8A-3]
+设 $T \in \mathcal{L}(V)$. 证明:
+\[
+V = \ker T \oplus \im T \Longleftrightarrow \ker T^2 = \ker T.
+\]
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 显然 \( \ker T\subset \ker T^2 \). 而若 \( T^2v=0 \), 将 \( Tv \) 分解为 \( Tv=u+w \), 其中 \( u\in\ker T \) , \( w\in\im T \) . 则 \( Tw=0 \) , 从而 \( w=0 \) , 从而 \( Tv=u\in\ker T \) , 从而 \( v\in\ker T \) , 因此 \( \ker T^2=\ker T \) .
+
+  ``\( \impliedby \)''. 先证明 \( \ker T\cap\im T=0 \). 取 \( u\in\ker T\cap\im T \). 则存在 \( v\in V \) 使得 \( u=Tv \). 故由 \( u\in\ker T \) 知
+  \[ 0=Tu=T^2v=Tv=u. \]
+  因此 \( \ker T\cap\im T=0 \). 
+
+  下面证明 \( \ker T+\im T=V \). 对于任意的 \( v\in V \), 显然 \( Tv\in\im T \). 而
+  \[ T(v-Tv)=Tv=T^2v=0\implies v-Tv\in\ker T. \]
+  因此 \( v=(v-Tv)+Tv \in\ker T+\im T \) . 从而 \( V=\ker T\oplus\im T \) .
+\end{proof}
+
+
+
+\begin{problem}[8A-13]
+设 $S, T \in \mathcal{L}(V)$ 且 $S T$ 是幂零的. 证明: $T S$ 是幂零的.
+\end{problem}
+
+\begin{proof}
+  设 \( (ST)^n=0 \). 则 \( (TS)^{n+1}=T(ST)^nS=0 \) , 从而 \( TS \) 是幂零的.
+\end{proof}
+
+
+
+\begin{problem}[8A-18]
+设 $T \in \mathcal{L}(V)$ 是幂零的. 证明: $T^{1 + \dim \im T} = 0$.
+
+注: 若 $\dim \im T < \dim V - 1$, 那么本习题加强了 8.16 的结论.
+\end{problem}
+
+\begin{proof}
+  设 \( T^{n-1}\neq 0 \) 而 \( T^n=0 \). 则根据 8A-2 的结论, \( Tv,\dots,T^{n-1}v \) 线性无关. 而这些向量均在 \( \im T \) 中, 因此 \( n-1\le \dim \im T \) , 即 \( n\le 1+\dim \im T \) , 从而 \( T^{1+\dim \im T}=0 \).
+\end{proof}
+
+
+
+\begin{problem}[8A-24]
+对例 8.15 中的每条示例, 求出算子的定义空间的一个基, 使得该幂零算子关于该基的矩阵具有 8.18 (c) 所示的上三角形式.
+\end{problem}
+
+\begin{solution}
+  (a) \( T \) 在基 \( \{(0,0,0,1),(0,0,1,0),(0,1,0,0),(1,0,0,0)\} \) 下的矩阵为
+  \[ \mathcal{M}(T) = \begin{pmatrix}
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1\\
+    0 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0
+  \end{pmatrix}. \]  
+
+  (b) 取 \( v=(0,2,-1)\transpose \). 则不难验证 \( \{T^2v, Tv, v\} \) 构成一组基. 在这组基下 \( T \) 的矩阵为
+  \[ \mathcal{M}(T) = \begin{pmatrix}
+    0 & 1 & 0\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+  \end{pmatrix}. \]
+
+  (c) 取 \( \mathcal{P}_m(\R) \) 的基 \( \{x^m/m!,x^{m-1}/(m-1)!,\dots,x,1\} \). 则在这组基下 \( T \) 的矩阵为
+  \[ \mathcal{M}(T) = \begin{pmatrix}
+    0 & 1 & 0 & \cdots & 0\\
+    0 & 0 & 1 & \cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & 1\\
+    0 & 0 & 0 & \cdots & 0
+  \end{pmatrix}. \]
+\end{solution}
+
+
+
+\end{document}
