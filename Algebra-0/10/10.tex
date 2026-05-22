@@ -1,9 +1,129 @@
 \documentclass{article}
-\usepackage[en]{homework}
+\usepackage[zh]{homework}
 
-\config{Algebra-0}{2026 Spring}{10}
+\config{代数\,-\,0}{2026 春季}{10}
 
 \begin{document}
 
+\begin{problem}[7E-4]
+设 $T \in \mathcal{L}(V, W)$, $s_1$ 是 $T$ 的最大奇异值, $s_n$ 是 $T$ 的最小奇异值. 证明:
+\[
+\{ \|T v\| : v \in V \text{ 且 } \|v\| = 1 \} = [s_n, s_1].
+\]
+\end{problem}
+
+\begin{proof}
+  
+\end{proof}
+
+
+
+\begin{problem}[7E-8]
+设 $T \in \mathcal{L}(V, W)$. 设 $s_1 \ge s_2 \ge \cdots \ge s_m > 0$, $e_1, \ldots, e_m$ 是 $V$ 中的规范正交组, $f_1, \ldots, f_m$ 是 $W$ 中的规范正交组, 使得
+\[
+T v = s_1 \langle v, e_1 \rangle f_1 + \cdots + s_m \langle v, e_m \rangle f_m
+\]
+对任一 $v \in V$ 都成立.
+\begin{enumerate}[label=(\alph*)]
+\item 证明: $f_1, \ldots, f_m$ 是 $\operatorname{range} T$ 的规范正交基.
+\item 证明: $e_1, \ldots, e_m$ 是 $(\operatorname{null} T)^\perp$ 的规范正交基.
+\item 证明: $s_1, \ldots, s_m$ 是 $T$ 的正奇异值.
+\item 证明: 如果 $k \in \{1, \ldots, m\}$, 那么 $e_k$ 是 $T^* T$ 的特征向量, 对应特征值是 $s_k^2$.
+\item 证明:
+\[
+T T^* w = s_1^2 \langle w, f_1 \rangle f_1 + \cdots + s_m^2 \langle w, f_m \rangle f_m
+\]
+对所有 $w \in W$ 成立.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[7E-11]
+设 $T \in \mathcal{L}(V, W)$, $v_1, \ldots, v_n$ 是 $V$ 的规范正交基. 令 $s_1, \ldots, s_n$ 表示 $T$ 的奇异值.
+\begin{enumerate}[label=(\alph*)]
+\item 证明: $\|T v_1\|^2 + \cdots + \|T v_n\|^2 = s_1^2 + \cdots + s_n^2$.
+\item 证明: 如果 $W = V$ 且 $T$ 是正算子, 那么 $\langle T v_1, v_1 \rangle + \cdots + \langle T v_n, v_n \rangle = s_1 + \cdots + s_n$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[7E-12]
+\begin{enumerate}[label=(\alph*)]
+\item 给出一例: 一个有限维向量空间, 其上一个算子 $T$, 使得 $T^2$ 的奇异值不等于 $T$ 的奇异值的平方.
+\item 设 $T \in \mathcal{L}(V)$ 是正规算子. 证明: $T^2$ 的奇异值等于 $T$ 的奇异值的平方.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[7F-5]
+设 $U$ 是有限维内积空间, $T \in \mathcal{L}(V, U)$, $S \in \mathcal{L}(U, W)$. 证明:
+\[
+\|S T\| \le \|S\| \, \|T\|.
+\]
+\end{problem}
+
+\begin{problem}[7F-14]
+设 $U$ 和 $W$ 是 $V$ 的子空间且 $\|P_U - P_W\| < 1$. 证明: $\dim U = \dim W$.
+\end{problem}
+
+\begin{problem}[7F-19]
+证明: 如果 $T \in \mathcal{L}(V, W)$, 那么 $\|T^* T\| = \|T\|^2$.
+
+注: $\|T^* T\|$ 的这个表达式, 引出了 C*-代数 (C*-algebras) 这一重要学科.
+\end{problem}
+
+\begin{problem}[7F-24]
+设 $T \in \mathcal{L}(V)$ 可逆. 证明:
+\[
+\|T^{-1}\| = \|T\|^{-1} \Longleftrightarrow \frac{T}{\|T\|} \text{ 是幺正算子}.
+\]
+\end{problem}
+
+\begin{problem}[7F-27]
+设 $T \in \mathcal{L}(V)$, $s_1, \ldots, s_n$ 是 $T$ 的奇异值. 令 $e_1, \ldots, e_n$ 和 $f_1, \ldots, f_n$ 都是 $V$ 的规范正交基, 使得
+\[
+T v = s_1 \langle v, e_1 \rangle f_1 + \cdots + s_n \langle v, e_n \rangle f_n
+\]
+对所有 $v \in V$ 成立. 定义 $S \in \mathcal{L}(V)$ 为
+\[
+S v = \langle v, e_1 \rangle f_1 + \cdots + \langle v, e_n \rangle f_n.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明: $S$ 是么正的且 $\|T - S\| = \max\{ |s_1 - 1|, \ldots, |s_n - 1| \}$.
+\item 证明: 如果 $E \in \mathcal{L}(V)$ 是么正的, 那么 $\|T - E\| \ge \|T - S\|$.
+\end{enumerate}
+
+注: 本题所求的是, (在幺正算子当中) 尽可能接近给定算子 $T$ 的幺正算子 $S$.
+\end{problem}
+
+\begin{problem}[7F-30]
+设 $T \in \mathcal{L}(V)$, 而 $S \in \mathcal{L}(V)$ 是幺正算子, $R \in \mathcal{L}(V)$ 是使得 $T = S R$ 的正算子. 证明: $R = \sqrt{T^* T}$.
+
+注: 本题表明, 如果我们将 $T$ 写成一个幺正算子和一个正算子的乘积 (如 7.93 的极分解所示), 那么其中的正算子就等于 $\sqrt{T^* T}$.
+\end{problem}
+
+\begin{problem}[8A-2]
+设 $T \in \mathcal{L}(V)$, $m$ 是正整数, $v \in V$, 且 $T^{m-1} v \ne 0$ 但 $T^m v = 0$. 证明: $v$, $T v$, $T^2 v$, $\ldots$, $T^{m-1} v$ 是线性无关的.
+
+注: 本习题的结果将被用于 8.45 的证明中.
+\end{problem}
+
+\begin{problem}[8A-3]
+设 $T \in \mathcal{L}(V)$. 证明:
+\[
+V = \operatorname{null} T \oplus \operatorname{range} T \Longleftrightarrow \operatorname{null} T^2 = \operatorname{null} T.
+\]
+\end{problem}
+
+\begin{problem}[8A-13]
+设 $S, T \in \mathcal{L}(V)$ 且 $S T$ 是幂零的. 证明: $T S$ 是幂零的.
+\end{problem}
+
+\begin{problem}[8A-18]
+设 $T \in \mathcal{L}(V)$ 是幂零的. 证明: $T^{1 + \dim \operatorname{range} T} = 0$.
+
+注: 若 $\dim \operatorname{range} T < \dim V - 1$, 那么本习题加强了 8.16 的结论.
+\end{problem}
+
+\begin{problem}[8A-24]
+对例 8.15 中的每条示例, 求出算子的定义空间的一个基, 使得该幂零算子关于该基的矩阵具有 8.18 (c) 所示的上三角形式.
+\end{problem}
 
 \end{document}
