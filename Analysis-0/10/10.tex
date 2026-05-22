@@ -164,4 +164,105 @@ D_\varepsilon = \{x \in [a,b] : \omega_f(x) \ge \varepsilon\}.
 
 
 
+\begin{problem}
+设 $f \in \mathcal{R}[a,b]$, 令 $A = \frac{1}{b-a}\int_a^b f(x)\,\d x$, 证明存在 $\xi, \eta \in [a,b]$ 使得
+\[
+f(\xi) \ge A, \quad f(\eta) \le A.
+\]
+提示: 可以利用第一题的结论.
+\end{problem}
+
+\begin{proof}
+  由 \( A \) 的定义, 有 \( \int_{a}^{b}(f(x)-A)\d x=0 \). 若不存在 \( \xi\in[a,b] \) 使得 \( f(\xi)\ge A \), 则 \( f-A \) 在 \( [a,b] \) 上恒负, 因而在 \( [a,b] \) 上的积分为 \( 0 \), 矛盾. 同理, 若不存在 \( \eta\in[a,b] \) 使得 \( f(\eta)\le A \), 则 \( f-A \) 在 \( [a,b] \) 上恒正, 因而在 \( [a,b] \) 上的积分为 \( 0 \), 矛盾.
+
+因此存在 \( \xi, \eta\in[a,b] \) 使得 \( f(\xi)\ge A \) 且 \( f(\eta)\le A \).
+\end{proof}
+
+
+
+\begin{problem}
+考虑
+\[
+I(\lambda) = \int_a^b f(x)\cos \lambda x\,\d x.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item 设 $f(x)$ 在 $[a,b]$ 上单调有界, 证明 $\lim_{\lambda \to \infty} I(\lambda) = 0$.
+  \item 设 $f \in C([a,b])$, 证明 $\lim_{\lambda \to \infty} I(\lambda) = 0$.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  我们直接来证明 (b). 
+\end{proof}
+
+
+
+\begin{problem}
+计算下列定积分或不定积分.
+\begin{enumerate}[label=(\alph*)]
+  \item $\int \frac{x+1}{x^2 - 5x + 6}\,\d x$.
+  \item $\int \frac{x^3 + x^2 + x + 1}{x^2 + 1}\,\d x$.
+  \item $\int x^2 \ln x\,\d x$.
+  \item $\int \sin^3 x \cos^2 x\,\d x$.
+  \item $\int \cos^4 x\,\d x$.
+  \item $\int_0^{\pi/2} \frac{1}{\cos x + \sin x}\,\d x$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+假设 $f \in C^1([a,b])$, $f(a)=f(b)=0$, 并且
+\[
+\int_a^b f^2(x)\,\d x = 1.
+\]
+证明
+\[
+\int_a^b x f(x)f'(x)\,\d x = -\frac{1}{2}
+\]
+和
+\[
+\int_a^b [f'(x)]^2\,\d x \cdot \int_a^b x^2 f^2(x)\,\d x > \frac{1}{4}.
+\]
+提示: 利用第 9 次作业中证明的 Schwarz 不等式.
+\end{problem}
+
+\begin{problem}
+设 $f \in \mathcal{R}[a,b]$. 定义
+\[
+\lVert f \rVert_1 = \int_a^b \abs{f(x)}\,\d x, \quad
+\lVert f \rVert_2 = \left\{\int_a^b \abs{f(x)}^2\,\d x\right\}^{1/2}.
+\]
+给定 $\varepsilon > 0$.
+\begin{enumerate}[label=(\alph*)]
+  \item 证明在 $[a,b]$ 上存在连续函数 $g$ 满足 $\lVert f-g \rVert_2 < \varepsilon$.
+  \item 证明在 $[a,b]$ 上存在连续函数 $h$ 满足 $\lVert f-h \rVert_1 < \varepsilon$.
+\end{enumerate}
+提示: 设 $P = \{x_0,\dots,x_n\}$ 是 $[a,b]$ 的一个适当的分割, 若 $x_{i-1} < t < x_i$, 定义
+\[
+g(t) = \frac{x_i - t}{\Delta x_i} f(x_{i-1}) + \frac{t - x_{i-1}}{\Delta x_i} f(x_i).
+\]
+\end{problem}
+
+\begin{problem}
+定义
+\[
+f(x) = \int_x^{x+1} \sin(t^2)\,\d t.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item 求证 $x > 0$ 时 $\abs{f(x)} < \frac{1}{x}$.
+  提示: 置 $t^2 = u$, 再分部积分以证 $f(x)$ 等于
+  \[
+  \frac{\cos(x^2)}{2x} - \frac{\cos[(x+1)^2]}{2(x+1)} - \int_{x^2}^{(x+1)^2} \frac{\cos u}{4u^{3/2}}\,\d u,
+  \]
+  用 $-1$ 代替 $\cos u$.
+  \item 证明
+  \[
+  2x f(x) = \cos(x^2) - \cos[(x+1)^2] + r(x),
+  \]
+  其中 $\abs{r(x)} < c/x$, 而 $c$ 是常数.
+  \item 求 $x f(x)$ 当 $x \to \infty$ 时的上, 下极限.
+\end{enumerate}
+\end{problem}
+
+
+
 \end{document}
