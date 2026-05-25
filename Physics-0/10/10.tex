@@ -1,9 +1,153 @@
 \documentclass{article}
 \usepackage[en]{homework}
+\usepackage{tikz}
+\usepackage{float}
 
 \config{Physics-0}{2026 Spring}{10}
 
 \begin{document}
+
+\begin{problem}
+(20pts) An oxygen-16 ion with a mass of $2.66 \times 10^{-26}\,\mathrm{kg}$ travels at $5 \times 10^{6}\,\mathrm{m/s}$ perpendicular to a $1.20\,\mathrm{T}$ magnetic field, which makes it move in a circular arc with a $0.231\,\mathrm{m}$ radius. What is the ratio of the charge of the ion to the charge of the electron? Does this result make sense?
+\end{problem}
+
+\begin{solution}
+  Suppose the charge of the ion is $q$. The magnetic force on the ion is given by
+  \[ \abs{\bo{F}}=qvB=m\frac{v^2}{R}
+  \implies q=\frac{mv}{RB}. \]
+  where $m$ is the mass of the ion, $v$ is its velocity, $R$ is the radius of the circular arc, and $B$ is the magnetic field strength. Substituting the given values, we find
+  \[ q=\frac{2.66\times 10^{-26}\,\mathrm{kg}\times 5\times 10^{6}\,\mathrm{m/s}}{0.231\,\mathrm{m}\times 1.20\,\mathrm{T}}
+  = 4.798\times 10^{-19}\,\mathrm{C}. \]
+  The charge of an electron is approximately $-1.602 \times 10^{-19}\,\mathrm{C}$. Therefore, the ratio of the charge of the ion to the charge of the electron is approxmately \( -3 \). This result indicates that the ion is \( \mathrm{O}^{3+} \).
+\end{solution}
+
+
+
+\begin{problem}
+(40pts) Consider a square loop of length $4L$ with current $I$ and magnetic dipole moment $\bo{\mu}$. The magnetic dipole moment makes an angle $\theta_1$ with the positive $z$-axis.
+\begin{enumerate}[label=(\alph*)]
+	\item (5pts) Does the angle $\theta_1$ increase or decrease when a uniform magnetic field $\bo{B}$ pointing in the $\hat{z}$ direction is turned on?
+	\item (10pts) Compute the work done by the magnetic field $\bo{B}$ as the loop rotates from $\theta_1$ to $\theta_2$.
+	\item (20pts) Use the expression above to find an expression for the potential energy of the loop in terms of the magnetic dipole moment.
+	\item (5pts) How does this expression compare to the potential energy of an electric dipole in the presence of a uniform electric field?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) The torque \( \bo{\tau} \) acts on the magnetic dipole is given by
+  \[ \bo{\tau} = \bo{\mu} \times \bo{B}. \]
+  Then the angle between \( \bo{\mu} \) and \( \bo{B} \) will decrease when the magnetic field is turned on, so the angle \( \theta_1 \) will decrease.
+
+  (b)
+  \[ W=\int_{\theta_1}^{\theta_2}\tau(\theta)\d\theta
+  = -\int_{\theta_1}^{\theta_2} \mu B \sin\theta \d\theta
+  = \mu B \left( \cos\theta_2 - \cos\theta_1 \right). \]
+
+  (c) We can find a potential energy of a magnetic dipole in a magnetic field as
+  \[ U = -\bo{\mu} \cdot \bo{B}. \]
+  The relation \( \Delta U = -W \) can be easily verified.
+
+  (d) The potential energy of an electric dipole \( \bo{p} \) in a uniform electric field \( \bo{E} \) is given by
+  \[ U = -\bo{p} \cdot \bo{E}. \]
+  This expression is remarkably similar to the potential energy of a magnetic dipole in a magnetic field.
+\end{solution}
+
+
+
+\begin{problem}
+(40pts) Consider a square loop on the $xy$-plane with current $I$ flowing clockwise. The corners of the loop are located at $(0, 0)$, $(0, L)$, $(L, 0)$, and $(L, L)$. There is a nonuniform magnetic field that is given by
+\[
+	\bo{B} = \frac{B_0 z}{L}\,\hat{y} + \frac{B_0 y}{L}\,\hat{z},
+\]
+where $B_0$ is a positive constant.
+\begin{enumerate}[label=(\alph*)]
+	\item (10pts) Sketch the magnetic field lines in the $yz$-plane.
+	\item (20pts) Find the magnitude and direction of the magnetic force exerted on each side of the loop.
+	\item (10pts) Find the magnitude and direction of the net magnetic force on the loop.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) The sketch of the magnetic field is shown in the figure below. To show the field more clearly, the field lines are also plotted.
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=1.2]
+      % axes
+      \draw[->] (-2.2,0) -- (2.2,0) node[right] {$y$};
+      \draw[->] (0,-2.2) -- (0,2.2) node[above] {$z$};
+      \draw[->] (0,0) -- (-2,-2) node[below left] {$x$\ \ };
+
+      % projected square loop (xy-plane), with +x mapped to y=z<0
+      \def\L{1.5}
+      \coordinate (A) at (0,0);
+      \coordinate (B) at (\L,0);
+      \coordinate (C) at (0.5*\L,-0.5*\L);
+      \coordinate (D) at (0.5*-\L,-0.5*\L);
+      \draw[very thick] (A) -- (B) -- (C) -- (D) -- cycle;
+      
+      % field lines (light gray): y^2 - z^2 = const and z^2 - y^2 = const
+      \foreach \a in {0.3,0.6,0.9,1.2,1.5} {
+        \draw[gray!50,domain=-0.8:0.8,samples=120] plot ({\a*cosh(\x)},{\a*sinh(\x)});
+        \draw[gray!50,domain=-0.8:0.8,samples=120] plot ({-\a*cosh(\x)},{\a*sinh(\x)});
+        \draw[gray!50,domain=-0.8:0.8,samples=120] plot ({\a*sinh(\x)},{\a*cosh(\x)});
+        \draw[gray!50,domain=-0.8:0.8,samples=120] plot ({\a*sinh(\x)},{-\a*cosh(\x)});
+      }
+
+      % direction arrows (B_y \propto z, B_z \propto y)
+      \foreach \y in {-1.6,-1.2,-0.8,-0.4,0.4,0.8,1.2,1.6} {
+        \foreach \z in {-1.6,-1.2,-0.8,-0.4,0.4,0.8,1.2,1.6} {
+          \pgfmathsetmacro{\dy}{0.25*\z}
+          \pgfmathsetmacro{\dz}{0.25*\y}
+          \draw[->,thin] (\y,\z) -- ({\y+\dy},{\z+\dz});
+        }
+      }
+
+      
+      \path (A) -- (B) node[midway, above, fill=white, fill opacity=0.7, text opacity=1, inner sep=1pt] {$L$};
+      \path (A) -- (D) node[midway, left, fill=white, fill opacity=0.7, text opacity=1, inner sep=1pt] {$L$};
+      \node at (0,0) [above left, fill=white, fill opacity=0.7, text opacity=1, inner sep=1pt] {$A$};
+      \node at (\L,0) [above right, fill=white, fill opacity=0.7, text opacity=1, inner sep=1pt] {$B$};
+      \node at (0.5*\L,-0.5*\L) [below right, fill=white, fill opacity=0.7, text opacity=1, inner sep=1pt] {$C$};
+      \node at (0.5*-\L,-0.5*\L) [below left, fill=white, fill opacity=0.7, text opacity=1, inner sep=1pt] {$D$};
+
+    \end{tikzpicture}
+  \end{figure}
+
+  (b) 
+  \[ 
+    \bo{F}_{AB}
+    =\int_{0}^{L} I\d\bo{l}\times\bo{B}
+    =\int_{0}^{L}I\frac{B_0 l}{L}\d l\hat{\bo{x}}
+    =\frac{1}{2}IB_0L\hat{\bo{x}}. 
+  \]
+  \quad
+  \[
+    \bo{F}_{BC}
+    =\int_{0}^{L} I\d\bo{l}\times\bo{B}
+    =\int_{0}^{L} I\d l \hat{\bo{x}}\times B\hat{\bo{z}} 
+    =-IB_0L\hat{\bo{y}}.
+  \]
+  \quad
+  \[ 
+    \bo{F}_{CD}
+    =\int_{L}^{0} I\d\bo{l}\times\bo{B}
+    =\int_{L}^{0} I\frac{B_0 l}{L}\d l\hat{\bo{x}}
+    =
+    -\frac{1}{2}IB_0L\hat{\bo{x}}. 
+  \]
+  \quad
+  \[ 
+    \bo{F}_{DA}
+    =\int_{L}^{0} I\d\bo{l}\times\bo{B}
+    =0.
+  \]
+  
+  (c)
+  \[ \bo{F} 
+  = \bo{F}_{AB} + \bo{F}_{BC} + \bo{F}_{CD} + \bo{F}_{DA}
+  = -IB_0L\hat{\bo{y}}. \]
+\end{solution}
+
 
 
 \end{document}
