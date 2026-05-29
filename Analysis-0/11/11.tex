@@ -84,8 +84,8 @@
     当 \( p<1 \) 时, 后者收敛, 因此原积分收敛.
 
     \item 注意到, 对于 \( x\in[0,1] \), 有
-    \[ x^{p}-x^q=x^p(1-x^{p-q})\leq 1-x^{p-q} \leq \max\{1,p-q\}(1-x). \]
-    记 \( M=\max\{1,p-q\} \), 则
+    \[ x^{p}-x^q=x^p(1-x^{q-p})\leq 1-x^{q-p} \leq \max\{1,q-p\}(1-x). \]
+    记 \( M=\max\{1,q-p\} \), 则
     \[ \int_0^1 \frac{\d x}{x^p - x^q} \geq \int_0^1 \frac{\d x}{M(1-x)} = +\infty. \]
     因此积分发散.
   \end{enumerate}
@@ -128,11 +128,11 @@
 \end{problem}
 
 \begin{solution}
-  (a) 定理: 设 \( f,g\in C^1([a,+\infty)) \), 且 \( \lim_{x\to+\infty}f(x)g(x) \) 存在, 且 \( \int_{a}^{+\infty}u'(x)v(x)\d x \) 存在. 则
-  \[ \int_{a}^{+\infty}u(x)v'(x)\d x = \left[ \lim_{x\to+\infty}f(x)g(x) - f(a)g(a) \right] - \int_{a}^{+\infty}u'(x)v(x)\d x. \]
+  (a) 定理: 设 \( u,v\in C^1([a,+\infty)) \), 且 \( \lim_{x\to+\infty}u(x)v(x) \) 存在, 且 \( \int_{a}^{+\infty}u'(x)v(x)\d x \) 存在. 则
+  \[ \int_{a}^{+\infty}u(x)v'(x)\d x = \left[ \lim_{x\to+\infty}u(x)v(x) - u(a)v(a) \right] - \int_{a}^{+\infty}u'(x)v(x)\d x. \]
 
   这是因为, 对于任意 \( A>a \), 有
-  \[ \int_{a}^{A}u(x)v'(x)\d x = \left[ f(A)g(A) - f(a)g(a)  \right]- \int_{a}^{A}u'(x)v(x)\d x. \]
+  \[ \int_{a}^{A}u(x)v'(x)\d x = \left[ u(A)v(A) - u(a)v(a)  \right]- \int_{a}^{A}u'(x)v(x)\d x. \]
   取 \( A\to+\infty \), 由于已知等式右侧存在, 因此等式左侧的反常积分也存在, 且满足定理中的等式.
 
   (b) 取 \( u(x)=\sin x \), \( v(x)=(1+x)^{-1} \). 则由于 \( \lim_{x\to+\infty}u(x)v(x)=0 \), 并且 \( u(0)v(0)=0 \), 因此根据 (a) 中的定理, 可得
@@ -175,12 +175,10 @@
     = \sum_{n=1}^{+\infty}\frac{1}{n^s}=\zeta(s).
   \end{align*}
 
-  (b) 注意到
-  \[ \int_{1}^{+\infty}\frac{x}{x^{s+1}}\d x
-  \int_{1}^{+\infty}x^{-s}\d x
-  = \frac{x^{1-s}}{1-s} \Big|_{1}^{+\infty}
-  = \frac{1}{s-1}. \]
-  因此 \( \int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x \) 收敛, 并且
+  (b) 注意到对一切 \( x\ge 1 \) 都有 \( 0\le x-\lfloor x\rfloor < 1 \). 因此
+  \[ 0\le \int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x
+  \le \int_1^\infty \frac{1}{x^{s+1}}\d x, \]
+  而右侧对一切 \( s>0 \) 都收敛. 因此 \( \int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x \) 收敛, 并且
   \[  \frac{s}{s-1} - s\int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x
   =\frac{s}{s-1}-\frac{s}{s-1} + \zeta(s)=\zeta(s). \]
 \end{solution}
@@ -277,6 +275,184 @@ l(\gamma)=\int_a^b \abs{\gamma'(t)}\d t.
     于是 \( \ell(\gamma_3)=+\infty \), \( \gamma_3 \) 不可求长.
   \end{enumerate}
 \end{solution}
+
+
+
+\begin{problem}
+证明一致收敛的 Cauchy 准则: $\{f_n:E\to\mathbb{C}\}$ 一致收敛 $\Longleftrightarrow$ 对任意 $\varepsilon>0$, 存在 $N$, 使得对所有 $n,m>N$,
+\[
+\abs{f_n(x)-f_m(x)}<\varepsilon,\quad \forall x\in E.
+\]
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 设 \( f_n \rightrightarrows f \). 则对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f(x)} \leq \varepsilon/2 \). 因此对于任意的 \( n,m>N \) 和任意的 \( x\in E \), 有
+  \[ \abs{f_n(x)-f_m(x)} \leq \abs{f_n(x)-f(x)} + \abs{f_m(x)-f(x)} \leq \varepsilon. \]
+
+  ``\( \impliedby \)''. 设 \( \{f_n\} \) 满足题目中的 Cauchy 条件. 则对于任意的 \( x\in E \), \( \{f_n(x)\} \) 是 \( \mathbb{C} \) 中的 Cauchy 数列, 因此存在 \( f(x)\in\mathbb{C} \), 使得 \( f_n(x)\to f(x) \). 
+  
+  下面来证明 \( f_n\rightrightarrows f \). 对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n,m>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f_m(x)}<\varepsilon/2 \). 令 \( m\to+\infty \), 知 \( \abs{f_n(x)-f(x)} \leq \varepsilon/2 < \varepsilon \). 因此对于任意的 \( n>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f(x)}<\varepsilon \). 于是 \( f_n\rightrightarrows f \).
+\end{proof}
+
+
+
+\begin{problem}
+(一致收敛性的等价刻画)
+设 $\{f_n\}$ 在 $E$ 上逐点收敛到 $f$. 令
+\[
+M_n=\abs{f_n-f}_\infty:=\sup_{x\in E}\abs{f_n(x)-f(x)}.
+\]
+证明 $f_n$ 在 $E$ 上一致收敛于 $f$ $\Longleftrightarrow$ $\lim_{n\to\infty}M_n=0$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 设 \( f_n\rightrightarrows f \). 则对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f(x)}<\varepsilon \). 因此, 对于任意的 \( n>N \), 均有
+  \[ M_n:=\sup_{x\in E}\abs{f_n(x)-f(x)} \leq \varepsilon. \]
+  于是 \( \lim_{n\to\infty}M_n=0 \).
+
+  ``\( \impliedby \)''. 设 \( \lim_{n\to\infty}M_n=0 \). 则对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n>N \), 有 \( M_n<\varepsilon \). 因此对于任意的 \( n>N \) 和任意的 \( x\in E \), 有
+  \[ \abs{f_n(x)-f(x)} \leq M_n < \varepsilon. \]  于是 \( f_n\rightrightarrows f \).
+\end{proof}
+
+
+
+\begin{problem}
+设 $X$ 是一个度量空间, $\mathcal{C}(X)$ 表示定义在 $X$ 上的有界连续函数的全体. 对 $f,g\in\mathcal{C}(X)$ 定义
+\[
+d_{\mathcal{C}(X)}(f,g)=\abs{f-g}_\infty.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $d_{\mathcal{C}(X)}$ 是 $\mathcal{C}(X)$ 上的距离函数.
+\item 设 $f_n,f\in\mathcal{C}(X)$. 证明 $f_n$ 在 $(\mathcal{C}(X),d_{\mathcal{C}(X)})$ 中收敛到 $f$ $\Longleftrightarrow$ $f_n$ 在 $X$ 上一致收敛于 $f$.
+\item 证明 $(\mathcal{C}(X),d_{\mathcal{C}(X)})$ 是完备的度量空间.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 对称性与正定性是明显的. 下面来证明三角不等式. 对于 \( f,g,h\in \mathcal{C}(X) \) 以及任意的 \( \varepsilon>0 \), 均存在 \( x\in X \) 使得 \( \abs{f(x)-h(x)}>d(f,h)-\varepsilon \), 其中 \( d \) 是 \( d_{\mathcal{C}(X)} \) 的简写. 因此
+  \[ d(f,h)-\varepsilon
+  <\abs{f(x)-h(x)}
+  \le\abs{f(x)-g(x)}+\abs{g(x)-h(x)}
+  \le d(f,g)+d(g,h). \]
+  令 \( \varepsilon\to 0^+ \), 得到 \( d(f,h)\le d(f,g)+d(g,h) \). 因此 \( d_{\mathcal{C}(X)} \) 是一个距离函数.
+
+  (b) 这个问题与问题 9 等价, 只需注意到: \( f_n \) 在 \( \mathcal{C}(X),d_{\mathcal{C}(X)} \) 中收敛到 \( f \) \( \Longleftrightarrow \) \( \lim_{n\to+\infty}d(f,f_n)=0 \). 
+
+  (c) 由题目 8, Cauchy 收敛准则在 \( \mathcal{C}(X),d_{\mathcal{C}(X)} \) 中成立. 因此 \( \mathcal{C}(X),d_{\mathcal{C}(X)} \) 是完备的.
+\end{proof}
+
+
+
+\begin{problem}
+设
+\[
+f_n(x)=
+\begin{cases}
+0, & \left(x<\dfrac{1}{n+1}\right), \\
+\sin^2\dfrac{\pi}{x}, & \left(\dfrac{1}{n+1}\le x\le \dfrac{1}{n}\right), \\
+0, & \left(\dfrac{1}{n}<x\right).
+\end{cases}
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $\{f_n\}$ 逐点收敛于一个连续函数, 但不是一致收敛的.
+\item 用级数 $\sum f_n$ 证明: 绝对收敛不能推出一致收敛, 哪怕是对所有 $x$ 都绝对收敛也不行.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 对于任意的 \( x\in\R_+ \), 注意到: 对于任意的正整数 \( n>\lceil 1/x \rceil \), 有 \( 1/n < x \), 从而 \( f_n(x)=0 \). 因此 \( f_n(x)\to 0 \). 而由于对于任意的正整数 \( n \), 
+  \[ f\left( \frac{2}{2n+1} \right) = \sin^2\left( \frac{2n+1}{2} \pi \right) = 1 \implies |f_n-f|_{\infty} \geq 1. \]
+  因此 \( f_n \) 不一致收敛于 \( f \).
+
+  (b) 设 \( F_n = \sum_{k=1}^{n}f_k \), \( F = \sum_{k\ge 1}^{}f_k \). 则
+  \[ F=\begin{cases}
+    \sin^2\left( \frac{\pi}{x} \right), & x>0,\\
+    0, & x \leq 0.
+  \end{cases} \]
+
+  注意到, 对于任意的 \( x \leq 0 \), 总是有 \( F_n(x)=F(x) \); 对于 \( x>0 \) 以及任意正整数 \( n>\lceil 1/x\rceil \), 有 \( F_n(x)=F(x) \). 因此, 对于任意的实数 \( x \), \( \sum f_n(x) \) 绝对收敛于 \( F(x) \). 
+  
+  而对于任意不同的正整数 \( m,n \), 均有 \( |f_n-f_m|_{\infty} = 1 \), 因此 \( F_n \) 不一致收敛于 \( F \).
+\end{proof}
+
+
+
+\begin{problem}
+试证级数
+\[
+\sum_{n=1}^{\infty}(-1)^n\frac{x^2+n}{n^2}
+\]
+在每个有界闭区间上一致收敛, 但是对任意 $x$ 值, 不绝对收敛.
+\end{problem}
+
+\begin{proof}
+  先来证明: 对于任意的闭区间 \( [a,b] \), 级数 \( \sum_{n=1}^{+\infty}(-1)^n\frac{x^2+n}{n^2} \) 在 \( [a,b] \) 上一致收敛. 对于任意的正实数 \( \varepsilon \), 取正整数 \( N \) 使得
+  \[ \frac{\max\{a^2,b^2\}}{N^2} + \frac{1}{N} < \varepsilon. \]
+  则对于任意的 \( x\in [a,b] \) 以及 \( N<n \leq m \), 均有
+  \[ \abs{\sum_{k=n}^{m}(-1)^k\frac{x^2+k}{k^2}} 
+  \leq x^2 \abs{\sum_{k=n}^{m}\frac{(-1)^k}{k^2}} + \abs{\sum_{k=n}^{m}\frac{(-1)^k}{k}}
+  <\frac{\max\{a^2,b^2\}}{N^2} + \frac{1}{N} 
+  < \varepsilon.  \]
+  因此 \( \sum_{n=1}^{+\infty}(-1)^n\frac{x^2+n}{n^2} \) 在 \( [a,b] \) 上一致收敛.
+
+  另一方面, 对于给定的 \( x \), 有
+  \[ \abs{(-1)^n\frac{x^2+n}{n^2}} \geq \frac{1}{n}. \]
+  因此 \( \sum_{n=1}^{+\infty}(-1)^n\frac{x^2+n}{n^2} \) 不绝对收敛.
+\end{proof}
+
+
+
+\begin{problem}
+令
+\[
+f_n(x)=\frac{x}{1+n x^2},\quad x\in\mathbb{R},\quad n\in\mathbb{N}^+.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $\{f_n\}$ 一致收敛于某个函数 $f$.
+\item 证明等式
+\[
+f'(x)=\lim_{n\to\infty} f_n'(x)
+\]
+当 $x\ne 0$ 时是正确的, 而当 $x=0$ 时是错误的.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 对于任意给定的 \( x\in\R \), 均有
+  \[ \lim_{n\to+\infty}\frac{x}{1+nx^2}=0. \]
+  因此 \( f_n\to 0 \). 而由于 \( 1+nx^2\ge 2\sqrt{n}\abs{x} \), 因此 \( |f_n-0|_{\infty} \le (2\sqrt{n})^{-1} \), 因此 \( f_n \rightrightarrows 0 \).
+
+  (b) 注意到
+  \[ f_n'(x) = \frac{(1+nx^2)-x(2nx)}{(1+nx^2)^2}= \frac{1-nx^2}{(1+nx^2)^2} \to \begin{cases}
+    0, & x\ne 0,\\
+    1, & x=0.
+  \end{cases} \]
+  因此 \( x\neq 0 \) 时 \( f'(x)=0=\lim_{n\to+\infty}f_n'(x) \), 而 \( x=0 \) 时 \( f'(0)=0\ne 1=\lim_{n\to+\infty}f_n'(0) \).
+\end{proof}
+
+
+
+\begin{problem}
+设 $\{f_n\}$ 是连续函数的序列, 在集 $E$ 上一致收敛于函数 $f$.
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $\lim_{n\to\infty} f_n(x_n)=f(x)$, 其中 $\{x_n\}\subset E$ 是任意的收敛到 $x\in E$ 的点列.
+\item 这个命题的逆命题是否成立?
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 由一致收敛的良好性质, 可以知道 \( f \) 连续. 对于任意的 \( \varepsilon>0 \), 存在 \( N_1 \), 使得对于任意的 \( n>N_1 \), 均有 \( |f_n-f|_\infty<\varepsilon/2 \); 存在 \( N_2 \), 使得对于任意的 \( n>N_2 \), 均有 \( \abs{f(x)-f(x_n)}<\varepsilon/2 \). 取 \( N=\max\{N_1.N_2\} \), 则对于任意的 \( n>N \), 均有
+  \[ \abs{f_n(x_n)-f(x)} \leq \abs{f_n(x_n)-f(x_n)} + \abs{f(x_n)-f(x)} < \frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon. \]
+  因此 \( \lim_{n\to +\infty}f_n(x_n)=f(x) \). 
+
+  (b) 并不成立. 反例: 取 \( E=\R \), 并且
+  \[ f_n(x)= (x-n)+\abs{x-n}. \]
+  则对于任意的 \( x<n \), 均有 \( f_n(x)=0 \), 从而 \( f_n \to f \), 其中 \( f(x)=0 \). 但是, 对于任意的正整数 \( n \), \( \abs{f_n-f}_{\infty}=+\infty \), 因此 \( f_n \) 不一致收敛于 \( f \).
+
+  而对于任意 \( \R \) 中收敛于 \( x \) 的序列 \( \{x_n\} \), 当 \( n \) 足够大时, \( x_n < n \), 从而 \( f_n(x_n)=0=f(x) \). 因此 \( \lim_{n\to+\infty}f_n(x_n)=f(x) \). 
+
+  因此原命题的逆命题不成立.
+\end{proof}
 
 
 
