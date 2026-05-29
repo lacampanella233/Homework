@@ -1,0 +1,226 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{代数\,-\,0}{2026 春季}{11}
+
+\begin{document}
+
+
+\begin{problem}[8B-4]
+设 $\dim V \ge 2$ 且 $T \in \mathcal{L}(V)$ 满足 $\ker T^{\dim V - 2} \ne \ker T^{\dim V - 1}$. 证明: $T$ 至多有两个互异的特征值.
+\end{problem}
+
+\begin{proof}
+  若 \( 0 \) 不是 \( T \) 的特征值, 则 \( \ker T^n = \{0\} \) 对任意的正整数 \( n \) 成立, 与条件矛盾. 故由题目条件, 知
+  \[ \varnothing \varsubsetneqq \ker T \varsubsetneqq \ker T^2 \varsubsetneqq \cdots \varsubsetneqq \ker T^{\dim V - 2} \varsubsetneqq \ker T^{\dim V-1}. \]
+  因此有
+  \[ \dim\ker T^{\dim V-1}\ge \dim V-1,\quad \ker T^{\dim V-1}\subset G(0,T). \]
+
+  设 \( T \) 的其余不同的特征值为 \( \lambda_1,\lambda_2,\dots,\lambda_m \). 则由上式以及 \( V=\left( \bigoplus_{k=1}^{m}G(\lambda_k,T) \right)\oplus G(0,T) \) 可得
+  \[ m \le \sum_{k=1}^{m} \dim G(\lambda_k,T) \le 1
+  \implies m \le 1. \]
+  故 \( T \) 的不同的特征值的个数不超过 \( 2 \).
+\end{proof}
+
+
+
+\begin{problem}[8B-8]
+设 $T \in \mathcal{L}(V)$, $\lambda_1, \ldots, \lambda_m$ 是 $T$ 的所有互异特征值. 证明
+\[
+V = G(\lambda_1, T) \oplus \cdots \oplus G(\lambda_m, T)
+\]
+当且仅当 $T$ 的最小多项式等于 $(z-\lambda_1)^{k_1} \cdots (z-\lambda_m)^{k_m}$, 其中 $k_1, \ldots, k_m$ 为正整数.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 设 \( T_i=T|_{G(\lambda_i,T)} \). 则由 \( G(\lambda_i,T) \) 的定义, 有 \( m_{T_i}(x) \big| (x-\lambda_i)^{\dim V} \). 因此, 存在正整数 \( k_i \), 使得 \( m_{T_i}(x) = (x-\lambda_i)^{k_i} \). 因此
+  \[ m_T(x) = \operatorname{lcm}\limits_{1\le i\le m}m_{T_i}(x) 
+  = (x-\lambda_1)^{k_1}\dots(x-\lambda_m)^{k_m}. \]
+
+  ``\( \impliedby \)''. 设 \( m_T(x) = (x-\lambda_1)^{k_1}\dots(x-\lambda_m)^{k_m} \). 则由 \( m_T(T)=0 \), 并且各多项式 \( x-\lambda_i \) 互素, 因此
+  \[ V=\bigoplus_{i=1}^{m} \ker (T-\lambda_i I)^{k_i}. \]
+  我们下面来证明 \( G(\lambda_i,T)=\ker (T-\lambda_i I)^{k_i} \). 显然有 \( \ker (T-\lambda_i I)^{k_i} \subset G(\lambda_i,T) \). 而若存在 \( v \), 使得
+  \[ v
+  \in G(\lambda_i,T) \cap \left( \bigoplus_{j\neq i} \ker (T-\lambda_j I)^{k_j} \right) 
+  = \ker (T-\lambda_i I)^{\dim V} \cap \ker \left( \prod_{j\neq i}^{} (T-\lambda_j I)^{k_j} \right), \]
+  则
+  \[ v\in\ker \gcd \left( (x-\lambda_i I)^{\dim V} , \left( \prod_{j\neq i}^{} (x-\lambda_j I)^{k_j} \right) \right) \Big|_{x=T}
+  =\ker I = \{0\}. \]
+  因此 \( G(\lambda_i,T) \subset \ker (T-\lambda_i I)^{k_i} \). 综上, \( G(\lambda_i,T)=\ker (T-\lambda_i I)^{k_i} \). 故
+  \[ V = G(\lambda_1, T) \oplus \cdots \oplus G(\lambda_m, T). \]
+\end{proof}
+
+
+
+\begin{problem}[8B-14]
+举出一个 $\C^4$ 上的算子, 其特征多项式等于 $z(z-1)^2(z-3)$ 且最小多项式等于 $z(z-1)(z-3)$.
+\end{problem}
+
+\begin{solution}
+设 \( T \) 关于 \( \C^4 \) 的标准基的矩阵为 \( \diag\{0,1,1,3\} \). 则 \( T \) 的特征多项式为 \( z(z-1)^2(z-3) \), 最小多项式为 \( z(z-1)(z-3) \).
+\end{solution}
+
+
+
+\begin{problem}[8B-21]
+设 $p, q \in \mathcal{P}(\C)$ 是具有相同零点的首一多项式且 $q$ 是 $p$ 的多项式倍. 证明: 存在 $T \in \mathcal{L}(\C^{\deg q})$ 使得 $T$ 的特征多项式是 $q$ 且 $T$ 的最小多项式是 $p$.
+\end{problem}
+
+\begin{proof}
+  设 
+  \[ p(x) = \prod_{i=1}^{m}(x-\lambda_i)^{k_i}, \ q(x) = \prod_{i=1}^{m} (x-\lambda_i)^{d_i},\ k_i \le d_i. \]
+  取
+  \[ A_i=\diag\left\{ \underbrace{\lambda_i,\dots,\lambda_i}_{d_i-k_i},\begin{pmatrix}
+    \lambda_i & 1         &       &           &           \\
+              & \lambda_i & 1     &           &           \\
+              &           & \dots &           &           \\
+              &           &       & \lambda_i & 1         \\
+              &           &       &           & \lambda_i
+  \end{pmatrix} \right\}, \]
+  其中最后一个矩阵的大小为 \( k_i \). 则 \( A_i \) 的特征多项式为 \( (x-\lambda_i)^{d_i} \), 最小多项式为 \( (x-\lambda_i)^{k_i} \). 因此取 \( T \) 在 \( \C^{\deg q} \) 的标准基下的矩阵为 \( \diag\{A_1,\dots,A_m\} \) 即可.
+\end{proof}
+
+
+
+\begin{problem}[8C-4]
+设 $V$ 是实向量空间. 证明: 当且仅当 $\dim V$ 为偶数, $V$ 上的算子 $-I$ 才有平方根.
+\end{problem}
+
+\begin{proof}
+  若 \( \dim V = 2n \) 是偶数, 则取
+  \[ A = \diag \{\underbrace{J,J,\dots,J}_{n}\}, 
+  \text{ 其中 } J = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}. \]
+  则 \( A^2 = -I \). 反之, 若 \( A^2=-I \), 则 \( (-1)^{\dim V}=\det(-I)=(\det A)^2>0 \), 因此 \( \dim V \) 是偶数.
+\end{proof}
+
+
+
+\begin{problem}[8C-8]
+设 $T \in \mathcal{L}(V)$, $V$ 的基 $v_1, \ldots, v_n$ 是 $T$ 的若当基. 描述 $T^2$ 关于该基的矩阵.
+\end{problem}
+
+\begin{solution}
+  对于一个 Jordan 块 \( J_n(\lambda) \), 计算可知
+  \[ J_n(\lambda)^2 = (\lambda I + J_n(0))^2 = \lambda^2 I + 2\lambda J_n(0) + J_n(0)^2, \]
+  即
+  \[ J_n(\lambda)^2 =
+  \begin{pmatrix}
+    \lambda^2 & 2\lambda  & 1 \\
+              & \lambda^2 & 2\lambda  & 1 \\
+              &           & \lambda^2 & 2\lambda \\
+              &           &           & \ddots   & \ddots  \\
+              &           &           &          & \lambda^2 & 2\lambda & 1 \\
+              &           &           &          &         & \lambda^2 & 2\lambda \\
+              &           &           &          &         &           & \lambda^2
+  \end{pmatrix}.
+  \]
+\end{solution}
+
+
+
+\begin{problem}[8C-10]
+设 $T \in \mathcal{L}(V)$, $V$ 的基 $v_1, \ldots, v_n$ 是 $T$ 的若当基. 描述 $T$ 关于基 $v_n, \ldots, v_1$ (通过颠倒各 $v$ 的顺序得到) 的矩阵.
+\end{problem}
+
+\begin{solution}
+  设 \( T \) 关于 \( v_1, \ldots, v_n \) 的矩阵为 \( \diag\{J_{n_1}(\lambda_1),\dots,J_{n_m}(\lambda_m)\} \). 则 \( T \) 关于 \( v_n, \ldots, v_1 \) 的矩阵为 \( \diag\{J_{n_m}(\lambda_m)\transpose, \dots, J_{n_1}(\lambda_1)\transpose\} \). 
+\end{solution}
+
+
+
+\begin{problem}[8C-13]
+设 $T \in \mathcal{L}(V)$ 是幂零的. 证明: 若 $v_1, \ldots, v_n$ 是 $V$ 中向量, $m_1, \ldots, m_n$ 是非负整数且使得
+\[
+T^{m_1} v_1, \ldots, T v_1, v_1, \ldots, T^{m_n} v_n, \ldots, T v_n, v_n
+\]
+是 $V$ 的基, 以及
+\[
+T^{m_1+1} v_1 = \cdots = T^{m_n+1} v_n = 0
+\]
+成立, 那么 $T^{m_1} v_1, \ldots, T^{m_n} v_n$ 是 $\ker T$ 的基.
+\end{problem}
+
+\begin{proof}
+  由题目条件, \( T^{m_1}v_1,\dots,T^{m_n}v_n \) 线性无关. 只需要证明 \( \ker T=\sspan\{T^{m_i}v_i: 1\le i\le n\} \). 
+
+  对于 \( u\in\ker T \), 设
+  \[ u = \sum_{i=1}^{n} \sum_{j=0}^{m_i} a_{ij} T^j v_i. \]
+  则由于 \( Tu=0 \), 有
+  \[ T u = \sum_{i=1}^{n} \sum_{j=0}^{m_i-1} a_{ij} T^{j+1} v_i = 0
+  \implies a_{ij}=0, 1\le i\le n, 0\le j\le m_i-1. \]
+  因此 \( u \in \sspan\{T^{m_i}v_i: 1\le i\le n\} \), 证明了 \( \ker T \subseteq \sspan\{T^{m_i}v_i: 1\le i\le n\} \). 反之, 显然有 \( \sspan\{T^{m_i}v_i: 1\le i\le n\} \subseteq \ker T \). 故 \( \ker T=\sspan\{T^{m_i}v_i: 1\le i\le n\} \).
+\end{proof}
+
+
+
+\begin{problem}[8C-14]
+设 $F = \C$ 且 $T \in \mathcal{L}(V)$. 证明: $V$ 不能分解为两个在 $T$ 下不变的非零子空间的直和, 当且仅当 $T$ 的最小多项式形如 $(z-\lambda)^{\dim V}$, 其中 $\lambda \in \C$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 假设 \( V \) 不能分解为两个在 \( T \) 下不变的非零子空间的直和. 若 \( m_T(x) \) 有不少于 \( 2 \) 个互异的根, 那么可以将 \( m_T(x) \) 分解为 \( p(x)q(x) \), 其中 \( p \) 与 \( q \) 互素且非常数. 则 \( \ker p(T) \) 与 \( \ker q(T) \) 均为非零的 \( T \)-不变子空间, 并且 \( V=\ker p(T) \oplus \ker q(T) \), 矛盾. 故 \( m_T(x) \) 只有一个根, 设 \( m_T(x) = (x-\lambda)^k \). 若 \( k < \dim V \), 则 \( T \) 的若当标准型中至少存在两个若当块, 它们对应的循环子空间提供了 \( V \) 的一个 \( T \)-不变非零子空间的直和分解, 同样矛盾. 故 \( k = \dim V \), 即 \( m_T(x) = (x-\lambda)^{\dim V} \).
+
+  ``\( \impliedby \)''. 若存在非零的 \( T \)-不变子空间 \( U,W \), 使得 \( V=U\oplus W \), 则 
+  \[ m_T(x) = \operatorname{lcm}(m_{T|_U}(x), m_{T|_W}(x)). \]
+  而  \( m_T(x)=(x-\lambda)^{\dim V} \), 因此 \( m_{T|_U}(x)=(x-\lambda)^{\dim V} \) 或 \( m_{T|_W}(x)=(x-\lambda)^{\dim V} \). 因此 \( U=V \) 或 \( W=V \), 矛盾.
+\end{proof}
+
+
+
+\begin{problem}[8D-6]
+设 $V$ 是内积空间且 $P, Q \in \mathcal{L}(V)$ 是正交投影. 证明 $\operatorname{tr}(PQ) \ge 0$.
+\end{problem}
+
+\begin{proof}
+  选取 \( \ker Q \) 的一组标准正交基 \( \{e_1,\dots,e_m\} \) 并扩充为 \( V \) 的一组标准正交基 \( \{e_1,\dots,e_n\} \). 则对于 \( 1\le i\le m \), \( \inprod{PQe_i}{e_i}=0 \); 对于 \( m+1\le i\le n \), \( \inprod{PQe_i}{e_i} = \inprod{Pe_i}{e_i} = |Pe_i|^2 \ge 0 \). 因此
+  \[ \operatorname{tr}(PQ) = \sum_{i=1}^n \inprod{PQe_i}{e_i} \ge 0. \]
+\end{proof}
+
+
+
+\begin{problem}[8D-9]
+设 $T \in \mathcal{L}(V)$ 使得 $\operatorname{tr}(ST) = 0$ 对所有 $S \in \mathcal{L}(V)$ 成立. 证明 $T = 0$.
+\end{problem}
+
+\begin{proof}
+  选取 \( V \) 的一组基. 设 \( T \) 在这组基下的表示矩阵为 \( M \). 设 \( (i,j) \) 元为 \( 1 \) 而其余元素为 \( 0 \) 的矩阵为 \( E_{ij} \). 则
+  \[ 0 = \operatorname{tr}(E_{ij} T) = \operatorname{tr}\left( \sum_{k=1}^{n} M_{jk} E_{ik} \right) = M_ji 
+  \implies M_{ji}=0, \forall\, 1\le i,j\le n
+  \implies M=0. \]
+\end{proof}
+
+
+
+\begin{problem}[8D-10]
+证明: $\operatorname{tr} $ 是唯一使得 $\tau(ST) = \tau(TS)$ 对所有 $S, T \in \mathcal{L}(V)$ 成立且满足 $\tau(I) = \dim V$ 的线性泛函 $\tau : \mathcal{L}(V) \to \mathbb{F}$.
+\end{problem}
+
+\begin{proof}
+  设 \( E_{ij} \) 同上一题. 则对于 \( i\neq j \), 
+  \[ \tau(E_{ij}) = \tau(E_{ii}E_{ij}) = \tau(E_{ij}E_{ii}) = \tau(0)=0; \]
+  \quad
+  \[ \tau(E_{ii}) = \tau(E_{ij}E_{ji}) = \tau(E_{ji}E_{ij}) = \tau(E_{jj})
+  \implies \tau(E_{ii})=\frac{1}{\dim V}\tau(I) = 1. \]
+  故 \( \tau \) 与 \( \operatorname{tr} \) 在所有 \( E_{ij} \) 上取值相同, 因此 \( \tau = \operatorname{tr} \).
+\end{proof}
+
+
+
+\begin{problem}[8D-11]
+设 $V$ 和 $W$ 是内积空间, $T \in \mathcal{L}(V, W)$. 证明: 若 $e_1, \ldots, e_n$ 是 $V$ 的规范正交基且 $f_1, \ldots, f_m$ 是 $W$ 的规范正交基, 那么
+\[
+\operatorname{tr}(T^* T) = \sum_{k=1}^n \sum_{j=1}^m |\langle T e_k, f_j \rangle|^2.
+\]
+\end{problem}
+
+\begin{proof}
+  \begin{align*}
+    \operatorname{tr}(T^* T) &= \sum_{k=1}^n \inprod{T^*Te_k}{e_k} 
+    = \sum_{k=1}^n \inprod{Te_k}{Te_k} 
+    = \sum_{k=1}^n |Te_k|^2 
+    = \sum_{k=1}^n \sum_{j=1}^m |\inprod{Te_k}{f_j}|^2.
+  \end{align*}
+\end{proof}
+
+
+\end{document}
