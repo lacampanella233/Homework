@@ -1,0 +1,459 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{分析\,-\,0}{2026 春季}{11}
+
+\begin{document}
+
+\begin{problem}
+设 $f \in C^3([-1,1])$, $f(0)=0$, $f(1)=1$, $f'(0)=1$, $f''(0)=0$. 求
+\[
+\int_0^1 (1-t)^2 f'''(t)\d t.
+\]
+\end{problem}
+
+\begin{solution}
+  根据积分余项的泰勒公式, 有
+  \[ f(1)
+  =f(0)+\frac{1}{1!}f'(0)+\frac{1^2}{2!}f''(0)+\int_{0}^{1}\frac{(1-t)^2}{2!}f'''(t)\d t. \]
+  结合题目条件, 可得
+  \[ \int_0^1 (1-t)^2 f'''(t)\d t=2(1-1)=0. \]
+\end{solution}
+
+
+
+\begin{problem}
+判断下列反常积分的敛散性, 并说明理由.
+\begin{enumerate}[label=(\alph*)]
+\item $\int_2^\infty \frac{\d x}{x(\ln x)^p}$, $(p>0)$.
+\item $\int_1^\infty \frac{x\ln x}{(1+x^2)^2}\d x$.
+\item $\int_0^\infty \frac{\ln x}{x^p}\d x$, $(p>0)$.
+\item $\int_0^{\pi/2} \frac{\d x}{\sin^p x}$, $(p>0)$.
+\item $\int_0^1 \frac{\d x}{x^p - x^q}$, $(q>p>0)$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  \begin{enumerate}[label=(\alph*)]
+    \item 注意到
+    \[ \int \frac{\d x}{x(\ln x)^p} = \int (\ln x)^{-p}\d \ln x
+    =\begin{cases}
+    \frac{1}{1-p}(\ln x)^{1-p}+C, & p\neq 1, \\
+    \ln(\ln x)+C, & p=1.
+    \end{cases} \]
+    因此, 若 \( p>1 \), 则 \( \lim_{x\to\infty} \frac{1}{1-p}(\ln x)^{1-p} = 0 \), 积分收敛; 若 \( p\leq 1 \), 则积分发散.
+    \item 注意到
+    \begin{align*}
+      \int \frac{x\ln x}{(1+x^2)^2}\d x
+      &= \frac{1}{4} \int \frac{\ln(x^2)}{(1+x^2)^2}\d(x^2)
+      = \frac{1}{4} \int \frac{\ln t}{(1+t)^2}\d t \qquad (t=x^2) \\
+      &= -\frac{1}{4} \int \ln t\,\d\!\left(\frac{1}{1+t}\right)
+      = -\frac{1}{4} \frac{\ln t}{1+t} + \frac{1}{4} \int \frac{1}{t(1+t)}\d t \\
+      &= \frac{1}{4} \ln \frac{t}{1+t} - \frac{1}{4} \frac{\ln t}{1+t} + C.
+    \end{align*}
+    因此
+    \[
+      \int_1^\infty \frac{x\ln x}{(1+x^2)^2}\d x
+      = \lim_{b\to\infty} \left[\frac{1}{4} \ln \frac{t}{1+t} - \frac{1}{4} \frac{\ln t}{1+t}\right]_{t=1}^{t=b^2}
+      = \frac{\ln 2}{4}.
+    \]
+    因此该反常积分收敛.
+    \item 若 \( p\neq 1 \), 则
+    \begin{align*}
+      \int \frac{\ln x}{x^{p}}\d x
+      &=\int \frac{t}{e^{p t}}e^{t}\d t\quad (t=\ln x) \\
+      &=\int te^{(1-p)t}\d t
+      =\frac{e^{(1-p)t}}{(1-p)^2}((1-p)t-1)\\
+      &=\frac{x^{1-p}\left( (1-p)\ln x-1 \right)}{(1-p)^2}
+      :=F(x).
+    \end{align*}
+
+    若 \( 1-p>0 \), 则 \( \lim_{x\to+\infty}F(x)=\infty \), 积分发散; 若 \( 1-p<0 \), 则 \( \lim_{x\to 0^+}F(x)=+\infty \), 积分发散.
+
+    若 \( p=1 \), 则
+    \[
+      \int \frac{\ln x}{x}\d x = \frac{1}{2}(\ln x)^2+C.
+    \]
+    因此积分发散.
+    \item 若 \( p\ge 1 \), 则 \( 1/\sin^{p}(x)\ge1/\sin x \), 而 
+    \[ \int_{0}^{\pi/2}\frac{\d x}{\sin x}=\ln\left( \tan \frac{x}{2} \right)\Big|_{0}^{\pi/2} = +\infty. \]
+    因此积分发散.
+
+    若 \( p<1 \), 由于对于任意的 \( x\in[0,\pi/2] \) 均有 \( \sin x\geq2x/\pi \), 因此
+    \[ \int_{0}^{\pi/2}\frac{\d x}{\sin^p x}\geq \int_{0}^{\pi/2}\frac{\d x}{(2x/\pi)^p} = \left(\frac{\pi}{2}\right)^p \int_{0}^{\pi/2} x^{-p} \d x. \]
+    当 \( p<1 \) 时, 后者收敛, 因此原积分收敛.
+
+    \item 注意到, 对于 \( x\in[0,1] \), 有
+    \[ x^{p}-x^q=x^p(1-x^{q-p})\leq 1-x^{q-p} \leq \max\{1,q-p\}(1-x). \]
+    记 \( M=\max\{1,q-p\} \), 则
+    \[ \int_0^1 \frac{\d x}{x^p - x^q} \geq \int_0^1 \frac{\d x}{M(1-x)} = +\infty. \]
+    因此积分发散.
+  \end{enumerate}
+\end{solution}
+
+
+
+\begin{problem}
+利用 Cauchy 积分判别法判断下列级数的敛散性, 并给出理由.
+\begin{enumerate}[label=(\alph*)]
+\item $\sum_{n=2}^\infty \frac{1}{n(\ln n)^p}$, $(p>0)$.
+\item $\sum_{n=3}^\infty \frac{1}{n\ln n\ln(\ln n)}$.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) 这个问题与问题 2(a) 基本上等价, 只需补充以下事实: 对于足够大的 \( x \), 函数 \( y=1/(x(\ln x)^p) \) 单调递减, 因此 \( \sum_{n=2}^{+\infty}1/(n(\ln n)^p) \) 与 \( \int_{2}^{+\infty}1/(x(\ln x)^p)\d x \) 同时收敛或同时发散.
+
+  (b) 注意到
+  \begin{align*}
+    \int \frac{1}{x\ln x\ln(\ln x)}\d x
+    &=\int \frac{1}{t\ln t}\d t \qquad (t=\ln x) \\
+    &=\ln \ln t + C = \ln(\ln(\ln x)) + C.
+  \end{align*}
+  再注意到, 对于充分大的 \( x \), 函数 \( y=1/(x\ln x\ln(\ln x)) \) 单调递减, 因此 \( \sum_{n=3}^{+\infty}1/(n\ln n\ln(\ln n)) \) 与 \( \int_{3}^{+\infty}1/(x\ln x\ln(\ln x))\d x \) 同时收敛或同时发散. 由于后者发散, 因此前者也发散.
+  
+\end{solution}
+
+
+
+\begin{problem}
+\begin{enumerate}[label=(\alph*)]
+\item 分部积分有时能用于无穷限反常积分. 列出适当的假设, 编成定理, 并加以证明.
+\item 证明
+\[
+\int_0^\infty \frac{\cos x}{1+x}\d x = \int_0^\infty \frac{\sin x}{(1+x)^2}\d x.
+\]
+证明这两个积分中有一个绝对收敛, 另一个则不然.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  (a) 定理: 设 \( u,v\in C^1([a,+\infty)) \), 且 \( \lim_{x\to+\infty}u(x)v(x) \) 存在, 且 \( \int_{a}^{+\infty}u'(x)v(x)\d x \) 存在. 则
+  \[ \int_{a}^{+\infty}u(x)v'(x)\d x = \left[ \lim_{x\to+\infty}u(x)v(x) - u(a)v(a) \right] - \int_{a}^{+\infty}u'(x)v(x)\d x. \]
+
+  这是因为, 对于任意 \( A>a \), 有
+  \[ \int_{a}^{A}u(x)v'(x)\d x = \left[ u(A)v(A) - u(a)v(a)  \right]- \int_{a}^{A}u'(x)v(x)\d x. \]
+  取 \( A\to+\infty \), 由于已知等式右侧存在, 因此等式左侧的反常积分也存在, 且满足定理中的等式.
+
+  (b) 取 \( u(x)=\sin x \), \( v(x)=(1+x)^{-1} \). 则由于 \( \lim_{x\to+\infty}u(x)v(x)=0 \), 并且 \( u(0)v(0)=0 \), 因此根据 (a) 中的定理, 可得
+  \[ \int_0^\infty \frac{\cos x}{1+x}\d x = \int_0^\infty \frac{\sin x}{(1+x)^2}\d x. \]
+
+  下面来证明: \( \int_0^\infty \frac{\sin x}{(1+x)^2}\d x \) 绝对收敛, 而 \( \int_0^\infty \frac{\cos x}{1+x}\d x \) 不绝对收敛. 注意到
+  \[ \int_{0}^{+\infty}\abs{\frac{\sin x}{(1+x)^2}}\d x\le \int_{0}^{+\infty}\frac{1}{(1+x)^2}\d x=1, \]
+  因此第一个积分绝对收敛. 而
+  \begin{align*}
+    \int_{0}^{+\infty}\abs{\frac{\cos x}{1+x}}\d x
+    &>\sum_{n=1}^{+\infty}\int_{(n-1/2)\pi}^{(n+1/2)\pi}\frac{\abs{\cos x}}{1+x}\d x
+    >\sum_{n=1}^{+\infty}\frac{1}{1+(n+1/2)\pi}\int_0^{\pi}\sin x\d x\\
+    &=\sum_{n=1}^{+\infty}\frac{2}{1+(n+1/2)\pi}=+\infty.
+  \end{align*}
+  因此第二个积分不绝对收敛.
+\end{solution}
+
+
+
+\begin{problem}
+对 $1<s<\infty$, 定义
+\[
+\zeta(s)=\sum_{n=1}^\infty \frac{1}{n^s},
+\]
+(这是 Riemann 的 $\zeta$ 函数, 在研究质数的分布时极为重要.) 求证:
+\begin{enumerate}[label=(\alph*)]
+\item $\zeta(s)= s\int_1^\infty \frac{\lfloor x\rfloor}{x^{s+1}}\d x$, 其中 $\lfloor x\rfloor$ 表示不大于 $x$ 的最大整数.
+\item $\zeta(s)= \frac{s}{s-1} - s\int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x$, 并证明该积分对一切 $s>0$ 收敛.
+\end{enumerate}
+提示: 为了证明 (a), 可以求 $[1,N]$ 上的积分与定义 $\zeta(s)$ 的级数的第 $N$ 个部分和之差.
+\end{problem}
+
+\begin{solution}
+  (a) 设 \( N\in\mathbb{N} \), 则
+  \begin{align*}
+    s \int_{1}^{+\infty}\frac{\fl{x}}{x^{s+1}}\d x
+    &= \lim_{N\to\infty} \sum_{k=1}^{N} \int_{k}^{k+1} \frac{k s}{x^{s+1}}\d x
+    = \lim_{N\to\infty} \sum_{k=1}^{N} k\left( \frac{1}{k^s}-\frac{1}{(k+1)^s} \right)\\
+    &= \lim_{N\to\infty} \left( -\frac{N}{(N+1)^s} + \sum_{k=1}^{N}\frac{1}{k^s} \right) 
+    = \sum_{n=1}^{+\infty}\frac{1}{n^s}=\zeta(s).
+  \end{align*}
+
+  (b) 注意到对一切 \( x\ge 1 \) 都有 \( 0\le x-\lfloor x\rfloor < 1 \). 因此
+  \[ 0\le \int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x
+  \le \int_1^\infty \frac{1}{x^{s+1}}\d x, \]
+  而右侧对一切 \( s>0 \) 都收敛. 因此 \( \int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x \) 收敛, 并且
+  \[  \frac{s}{s-1} - s\int_1^\infty \frac{x-\lfloor x\rfloor}{x^{s+1}}\d x
+  =\frac{s}{s-1}-\frac{s}{s-1} + \zeta(s)=\zeta(s). \]
+\end{solution}
+
+
+
+\begin{problem}
+考虑曲线 $\gamma:[a,b]\to\R^k$. 设 $\gamma\in C^1([a,b])$, 证明 $\gamma$ 可求长, 并且
+\[
+l(\gamma)=\int_a^b \abs{\gamma'(t)}\d t.
+\]
+\end{problem}
+
+\begin{proof}
+  沿用教材中的记号. 一方面, 对于任意的划分 \( P \), 均有
+  \begin{align*}
+    \Lambda(P,\gamma)
+    &=\sum_{k=1}^{n} \abs{\gamma(t_k)-\gamma(t_{k-1})}
+    =\sum_{k=1}^{n} \abs{\int_{t_{k-1}}^{t_k} \gamma'(t)\d t}
+    \leq \sum_{k=1}^{n} \int_{t_{k-1}}^{t_k} \abs{\gamma'(t)}\d t
+    =\int_a^b \abs{\gamma'(t)}\d t.
+  \end{align*}
+  因此, \( l(\gamma) \) 存在, 并且
+  \[ l(\gamma) = \int_a^b \abs{\gamma'(t)}\d t. \]
+
+  另一方面, 对于任意的正实数 \( \varepsilon \), 由于 \( \gamma' \) 是定义在闭区间上的连续函数, 故一致连续. 即, 存在正实数 \( \delta \), 使得对于任意的 \( x,y\in[a,b] \) 满足 \( \abs{x-y}<\delta \) 时, 有 \( \abs{\gamma'(x)-\gamma'(y)}<\varepsilon \). 对于任意的划分 \( P \) 满足 \( \|P\|<\delta \), 则对于任意的 \( k\in\{1,2,\dots,n\} \) 和任意的 \( t\in[t_{k-1},t_k] \), 有
+  \begin{align*}
+    \abs{\gamma(t_{k})-\gamma(t_{k-1})}
+    &=\abs{\int_{t_{k-1}}^{t_k} \gamma'(t)\d t}
+    =\abs{\int_{t_{k-1}}^{t_k} (\gamma'(t)-\gamma'(t_{k}))\d t + \Delta t_k \gamma'(t_{k})} \\
+    &\geq \Delta t_k \abs{\gamma'(t_{k})} - \int_{t_{k-1}}^{t_k} \abs{\gamma'(t)-\gamma'(t_{k})}\d t \\
+    &\geq \int_{t_{k-1}}^{t_k} \abs{\gamma'(t)} \d t + \int_{t_{k-1}}^{t_k}\left( \abs{\gamma'(t_k)}-\abs{\gamma'(t)} \right) \d t - \Delta t_k \varepsilon \\
+    &\geq \int_{t_{k-1}}^{t_k} \abs{\gamma'(t)} \d t -2 \Delta t_k \varepsilon.
+  \end{align*}
+  因此
+  \[ \Lambda(P,\gamma)
+  = \sum_{k=1}^{n}\abs{\gamma(t_k)-\gamma(t_{k-1})}
+  \geq \sum_{k=1}^{n}\left( \int_{t_{k-1}}^{t_k} \abs{\gamma'(t)} \d t -2 \Delta t_k \varepsilon \right)
+  =\int_{a}^{b} \abs{\gamma'(t)}\d t - 2\varepsilon(b-a).
+  \]
+  由于 \( \varepsilon \) 是任意的, 故根据定义 \( l(\gamma)=\sup_{P}\Lambda(P,\gamma) \), 有
+  \[ l(\gamma) = \int_a^b \abs{\gamma'(t)}\d t. \]
+\end{proof}
+
+
+
+\begin{problem}
+设复平面里的曲线 $\gamma_1,\gamma_2,\gamma_3$ 是由
+\[
+\gamma_1(t)=e^{\i t},\quad \gamma_2(t)=e^{2\i t},\quad \gamma_3(t)=e^{2\pi \i t\sin(1/t)}
+\]
+定义在 $[0,2\pi]$ 之上的, 令 $\gamma_3(0)=1$.
+\begin{enumerate}[label=(\alph*)]
+\item 证明这三条曲线的值域相同.
+\item 证明 $\gamma_1$ 与 $\gamma_2$ 为可求长, $\ell(\gamma_1)=2\pi$, $\ell(\gamma_2)=4\pi$, 而 $\gamma_3$ 不可求长.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+  \begin{enumerate}[label=(\alph*)]
+    \item 对于 \( \gamma_1,\gamma_2 \), 显然有 \( \abs{\gamma_1(t)}=\abs{\gamma_2(t)}=1 \), 因此它们的值域均为单位圆 \(\{z\in\mathbb{C}:\abs{z}=1\}\).
+
+    对于 \( \gamma_3 \), 令
+    \[ \varphi(t)=2\pi t\sin(1/t)\ (t>0),\qquad \varphi(0)=0. \]
+    则 \( \gamma_3(t)=e^{\i\varphi(t)} \), 且 \( \varphi \) 在 \([0,2\pi]\) 上连续, 因而 \( \varphi([0,2\pi]) \) 为一闭区间 \([m,M]\). 注意到
+    \[ \varphi\left(\frac{2}{3\pi}\right)=2\pi\cdot\frac{2}{3\pi}\sin\left(\frac{3\pi}{2}\right)=-\frac{4}{3}, \]
+    且由 \( \sin x\ge x-\frac{x^3}{6} \) 得
+    \[ \varphi(2\pi)=4\pi^2\sin\left(\frac{1}{2\pi}\right)
+    \ge 4\pi^2\left(\frac{1}{2\pi}-\frac{1}{48\pi^3}\right)=2\pi-\frac{1}{12\pi}. \]
+    因此 \( M-m\ge 2\pi-\frac{1}{12\pi}+\frac{4}{3}>2\pi \). 由于指数函数 \( e^{\i x} \) 以 \( 2\pi \) 为周期, 故 \( e^{\i\varphi([0,2\pi])} \) 覆盖整个单位圆. 于是三条曲线的值域相同.
+
+    \item \( \gamma_1'(t)=\i e^{\i t} \), \( \gamma_2'(t)=2\i e^{2\i t} \), 因此
+    \[ \ell(\gamma_1)=\int_0^{2\pi}\abs{\gamma_1'(t)}\d t=\int_0^{2\pi}1\d t=2\pi,\qquad
+    \ell(\gamma_2)=\int_0^{2\pi}\abs{\gamma_2'(t)}\d t=\int_0^{2\pi}2\d t=4\pi. \]
+
+    对于 \( \gamma_3 \), 当 \( t>0 \) 时可导且
+    \[ \gamma_3'(t)=2\pi\i e^{2\pi\i t\sin(1/t)}\left(\sin(1/t)-\frac{\cos(1/t)}{t}\right). \]
+    下面来证明 \( \gamma_3 \) 不可求长, 即证明
+    \[ \int_{0}^{2\pi}\abs{\gamma_3'(t)}\d t \]
+    发散.
+
+    对任意 \( a\in(0,2\pi] \), \( \gamma_3 \) 在 \([a,2\pi]\) 上为 \( C^1 \) 曲线, 因此
+    \[ \ell\bigl(\gamma_3|_{[a,2\pi]}\bigr)
+    =\int_a^{2\pi}2\pi\left\lvert\sin(1/t)-\frac{\cos(1/t)}{t}\right\rvert\d t. \]
+    取 \( t_k=1/(2k\pi) \), 并令
+    \[ I_k=\left[\frac{1}{2k\pi+\pi/6},\ \frac{1}{2k\pi-\pi/6}\right], \qquad k\ge 2. \]
+    则当 \( t\in I_k \) 时有 \( \abs{\cos(1/t)}\ge 1/2 \), 且 \( \abs{\sin(1/t)}\le 1 \), 从而对充分大的 \( k \) 有
+    \[ \left\lvert\sin(1/t)-\frac{\cos(1/t)}{t}\right\rvert\ge \frac{1}{2t}-1\ge \frac{1}{4t}. \]
+    因此
+    \[ \ell\bigl(\gamma_3|_{[a,2\pi]}\bigr)
+    \ge \sum_{k:\,I_k\subset[a,2\pi]}\int_{I_k}\frac{\pi}{2}\frac{\d t}{t}
+    =\frac{\pi}{2}\sum_{k:\,I_k\subset[a,2\pi]}\ln\frac{2k\pi+\pi/6}{2k\pi-\pi/6}, \]
+    而 \( \ln\frac{2k\pi+\pi/6}{2k\pi-\pi/6}\sim c/k \) (\( c>0 \)), 故上式随 \( a\to 0^+ \) 发散.
+    于是 \( \ell(\gamma_3)=+\infty \), \( \gamma_3 \) 不可求长.
+  \end{enumerate}
+\end{solution}
+
+
+
+\begin{problem}
+证明一致收敛的 Cauchy 准则: $\{f_n:E\to\mathbb{C}\}$ 一致收敛 $\Longleftrightarrow$ 对任意 $\varepsilon>0$, 存在 $N$, 使得对所有 $n,m>N$,
+\[
+\abs{f_n(x)-f_m(x)}<\varepsilon,\quad \forall x\in E.
+\]
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 设 \( f_n \rightrightarrows f \). 则对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f(x)} \leq \varepsilon/2 \). 因此对于任意的 \( n,m>N \) 和任意的 \( x\in E \), 有
+  \[ \abs{f_n(x)-f_m(x)} \leq \abs{f_n(x)-f(x)} + \abs{f_m(x)-f(x)} \leq \varepsilon. \]
+
+  ``\( \impliedby \)''. 设 \( \{f_n\} \) 满足题目中的 Cauchy 条件. 则对于任意的 \( x\in E \), \( \{f_n(x)\} \) 是 \( \mathbb{C} \) 中的 Cauchy 数列, 因此存在 \( f(x)\in\mathbb{C} \), 使得 \( f_n(x)\to f(x) \). 
+  
+  下面来证明 \( f_n\rightrightarrows f \). 对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n,m>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f_m(x)}<\varepsilon/2 \). 令 \( m\to+\infty \), 知 \( \abs{f_n(x)-f(x)} \leq \varepsilon/2 < \varepsilon \). 因此对于任意的 \( n>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f(x)}<\varepsilon \). 于是 \( f_n\rightrightarrows f \).
+\end{proof}
+
+
+
+\begin{problem}
+(一致收敛性的等价刻画)
+设 $\{f_n\}$ 在 $E$ 上逐点收敛到 $f$. 令
+\[
+M_n=\abs{f_n-f}_\infty:=\sup_{x\in E}\abs{f_n(x)-f(x)}.
+\]
+证明 $f_n$ 在 $E$ 上一致收敛于 $f$ $\Longleftrightarrow$ $\lim_{n\to\infty}M_n=0$.
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 设 \( f_n\rightrightarrows f \). 则对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n>N \) 和任意的 \( x\in E \), 有 \( \abs{f_n(x)-f(x)}<\varepsilon \). 因此, 对于任意的 \( n>N \), 均有
+  \[ M_n:=\sup_{x\in E}\abs{f_n(x)-f(x)} \leq \varepsilon. \]
+  于是 \( \lim_{n\to\infty}M_n=0 \).
+
+  ``\( \impliedby \)''. 设 \( \lim_{n\to\infty}M_n=0 \). 则对于任意的正实数 \( \varepsilon>0 \), 存在 \( N\in N_+ \), 使得对于任意的 \( n>N \), 有 \( M_n<\varepsilon \). 因此对于任意的 \( n>N \) 和任意的 \( x\in E \), 有
+  \[ \abs{f_n(x)-f(x)} \leq M_n < \varepsilon. \]  于是 \( f_n\rightrightarrows f \).
+\end{proof}
+
+
+
+\begin{problem}
+设 $X$ 是一个度量空间, $\mathcal{C}(X)$ 表示定义在 $X$ 上的有界连续函数的全体. 对 $f,g\in\mathcal{C}(X)$ 定义
+\[
+d_{\mathcal{C}(X)}(f,g)=\abs{f-g}_\infty.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $d_{\mathcal{C}(X)}$ 是 $\mathcal{C}(X)$ 上的距离函数.
+\item 设 $f_n,f\in\mathcal{C}(X)$. 证明 $f_n$ 在 $(\mathcal{C}(X),d_{\mathcal{C}(X)})$ 中收敛到 $f$ $\Longleftrightarrow$ $f_n$ 在 $X$ 上一致收敛于 $f$.
+\item 证明 $(\mathcal{C}(X),d_{\mathcal{C}(X)})$ 是完备的度量空间.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 对称性与正定性是明显的. 下面来证明三角不等式. 对于 \( f,g,h\in \mathcal{C}(X) \) 以及任意的 \( \varepsilon>0 \), 均存在 \( x\in X \) 使得 \( \abs{f(x)-h(x)}>d(f,h)-\varepsilon \), 其中 \( d \) 是 \( d_{\mathcal{C}(X)} \) 的简写. 因此
+  \[ d(f,h)-\varepsilon
+  <\abs{f(x)-h(x)}
+  \le\abs{f(x)-g(x)}+\abs{g(x)-h(x)}
+  \le d(f,g)+d(g,h). \]
+  令 \( \varepsilon\to 0^+ \), 得到 \( d(f,h)\le d(f,g)+d(g,h) \). 因此 \( d_{\mathcal{C}(X)} \) 是一个距离函数.
+
+  (b) 这个问题与问题 9 等价, 只需注意到: \( f_n \) 在 \( \mathcal{C}(X),d_{\mathcal{C}(X)} \) 中收敛到 \( f \) \( \Longleftrightarrow \) \( \lim_{n\to+\infty}d(f,f_n)=0 \). 
+
+  (c) 由题目 8, Cauchy 收敛准则在 \( \mathcal{C}(X),d_{\mathcal{C}(X)} \) 中成立. 因此 \( \mathcal{C}(X),d_{\mathcal{C}(X)} \) 是完备的.
+\end{proof}
+
+
+
+\begin{problem}
+设
+\[
+f_n(x)=
+\begin{cases}
+0, & \left(x<\dfrac{1}{n+1}\right), \\
+\sin^2\dfrac{\pi}{x}, & \left(\dfrac{1}{n+1}\le x\le \dfrac{1}{n}\right), \\
+0, & \left(\dfrac{1}{n}<x\right).
+\end{cases}
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $\{f_n\}$ 逐点收敛于一个连续函数, 但不是一致收敛的.
+\item 用级数 $\sum f_n$ 证明: 绝对收敛不能推出一致收敛, 哪怕是对所有 $x$ 都绝对收敛也不行.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 对于任意的 \( x\in\R_+ \), 注意到: 对于任意的正整数 \( n>\lceil 1/x \rceil \), 有 \( 1/n < x \), 从而 \( f_n(x)=0 \). 因此 \( f_n(x)\to 0 \). 而由于对于任意的正整数 \( n \), 
+  \[ f\left( \frac{2}{2n+1} \right) = \sin^2\left( \frac{2n+1}{2} \pi \right) = 1 \implies |f_n-f|_{\infty} \geq 1. \]
+  因此 \( f_n \) 不一致收敛于 \( f \).
+
+  (b) 设 \( F_n = \sum_{k=1}^{n}f_k \), \( F = \sum_{k\ge 1}^{}f_k \). 则
+  \[ F=\begin{cases}
+    \sin^2\left( \frac{\pi}{x} \right), & x>0,\\
+    0, & x \leq 0.
+  \end{cases} \]
+
+  注意到, 对于任意的 \( x \leq 0 \), 总是有 \( F_n(x)=F(x) \); 对于 \( x>0 \) 以及任意正整数 \( n>\lceil 1/x\rceil \), 有 \( F_n(x)=F(x) \). 因此, 对于任意的实数 \( x \), \( \sum f_n(x) \) 绝对收敛于 \( F(x) \). 
+  
+  而对于任意不同的正整数 \( m,n \), 均有 \( |f_n-f_m|_{\infty} = 1 \), 因此 \( F_n \) 不一致收敛于 \( F \).
+\end{proof}
+
+
+
+\begin{problem}
+试证级数
+\[
+\sum_{n=1}^{\infty}(-1)^n\frac{x^2+n}{n^2}
+\]
+在每个有界闭区间上一致收敛, 但是对任意 $x$ 值, 不绝对收敛.
+\end{problem}
+
+\begin{proof}
+  先来证明: 对于任意的闭区间 \( [a,b] \), 级数 \( \sum_{n=1}^{+\infty}(-1)^n\frac{x^2+n}{n^2} \) 在 \( [a,b] \) 上一致收敛. 对于任意的正实数 \( \varepsilon \), 取正整数 \( N \) 使得
+  \[ \frac{\max\{a^2,b^2\}}{N^2} + \frac{1}{N} < \varepsilon. \]
+  则对于任意的 \( x\in [a,b] \) 以及 \( N<n \leq m \), 均有
+  \[ \abs{\sum_{k=n}^{m}(-1)^k\frac{x^2+k}{k^2}} 
+  \leq x^2 \abs{\sum_{k=n}^{m}\frac{(-1)^k}{k^2}} + \abs{\sum_{k=n}^{m}\frac{(-1)^k}{k}}
+  <\frac{\max\{a^2,b^2\}}{N^2} + \frac{1}{N} 
+  < \varepsilon.  \]
+  因此 \( \sum_{n=1}^{+\infty}(-1)^n\frac{x^2+n}{n^2} \) 在 \( [a,b] \) 上一致收敛.
+
+  另一方面, 对于给定的 \( x \), 有
+  \[ \abs{(-1)^n\frac{x^2+n}{n^2}} \geq \frac{1}{n}. \]
+  因此 \( \sum_{n=1}^{+\infty}(-1)^n\frac{x^2+n}{n^2} \) 不绝对收敛.
+\end{proof}
+
+
+
+\begin{problem}
+令
+\[
+f_n(x)=\frac{x}{1+n x^2},\quad x\in\mathbb{R},\quad n\in\mathbb{N}^+.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $\{f_n\}$ 一致收敛于某个函数 $f$.
+\item 证明等式
+\[
+f'(x)=\lim_{n\to\infty} f_n'(x)
+\]
+当 $x\ne 0$ 时是正确的, 而当 $x=0$ 时是错误的.
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 对于任意给定的 \( x\in\R \), 均有
+  \[ \lim_{n\to+\infty}\frac{x}{1+nx^2}=0. \]
+  因此 \( f_n\to 0 \). 而由于 \( 1+nx^2\ge 2\sqrt{n}\abs{x} \), 因此 \( |f_n-0|_{\infty} \le (2\sqrt{n})^{-1} \), 因此 \( f_n \rightrightarrows 0 \).
+
+  (b) 注意到
+  \[ f_n'(x) = \frac{(1+nx^2)-x(2nx)}{(1+nx^2)^2}= \frac{1-nx^2}{(1+nx^2)^2} \to \begin{cases}
+    0, & x\ne 0,\\
+    1, & x=0.
+  \end{cases} \]
+  因此 \( x\neq 0 \) 时 \( f'(x)=0=\lim_{n\to+\infty}f_n'(x) \), 而 \( x=0 \) 时 \( f'(0)=0\ne 1=\lim_{n\to+\infty}f_n'(0) \).
+\end{proof}
+
+
+
+\begin{problem}
+设 $\{f_n\}$ 是连续函数的序列, 在集 $E$ 上一致收敛于函数 $f$.
+\begin{enumerate}[label=(\alph*)]
+\item 证明 $\lim_{n\to\infty} f_n(x_n)=f(x)$, 其中 $\{x_n\}\subset E$ 是任意的收敛到 $x\in E$ 的点列.
+\item 这个命题的逆命题是否成立?
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+  (a) 由一致收敛的良好性质, 可以知道 \( f \) 连续. 对于任意的 \( \varepsilon>0 \), 存在 \( N_1 \), 使得对于任意的 \( n>N_1 \), 均有 \( |f_n-f|_\infty<\varepsilon/2 \); 存在 \( N_2 \), 使得对于任意的 \( n>N_2 \), 均有 \( \abs{f(x)-f(x_n)}<\varepsilon/2 \). 取 \( N=\max\{N_1.N_2\} \), 则对于任意的 \( n>N \), 均有
+  \[ \abs{f_n(x_n)-f(x)} \leq \abs{f_n(x_n)-f(x_n)} + \abs{f(x_n)-f(x)} < \frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon. \]
+  因此 \( \lim_{n\to +\infty}f_n(x_n)=f(x) \). 
+
+  (b) 并不成立. 反例: 取 \( E=\R \), 并且
+  \[ f_n(x)= (x-n)+\abs{x-n}. \]
+  则对于任意的 \( x<n \), 均有 \( f_n(x)=0 \), 从而 \( f_n \to f \), 其中 \( f(x)=0 \). 但是, 对于任意的正整数 \( n \), \( \abs{f_n-f}_{\infty}=+\infty \), 因此 \( f_n \) 不一致收敛于 \( f \).
+
+  而对于任意 \( \R \) 中收敛于 \( x \) 的序列 \( \{x_n\} \), 当 \( n \) 足够大时, \( x_n < n \), 从而 \( f_n(x_n)=0=f(x) \). 因此 \( \lim_{n\to+\infty}f_n(x_n)=f(x) \). 
+
+  因此原命题的逆命题不成立.
+\end{proof}
+
+
+
+\end{document}
