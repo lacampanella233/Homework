@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{代数\,-\,0}{2026 春季}{12}
+
+\begin{document}
+
+\begin{problem}[9A-2]
+  令 \( n=\dim V \). 设 \( \beta \) 是 \( V \) 上的双线性型. 证明: 存在 \( \varphi_1,\dots,\varphi_n,\tau_1,\dots,\tau_n \in V' \), 使得对于所有的 \( u,v\in V \), 均有
+  \[ \beta(u,v) = \varphi_1(u)\tau_1(v)+\dots+\varphi_n(u)\tau_n(v). \]
+\end{problem}
+
+\begin{proof}
+  我们对 \( n \) 归纳. \( n=1 \) 的时候命题显然成立. 假设命题对 \( n-1 \) 成立. 若 \( \beta=0 \), 则命题显然成立. 下面考虑 \( \beta\neq 0 \) 的情况.
+  
+  取一组基 \( \{e_1,e_2,\dots,e_n\} \), 使得 \( \beta(e_1,e_n)\neq 0 \). 取 \( \varphi_1,\tau_1\in V' \) , 使得 \( \tau_1(e_j) = \beta(e_1,e_j) \), 并且 \( \varphi_1(e_i) = \beta(e_i,e_n)/\beta(e_1,e_n) \). 此时, 对于 \( (i,j)=(1,1),\dots,(1,n),\dots,(n,n) \), 均有 \( \beta(e_i,e_j) = \varphi_1(e_i) \tau_1(e_j) \).
+
+  设 \( W_1=\sspan\{e_2,\dots,e_n\} \), \( W_2=\sspan\{e_1,\dots,e_{n-1}\} \). 则 \( \dim W_1=\dim W_2=n-1 \). 将 \( \beta \) 限制在 \( W_1\times W_2 \) 上, 由归纳假设, 知存在 \( \tilde{\varphi}_2,\dots,\tilde{\varphi}_n\in W_1 \) 以及 \( \tilde{\tau}_1,\dots,\tilde{\tau}_{n-1}\in W_2' \), 使得
+  \[ \beta(w_1,w_2)-\varphi_1(w_1)\tau_1(w_2)=\sum_{k=2}^{n}\varphi_k(w_1)\tau_k(w_2), \ \forall\, w_1\in W_1, w_2\in W_2. \]
+
+  取 \( \varphi_i\in V' \) (\( 2\le i\le n \)), 使得 \( \varphi_i(e_1)=0 \), \( \varphi_i(e_j) = \tilde{\varphi}_i(e_j) \) (\( 2\le j\le n \)). 类似地取出 \( \tau_i \in V' \) (\( 2\le i\le n \)), 使得 \( \tau_i(e_n)=0 \), \( \tau_i(e_j) = \tilde{\tau}_{i-1}(e_j) \) (\( 2\le i\le n, 1\le j\le n-1 \)). 则不难验证: 对于任意的 \( i,j\in\{1,2,\dots,n\} \), 均有
+  \[ \beta(e_i,e_j) = \sum_{k=1}^{n} \varphi_k(e_i) \tau_k(e_j). \]
+  因此对于所有的 \( u,v\in V \), 均有
+  \[ \beta(u,v) = \varphi_1(u)\tau_1(v)+\dots+\varphi_n(u)\tau_n(v). \]
+\end{proof}
+
+
+
+\begin{problem}[9A-4]
+  设 \( V \) 是实内积空间, \( \beta \) 是 \( V \) 上的双线性型. 证明: 存在唯一的算子 \( T\in \mathcal{L}(V) \), 使得
+  \[ \beta(u,v) = \inprod{u}{Tv}. \]
+\end{problem}
+
+\begin{proof}
+  固定 \( v\in V \), 由于 \( \beta(\cdot,v) \) 是 \( V \) 上的线性泛函, 因此存在唯一的 \( f(v)\in V \), 使得 \( \beta(\cdot,v) = \inprod{\cdot}{f(v)} \). 下面来证明: \( f\in \mathcal{L}(V) \). 
+  \begin{itemize}
+    \item 对于 \( \lambda\in\R \), 有
+    \[ \inprod{u}{f(\lambda v)} = \beta(u,\lambda v) = \lambda \beta(u,v) = \inprod{u}{\lambda f(v)}. \]
+    因此 \( f(\lambda v) = \lambda f(v) \).
+    \item 对于 \( v_1,v_2\in V \), 有
+    \[ \inprod{u}{f(v_1+v_2)} = \beta(u,v_1+v_2) = \beta(u,v_1)+\beta(u,v_2) = \inprod{u}{f(v_1)+f(v_2)}. \]
+    因此 \( f(v_1+v_2) = f(v_1) + f(v_2) \).
+  \end{itemize}
+  因此 \( f\in \mathcal{L}(V) \).
+
+  由于每一个 \( v \) 仅对应唯一的一个 \( f(v)\in V \), 因此 \( f \) 是唯一的.
+\end{proof}
+
+
+
+\begin{problem}[9A-5]
+  设 \( \beta \) 是实内积空间 \( V \) 上的双线性型, \( T \) 是 \( V \) 上唯一使得 \( \beta(u,v)=\inprod{u}{Tv} \) 对所有 \( u,v\in V \) 成立的算子(见第 4 题). 证明: \( \beta \) 是 \( V \) 上的内积，当且仅当 \( T \) 是 \( V \) 上的可逆正算子．
+\end{problem}
+
+\begin{proof}
+  ``\( \implies \)''. 若 \( \beta \) 是内积, 则对于所有的 \( v\in V \), 均有 \( \beta(v,v)=\inprod{Tv}{v} \geq 0 \), 因此 \( T \) 是正算子. 而 \( \beta(v,v) = 0 \) 当且仅当 \( v=0 \), 因此 \( Tv=0 \implies \inprod{Tv}{v}=0 \implies v=0 \). 故 \( T \) 可逆.
+
+  ``\( \impliedby \)''. 显然 \( \beta(u,v) = \inprod{u}{Tv} \) 是双线性型. 由于 \( T \) 是正算子, 因此 \( T \) 自伴, 因此 \( \inprod{u}{Tv}=\inprod{v}{Tu} \), 故 \( \beta \) 是对称的. 若 \( T \) 是可逆正算子, 则 \( \beta(v,v)=\inprod{Tv}{v}\ge 0 \), 并且 \( \beta(v,v)=0 \Leftrightarrow \inprod{Tv}{v} = 0 \Leftrightarrow v=0 \). 因此 \( \beta \) 是内积.
+\end{proof}
+
+
+
+\begin{problem}[9A-7]
+  解释为什么: 如果去掉 \( \F=\R \) 这一假设, 9.13 (在实内积空间上用规范正交基将对称双线性型对角化) 的证明就不成立了.
+\end{problem}
+
+\begin{solution}
+  因为证明过程中使用了实谱定理, 而这个定理在没有 \( \F=\R \) 的条件下是不成立的.
+\end{solution}
+
+
+
+\begin{problem}[9A-9]
+  设 \( n \) 是正整数, \( V=\{p\in \mathcal{P}_n(\R) :p(0)=p(1)\} \). 定义: \( \alpha: V\times V\to \R \) 为
+  \[ \alpha(p,q)=\int_{0}^{1}pq'. \]
+  证明: \( \alpha \) 是 \( V \) 上的交错双线性型.
+\end{problem}
+
+\begin{proof}
+  显然 \( \alpha \) 是 \( V \) 上的双线性型. 只需要证明 \( \alpha \) 交错. 对于 \( p,q\in V \), 有
+  \[ \alpha(p,q)+\alpha(q,p) = \int_{0}^{1} (pq'+p'q) = \int_{0}^{1} (pq)' = p(1)q(1)-p(0)q(0) = 0. \]
+  因此 \( \alpha \) 是交错双线性型.
+\end{proof}
+
+
+
+\begin{problem}[9A-10]
+  设 \( n \) 是正整数, 且
+  \[ V=\{p\in \mathcal{P}_n(\R): p(0)=p(1),\ p'(0)=p'(1)\}. \]
+  定义 \( \rho: V\times V\to\R \) 为
+  \[ \rho(p,q)=\int_{0}^{1}pq''. \]
+  证明: \( \rho \) 是 \( V \) 上的对称双线性型.
+\end{problem}
+
+\begin{proof}
+  显然 \( \rho \) 是 \( V \) 上的双线性型. 只需要证明 \( \rho \) 对称. 对于 \( p,q\in V \), 有
+  \[ \rho(p,q)-\rho(q,p) = \int_{0}^{1} (pq''-p''q) = \int_{0}^{1} (pq'-p'q)' = p(1)q'(1)-p(0)q'(0)-p'(1)q(1)+p'(0)q(0) = 0. \]
+  因此 \( \rho \) 是对称双线性型.
+\end{proof}
+
+\end{document}
