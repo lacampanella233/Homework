@@ -1,0 +1,4 @@
+interface:
+  display_name: "Homework Problem Importer"
+  short_description: "Import image or PDF problems into homework LaTeX"
+  default_prompt: "Use $homework-problem-importer to faithfully import these image or PDF problems into the target homework TeX file."

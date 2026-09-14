@@ -1,0 +1,36 @@
+# LaTeX intermediate files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+
+# Generated homework PDFs use the numeric assignment name. Keep reference PDFs.
+/*/[0-9]/[0-9].pdf
+/*/[0-9][0-9]/[0-9][0-9].pdf
+/*/[0-9][0-9][0-9]/[0-9][0-9][0-9].pdf
