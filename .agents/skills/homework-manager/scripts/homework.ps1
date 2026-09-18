@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
   [Parameter(Mandatory = $true, Position = 0)]
-  [ValidateSet('Status', 'NewCourse', 'NewHomework', 'Sync', 'Switch', 'Finish', 'Open')]
+  [ValidateSet('Status', 'NewCourse', 'NewHomework', 'Compile', 'Sync', 'Switch', 'Finish', 'Open')]
   [string]$Action,
 
   [string]$Course,
@@ -36,6 +36,7 @@ $actionFiles = @{
   Status = 'Status.ps1'
   NewCourse = 'NewCourse.ps1'
   NewHomework = 'NewHomework.ps1'
+  Compile = 'Compile.ps1'
   Sync = 'Sync.ps1'
   Switch = 'Switch.ps1'
   Finish = 'Finish.ps1'
@@ -66,6 +67,10 @@ switch ($Action) {
     if (-not $Course) { throw 'NewHomework requires -Course.' }
     if (-not $Semester) { throw 'NewHomework requires a single-line -Semester of 100 characters or fewer.' }
     Invoke-HomeworkNewAssignment -Course $Course -Semester $Semester -Number $Number -NumberSpecified $numberSpecified -Language $Language -DisplayCourse $DisplayCourse -Apply:$Apply -Open:$Open
+  }
+  'Compile' {
+    if ($Apply) { throw 'Compile runs immediately and does not accept -Apply.' }
+    Invoke-HomeworkCompile -Course $Course -Number $Number -NumberSpecified $numberSpecified
   }
   'Sync' {
     Invoke-HomeworkSync -Course $Course -Number $Number -NumberSpecified $numberSpecified -Message $Message -Apply:$Apply

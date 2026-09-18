@@ -4,7 +4,7 @@
 
 ## 仓库用途
 
-这是个人课程作业仓库，使用根目录 `homework.sty` 生成 LaTeX 作业。仓库管理自动化由 `.agents/skills/homework-manager/` 提供；涉及创建课程、创建作业、同步、切换或完成作业时，优先使用该 Skill 的脚本，不要临时拼接一组等价的 Git 命令。
+这是个人课程作业仓库，使用根目录 `homework.sty` 生成 LaTeX 作业。仓库管理自动化由 `.agents/skills/homework-manager/` 提供；涉及创建课程、创建作业、编译作业、同步、切换或完成作业时，优先使用该 Skill 的脚本，不要临时拼接一组等价命令。
 
 Skill 使用统一入口 `scripts/homework.ps1`：入口负责稳定参数、仓库初始化和白名单分派；公共逻辑位于 `scripts/Homework.Common.psm1`；每类任务的实现位于 `scripts/actions/<Action>.ps1`。Agent 应选择公开 Action，不直接执行内部动作脚本。
 
@@ -53,6 +53,7 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 <Acti
 ```
 
 - `Status` 是只读操作。
+- `Compile` 会通过临时 ASCII 盘符编译当前或指定作业，立即执行且不接受 `-Apply`；它必须在成功、失败或中断时解除自己创建的映射。
 - `NewCourse`、`NewHomework`、`Sync`、`Switch`、`Finish` 默认仅输出计划；确认与用户请求完全一致后才添加 `-Apply`。
 - `Finish -Apply` 会推送当前作业分支、在本地合并到更新后的 `main`、推送 `main`，然后尝试清理远程和本地作业分支。必须特别核对预览中的分支名。
 - `Open` 只在用户要求打开 VS Code、资源管理器、GitHub 网页或 GitHub Desktop 时使用。
@@ -61,11 +62,13 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 <Acti
 
 ## LaTeX 验证
 
-修改某个 `<number>.tex` 或其 `homework.sty` 后，从该作业目录运行：
+修改某个 `<number>.tex` 或其 `homework.sty` 后，通过统一入口编译。在作业分支上可自动识别课程和编号：
 
 ```powershell
-latexmk -pdf -interaction=nonstopmode -halt-on-error <number>.tex
+pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Compile
 ```
+
+当前分支无法识别作业时，显式传入 `-Course <name> -Number <number>`。不要从含非 ASCII 字符的目录直接调用 Windows `latexmk`；本机原生 Perl 会把工作目录按系统 ANSI 代码页转换，并可能以退出码 `22` 失败。
 
 - 只编译与任务相关的文档；不要为了仓库管理操作重编译历史作业。
 - 报告命令退出码和关键错误。生成的作业 PDF 与中间文件应保持未追踪、被忽略；生成 PDF 不等于数学内容正确。

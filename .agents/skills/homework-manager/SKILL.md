@@ -1,6 +1,6 @@
 ---
 name: homework-manager
-description: "Manage the D:\\程昊一\\Homework Git and LaTeX repository: inspect status, create course or homework scaffolds, sync an assignment, switch branches, finish and merge an assignment, or open related tools. Use for repository-management requests; do not use for solving or editing assignment content unless the user separately asks for that work."
+description: "Manage the D:\\程昊一\\Homework Git and LaTeX repository: inspect status, create or compile homework, sync assignments, switch branches, finish and merge assignments, or open related tools. Use for repository-management and assignment compilation requests; do not use for solving or editing assignment content unless the user separately asks for that work."
 ---
 
 # Homework Manager
@@ -23,6 +23,7 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Statu
 
 - `NewCourse -Course <name>`: create a course directory on updated `main`, commit its `.gitkeep`, and push `main`.
 - `NewHomework -Course <name> -Semester <term> [-Number <n>]`: create `<course>-HW<n>`, copy `homework.sty`, create `<n>.tex`, commit, and push the new branch. Language and course display name default to the latest assignment in that course. Add `-Open` only when the user asked to open VS Code.
+- `Compile [-Course <name>] [-Number <n>]`: compile the selected assignment through a temporary ASCII drive mapping so Windows `latexmk` can handle a repository or course path containing non-ASCII characters. It runs immediately without `-Apply`, preserves logs on failure, and removes only the mapping it created.
 - `Sync`: on a homework branch, stage only its matching assignment directory, create a commit when needed, and push the branch. Supply `-Course` and `-Number` only if the branch name cannot identify the directory.
 - `Switch -Branch <name>`: switch a clean worktree to an existing local branch and pull it with `--ff-only`.
 - `Finish`: push the clean current homework branch, merge it into updated `main`, push `main`, then safely clean up the remote and local homework branch.
@@ -43,6 +44,9 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 NewHo
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Sync
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Sync -Apply
 
+# Compile the assignment associated with the current branch.
+pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Compile
+
 # Preview, then finish the current homework branch after explicit authorization.
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Finish
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Finish -Apply
@@ -52,6 +56,7 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Finis
 
 - Stop on a dirty worktree for course creation, homework creation, switching or finishing. Report the existing paths and let the user decide how to handle them.
 - Stop on missing `origin`, missing course/template, an existing target folder/branch, invalid input, non-fast-forward pull, merge conflict or failed push.
+- For `Compile`, stop on a missing assignment source, missing `latexmk`, no free drive letter from `R:` through `Z:`, or failure to create/remove the temporary mapping. Preserve LaTeX logs and return the compiler's nonzero exit code.
 - If a merge conflicts, the script aborts the merge and returns to the homework branch when possible. Do not improvise conflict resolution unless the user asks.
 - If `main` was merged locally but its push fails, preserve the branch and local merge commit; report the exact state and do not clean up.
 - After a successful `main` push, branch-cleanup failures are warnings. Report that the merge succeeded and name what remains.
