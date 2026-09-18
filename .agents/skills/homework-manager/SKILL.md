@@ -9,11 +9,11 @@ Manage this repository through the deterministic PowerShell dispatcher at `scrip
 
 Map the user's request to exactly one public `Action` and call only the dispatcher. The dispatcher imports `scripts/Homework.Common.psm1` and loads the matching file under `scripts/actions/`; do not execute an action file directly because that bypasses repository initialization and the stable parameter contract.
 
-## Start every request
+## Use proportionate checks
 
-1. Run `Status` and inspect the current branch plus every existing change.
-2. Treat pre-existing changes as user-owned. Do not clean, restore, stage or commit them merely to unblock a workflow.
-3. Identify the exact course, assignment number, semester, branch and requested remote effects. Infer a missing assignment number from the repository; do not infer permission to push, merge or delete a branch.
+Check only what can change the decision or catch a concrete failure. Avoid repeating `Status`, previews, permission explanations, or equivalent read-only commands when their result is already current and unambiguous.
+
+For a mutating request, normally run `Status` once at the start and inspect the current branch plus every existing change. Treat pre-existing changes as user-owned: do not clean, restore, stage or commit them merely to unblock a workflow. Identify the exact course, assignment number, semester, branch, and requested remote effects. Infer a missing assignment number from the repository; do not infer permission to push, merge, or delete a branch. Once the current request explicitly grants a required permission, do not ask for it again unless the scope changes.
 
 ```powershell
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Status
@@ -28,9 +28,11 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Statu
 - `Finish`: push the clean current homework branch, merge it into updated `main`, push `main`, then safely clean up the remote and local homework branch.
 - `Open [-Course <name>] [-Number <n>] -Tool code|explorer|web|desktop`: open a local target or repository tool without changing Git state.
 
-If a request spans multiple actions, execute them in the order implied by the request and re-run `Status` between state-changing actions. Do not combine actions merely for convenience or infer authorization for a later action from an earlier one.
+If a request spans multiple actions, execute them in the order implied by the request. Re-run `Status` between actions only when the preceding result is ambiguous, an external or concurrent change is plausible, a failure occurred, or the next action has a clean-worktree or branch precondition that the preceding output did not establish. Do not add intermediate checks mechanically.
 
-Mutating actions default to preview. Run the preview first and inspect its exact paths and branches. Add `-Apply` only when the current user request explicitly authorizes that action and the preview matches. A request that only asks what would happen, asks for status, or asks for a plan does not authorize `-Apply`. For `Finish`, the user must explicitly request finishing or merging the named/current branch because it pushes `main` and attempts remote branch deletion.
+Mutating actions default to preview, and every `-Apply` invocation prints its plan before changing state. For routine `NewCourse`, `NewHomework`, `Sync`, or `Switch` requests with explicit, unambiguous parameters and all required permissions, invoke `-Apply` directly after the initial state check; a separate preview invocation is optional and should be used only when it could reveal a meaningful mistake. Preview first for inferred or suspicious targets, unclear parameters, or when the user asks to review the plan. For `Finish`, preview first and require an explicit request to finish or merge the named/current branch because it pushes `main` and attempts remote branch deletion.
+
+After mutation, perform one concise final verification when needed to establish the promised outcome. Prefer the action's own success output; add `Status` only when branch, synchronization, or worktree cleanliness is not already established. Do not repeat equivalent Git checks or retry a successful verification without a concrete reason.
 
 ## Examples
 
