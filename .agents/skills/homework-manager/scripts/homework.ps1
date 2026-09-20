@@ -65,7 +65,6 @@ switch ($Action) {
   }
   'NewHomework' {
     if (-not $Course) { throw 'NewHomework requires -Course.' }
-    if (-not $Semester) { throw 'NewHomework requires a single-line -Semester of 100 characters or fewer.' }
     Invoke-HomeworkNewAssignment -Course $Course -Semester $Semester -Number $Number -NumberSpecified $numberSpecified -Language $Language -DisplayCourse $DisplayCourse -Apply:$Apply -Open:$Open
   }
   'Compile' {

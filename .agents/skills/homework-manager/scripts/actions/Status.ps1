@@ -3,6 +3,8 @@ function Invoke-HomeworkStatus {
   Write-Host "Current branch: $(Get-HomeworkCurrentBranch)"
   $remote = Get-HomeworkGitText -Arguments @('remote', 'get-url', 'origin')
   Write-Host "Origin: $remote"
+  $config = Get-HomeworkGlobalConfig
+  Write-Host "Defaults: semester=$($config.Semester); language=$($config.DefaultLanguage)"
   Write-Host 'Courses:'
   foreach ($directory in Get-HomeworkCourseDirectories) {
     $nextNumber = Get-HomeworkNextNumber -CoursePath $directory.FullName

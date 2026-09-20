@@ -9,11 +9,13 @@ Manage this repository through the deterministic PowerShell dispatcher at `scrip
 
 Map the user's request to exactly one public `Action` and call only the dispatcher. The dispatcher imports `scripts/Homework.Common.psm1` and loads the matching file under `scripts/actions/`; do not execute an action file directly because that bypasses repository initialization and the stable parameter contract.
 
+Repository-wide homework defaults are tracked in root `homework.config.json`. It must define a trimmed one-line `semester` and `defaultLanguage` of `zh` or `en`. `NewHomework` uses these when `-Semester` or `-Language` is omitted; explicit arguments override the corresponding default.
+
 ## Start every request
 
 1. Run `Status` and inspect the current branch plus every existing change.
 2. Treat pre-existing changes as user-owned. Do not clean, restore, stage or commit them merely to unblock a workflow.
-3. Identify the exact course, assignment number, semester, branch and requested remote effects. Infer a missing assignment number from the repository; do not infer permission to push, merge or delete a branch.
+3. Identify the exact course, assignment number, semester, branch and requested remote effects. Infer a missing assignment number from the repository and a missing semester/language from `homework.config.json`; do not infer permission to push, merge or delete a branch.
 
 ```powershell
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Status
@@ -22,7 +24,7 @@ pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Statu
 ## Choose the action
 
 - `NewCourse -Course <name>`: create a course directory on updated `main`, commit its `.gitkeep`, and push `main`.
-- `NewHomework -Course <name> -Semester <term> [-Number <n>]`: create `<course>-HW<n>`, copy `homework.sty`, create `<n>.tex`, commit, and push the new branch. Language and course display name default to the latest assignment in that course. Add `-Open` only when the user asked to open VS Code.
+- `NewHomework -Course <name> [-Semester <term>] [-Language auto|zh|en] [-Number <n>]`: create `<course>-HW<n>`, copy `homework.sty`, create `<n>.tex`, commit, and push the new branch. Semester and language default to `homework.config.json`; an explicit language or course display name overrides the matching inferred value. Add `-Open` only when the user asked to open VS Code.
 - `Compile [-Course <name>] [-Number <n>]`: compile the selected assignment through a temporary ASCII drive mapping so Windows `latexmk` can handle a repository or course path containing non-ASCII characters. It runs immediately without `-Apply`, preserves logs on failure, and removes only the mapping it created.
 - `Sync`: on a homework branch, stage only its matching assignment directory, create a commit when needed, and push the branch. Supply `-Course` and `-Number` only if the branch name cannot identify the directory.
 - `Switch -Branch <name>`: switch a clean worktree to an existing local branch and pull it with `--ff-only`.
@@ -36,9 +38,9 @@ Mutating actions default to preview. Run the preview first and inspect its exact
 ## Examples
 
 ```powershell
-# Preview, then perform a new assignment.
-pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 NewHomework -Course Analysis-0 -Semester "2026 秋季"
-pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 NewHomework -Course Analysis-0 -Semester "2026 秋季" -Apply -Open
+# Preview, then perform a new assignment using repository defaults.
+pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 NewHomework -Course Analysis-0
+pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 NewHomework -Course Analysis-0 -Apply -Open
 
 # Preview, then sync only the assignment associated with the current branch.
 pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Sync

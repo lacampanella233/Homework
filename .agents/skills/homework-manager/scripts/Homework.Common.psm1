@@ -133,6 +133,58 @@ function Get-HomeworkNextNumber {
   return $maximum + 1
 }
 
+function Get-HomeworkGlobalConfig {
+  $configPath = Resolve-HomeworkRepoChild -Segments @('homework.config.json')
+  if (-not (Test-Path -LiteralPath $configPath -PathType Leaf)) {
+    throw "Required repository configuration is missing: $configPath"
+  }
+
+  try {
+    $config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json -ErrorAction Stop
+  } catch {
+    throw "Cannot parse $configPath as JSON: $($_.Exception.Message)"
+  }
+
+  $semesterProperty = $config.PSObject.Properties['semester']
+  $languageProperty = $config.PSObject.Properties['defaultLanguage']
+  if ($null -eq $semesterProperty -or $null -eq $languageProperty) {
+    throw "$configPath must define both 'semester' and 'defaultLanguage'."
+  }
+
+  $semester = [string]$semesterProperty.Value
+  if (-not $semester -or $semester -ne $semester.Trim() -or $semester -match '[\r\n]' -or $semester.Length -gt 100) {
+    throw "$configPath property 'semester' must be a trimmed, single-line string of 100 characters or fewer."
+  }
+
+  $defaultLanguage = [string]$languageProperty.Value
+  if ($defaultLanguage -notin @('zh', 'en')) {
+    throw "$configPath property 'defaultLanguage' must be 'zh' or 'en'."
+  }
+
+  return [PSCustomObject]@{
+    Semester = $semester
+    DefaultLanguage = $defaultLanguage
+  }
+}
+
+function Resolve-HomeworkNewAssignmentDefaults {
+  param(
+    [string]$Semester,
+    [ValidateSet('auto', 'zh', 'en')][string]$Language = 'auto'
+  )
+
+  $config = Get-HomeworkGlobalConfig
+  $resolvedSemester = if ($Semester) { $Semester } else { $config.Semester }
+  if ($resolvedSemester -ne $resolvedSemester.Trim() -or $resolvedSemester -match '[\r\n]' -or $resolvedSemester.Length -gt 100) {
+    throw 'NewHomework requires a trimmed, single-line semester of 100 characters or fewer.'
+  }
+
+  return [PSCustomObject]@{
+    Semester = $resolvedSemester
+    Language = if ($Language -eq 'auto') { $config.DefaultLanguage } else { $Language }
+  }
+}
+
 function ConvertTo-HomeworkLatexText {
   param([Parameter(Mandatory = $true)][string]$Value)
 
@@ -292,6 +344,7 @@ Export-ModuleMember -Function @(
   'Get-HomeworkCoursePath',
   'Get-HomeworkCourseProfile',
   'Get-HomeworkCurrentBranch',
+  'Get-HomeworkGlobalConfig',
   'Get-HomeworkGitText',
   'Get-HomeworkNextNumber',
   'Get-HomeworkRepositoryRoot',
@@ -299,6 +352,7 @@ Export-ModuleMember -Function @(
   'Initialize-HomeworkRepository',
   'Invoke-HomeworkGit',
   'Resolve-HomeworkRepoChild',
+  'Resolve-HomeworkNewAssignmentDefaults',
   'Test-HomeworkGitRef',
   'Test-HomeworkTarget',
   'Write-HomeworkPlanHeader'
