@@ -1,0 +1,260 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{Analysis-1}{2026 秋季}{1}
+
+\begin{document}
+
+\begin{problem}
+  证明 $\mathbb{R}$ 是不可数的.
+\end{problem}
+
+\begin{proof}
+	采用反证法. 如果 $\R$ 是可数的, 那么 $\R$ 的子集 
+	\[ A = \left\{ \sum_{n=1}^{\infty} \frac{a_n}{10^{n}} : a_n\in \{0,1\}  \right\} \]
+	也是可数的, 因此可以将这些数排成一个序列 $ \{x_n\} $, 其中 
+	\[ x_n = \sum_{k=1}^{\infty} \frac{a_k^{(n)}}{10^k}, a_k^{(n)}\in \{0,1\} .  \]
+
+	现在, 构造一个新的数:
+	\[ x = \sum_{n=1}^{\infty} \frac{b_n}{10^n},\text{ 其中 } b_n=1-a_n^{(n)}. \]
+	根据定义, $x\in A$. 对于每一个 $n \ge 1$, 均有 $a_n^{(n)}\neq b_n$, 即 $x_n$ 与 $x$ 的十进制小数展开中均有至少一位不相同. 而 $A$ 中的每一个数在 $A$ 内均有唯一的十进制小数展开 (若一个实数有两个不同的十进制小数展开, 那么必定有一个展开为循环节为 $9$ 的混循环小数, 而另一个展开是有限小数), 从而得到了矛盾.
+
+	因此 $A$ 不可数, 从而 $\R$ 不可数.
+\end{proof}
+
+
+
+\begin{problem}
+  (Heine--Borel 定理中的 $(\mathrm{iii})\Rightarrow(\mathrm{i})$)
+  证明: 对于 $K\subseteq\mathbb{R}^n$, 如果 $K$ 中的每个序列都有一个收敛到 $K$ 中某点的子序列, 那么 $K$ 是紧的.
+\end{problem}
+
+\begin{proof}
+	我们将采取 $\mathrm{(iii)\implies (ii) \implies (i)}$ 的路径来证明. 
+
+	(1) 先证明 $K$ 有界. 否则, 对于任意的实数 $r$, $K-B_r(0)\neq\varnothing$. 因此可以取出一个序列 $\{x_n\} \subset K$, 使得 $x_n\in K-B_n(0)$. 若 $\{x_n\}$ 有收敛的子列 $\{x_{n_k}\} $, 设 $\lim_{ k \to \infty } x_{n_k} = x$. 则对于充分大的 $k$, 以下两件事同时成立: 
+	\begin{itemize}
+		\item $n_k>\fl{|x|}+1$, 从而 $x_{n_k}\notin B_{\fl{|x|}+1}(0)$;
+		\item $|x_{n_k}-x|<\fl{|x|}+1-|x|$, 从而 $|x_{n_k}| < \fl{|x|}+1$.
+	\end{itemize}
+	由此得到矛盾.
+
+	(2) 再证明 $K$ 是闭集. 对于 $K$ 的极限点 $x\in\overline{K}$, 存在收敛于 $x$ 的序列 $\{x_n\} \subset K$. 由条件, 此序列存在收敛子列, 并且极限在 $K$ 中. 而 $\{x_n\}$ 本身就是收敛于 $x$ 的序列, 因此 $x\in K$. 因此 $K$ 是闭集.
+
+	(3) 最后证明 $K$ 是紧集. 采用反证法, 即假设存在 $K$ 的一个开覆盖 $\bigcup_\alpha O_\alpha$, 使得其没有有限子覆盖. 由于 $K$ 有界, 因此 $K$ 可以被一个 $\R^n$ 中的闭盒子覆盖: $K\subset \prod_{k=1}^{n} [a_k^{(0)},b_k^{(0)}]$, 其中 $a_k^{(0)}<b_k^{(0)}$. 
+
+	现在, 考虑将盒子在每个坐标方向上二等分, 从而得到 $2^n$ 个子闭盒子. 分别考虑 $K$ 与这些子闭盒子的交集, 记为 $K_1,\dots,K_{2^n}$. 每一个 $K_i$ 仍然是有界且闭的. 由于已经假设了 $K$ 的开覆盖 $\bigcup_\alpha O_\alpha$ 没有有限子覆盖, 因此必然存在某个 $K_i$ 在 $\bigcup_\alpha O_\alpha$ 下没有有限子覆盖 (否则将所有 $K_i$ 的有限子覆盖取并, 就得到了 $K$ 的有限子覆盖). 记 $K_i$ 所在的子闭盒子为 $\prod_{k=1}^{n} [a_k^{(1)},b_k^{(1)}]$, 其中, 
+	\[ [a_k^{(1)},b_k^{(1)}] = \left[a_k^{(0)},\frac{a_k^{(0)}+b_k^{(0)}}{2}\right] \text{ 或 } \left[\frac{a_k^{(0)}+b_k^{(0)}}{2}, b_k^{(0)}\right]. \]
+
+	重复这样的操作, 我们可以得到一系列闭盒子 $\prod_{k=1}^{n} [a_k^{(m)},b_k^{(m)}]$ ($m \geq 0$), 并且 $K\cap \prod_{k=1}^{n} [a_k^{(m)},b_k^{(m)}]$ 在 $\bigcup_\alpha O_\alpha$ 下均没有有限子覆盖.
+
+	对于每一个 $1\le k\le n$, 我们均构造了一个闭区间套 $[a_k^{(0)},b_k^{(0)}] \supset [a_k^{(1)},b_k^{(1)}] \supset [a_k^{(2)},b_k^{(2)}] \supset\dots$, 并且这个闭区间套中的闭区间长度收敛于 $0$, 因此存在唯一的公共元素 $x_k$. 考虑点 $x=(x_1,\dots,x_n)\in \R^n$. 根据构造, 我们可以选取 $x^{(m)}\in K\cap\prod_{k=1}^{n} [a_k^{(m)},b_k^{(m)}]$ (后者显然非空, 否则其有子覆有限盖), 而 $\lim_{ m \to \infty } x^{(m)}=x$, 结合 $K$ 为闭集, 知 $x\in K$. 
+
+	因此, 存在一个开集 $O\in\{O_\alpha\}_\alpha $, 使得 $x\in O$. 而根据开集的性质, 对于足够大的 $m$, 一定有 $\prod_{k=1}^{n} [a_k^{(m)},b_k^{(m)}]\subset O$, 从而
+	\[ \left( \prod_{k=1}^{n} [a_k^{(m)},b_k^{(m)}] \right) \cap K \subset O \in \{O_\alpha\}_\alpha. \]
+	这显然是一个有限的子覆盖, 与构造矛盾.
+
+	综上, $K$ 是紧集, 从而命题得证.
+\end{proof}
+
+
+
+\begin{problem}
+  证明连续映射保持连通性.
+\end{problem}
+
+\begin{proof}
+	设 $E$ 是拓扑空间 $X$ 中的连通集, $f:X\to Y$ 是一个连续映射, 下面证明: $f(E)$ 是连通集.
+
+	考虑 $f$ 在 $E$ 上的限制, 即 $f|_E: E\to f(E)$. 先证明 $f|_E$ 是连续映射. 对于 $f(E)$ 中的开集 $O$, 存在 $Y$ 中的开集 $O'$, 使得 $O=O'\cap f(E)$. 不难验证 $f|_E^{-1}(O) = f^{-1}(O) = f^{-1}(O')\cap E$, 由 $f$ 的连续性知 $f^{-1}(O')$ 是 $X$ 中的开集, 因而 $f|_E^{-1}(O)$ 是 $E$ 中的开集. 因此 $f|_E$ 是连续映射.
+	
+	接下来证明原命题. 采用反证法. 否则, 存在两个 $f(E)$ 中的两个不交的非空开集 $A,B$, 使得 $f(E) = A\cup B$. 则 $E = f|_E^{-1}(A) \cup f|_E^{-1}(B)$, 且后两者为 $E$ 中的不交的非空开集 (否则 $A$ 或 $B$ 为空集), 这与 $E$ 是连通集矛盾. 因此 $f(E)$ 是连通集.
+\end{proof}
+
+
+
+\begin{problem}
+  证明 $\mathbb{R}^2$ 中的开圆盘不能表示为互不相交的开矩形之并.
+\end{problem}
+
+\begin{proof}
+	$\R^2$ 中的开圆盘是道路连通的, 因此是连通的; 而互不相交的开矩形的并或者为一个开矩形, 或者不是连通集, 因此两者不可能相等.
+\end{proof}
+
+
+
+\begin{problem}
+  证明以下命题: 假设
+  \[
+    \lim_{(x,y)\to(x_0,y_0)} f(x,y)=A,
+  \]
+  并假设对于每个充分接近 $x_0$ 且 $x\ne x_0$ 的 $x$, 极限
+  \[
+    \phi(x)=\lim_{y\to y_0} f(x,y)
+  \]
+  存在. 那么 $\lim_{x\to x_0}\phi(x)=A$.
+\end{problem}
+
+\begin{proof}
+	由题目条件, 知对于任意的正实数 $\varepsilon>0$, 存在正实数 $\delta>0$, 使得对于任意的 $(x,y)$ 满足 $(x-x_0)^2+(y-y_0)^2<\delta$, 均有 $\abs{f(x,y)-A} < \varepsilon$, 并且对于 $\abs{x-x_0}<\delta$, $\phi(x)$ 均存在. 
+	
+	则对于固定的 $x'\in (x_0-\delta,x_0)\cup (x_0,x_0+\delta)$ 以及任意满足 $(x'-x_0)^2+(y-y_0)^2<\delta$ 的 $y$, $\abs{f(x',y)-A}<\varepsilon$, 因此 $\phi(x') = \lim_{y \to y_0}f(x',y) \in [A-\varepsilon,A+\varepsilon]$. 由 $\varepsilon$ 的任意性, 可知 $\lim_{x\to x_0}\phi(x)=A$.
+\end{proof}
+
+
+
+\begin{problem}
+  令
+  \[
+    f(x,y)=
+    \begin{cases}
+      \dfrac{x^2y}{x^4+y^2}, & (x,y)\ne(0,0),\\
+      0, & (x,y)=(0,0).
+    \end{cases}
+  \]
+  $f$ 在 $(0,0)$ 处是否分别连续(separately continuous)? $f$ 在 $(0,0)$ 处是否(联合)连续[(jointly) continuous]?
+\end{problem}
+
+\begin{solution}
+	由于对于任意的 $xy=0$, 均有 $f(x,y)=0$, 因此 $f(x,y)$ 是分别连续的.
+
+	而取 $x^2=y$, 则 $f(x,y) = 1/2 \neq f(0,0)$, 因此 $f$ 在 $(0,0)$ 处不连续.
+\end{solution}
+
+
+
+\begin{problem}
+  记 $R=[a,b]\times[c,d]$. 证明以下定理: 假设 $f:R\to\mathbb{R}$ 连续, 并且
+  \[
+    F(t):=\int_a^b f(x,t)\,\mathrm{d}x.
+  \]
+  对每个固定的 $x\in[a,b]$, 将
+  \[
+    g_x(t)=f(x,t)
+  \]
+  视为关于 $t$ 的普通一元函数. 假设每个 $g_x$ 在 $(c,d)$ 上可微, 且函数
+  \[
+    k(x,t)=g_x'(t)
+  \]
+  在 $R$ 上连续. 那么 $F$ 在 $(c,d)$ 上可微, 并且
+  \[
+    F'(t)=\int_a^b k(x,t)\,\mathrm{d}x.
+  \]
+\end{problem}
+
+\begin{proof}
+	由于 $R$ 为紧集, 并且 $k$ 在 $R$ 上连续, 因此 $k$ 是一致连续的, 即对于任意的 $\varepsilon>0$, 存在 $\delta>0$, 使得对于任意的 $x_{1,2}\in [a,b]$ 与 $t_{1,2} \in [c,d]$ 满足 $\abs{x_1-x_2}<\delta$, $\abs{t_1-t_2}<\delta$, 均有 $\abs{k(x_1,t_1) - k(x_2,t_2)}<\varepsilon$. 
+
+	则对于任意的 $t\in (c,d)$, 以及实数 $\delta t \in (-\delta,\delta)$, 并且满足 $t+\delta t \in (c,d)$, 有
+	\[ F(t+\delta t)-F(t) = \int_{a}^{b} (g_x(t+\delta t)-g_x(t))\d x = \int_{a}^{b}\delta t \,k(x,\tau_x) \d x, \]
+	其中 $\tau_x \in [t,t+\delta t]$ 或 $[t+\delta t,t]$. 
+	
+	令 $\delta t \to 0$, 则对于每一个 $x\in[a,b]$, 均有 $\tau_x \to t$. 结合 $k$ 的一致连续性, 知 $F'(t)$ 存在, 且
+	\[ F'(t) = \lim_{\delta t\to 0} \int_{a}^{b} k(x,\tau_x) \d x = \int_{a}^{b} k(x,t) \d x. \]
+\end{proof}
+
+
+
+\begin{problem}
+  设 $f$ 是 $[0,1]$ 上严格为正的连续函数. 求
+  \[
+    I(y)=\int_0^1 \frac{y f(x)}{x^2+y^2}\,\mathrm{d}x
+    \qquad (y\in\mathbb{R})
+  \]
+  的间断点.
+\end{problem}
+
+\begin{solution}
+	我们来证明: $0$ 是 $I(y)$ 唯一的间断点. 由于 $I(y)$ 是奇函数, 我们只考虑 $y\ge 0$ 的情形.
+
+	先证明 $0$ 是 $I(y)$ 的间断点. 显然 $I(0) = 0$. 接下来证明 $\lim_{y\to 0^+} I(y) = (\pi/2)f(0)>0$. 
+
+	由于 $f$ 在 $[0,1]$ 上连续, 因此有界, 设 $M=\max\{\abs{f(x)}: x\in[0,1]\}$. 对于任意的 $\varepsilon>0$, 存在 $\delta>0$ 满足对于任意的 $x\in [0,\delta]$, $\abs{f(x)-f(0)} <\varepsilon$. 则对于充分小的 $y$, 只要满足
+	\[ \arctan\left( \frac{\delta}{y} \right) > \frac{\pi}{2}-\varepsilon, \]
+	就有
+	\begin{align*}
+		I(y)
+		&= \int_{0}^{1}\frac{yf(x)}{x^2+y^2}\d x
+		= \int_{0}^{\delta}\frac{y(f(x)-f(0))}{x^2+y^2}\d x
+		+ f(0) \int_{0}^{\delta} \frac{y}{x^2+y^2}\d x
+		+ \int_{\delta}^{1}\frac{yf(x)}{x^2+y^2}\d x,
+	\end{align*}
+	并且
+	\begin{align*}
+		\abs{\int_{0}^{\delta}\frac{y(f(x)-f(0))}{x^2+y^2}\d x}
+		& \le \varepsilon \int_{0}^{\delta} \frac{y}{x^2+y^2}\d x
+		=\varepsilon \arctan\left( \frac{\delta}{y} \right),\\
+		f(0) \int_{0}^{\delta} \frac{y}{x^2+y^2}\d x 
+		&= f(0) \arctan \left( \frac{\delta}{y} \right), \\
+		\abs{\int_{\delta}^{1}\frac{yf(x)}{x^2+y^2}\d x}
+		&\le M \int_{\delta}^{1} \frac{y}{x^2+y^2}\d x
+		\le \left( \frac{\pi}{2}-\arctan\left( \frac{\delta}{y} \right) \right)M.
+	\end{align*}
+	因此
+	\begin{align*}
+		\abs{I(y) - \frac{\pi}{2}f(0)}
+		&\le \abs{\int_{0}^{\delta}\frac{y(f(x)-f(0))}{x^2+y^2}\d x}
+		+ f(0) \left( \frac{\pi}{2} - \arctan\left( \frac{\delta}{y} \right)  \right)
+		+ \abs{\int_{\delta}^{1}\frac{yf(x)}{x^2+y^2}\d x} \\
+		&\le \varepsilon \arctan\left( \frac{\delta}{y} \right)
+		+ (f(0)+M) \left( \frac{\pi}{2}-\arctan\left( \frac{\delta}{y} \right) \right) \\
+		&\le \varepsilon \left( \frac{\pi}{2} + f(0) + M \right).
+	\end{align*}
+
+结合 $\varepsilon$ 的任意性, 知 $\lim_{y\to 0^+}I(y) = (\pi/2)f(0)$. 由此我们证明了 $0$ 是 $I(y)$ 的间断点. 
+
+下面来证明: 对于任意的 $y_0 > 0$, $y_0$ 均不是 $I(y)$ 的间断点.
+
+取出闭区间 $[a,b] = [y_0/2,2y_0]$. 记 $R = [0,1] \times [a,b]$, 
+\[ g(x,y) = \frac{yf(x)}{x^2+y^2}, \quad \partial_y g(x,y) = \frac{(x^2-y^2)f(x)}{(x^2+y^2)^2}. \]
+由于 $f(x)$ 在 $[0,1]$ 上连续且有界, 并且函数 $y \mapsto y/(x^2+y^2)$ 在 $[a,b]$ 上连续且有界, 因此可以证明 $g(x,y)$ 在 $R$ 上连续. 同理, 可以证明 $\partial_y g(x,y)$ 在 $R$ 上连续. 
+
+因此使用上题的结论, 知 $I(y) = \int_{0}^{1} g(x,y)\d x$ 在 $[a,b]$ 上连续, 因此在 $y=y_0$ 处连续.
+
+综上, $0$ 是 $I(y)$ 唯一的间断点. 
+\end{solution}
+
+
+
+\begin{problem}
+  拓扑空间 $X$ 的子集 $S$ 的内部, 是 $S$ 的所有在 $X$ 中为开集的子集之并. 当 $X=\mathbb{R}^2$ 时, 连通集的内部总是连通的吗? 当 $X=\mathbb{R}$ 时呢? 说明理由.
+\end{problem}
+
+\begin{solution}
+	当 $X=\R^2$ 时, 不一定. 例如, 考虑
+	\[ S = \{(x,y): (x-1)^2+y^2\leq 1\} \cup \{(x,y): (x+1)^2+y^2 \leq 1\}. \]
+	不难验证 $S$ 是道路连通的, 因而是连通的. 但是
+	\[ S^\circ = \{(x,y): (x-1)^2+y^2<1\} \cup \{(x,y): (x+1)^2+y^2<1\}, \]
+	是两个不交的开圆盘的并, 因而不是连通的.
+
+	当 $X=\R$ 时, 一定. 因为 $S$ 连通当且仅当 $S$ 为区间, 而区间的内部仍然是区间, 因此也连通.
+\end{solution}
+
+
+
+\begin{problem}
+  如果拓扑空间 $X$ 的子集 $S$ 在 $X$ 中的闭包等于 $X$, 则称 $S$ 在 $X$ 中稠密. 证明 Baire 范畴定理: 如果 $\{U_n\}_{n=1}^{\infty}$ 是 $\mathbb{R}^n$ 中的一列开稠密子集, 那么 $\bigcap_{n=1}^{\infty}U_n$ 在 $\mathbb{R}^n$ 中稠密. 如果将 $\mathbb{R}^n$ 替换为单位开球 $B_1(0)$, 是否仍有相同结论? 说明理由.
+\end{problem}
+
+\begin{solution}
+	先来证明 Baire 范畴定理. 对于任意的 $x\in \R^n$ 及其任意一个邻域 $B_r(x)$, 我们来证明: 存在 $y\in \left( \bigcap_{n=1}^{\infty} U_n \right) \cap B_r(x) $. 
+
+	由于 $U_1$ 是 $X$ 的稠密子集, 因此存在 $y_1\in B_r(x) \cap U_1$, 并且由于 $B_r(x)$ 与 $U_1$ 均为开集, 因此存在 $y_1$ 的一个邻域 $B_{r_1}(y_1) \subset B_r(x) \cap U_1$. 
+
+	将 $x,B_r(x), U_1$ 替换为 $y_1,B_{r_1/2}(y_1),U_2$ 进行完全相同的操作, 得到 $y_2$ 和 $B_{r_2}(y_2)$, 满足 $B_{r_2}(y_2)\subset B_{r_1/2}(y_1) \cap U_2$, 再结合 $B_{r_1/2}(y_1) \subset B_{r_1}(y_1) \subset B_r(x) \cap U_1$, 知
+	\[ B_{r_2}(y_2) \subset B_r(x) \cap U_1 \cap U_2, \quad \overline{B_{r_2/2}(y_2)} \subset \overline{B_{r_1/2}(y_1)}. \]
+	
+	不断操作下去, 我们可以得到一系列开邻域 $B_{r_1}(y_1) \supset B_{r_2}(y_2) \supset \dots$, 满足对于任意的 $n\ge 1$, 均有
+	\[ B_{r_n}(y_n) \subset B_r(x) \cap \left( \bigcap_{k=1}^{n} U_k \right), \quad \overline{B_{r_n/2}(y_n)} \supset \overline{B_{r_{n+1}/2}(y_{n+1})}. \]
+
+	考虑嵌套的闭球序列 $\overline{B_{r_1/2}(y_1)} \supset \overline{B_{r_2/2}(y_2)} \supset \dots$, 它们的交集非空, 不妨设其中的一点为 $y$. 则对任意的 $n$, 有 $y \in \overline{B_{r_n/2}(y_n)} \subset B_{r_n}(y_n) \subset U_n\cap B_r(x)$, 因此
+	\[ y\in \left( \bigcap_{n=1}^{\infty} U_n \right) \cap B_r(x). \]
+	
+	综上, 我们证明了 Baire 范畴定理.
+
+	如果将 $\R^n$ 替换为 $B_1(0)$, 定理仍然成立. 因为两者之间可以构造同胚: 
+	\[ f: \quad \R^n \to B_1(0),\quad x \mapsto \frac{x}{1+|x|}. \]
+\end{solution}
+
+
+\end{document}
