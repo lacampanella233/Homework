@@ -29,6 +29,8 @@ If the target assignment does not exist, stop and explain that creating it is a 
 - Preserve the wording and structure except for the required translation and punctuation normalization. Do not silently correct apparent typos or mathematical inconsistencies; report them without changing them.
 - Convert Chinese/full-width punctuation in the transcribed prose to the corresponding English/ASCII punctuation. Do not perform blind character replacement inside LaTeX commands or mathematics.
 - Match the target file's local LaTeX conventions when they do not change content: math delimiters, indentation, list labels, unit formatting, and display-math style.
+- For a multi-line centered display, use one `gather*` environment with `\\` between lines; do not use consecutive `\[...\]` blocks. The homework template customizes vertical display spacing, so consecutive display blocks produce unattractively compressed spacing.
+- For bold text inside a `problem` environment, format Chinese runs with `\heiti` and Latin-letter runs with `\textbf`. Split mixed-language bold text by script, for example `{\heiti 反变函子}(\textbf{contravariant functor})`; do not put Chinese text directly in `\textbf`, because this document style renders it as an unattractive bold Kai face.
 - Use semantic LaTeX for text, mathematics, tables, and ordinary lists. Never insert a screenshot of an entire problem merely to avoid transcription.
 - If a symbol or word remains genuinely unreadable after inspecting the highest-quality source, do not guess. Continue with other unambiguous problems when safe and ask the user about the exact unresolved location before inserting fabricated content.
 

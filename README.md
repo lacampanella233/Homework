@@ -12,7 +12,8 @@
  - Git 相关操作: 拉取, 提交, 创建和合并分支等;
  - 新建课程或作业;
  - 录入作业题目;
- - 只读地检查作业.
+ - 解决 `LaTeX` 上的技术困难, 如使用 `TikZ` 绘制示意图等;
+ - 只读地检查作业 (如果没有被列为禁止动作).
 
 若在其他场景使用了 AI, 则会明确指出.
 
@@ -55,6 +56,8 @@
 | `\fl{...}`  | 向下取整            | `\left\lfloor ... \right\rfloor` |
 | `\bo{...}`  | 粗体符号            | `\boldsymbol{...}` |
 | `\transpose`  | 转置符号          | `^\mathrm{T}` |
+| `\Hom`      | 态射集              | `\operatorname{Hom}` |
+| `\id`       | 恒等态射            | `\operatorname{id}` |
 | `\im`       | 线性映射的像空间    | `\operatorname{im}` |
 | `\rank`     | 矩阵的秩            | `\operatorname{rank}` |
 | `\sspan`    | 向量空间的生成子空间 | `\operatorname{span}` |
