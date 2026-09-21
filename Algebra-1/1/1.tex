@@ -207,8 +207,8 @@
 	\end{align*}
 
 	现在来解释 $(\mathcal{C}\op)\op \cong \mathcal{C}$. 将 $\mathcal{C}$ 中的元素 $X$ 与 $(\mathcal{C}\op)\op$ 中的元素 $X$ 对应, 而将 $\mathcal{C}$ 中的态射 $f$ 与 $(\mathcal{C}\op)\op$ 中的态射 $(f\op)\op$ 对应. 则
-	\[ (f\op)\op \circ (g\op)\op = (g\op \circ f\op)\op = ((f\circ g)\op)\op, \quad
-	\id_X^{(\mathcal{C}\op)\op} = (\id_X^{\mathcal{C}\op})\op = (\id_X^{\mathcal{C}\op})\op. \]
+	\[ (g\op)\op \circ (f\op)\op = (f\op \circ g\op)\op = ((g\circ f)\op)\op, \quad
+	\id_X^{(\mathcal{C}\op)\op} = (\id_X^{\mathcal{C}\op})\op = ((\id_X^{\mathcal{C}})\op)\op. \]
 	因此可以认为 $(\mathcal{C}\op)\op \cong \mathcal{C}$.
 
 	由于 $\mathcal{C}$ 中的任意一个态射 $f$ 不一定存在逆态射 $f^{-1}$, 而在上述定义下一定存在 $f\op$, 因此两者不能视为一个概念.
@@ -434,13 +434,13 @@
 	=(H\circ G)(F(X)) = ((H\circ G)\circ F)(X). \]
 	对于 $\mathcal{C}$ 中的态射 $X \xrightarrow{f}Y$, 有
 	\[ (F\circ \id_\mathcal{C}) (f) = F(\id_\mathcal{C}(f)) = F(f),\quad 
-	(\id_\mathcal{D} \circ F)(f) = \id_\mathcal{D}(F(X)) = F(f); \]
+	(\id_\mathcal{D} \circ F)(f) = \id_\mathcal{D}(F(f)) = F(f); \]
 	并且
 	\[ (H\circ(G\circ F))(f) = H((G\circ F)(f)) = H(G(F(f)))
 	=(H\circ G)(F(f)) = ((H\circ G)\circ F)(f). \]
 
 	(c) 对于 $\mathcal{A}$ 的一个对象 $X$, 有 
-	\[ K\op(\id_X^{\mathcal{A}\op}) = K(\id_X^{\mathcal{A}\op}) = \id_{K(X)}^{\mathcal{B}\op}, \]
+	\[ K\op(\id_X\op{}^{\mathcal{A}\op}) = K(\id_X^{\mathcal{A}})\op = (\id_{K(X)}^{\mathcal{B}})\op, \]
 	对于 $\mathcal{A}$ 中的两个态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 有
 	\[ K\op(f\op \circ g\op) = K\op((g\circ f)\op) = K(g\circ f)\op
 	=(K(g) \circ K(f))\op = K(f)\op \circ K(g)\op
@@ -497,8 +497,7 @@
 
 \begin{solution}
 	(a) 若 $f$ 存在左逆, 即若存在 $g: Y \to X$, 使得 $g\circ f = \id_X$, 则对任意的对象 $T$ 和两个态射 $a,b: T\to X$, 若有 $f \circ a = f \circ b$, 则有
-	\[ a = \id_X \circ a = g \circ f \circ a = g \circ f \circ b 
-	\id_X \circ b = b. \]
+	\[ a = \id_X \circ a = g \circ f \circ a = g \circ f \circ b = \id_X \circ b = b. \]
 	因此 $f$ 是单态射. 若 $f$ 存在右逆, 则由类似的讨论可以证明 $f$ 为满态射. 而同构同时存在左逆和右逆, 因此每一个同构都同时为单态射和满态射.
 
 	(b.i) 若 $f,g$ 均为单态射, 则对于任意的态射 $a,b:T\to X$, 有
@@ -555,7 +554,7 @@
 		y, & e \in Y-f(X).
 	\end{cases} \]
 	由 $Y-f(X) \neq \varnothing$, 知 $g_1 \neq g_2$; 而对于任意的 $e\in X$, 由于 $f(e)\in f(X)$, 因此
-	\[ g_2\circ f(e) = x = g_1 \circ f(x), \]
+	\[ g_2\circ f(e) = x = g_1 \circ f(e), \]
 	即 $g_1 \circ f = g_2 \circ f$, 这与 $f$ 为满态射矛盾. 因此 $f$ 为满射.
 
 	``$\impliedby$'': 若 $f$ 为满射, 则 $f$ 存在右逆映射, 从而 $f$ 是满态射.
@@ -564,7 +563,7 @@
 
 	(b) 先证明 $u$ 是单态射. 若存在态射 $a,b$ 使得 $u \circ a = u \circ b$, 则为了使复合有意义, 必须有 $a=b= \id_0$, 因此 $a=b$, 从而 $u$ 是单态射. 同理可以证明 $u$ 是满态射. 但是 $u$ 不是同构, 因为它既没有左逆也没有右逆.
 
-	一般地, 设 $P$ 为一个偏序集, $\mathcal{C}_P$ 为其对应的范畴. 对于每一个态射 $f: X\to Y$, 若存在两个态射 $g_1,g_2: T \to X$, 使得 $f \circ g_1 = f\circ g_2$, 则由于 $\Hom_{\mathcal{C}_P}(T,X)$ 中只有一个元素, 因此必定有 $g_1 = g_2$, 从而 $f$ 是单态射. 同理, $f$ 为满态射. 但是 $f$ 不是同构, 因为它既没有左逆也没有右逆.
+	一般地, 设 $P$ 为一个偏序集, $\mathcal{C}_P$ 为其对应的范畴. 对于每一个态射 $f: X\to Y$, 若存在两个态射 $g_1,g_2: T \to X$, 使得 $f \circ g_1 = f\circ g_2$, 则由于 $\Hom_{\mathcal{C}_P}(T,X)$ 中至多只有一个元素, 因此必定有 $g_1 = g_2$, 从而 $f$ 是单态射. 同理, $f$ 为满态射. 
 
 	这不与 (a) 中的结论矛盾, 因为显然对于任意的偏序集 $P$, $\mathcal{C}_P$ 均不与 $\mathbf{Set}$ 同构, 因为 $\mathcal{C}_P$ 中任意两个对象之间至多只有一个态射, 而 $\mathbf{Set}$ 中的两个对象之间可以有多于一个态射.
 \end{solution}
@@ -585,7 +584,7 @@
         \Hom_{\mathcal C}(Y,A)\longrightarrow\Hom_{\mathcal C}(X,A),\qquad
         v\longmapsto v\circ f.
       \]
-      验证前者是协变函子, 后者给出从 $\mathcal C$ 到 $\mathbf{Set}$ 的反变函子. 这两种作用分别称为后复合(postcomposition)和预复合(precomposition).
+      验证前者是协变函子, 后者给出从 $\mathcal C$ 到 $\mathbf{Set}$ 的反变函子. 这两种作用分别称为后复合 (postcomposition) 和预复合 (precomposition) .
 
     \item[(b)] 给定 $f:X\to Y$, 对每个对象 $T$, 记
       \[
@@ -606,7 +605,50 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	(a) 简记 $\Hom_{\mathcal{C}}(A,\cdot) = F$, $\Hom_{\mathcal{C}}(\cdot,A) = G$. 我们给出 $F, G$ 的具体定义: 
 
+	$F: \mathcal{C} \to \mathbf{Set}$, 满足对于 $\mathcal{C}$ 的任意对象 $X$, 以及任意态射 $f: X\to Y$, 定义 $F(X) := \Hom_{\mathcal{C}}(A,X)$, 并且
+	\[ F(f): \Hom_{\mathcal C}(A,X) \to \Hom_{\mathcal C}(A,Y),\quad u\mapsto f\circ u. \]
+
+	$G: \mathcal{C}\op \to \mathbf{Set}$, 满足对于 $\mathcal{C}\op$ 的任意对象 $X$ 以及任意态射 $f\op: Y\to X$, 定义 $G(X) := \Hom_{\mathcal{C}}(X,A)$, 并且
+	\[ G(f\op): \Hom_{\mathcal{C}}(Y,A) \to \Hom_{\mathcal{C}}(X,A), \quad u \mapsto u \circ f. \]
+
+	现在来验证 $F$ 是协变函子. 首先, 对于 $\mathcal{C}$ 中的恒等态射 $\id_X$, 根据 $F$ 的定义, 
+	\[ F(\id_X^{\mathcal{C}}): \Hom_{\mathcal{C}}(A,X) \to \Hom_{\mathcal{C}}(A,X), \quad u \mapsto \id_X \circ u = u = \id_{F(X)}^{\mathbf{Set}}(u). \]
+	因此 $F(\id_X^{\mathcal{C}}) = \id_{F(X)}^{\mathbf{Set}}$.
+
+	其次, 对于 $\mathcal{C}$ 中的态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 有
+	\begin{align*}
+		F(g\circ f): 
+		&\Hom_{\mathcal{C}}(A,X) \to \Hom_{\mathcal{C}}(A,Z), \\
+		&u \mapsto g \circ f \circ u = g \circ F(f)(u) = F(g)[F(f)(u)] = (F(g) \circ F(f))(u). 
+	\end{align*}
+
+	因此 $F(g\circ f) = F(g) \circ F(f)$.
+
+	再来验证 $G$ 是 $\mathcal{C}$ 到 $\mathbf{Set}$ 的逆变函子. 首先, 对于 $\mathcal{C}\op$ 中的恒等态射 $\id_X\op = \id_X$, 有
+	\[ G(\id_X\op{}^{\mathcal{C}\op}): \Hom_{\mathcal{C}}(X,A) \to \Hom_{\mathcal{C}}(X,A), \quad u \mapsto u \circ \id_X\op = u = \id_{G(X)}^{\mathbf{Set}}(u). \]
+	因此 $G(\id_X\op) = \id_{G(X)}^{\mathbf{Set}}$.
+
+	其次, 对于 $\mathcal{C}\op$ 中的态射 $Z \xrightarrow{g\op} Y \xrightarrow{f\op} X$, 有
+	\begin{align*}
+		G(f\op \circ g\op): 
+		&\Hom_{\mathcal{C}}(Z,A) \to \Hom_{\mathcal{C}}(X,A), \\
+		&u \mapsto u \circ (f\op \circ g\op)\op = u \circ g \circ f \\
+		&\qquad =(G(g\op)(u)) \circ f = G(f\op)[G(g\op)(u)] =(G(f\op) \circ G(g\op))(u).
+	\end{align*}
+	因此 $G(f\op \circ g\op) = G(f\op) \circ G(g\op)$.
+
+	(b) 先证明第一个命题, 即 $f$ 是单态射 $\Leftrightarrow$ $f_{*,T}$ 对每一个 $T$ 都是单射. 事实上,
+	\[ \begin{array}{cc}
+		 & f \text{ 为单态射} \\
+		\Leftrightarrow & \forall\ a,b: T \to X, \quad (f \circ a = f \circ b \implies a = b) \\
+		\Leftrightarrow & \forall\ a,b: T \to X, \quad (f_{*,T}(a) = f_{*,T}(b) \implies a = b) \\
+		\Leftrightarrow & f_{*,T} \text{ 为单射}.
+	\end{array} \]
+	第二个命题的证明与之同理.
+\end{solution}
 
 
 
@@ -632,5 +674,29 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	(a) 设 $\mathcal{C}$ 中的态射 $f: X\to Y$ 是同构, 即存在 $f^{-1}: Y\to X$, 满足 $f \circ f^{-1} = \id_Y$, $f^{-1} \circ f = \id_X$.
+
+	注意到
+	\begin{gather*}
+		F(f) \circ F(f^{-1}) = F(f \circ f^{-1}) = F(\id_Y^{\mathcal{C}}) = \id_{F(Y)}^{\mathcal{D}}, \\
+		F(f^{-1}) \circ F(f) = F(f^{-1} \circ f) = F(\id_X^{\mathcal{C}}) = \id_{F(X)}^{\mathcal{D}}.
+	\end{gather*}
+	上面的结果表明 $F(f^{-1})$ 是 $F(f)$ 的逆态射, 因此 $F(f)$ 仍然是同构, 并且 $F(f)^{-1} = F(f^{-1})$.
+
+	(b) 由于 $F$ 此时为忠实函子, 因此对于 $\mathcal{D}$ 中的态射 $f$, 只要它在 $\mathcal{C}$ 中有``原像'', 那么 $F^{-1}(f)$ 是有意义的. 取定 $\mathcal{C}$ 中的态射 $f:X\to Y$. 注意到 (我们默认式子中出现的表达式都是有意义的) 
+	\[ \begin{array}{cc}
+		 & F(f) \text{ 是单态射} \\
+		\implies & \forall\ a,b: T\to F(X), \quad 
+		(F(f) \circ a = F(f) \circ b \implies a = b) \\
+		\implies & \forall\ a,b: T\to F(X), \quad 
+		(f \circ F^{-1}(a) = f \circ F^{-1}(b) \implies F^{-1}(a) = F^{-1}(b)) \\
+		\implies & \forall\ a',b': F^{-1}(T)\to X, \quad 
+		(f \circ a' = f \circ b' \implies a' = b') \\
+		\implies & f \text{ 为单态射}.
+	\end{array} \]
+
+	第二个命题的证明与之同理.
+\end{solution}
 
 \end{document}
