@@ -5,6 +5,8 @@
 
 \config{Algebra-1}{2026 秋季}{1}
 
+\newcommand{\op}{^{\mathrm{op}}}
+
 \begin{document}
 
 \textbf{我承诺, 本次作业的完成没有使用大语言模型. }
@@ -159,20 +161,20 @@
   {\heiti 相反范畴}(\textbf{opposite category}){\heiti 与群胚核心}(\textbf{groupoid core}).
 
   \begin{enumerate}
-    \item[(a)] 对范畴 $\mathcal C$, 定义 $\mathcal C^{\mathrm{op}}$ 的对象与 $\mathcal C$ 相同, 并令
+    \item[(a)] 对范畴 $\mathcal C$, 定义 $\mathcal C\op$ 的对象与 $\mathcal C$ 相同, 并令
       \[
-        \Hom_{\mathcal C^{\mathrm{op}}}(X,Y)=\Hom_{\mathcal C}(Y,X).
+        \Hom_{\mathcal C\op}(X,Y)=\Hom_{\mathcal C}(Y,X).
       \]
-      将 $f:X\to Y$ 对应的态射记为 $f^{\mathrm{op}}:Y\to X$. 对于 $\mathcal C$ 中的 $X\xrightarrow{f}Y\xrightarrow{g}Z$, 规定
+      将 $f:X\to Y$ 对应的态射记为 $f\op:Y\to X$. 对于 $\mathcal C$ 中的 $X\xrightarrow{f}Y\xrightarrow{g}Z$, 规定
       \[
-        f^{\mathrm{op}}\circ g^{\mathrm{op}}=(g\circ f)^{\mathrm{op}},\qquad
-        \id^{\mathcal C^{\mathrm{op}}}_X=(\id^{\mathcal C}_X)^{\mathrm{op}}.
+        f\op\circ g\op=(g\circ f)\op,\qquad
+        \id^{\mathcal C\op}_X=(\id^{\mathcal C}_X)\op.
       \]
       验证这些数据定义一个范畴, 并写出
       \[
-        (\mathcal C^{\mathrm{op}})^{\mathrm{op}}\cong\mathcal C
+        (\mathcal C\op)\op\cong\mathcal C
       \]
-      在对象和态射上的对应. 解释为什么 $f^{\mathrm{op}}$ 与 $f^{-1}$ 不是同一个概念.
+      在对象和态射上的对应. 解释为什么 $f\op$ 与 $f^{-1}$ 不是同一个概念.
 
     \item[(b)] 定义 $\mathcal C^{\simeq}$ 的对象与 $\mathcal C$ 相同, 并令
       \[
@@ -181,6 +183,44 @@
       其中右端是从 $X$ 到 $Y$ 的所有同构组成的集合; 复合与恒等态射继承自 $\mathcal C$. 验证 $\mathcal C^{\simeq}$ 是群胚. 进一步证明, 对任意对象 $X$, $\operatorname{Aut}_{\mathcal C}(X)$ 在复合运算下是一个群(group); 这里不需要假设 $\mathcal C$ 本身是群胚.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	(a) 先验证 $\mathcal{C}\op$ 构成一个范畴. 
+
+	对于每一个 $\mathcal{C}\op$ 中的对象 $X$, 按照上面的定义, 其恒等态射 $\id_X^{\mathcal{C}\op} = (\id_{X}^{\mathcal{C}})\op$ 存在; 两个态射的复合也由上面定义; 结合律由下面的计算验证: 对于 $\mathcal{C}$ 中的 $X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} W$,
+	\begin{align*}
+		(f\op \circ g\op) \circ h\op
+		&= (g \circ f)\op \circ h\op
+		= (h\circ (g\circ f))\op \\
+		&= ((h\circ g) \circ f)\op 
+		= f\op \circ (h\circ g)\op 
+		= f\op \circ (g\op \circ h\op).
+	\end{align*}
+	恒等态射的性质由下面的计算验证: 对于 $f \in \Hom_{\mathcal{C}}(X,Y)$, 
+	\begin{align*}
+		f\op \circ \id_Y^{\mathcal{C}\op}
+		&= (\id_Y^{\mathcal{C}} \circ f)\op
+		= f\op, \\
+		\id_X^{\mathcal{C}\op} \circ f\op
+		&= (f \circ \id_X^{\mathcal{C}}) \op
+		=f\op.
+	\end{align*}
+
+	现在来解释 $(\mathcal{C}\op)\op \cong \mathcal{C}$. 将 $\mathcal{C}$ 中的元素 $X$ 与 $(\mathcal{C}\op)\op$ 中的元素 $X$ 对应, 而将 $\mathcal{C}$ 中的态射 $f$ 与 $(\mathcal{C}\op)\op$ 中的态射 $(f\op)\op$ 对应. 则
+	\[ (f\op)\op \circ (g\op)\op = (g\op \circ f\op)\op = ((f\circ g)\op)\op, \quad
+	\id_X^{(\mathcal{C}\op)\op} = (\id_X^{\mathcal{C}\op})\op = (\id_X^{\mathcal{C}\op})\op. \]
+	因此可以认为 $(\mathcal{C}\op)\op \cong \mathcal{C}$.
+
+	由于 $\mathcal{C}$ 中的任意一个态射 $f$ 不一定存在逆态射 $f^{-1}$, 而在上述定义下一定存在 $f\op$, 因此两者不能视为一个概念.
+
+	(b) 先验证 $C^{\simeq}$ 是一个群胚. 由于在定义中 $\mathcal{C}^{\simeq}$ 中的所有态射均为同构, 因此只需要验证 $\mathcal{C}^{\simeq}$ 构成一个范畴.
+
+	对于任意的对象 $X$, 其恒等态射 $\id_X$ 是同构, 因此 $\id_X \in \operatorname{Isom}_{\mathcal{C}}(X,X) = \Hom_{\mathcal{C}^{\simeq}}(X,X)$, 因此 $\mathcal{C}^{\simeq}$ 中的任意对象存在恒等态射; 而对于 $\mathcal{C}^{\simeq}$ 中的 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 由 $(g\circ f)^{-1} = f^{-1} \circ g^{-1}$, 知 $g\circ f$ 在 $\mathcal{C}$ 中是同构, 因此是 $\mathcal{C}^{\simeq}$ 中的态射. 这说明 $\mathcal{C}^{\simeq}$ 中的任意两个态射都存在复合. 因此 $\mathcal{C}^{\simeq}$ 构成一个范畴, 从而是一个群胚.
+
+	下面来验证 $\Aut_\mathcal{C} (X)$ 构成一个群. 单位元 $\id_X$ 存在, 并且满足对于任意的 $f\in \Aut_{\mathcal{C}}(X)$, $f\circ \id_X = \id_X \circ f = f$; 对于任意的 $f,g\in \Aut_\mathcal{C}(X)$, 其复合 $g\circ f \in \Aut_{\mathcal{C}}(X)$, 并且满足结合律; 对于任意的 $f\in \Aut_{\mathcal{C}}(X)$, 由于其为同构, 因此存在逆态射 $f^{-1}\in \Aut_{\mathcal{C}}(X)$, 并且满足 $f \circ f^{-1} = f^{-1} \circ f = \id_X$. 因此 $\Aut_{\mathcal{C}}(X)$ 构成一个群. 
+\end{solution}
+
+
 
 \begin{problem}
   {\heiti 切片范畴、余切片范畴与对偶}(\textbf{duality}). 固定范畴 $\mathcal C$ 中的对象 $A$.
@@ -204,11 +244,52 @@
 
     \item[(c)] (选做)尝试想象有如下结果, 如何理解和严谨的定义和说明:
       \[
-        (\mathcal C/A)^{\mathrm{op}}\cong A/\mathcal C^{\mathrm{op}},\qquad
-        (A/\mathcal C)^{\mathrm{op}}\cong\mathcal C^{\mathrm{op}}/A.
+        (\mathcal C/A)\op\cong A/\mathcal C\op,\qquad
+        (A/\mathcal C)\op\cong\mathcal C\op/A.
       \]
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	(a) 事实上, 由 (c) 中的结果, 只需要考虑切片范畴 $\mathcal{C}/A$.
+
+	对于 $p\in \Hom_{\mathcal{C}}(X,A)$, 定义其恒等态射
+	\[ \id_p^{\mathcal{C}/A} = \id_X^{\mathcal{C}}. \]
+	对于 $\mathcal{C}/A$ 中的 $p \xrightarrow{u} q \xrightarrow{v} r$, 定义 $u,v$ 在 $\mathcal{C}/A$ 中的复合即为 $\mathcal{C}$ 中的复合.下面来验证范畴公理.
+
+	先验证恒等态射是被正确定义的. 给定 $\mathcal{C}/A$ 的对象 $p\in \Hom_{\mathcal{C}}(X,A)$ 与 $q\in \Hom_{\mathcal{C}}(Y,A)$. 对于任意的 $u \in \Hom_{\mathcal{C}/A}(p,q)$ 以及 $v \in \Hom_{\mathcal{C}/A}(q,p)$, 根据复合的定义, 有
+	\[ u \circ \id_p^{\mathcal{C}/A} = u \circ \id_X^{\mathcal{C}} = u,\quad
+	\id_p^{\mathcal{C}/A} \circ v = \id_Y^{\mathcal{C}} \circ v = v. \]
+	因此 $\mathcal{C}/A$ 中的恒等态射是被正确定义的. 
+
+	再验证复合满足交换条件. 对于 $\mathcal{C}/A$ 的对象 $p\in \Hom_\mathcal{C} (X,A)$, $q\in \Hom_\mathcal{C} (Y,A)$ 与 $r\in \Hom_{\mathcal{C}}(Z,A)$, 取出 $\mathcal{C}/A$ 的三个态射 $p \xrightarrow{u} q \xrightarrow{v} r$. 则 $q \circ u = p$, $r \circ v = q$, 因此
+	\[ r \circ (v \circ u) = (r \circ v) \circ u = q \circ u =p. \]
+	从而 $v\circ u \in \Hom_{\mathcal{C}/A}(p,r)$. 
+
+	接下来验证结合律. 对于 $\mathcal{C}/A$ 中的三个态射 $p \xrightarrow{u} q \xrightarrow{v} r \xrightarrow{w} s$, 由于它们在 $\mathcal{C}/A$ 中的复合即为在 $\mathcal{C}$ 中的复合, 因此结合律自然成立.
+
+	(b) $\Hom_{\mathbf{Set}/A}(p,q)$ 中有两个态射: 
+	\[ 
+		\begin{array}{c|ccc}
+			& 1 & 2 & 3 \\ \hline
+			f_1(\cdot) & u & u & v \\
+			f_2(\cdot) & u & u & w
+		\end{array}
+	\]
+	不难验证 $q \circ f_{1,2} = p$. 
+
+	对象 $p,q$ 不是同构的, 因为上面给出的 $f_1$ 与 $f_2$ 都没有逆态射. 而集合 $X$ 与 $Y$ 是同构的, 因为 $|X| = |Y| = 3$. 
+
+	(c) 先来说明第一个同构关系, 即 $(\mathcal{C}/A)\op \cong A/\mathcal{C}\op$. 对于 $\mathcal{C}/A$ 中的一个对象 $p \in \Hom_{\mathcal{C}}(X,A)$, 将它与 $A/\mathcal{C}\op$ 中的对象 $p\op \in \Hom_{\mathcal{C}\op}(A,X)$ 对应; 对于 $\mathcal{C}/A$ 中的态射 $f \in \Hom_{\mathcal{C}/A} (p,q)$, 将它与 $A/\mathcal{C}\op$ 中的态射 $f\op \in \Hom_{A/\mathcal{C}\op}(q\op,p\op)$ 对应. 这样的定义满足所要求的交换关系, 因为若 $q \circ f = p$, 则 $f\op \circ q\op = p\op$, 即 $f\op \in \Hom_{A/\mathcal{C}\op}(q\op,p\op)$.
+
+	对于第二个同构关系, 注意到可以直接使用第一个同构关系, 结合 $(\mathcal{C}\op)\op \cong \mathcal{C}$ 来证明: 
+	\[ (A/\mathcal{C})\op 
+	\cong (A/(\mathcal{C}\op)\op)\op
+	\cong ((\mathcal{C}\op/A)\op)\op
+	\cong \mathcal{C}\op/A. \]
+\end{solution}
+
+
 
 \begin{problem}
   {\heiti 反变函子}(\textbf{contravariant functor}){\heiti 的定义与集合上的例子}. 定义. 从范畴 $\mathcal C$ 到范畴 $\mathcal D$ 的一个反变函子 $F$ 由以下数据组成: 对每个对象 $X\in\operatorname{Ob}(\mathcal C)$, 指定对象 $F(X)\in\operatorname{Ob}(\mathcal D)$; 对每对对象 $X,Y$, 指定集合映射
@@ -228,22 +309,22 @@
   \begin{enumerate}
     \item[(a)] 证明: 给出上述意义下的反变函子, 等价于给出一个协变函子
       \[
-        \widetilde F:\mathcal C^{\mathrm{op}}\longrightarrow\mathcal D,
+        \widetilde F:\mathcal C\op\longrightarrow\mathcal D,
       \]
-      其中 $\widetilde F(X)=F(X)$, $\widetilde F(f^{\mathrm{op}})=F(f)$. 逐项比较两种表述中的恒等态射公理和复合公理.
+      其中 $\widetilde F(X)=F(X)$, $\widetilde F(f\op)=F(f)$. 逐项比较两种表述中的恒等态射公理和复合公理.
 
     \item[(b)] 对集合 $X$, 记其幂集(power set)为 $\mathcal P(X)$. 对映射 $f:X\to Y$, 用逆像(inverse image)定义
       \[
-        \mathcal P^*(f^{\mathrm{op}}):\mathcal P(Y)\longrightarrow\mathcal P(X),\qquad
+        \mathcal P^*(f\op):\mathcal P(Y)\longrightarrow\mathcal P(X),\qquad
         B\longmapsto f^{-1}(B).
       \]
-      证明这定义一个函子 $\mathcal P^*:\mathbf{Set}^{\mathrm{op}}\to\mathbf{Set}$, 即从 $\mathbf{Set}$ 到 $\mathbf{Set}$ 的一个反变函子.
+      证明这定义一个函子 $\mathcal P^*:\mathbf{Set}\op\to\mathbf{Set}$, 即从 $\mathbf{Set}$ 到 $\mathbf{Set}$ 的一个反变函子.
 
       具体取
       \[
         X=\{1,2,3\},\qquad Y=\{a,b\},\qquad f(1)=f(2)=a,\quad f(3)=b.
       \]
-      计算 $\mathcal P^*(f^{\mathrm{op}})$ 在 $\mathcal P(Y)$ 的每个元素上的值.
+      计算 $\mathcal P^*(f\op)$ 在 $\mathcal P(Y)$ 的每个元素上的值.
 
     \item[(c)] 同样的对象赋值 $X\mapsto\mathcal P(X)$, 配上直接像(direct image)映射
       \[
@@ -252,6 +333,46 @@
       是否定义一个协变函子 $\mathcal P_*:\mathbf{Set}\to\mathbf{Set}$? 验证你的结论.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	(a) 先比较两种表述中的恒等态射公理. 对于 $\mathcal{C}$ 的对象 $X$, 有
+	\[ F(\id_X) = \id_{F(X)} \Longleftrightarrow \tilde{F}(\id_X\op) = F(\id_X) = \id_{F(X)} = \id_{\tilde{F}(X)}. \]
+	再比较复合公理. 对于 $\mathcal{C}$ 中的两个态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 我们有
+	\begin{gather*}
+		F(g\circ f) = F(f) \circ F(g) \\
+		\Longleftrightarrow \\
+		\tilde{F}(f\op \circ g\op) 
+		= \tilde{F}((g\circ f)\op) 
+		= F(g\circ f) = F(f) \circ F(g)
+		=\tilde{F}(f\op) \circ \tilde{F}(g\op).
+	\end{gather*}
+
+	(b) 我们来验证 $\mathcal{P}^*$ 满足反变函子的两条公理. 对于 $\id_X^{\mathbf{Set}}$, 我们有
+	\[ \mathcal{P}^*(\id_X^{\mathbf{Set}\op}): \mathcal{P}(X) \to \mathcal{P}(X), \quad B \mapsto (\id_X)^{-1}(B) = B = \id_{\mathcal{P}(X)} (B). \]
+	因此 $\mathcal{P}^*(\id_X^{\mathbf{Set}\op}) = \id_{\mathcal{P}(X)}$. 
+
+	对于 $\mathbf{Set}$ 中的态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 根据定义, 
+	\[ \mathcal{P}^*(f\op \circ g\op) = \mathcal{P}^*((g\circ f)\op) = (g \circ f)^{-1} = f^{-1} \circ g^{-1} = \mathcal{P}^*(f\op) \circ \mathcal{P}^*(g\op). \]
+
+	因此 $\mathcal{P}^*$ 给出了 $\mathbf{Set}\op \to \mathbf{Set}$ 的一个协变函子. 
+
+	对于题目中给出的例子, 计算如下: 
+	\[ \begin{array}{c|cccc}
+		 B & \varnothing & \{a\} & \{b\} & \{a,b\} \\ \hline
+		 \mathcal{P}^*(f\op)(B) & \varnothing & \{1,2\} & \{3\} &\{1,2,3\}
+	\end{array} \]
+
+	(c) 我们来验证 $\mathcal{P}_*$ 满足协变函子的公理. 对于一个集合 $X$, 我们有
+	\[ \mathcal{P}_*(\id_X): \mathcal{P}(X) \to \mathcal{P}(X), \quad B \mapsto \id_X(B) = B = \id_{\mathcal{P}_*(X)}(B), \]
+	因此 $\mathcal{P}_*(\id_X) = \id_{\mathcal{P}_*(X)}$. 
+
+	对于集合之间的映射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 我们有
+	\[ \mathcal{P}_*(g\circ f) = g \circ f = \mathcal{P}_*(g) \circ \mathcal{P}_*(f). \]
+
+	因此 $\mathcal{P}_*: \mathbf{Set} \to \mathbf{Set}$ 是一个协变函子.
+\end{solution}
+
+
 
 \begin{problem}
   {\heiti 函子的复合}(\textbf{composition of functors}).
@@ -280,23 +401,62 @@
 
     \item[(c)] (选做)对任意协变函子 $K:\mathcal A\to\mathcal B$, 定义相反函子(opposite functor)
       \[
-        K^{\mathrm{op}}:\mathcal A^{\mathrm{op}}\longrightarrow\mathcal B^{\mathrm{op}},\qquad
-        K^{\mathrm{op}}(X)=K(X),\qquad K^{\mathrm{op}}(u^{\mathrm{op}})=K(u)^{\mathrm{op}}.
+        K\op:\mathcal A\op\longrightarrow\mathcal B\op,\qquad
+        K\op(X)=K(X),\qquad K\op(u\op)=K(u)\op.
       \]
-      验证 $K^{\mathrm{op}}$ 是函子.
+      验证 $K\op$ 是函子.
 
-      利用这一构造, 检查下表中各个复合的定义域(domain)与陪域(codomain), 并验证其函子公理. 将 $(\mathcal C^{\mathrm{op}})^{\mathrm{op}}$ 与 $\mathcal C$ 按第 3 题的对应识别.
+      利用这一构造, 检查下表中各个复合的定义域(domain)与陪域(codomain), 并验证其函子公理. 将 $(\mathcal C\op)\op$ 与 $\mathcal C$ 按第 3 题的对应识别.
       \[
         \begin{array}{c|c|c}
           F & G & \text{合法的复合}\\ \hline
-          F:\mathcal C^{\mathrm{op}}\to\mathcal D & G:\mathcal D\to\mathcal E & G\circ F:\mathcal C^{\mathrm{op}}\to\mathcal E\\
-          F:\mathcal C\to\mathcal D & G:\mathcal D^{\mathrm{op}}\to\mathcal E & G\circ F^{\mathrm{op}}:\mathcal C^{\mathrm{op}}\to\mathcal E\\
-          F:\mathcal C^{\mathrm{op}}\to\mathcal D & G:\mathcal D^{\mathrm{op}}\to\mathcal E & G\circ F^{\mathrm{op}}:\mathcal C\to\mathcal E
+          F:\mathcal C\op\to\mathcal D & G:\mathcal D\to\mathcal E & G\circ F:\mathcal C\op\to\mathcal E\\
+          F:\mathcal C\to\mathcal D & G:\mathcal D\op\to\mathcal E & G\circ F\op:\mathcal C\op\to\mathcal E\\
+          F:\mathcal C\op\to\mathcal D & G:\mathcal D\op\to\mathcal E & G\circ F\op:\mathcal C\to\mathcal E
         \end{array}
       \]
       相对于原范畴 $\mathcal C$, 分别指出所得作用是协变(covariant)还是反变(contravariant). 特别解释: ``两个反变作用复合得到协变作用''应当如何用普通函子的复合严格表述.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	(a) 我们来验证 $G\circ F$ 满足函子的两条公理: 对于 $\mathcal{C}$ 中的对象 $X$, 
+	\[ (G\circ F)(\id_X) = G(F(\id_X)) = G(\id_{F(X)}) = \id_{G(F(X))} = \id_{(G\circ F)(X)}. \]
+	对于 $\mathcal{C}$ 中的态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$,
+	\[ (G\circ F)(g\circ f) = G(F(g\circ f)) = G(F(g) \circ F(f))
+	= G(F(g)) \circ G(F(f)) = (G\circ F)(g) \circ (G\circ F)(f). \]
+
+	(b) 对于 $\mathcal{C}$ 的一个对象 $X$, 有
+	\[ (F\circ \id_\mathcal{C}) (X) = F(\id_\mathcal{C}(X)) = F(X),\quad 
+	(\id_\mathcal{D} \circ F)(X) = \id_\mathcal{D}(F(X)) = F(X); \]
+	并且
+	\[ (H\circ(G\circ F))(X) = H((G\circ F)(X)) = H(G(F(X)))
+	=(H\circ G)(F(X)) = ((H\circ G)\circ F)(X). \]
+	对于 $\mathcal{C}$ 中的态射 $X \xrightarrow{f}Y$, 有
+	\[ (F\circ \id_\mathcal{C}) (f) = F(\id_\mathcal{C}(f)) = F(f),\quad 
+	(\id_\mathcal{D} \circ F)(f) = \id_\mathcal{D}(F(X)) = F(f); \]
+	并且
+	\[ (H\circ(G\circ F))(f) = H((G\circ F)(f)) = H(G(F(f)))
+	=(H\circ G)(F(f)) = ((H\circ G)\circ F)(f). \]
+
+	(c) 对于 $\mathcal{A}$ 的一个对象 $X$, 有 
+	\[ K\op(\id_X^{\mathcal{A}\op}) = K(\id_X^{\mathcal{A}\op}) = \id_{K(X)}^{\mathcal{B}\op}, \]
+	对于 $\mathcal{A}$ 中的两个态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 有
+	\[ K\op(f\op \circ g\op) = K\op((g\circ f)\op) = K(g\circ f)\op
+	=(K(g) \circ K(f))\op = K(f)\op \circ K(g)\op
+	=K\op(f\op)\circ K\op(g\op). \]
+	因此 $K\op$ 是函子.
+
+	接下来, 我们来验证表格中的每一个函子的复合都是合法的. 
+
+	第一个复合为 $\mathcal{C}\op \xrightarrow{F} \mathcal{D} \xrightarrow{G} \mathcal{E}$, 其中 $F$ 的陪域等于 $G$ 的定义域, 合法; 
+	第二个复合为 $\mathcal{C}\op \xrightarrow{F\op} \mathcal{D}\op \xrightarrow{G} \mathcal{E}$, 由相反范畴的构造, $F\op$ 的陪域与 $G$ 的定义域均为 $\mathcal{D}\op$, 故为合法复合;
+	第三个复合为 $\mathcal{C} \xrightarrow{F\op} \mathcal{D}\op \xrightarrow{G} \mathcal{E}$, 由相反范畴的构造, $F\op$ 的陪域与 $G$ 的定义域均为 $\mathcal{D}\op$, 故为合法复合.
+
+	从复合函子的定义域来看, 前两个复合函子相对于 $\mathcal{C}$ 为逆变函子, 而第三个符合函子相对于 $\mathcal{C}$ 为协变函子.
+\end{solution}
+
+
 
 \begin{problem}
   {\heiti 单态射}(\textbf{monomorphism}){\heiti 与满态射}(\textbf{epimorphism}){\heiti : 定义和基本性质}. 定义. 设 $f:X\to Y$ 是范畴 $\mathcal C$ 中的一个态射.
@@ -326,26 +486,49 @@
       \end{enumerate}
 
     \item[(c)] 用上述定义证明单态射与满态射的对偶关系:
-      \[
+			\begin{gather*}
         f\text{ 在 }\mathcal C\text{ 中是单态射}\qquad\Longleftrightarrow\qquad
-        f^{\mathrm{op}}\text{ 在 }\mathcal C^{\mathrm{op}}\text{ 中是满态射},
-      \]
-      \[
+        f\op\text{ 在 }\mathcal C\op\text{ 中是满态射},\\
         f\text{ 在 }\mathcal C\text{ 中是满态射}\qquad\Longleftrightarrow\qquad
-        f^{\mathrm{op}}\text{ 在 }\mathcal C^{\mathrm{op}}\text{ 中是单态射}.
-      \]
+        f\op\text{ 在 }\mathcal C\op\text{ 中是单态射}.
+			\end{gather*}
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	(a) 若 $f$ 存在左逆, 即若存在 $g: Y \to X$, 使得 $g\circ f = \id_X$, 则对任意的对象 $T$ 和两个态射 $a,b: T\to X$, 若有 $f \circ a = f \circ b$, 则有
+	\[ a = \id_X \circ a = g \circ f \circ a = g \circ f \circ b 
+	\id_X \circ b = b. \]
+	因此 $f$ 是单态射. 若 $f$ 存在右逆, 则由类似的讨论可以证明 $f$ 为满态射. 而同构同时存在左逆和右逆, 因此每一个同构都同时为单态射和满态射.
+
+	(b.i) 若 $f,g$ 均为单态射, 则对于任意的态射 $a,b:T\to X$, 有
+	\[ (g\circ f)\circ a = (g\circ f)\circ b \implies f \circ a = f\circ b \implies a=b. \]
+	因此 $g\circ f$ 为单态射. 同理可以证明, 若 $f,g$ 均为满态射, 则 $g\circ f$ 也为满态射.
+
+	(b.ii) 若 $g\circ f$ 是单态射, 则对于任意的态射 $a,b:T\to X$, 有
+	\[ f \circ a = f \circ b \implies g \circ f \circ a = g \circ f \circ b \implies a = b. \]
+	因此 $f$ 是单态射. 同理可以证明, 若 $g\circ f$ 为满态射, 则 $g$ 为满态射.
+
+	(c) 事实上, 
+	\[ \begin{array}{cc}
+		& f \text{在} \mathcal{C} \text{中是单态射} \\
+		\Longleftrightarrow & \forall\ a,b:T \to X, \quad (f \circ a = f \circ b \implies a=b) \\
+		\Longleftrightarrow & \forall\ a\op, b\op: X\to T, \quad (a\op \circ f\op = b\op \circ f\op \implies a\op = b\op) \\
+		\Longleftrightarrow & f\op \text{在} \mathcal{C}\op \text{中是满态射}.
+	\end{array} \]
+	同理可以证明另一个命题.
+\end{solution}
+
+
 
 \begin{problem}
   \begin{enumerate}
     \item[(a)] 在 $\mathbf{Set}$ 中证明
-      \[
-        f\text{ 是单态射}\qquad\Longleftrightarrow\qquad f\text{ 是单射(injection)},
-      \]
-      \[
+			\begin{gather*}
+        f\text{ 是单态射}\qquad\Longleftrightarrow\qquad f\text{ 是单射(injection)},\\
         f\text{ 是满态射}\qquad\Longleftrightarrow\qquad f\text{ 是满射(surjection)}.
-      \]
+			\end{gather*}
+
       提示: 分别考虑以单点集为定义域、以两点集为陪域的测试映射.
 
       由此证明: 在 $\mathbf{Set}$ 中, 一个态射同时是单态射和满态射, 当且仅当它是双射(bijection), 也当且仅当它是同构.
@@ -356,6 +539,38 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	(a) 先来证明第一个命题, 即 $f$ 是单态射 $\Longleftrightarrow$ $f$ 是单射. 假设 $f:X\to Y$.
+
+	``$\implies$'': 取 $T = \{e\}$. 若 $f$ 不是单射, 则 $X$ 中存在不相等的元素 $a\neq b$, 满足 $f(a)=f(b)$. 考虑两个映射 $g_{1,2}: T\to X$, $g_1(e) = a$, $g_2(e) = b$. 则 $(f \circ g_1)(e) = f(a) = f(b) = (f \circ g_2)(e)$, 即 $f \circ g_1 = f\circ g_2$, 但 $g_1 \neq g_2$, 这与 $f$ 为单态射矛盾. 因此 $f$ 为单射.
+
+	``$\impliedby$'': 若 $f$ 为单射, 则 $f$ 存在左逆映射, 从而 $f$ 是单态射.
+
+	再证明第二个命题, 即 $f$ 是满态射 $\Longleftarrow$ $f$ 是满射.
+
+	``$\implies$'': 取 $T = \{x,y\}$. 若 $f$ 不为满射, 则集合 $Y-f(X)$ 非空. 考虑两个映射 $g_{1,2}: Y \to T$, 满足
+	\[ g_1(e) = x,\ \forall\ e\in Y;\quad 
+	g_2(e) = \begin{cases}
+		x, & e \in f(X),\\
+		y, & e \in Y-f(X).
+	\end{cases} \]
+	由 $Y-f(X) \neq \varnothing$, 知 $g_1 \neq g_2$; 而对于任意的 $e\in X$, 由于 $f(e)\in f(X)$, 因此
+	\[ g_2\circ f(e) = x = g_1 \circ f(x), \]
+	即 $g_1 \circ f = g_2 \circ f$, 这与 $f$ 为满态射矛盾. 因此 $f$ 为满射.
+
+	``$\impliedby$'': 若 $f$ 为满射, 则 $f$ 存在右逆映射, 从而 $f$ 是满态射.
+
+	因此, 在 $\mathbf{Set}$ 中, 一个态射同时是单态射和满态射, 当且仅当这个态射作为集合的映射同时是单射和满射, 当且仅当它是双射. 而集合之间的双射即为同构, 因此上面的命题也等价于它是同构.
+
+	(b) 先证明 $u$ 是单态射. 若存在态射 $a,b$ 使得 $u \circ a = u \circ b$, 则为了使复合有意义, 必须有 $a=b= \id_0$, 因此 $a=b$, 从而 $u$ 是单态射. 同理可以证明 $u$ 是满态射. 但是 $u$ 不是同构, 因为它既没有左逆也没有右逆.
+
+	一般地, 设 $P$ 为一个偏序集, $\mathcal{C}_P$ 为其对应的范畴. 对于每一个态射 $f: X\to Y$, 若存在两个态射 $g_1,g_2: T \to X$, 使得 $f \circ g_1 = f\circ g_2$, 则由于 $\Hom_{\mathcal{C}_P}(T,X)$ 中只有一个元素, 因此必定有 $g_1 = g_2$, 从而 $f$ 是单态射. 同理, $f$ 为满态射. 但是 $f$ 不是同构, 因为它既没有左逆也没有右逆.
+
+	这不与 (a) 中的结论矛盾, 因为显然对于任意的偏序集 $P$, $\mathcal{C}_P$ 均不与 $\mathbf{Set}$ 同构, 因为 $\mathcal{C}_P$ 中任意两个对象之间至多只有一个态射, 而 $\mathbf{Set}$ 中的两个对象之间可以有多于一个态射.
+\end{solution}
+
+
+
 \begin{problem}
   \textbf{Hom} {\heiti 函子}(\textbf{Hom functors}). 固定范畴 $\mathcal C$ 中的对象 $A$.
 
@@ -365,7 +580,7 @@
         \Hom_{\mathcal C}(A,X)\longrightarrow\Hom_{\mathcal C}(A,Y),\qquad
         u\longmapsto f\circ u.
       \]
-      严格的给出定义 $\Hom_{\mathcal C}(-,A):\mathcal C^{\mathrm{op}}\to\mathbf{Set}$ 满足在 $f^{\mathrm{op}}:Y\to X$ 上的作用为
+      严格的给出定义 $\Hom_{\mathcal C}(-,A):\mathcal C\op\to\mathbf{Set}$ 满足在 $f\op:Y\to X$ 上的作用为
       \[
         \Hom_{\mathcal C}(Y,A)\longrightarrow\Hom_{\mathcal C}(X,A),\qquad
         v\longmapsto v\circ f.
@@ -391,6 +606,10 @@
   \end{enumerate}
 \end{problem}
 
+
+
+
+
 \begin{problem}
   设 $F:\mathcal C\to\mathcal D$ 是函子. 如果对每对对象 $X,Y$, 映射
   \[
@@ -406,12 +625,10 @@
       \]
 
     \item[(b)] 证明忠实函子反映单态射和满态射, 即
-      \[
-        F(f)\text{ 是单态射}\qquad\Longrightarrow\qquad f\text{ 是单态射},
-      \]
-      \[
+			\begin{gather*}
+        F(f)\text{ 是单态射}\qquad\Longrightarrow\qquad f\text{ 是单态射},\\
         F(f)\text{ 是满态射}\qquad\Longrightarrow\qquad f\text{ 是满态射}.
-      \]
+			\end{gather*}
   \end{enumerate}
 \end{problem}
 
