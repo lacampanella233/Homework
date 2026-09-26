@@ -5,6 +5,251 @@
 
 \begin{document}
 
+\begin{problem}
+  证明: 对每个 $A\in L(\R^n,\R)$, 存在唯一的 $y\in\R^n$, 使得 $Ax=x\cdot y$. 并证明 $\|A\|=|y|$.
+\end{problem}
 
+\begin{proof}
+	若 $\im A = \{0\}$, 则 $A=0$, 取 $y=0$, 知 $Ax = x \cdot y = 0$, 并且 $||A|| = |y| = 0$.
+
+	若 $\im A = \R$, 则考虑 $(\ker A)^\perp$. 由 $\dim (\ker A)^\perp = n-\dim\ker A = \dim\im A = 1$, 知存在 $0 \neq v \in \R^n$ 使得 $(\ker A)^\perp = \sspan\{v\}$ 不妨取 $|v| = 1$. 
+
+	取 $y = (Av)v$, 我们来证明这样的选取满足要求. 根据 $y$ 的定义, 对每一个 $x\in \R^n$, 存在 $z\in\ker A$ 使得 $x = z+(x\cdot v)v$. 则
+	\[ Ax = A(z+(x\cdot v)v) = (x\cdot v)Av = x \cdot ((Av)v) = x \cdot y. \]
+
+	若 $y_1,y_2$ 均满足题目要求, 则对于任意的 $x$, $x\cdot(y_1-y_2) = Ax-Ax=0$, 因此只能有 $y_1=y_2$, 唯一性得证.
+
+	接下来证明 $\left\|A\right\| = |y|$: 
+	\[ \left\|A\right\| = \sup\limits_{x \neq 0} \frac{x \cdot y}{|x|} = \sup\limits_{|x| = 1} x \cdot y = |y|. \]
+\end{proof}
+
+
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 设 $f(x,y)=e^x\sin y$, $g(s,t)=(st^2,s^2t)$. 计算 $\partial_s(f\circ g)$ 和 $\partial_t(f\circ g)$.
+    \item[(b)] 设 $f(x,y)$ 在 $\R^2$ 上连续可微, 且
+    \[
+      f(1,1)=1,\qquad \partial_x f(1,1)=2,\qquad \partial_y f(1,1)=3.
+    \]
+    令 $\varphi(x)=f(x,f(x,x))$. 计算 $\varphi'(1)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) 根据题意, $f \circ g = \e^{st^2} \sin (s^2t)$, 因此
+	\[ \partial_s(f\circ g) = \e^{st^2} (t^2 \sin (s^2t) + 2st \cos (s^2t)), \quad 
+	\partial_t(f\circ g) = \e^{st^2} \left( 2st \sin (s^2t) + s^2 \cos (s^2t) \right). \]
+
+	(b) 根据题意, 
+	\begin{align*}
+		\varphi'(1) &= \frac{\d}{\d x}f(x,f(x,x))\Big|_{x=1}
+		=\left( (\partial_xf)(x,f(x,x)) + \frac{\d f(x,x)}{\d x} (\partial_yf)(x,f(x,x)) \right)\Big|_{x=1} \\
+		&= (\partial_xf)(1,1) + (\partial_yf)(1,1) \cdot \left( (\partial_xf)(x,x) + (\partial_yf)(x,x) \right) \Big|_{x=1} \\
+		&= 2+3\cdot(2+3) = 17.
+	\end{align*}
+\end{solution}
+
+
+
+\begin{problem}
+  求所有使方向导数 $\nabla_u f(0,0)$ 存在的 $\R^2$ 中的单位向量 $u$, 其中
+  \[
+    f(x,y)=\sqrt[3]{xy}.
+  \]
+\end{problem}
+
+\begin{solution}
+	方向导数 $\nabla_uf(0,0)$ 的定义是
+	\[ \nabla_uf(0,0) = \lim_{t \to 0} \frac{f(tu_x,tu_y) - f(0,0)}{t}
+	= \lim_{t \to 0} \frac{\sqrt[3]{t^2u_xu_y}}{t} 
+	= \lim_{t \to 0} \frac{\sqrt[3]{u_xu_y}}{\sqrt[3]{t}}. \]
+
+	若此极限存在, 则必须有 $u_xu_y=0$. 结合 $|u| = 1$, 知 $u = (\pm 1,0)$ 或 $(0,\pm 1)$.
+\end{solution}
+
+
+
+\begin{problem}
+  设 $f$ 是定义在开集 $U\subset\R^n$ 上的实值函数, 且其偏导数 $\partial_1 f,\ldots,\partial_n f$ 在 $U$ 上有界. 证明 $f$ 在 $U$ 上连续.
+\end{problem}
+
+\begin{proof}
+	设对于任意的 $x \in U$ 以及 $1\le i\le n$ 均有 $\abs{\partial_if(x)} < M$, 其中 $M$ 是一个正实数. 下面来证明 $f$ 在 $U$ 上连续.
+
+	记第 $i$ 个坐标正方向上的单位向量为 $e_i$. 下面来证明: 对于任意的 $x\in U$, 存在 $\delta>0$, 使得 $B_{\delta}(x) \subset U$, 且对于任意的 $y \in B_\delta(x)$, 均有 $\abs{f(x)-f(y)} < \varepsilon$.
+
+	取 $\delta < \varepsilon/(nM)$, 使得 $B_\delta(x) \subset U$ (这由 $U$ 为开集是可以做到的). 对于任意的 $y\in B_\delta(x)$, 记 $h = y-x = \sum_{i=1}^{n}h_ie_i$, 并且记 $v_k = \sum_{i=1}^{k} h_ie_i$, 其中 $0\le k\le n$. 则对于任意的 $1\le k\le n$, 由微分中值定理, 知存在 $t_k \in (0,1)$, 使得
+	\[ f(x+v_k) - f(x+v_{k-1}) = \abs{v_k-v_{k-1}}\partial_kf(x+v_{k-1}+t_kh_ke_k) = \abs{h_k} \partial_kf(x+v_{k-1}+t_kh_ke_k). \]
+
+	而由于 $\abs{v_{k-1}+t_ke_k} = \sqrt{h_1^2+\dots+h_{k-1}^2+t_k^2h_k^2} \le |h| <\delta$, 知 $x+v_{k-1}+t_kh_ke_k \in B_\delta(x) \subset U$, 因此
+	\[ \abs{f(x+v_k) - f(x+v_{k-1})} < \abs{h_k} M. \]
+	故
+	\[ \abs{f(y)-f(x)} \le \sum_{i=1}^{n} \abs{f(x+v_{i})-f(x+v_{i-1})}
+	< \sum_{i=1}^{n}\abs{h_i} M < n\delta M < \varepsilon. \]
+\end{proof}
+
+
+
+\begin{problem}
+  定义 $f(0,0)=0$, 且当 $(x,y)\ne(0,0)$ 时,
+  \[
+    f(x,y)=(x^2+y^2)\sin\frac{1}{x^2+y^2}.
+  \]
+  证明 $\partial_x f$ 和 $\partial_y f$ 在 $(0,0)$ 处不连续, 但 $f$ 在 $(0,0)$ 处可微.
+\end{problem}
+
+\begin{solution}
+	计算知
+	\[ \partial_xf = 2x \sin \frac{1}{x^2+y^2} - (x^2+y^2) \cdot \frac{2x}{(x^2+y^2)^2} \cos \frac{1}{x^2+y^2}.  \]
+	取 $y=0$, 知
+	\[ (\partial_xf)(x,0) = 2x\sin \frac{1}{x^2} - \frac{2}{x} \cos \frac{1}{x^2}. \]
+	显然在 $x=0$ 处不连续. 由于 $f$ 关于 $x$ 和 $y$ 是对称的, 因此 $\partial_yf$ 也不连续.
+
+	但是, 对于任意的 $x,y$, 均有 $\abs{f(x,y)} \le x^2+y^2 = \abs{(x,y)}^2$, 因此 
+	\[ \lim_{(x,y) \to (0,0)}f(x,y)/\abs{(x,y)} = 0, \]
+	即 $f$ 在 $(0,0)$ 处可微.
+\end{solution}
+
+
+
+\begin{problem}
+  定义 $f(0,0)=0$, 且当 $(x,y)\ne(0,0)$ 时,
+  \[
+    f(x,y)=\frac{x^3}{x^2+y^2}.
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明 $\partial_x f$ 和 $\partial_y f$ 在 $\R^2$ 上是有界函数. (因此 $f$ 连续.)
+    \item[(b)] 设 $u$ 是 $\R^2$ 中的任意单位向量. 证明方向导数 $\nabla_u f(0,0)$ 存在, 且其绝对值不超过 $1$.
+    \item[(c)] 证明 $f$ 在 $(0,0)$ 处不可微.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) 计算表明, 对 $(x,y) \neq (0,0)$, 有
+	\begin{align*}
+		\abs{\partial_x f}
+		&= \frac{\abs{3x^2(x^2+y^2) - x^3\cdot 2x}}{(x^2+y^2)^2} 
+		= \frac{x^2(x^2+3y^2)}{(x^2+y^2)^2} \\
+		&\le 3 \frac{x^2}{x^2+y^2} \frac{x^2+3y^2}{3x^2+3y^2} \le 3, \\
+		\abs{\partial_y f}
+		&= \abs{-\frac{x^3\cdot 2y}{(x^2+y^2)^2}}
+		= 6\sqrt{3}\left( \frac{\sqrt[4]{(x^2/3)^3(y^2)}}{x^2+y^2} \right)^2 \\
+		&\le 6\sqrt{3}\left( \frac{(x^2/3+x^2/3+x^2/3+y^2)/4}{x^2+y^2} \right)^2
+		= \frac{3\sqrt{3}}{8}.
+	\end{align*}
+
+	而在 $(0,0)$ 处, 容易计算出 $\partial_xf(0,0) = 1$, $\partial_y f(0,0)=0$. 因此两个偏导数在 $\R^2$ 上有界.
+
+	(b) 设 $u = (\cos \phi, \sin\phi)$. 则
+	\[ \lim_{t \to 0}\frac{f(t\cos\phi,t\sin\phi) - f(0,0)}{t}
+	=\lim_{t \to 0} \frac{t^3 \cos^3\phi}{t^3(\sin^2\phi + \cos^2\phi)}
+	= \cos^3 \phi \in [-1,1]. \]
+
+	(c) 由 (b) 的结果, 知对于向量 $v = (r\cos\phi,r\sin\phi)$, 有
+	\[ \nabla_vf(0,0) = r\cos^3\phi. \]
+	这对于 $v$ 来说不是一个线性映射, 因此 $f$ 在 $(0,0)$ 不可微.
+\end{solution}
+
+
+
+\begin{problem}
+  设 $f$ 是从区域 (即连通开集) $U\subset\R^n$ 到 $\R^m$ 的可微映射, 且对每个 $x\in U$ 都有 $df(x)=0$. 证明 $f$ 在 $U$ 上为常值.
+\end{problem}
+
+\begin{proof}
+	对于 $U$ 内的任意两点 $x,y$, 由于 $U$ 是连通的, 因此是道路连通的, 即存在一个连续函数 $\gamma: [0,1] \to U$, 使得 $\gamma(0) = x, \gamma(1) = y$. 特别地, 根据结论, 可以要求 $\gamma$ 是 $C^\infty$ 的. 根据符合映射的微分法则, 结合 $\d f = 0$, 有
+	\[ \d(f \circ \gamma)(t) = \d f(\gamma(t)) \circ \d \gamma(t) = 0. \]
+	即, 对于 $[0,1]$ 上的向量值函数 $f \circ \gamma$, 有 $\d (f \circ \gamma) = 0$. 对每个分量使用微分中值定理, 即知 $f(\gamma(0)) = f(\gamma(1))$, 因此 $f(x) = f(y)$.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $f$ 在 $\R^2$ 上连续可微, 且对每个 $(x,y)\in\R^2$ 都有
+  \[
+    x\partial_x f(x,y)+y\partial_y f(x,y)=0.
+  \]
+  使用极坐标代换证明 $f$ 为常值.
+\end{problem}
+
+\begin{proof}
+	极坐标代换: $x = r\cos\phi, y = r\sin\phi$. 则对于 $r\neq 0$, 有
+	\begin{align*}
+		\partial_rf
+		&= \partial_rf(r\cos\phi, r\sin\phi)
+		= \left( \cos\phi \partial_xf(x,y)+ \sin\phi \partial_yf(x,y) \right)\Big|_{(x,y) = (r\cos\phi, r\sin\phi)} \\
+		&= \frac{1}{r} \left( x \partial_xf(x,y)+ y \partial_yf(x,y) \right)\Big|_{(x,y) = (r\cos\phi, r\sin\phi)}
+		= 0.
+	\end{align*}
+	因此对于任意的 $r,\phi$, 有 $f(r,\phi) = f(r=0,\phi) = f(0)$. 因而 $f$ 是常值函数.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $k$ 是正整数. 如果对每个 $x\in\R^n$ 和每个 $\lambda>0$ 都有
+  \[
+    f(\lambda x)=\lambda^k f(x),
+  \]
+  则称 $f:\R^n\to\R$ 是 $k$ 阶齐次的. 现设 $f$ 可微. 证明欧拉定理: $f$ 是 $k$ 阶齐次的, 当且仅当
+  \[
+    \sum_{j=1}^n x_j\partial_j f=kf.
+  \]
+\end{problem}
+
+\begin{proof}
+	``$\implies$''. 如果 $f$ 是 $k$ 阶齐次的, 则对于 $x = (x_1,x_2,\dots,x_n) \in \R^n$, 一方面有 
+	\[ \left( \frac{\d f(\lambda x)}{\d \lambda} \right) \Big|_{\lambda = 1} = \left( k \lambda^{k-1} f(x) \right) \Big|_{\lambda = 1} = kf(x), \]
+	另一方面,
+	\begin{align*}
+		\left( \frac{\d f(\lambda x)}{\d \lambda} \right) \Big|_{\lambda = 1}
+		&= \left( \frac{\d}{\d \lambda}f(\lambda x_1,\dots,\lambda x_n) \right) \Big|_{\lambda = 1} \\
+		&= \left( \sum_{i=1}^{n} \frac{\d(\lambda x_i)}{\d \lambda} \partial_i f(\lambda x_1,\dots,\lambda x_n) \right) \\
+		&= \sum_{i=1}^{n}x_i\partial_i f.
+	\end{align*}
+	
+	结合上面两个结果, 即证明原式.
+
+	``$\impliedby$''. 根据上面的计算, 有
+	\[ \frac{\d f(\lambda x)}{\d \lambda}
+	= \sum_{i=1}^{n}x_i \partial_i f
+	= kf(\lambda x)/\lambda. \]
+
+	因此
+	\[ \frac{\d (f(\lambda x)/\lambda^k)}{\d \lambda}
+	= \frac{1}{\lambda^{2k}} \left( \lambda^k \frac{\d f(\lambda x)}{\d \lambda} - k \lambda^{k-1} f(\lambda x) \right)=0. \]
+
+	即 $f(\lambda x)/\lambda^k$ 关于 $\lambda$ 是常数. 因此 $f(\lambda x) = \lambda^k f(x)$.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $S^1\subset\R^2$ 是单位圆, $K$ 是以原点为中心、边长为 $2$ 的正方形的边界:
+  \[
+    K=\{(x,y):\max\{|x|,|y|\}=1\}.
+  \]
+  证明存在同胚 $F:\R^2\to\R^2$ 使得 $F(S^1)=K$, 但不存在具有相同性质的微分同胚. (提示: 考虑像落在 $S^1$ 内的光滑曲线 $\gamma$ 及 $F\circ\gamma$.)
+\end{problem}
+
+\begin{proof}
+	定义 $F: \R^2 \to \R^2$ 如下: 对于一点 $x=(r\cos \phi, r\sin\phi) \in \R^2$ ($\phi \in [0,2\pi)$), 定义
+	\[ F(x) = \begin{cases}
+		(r,r\tan\phi), & \phi \in [0,\pi/4) \cup [7\pi/4, 2\pi) \\
+		(r\cot\phi, r), & \phi \in [\pi/4,3\pi/4) \\
+		(-r, -r\tan\phi), & \phi \in [3\pi/4, 5\pi/4) \\
+		(-r\cot\phi, -r), & \phi \in [5\pi/4, 7\pi/4)
+	\end{cases} \]
+
+	不难验证 $F$ 是同胚, 且 $F(S^1) = K$. 
+
+	下面来证明不存在使得 $F(S^1) = K$ 的微分同胚 $F$. 否则, 若存在这样的 $F$, 考虑曲线 $\gamma: [0,2\pi] \to S_1, \gamma(t) = (\cos t, \sin t)$. 则由于 $F$ 是微分同胚, 知 $\d F(x)$ 对任意一点 $x$ 均可逆, 结合 $\gamma'(t) \neq 0$, 有
+	\[ \frac{\d F(\gamma(t))}{\d t} = (\d F (\gamma t))\gamma'(t) \neq 0.  \]
+
+	由于 $F(S^1) = K$, 因此存在 $t_0$, 使得 $F(\gamma(t_0)) = (1,1)$. 由于 $F \circ \gamma$ 在 $t_0$ 附近是单射, 因此在 $t \to t_0^-$ 与 $t \to t_0^+$ 时, $F\circ \gamma(t)$ 分别从两条边 $\{1\}\times [-1,1]$ 或 $[-1,1] \times \{1\}$ 接近 $(1,1)$. 此时, 分别考虑左右极限, 知 $\d F(\gamma(t))/\d t$ 与两条边均平行, 因此只能为 $0$, 与前面给出的结果矛盾.
+
+	因此不存在使得 $F(S^1) = K$ 的微分同胚.
+\end{proof}
 
 \end{document}
