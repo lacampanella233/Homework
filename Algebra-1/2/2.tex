@@ -5,6 +5,410 @@
 
 \begin{document}
 
+\textbf{我承诺: 本次作业的完成没有使用大语言模型.}
 
+\paragraph{范围} 第三,四讲: 子范畴(subcategory),子群胚(subgroupoid),群(group),自由群(free group)与泛性质(universal property). 共 15 题, 第 15 题为选读/选做.
+
+\paragraph{约定} 以下范畴均假设局部小(locally small), 未加说明的函子均指协变函子(covariant functor). $\mathbf{Set}$ 和 $\mathbf{Grp}$ 分别是集合与函数,群与群同态组成的范畴; 固定一个域 $k$, $\mathbf{Vect}_k$ 是 $k$-向量空间与 $k$-线性映射组成的范畴. $\Hom_{\mathcal C}(X,Y)$ 表示从 $X$ 到 $Y$ 的态射集, $\Aut_{\mathcal C}(X)$ 是其中所有可逆自态射在复合下组成的群, $\operatorname{Map}(A,B)$ 表示集合 $A$ 到集合 $B$ 的全部函数. $U:\mathbf{Grp}\to\mathbf{Set}$ 是取群的底层集合,取群同态的底层函数的遗忘函子. $f\circ g$ 表示先作 $g$ 再作 $f$.
+
+对群 $G$, 以 $1_G$ 记单位元(加法群中记为 $0$), $\langle S\rangle$ 表示包含 $S\subseteq G$ 的最小子群; 特别地, $\langle\varnothing\rangle=\{1_G\}$. $\operatorname{ord}(g)$ 是 $g$ 的阶(order). 对同态 $f:G\to H$, $\ker f=\{g\in G:f(g)=1_H\}$, $\operatorname{im}f=f(G)$. $\Aut(G)$ 是群 $G$ 的所有自同构在复合下组成的群. 记 $\mathbb N_0=\{0,1,2,\ldots\}$; $d\mid n$ 表示整数 $d$ 整除 $n$.
+
+\paragraph{请仔细阅读此定理} 定义群 $\mathbb Z/n\mathbb Z$: 对正整数 $n$, 若 $n\mid(a-b)$, 记 $a\equiv b\pmod n$. 令 $\bar a=\{b\in\mathbb Z:b\equiv a\pmod n\}$, 并定义 $\mathbb Z/n\mathbb Z=\{\bar 0,\bar 1,\ldots,\overline{n-1}\}$, 其加法为 $\bar a+\bar b=\overline{a+b}$. 加法与代表元的选择无关; $\bar 0$ 是单位元, $\overline{-a}$ 是 $\bar a$ 的逆元, 故这是一个含 $n$ 个元素的加法群. 我们也记 $\mathbb Z/n\mathbb Z$ 为 $C_n$. 称其为(阶为 $n$)的循环群.
+
+本作业涉及的群及子群非空; 本题组允许空范畴和空子范畴. 除题面给出的定义或明确允许引用的前题结论外, 请写出证明; 不预设商群理论,Sylow 定理或拓扑知识.
+
+\section*{习题}
+
+\begin{problem}
+  设 $G$ 是群, $\mathbf{B}G$ 是对应的单对象群胚, 其唯一对象记为 $*$, 箭头复合由群乘法给出.
+  \begin{enumerate}
+    \item[(a)] 对子集 $H\subseteq G$, 说明何时 $\{*\}$ 与箭头集 $H$ 构成 $\mathbf{B}G$ 的子范畴(subcategory), 何时构成子群胚(subgroupoid). 用加法下的 $\mathbb N_0\subseteq\mathbb Z$ 给出子范畴不是子群胚的例子.
+    \item[(b)] 证明: 对一个子群 $H\leq G$, $\mathbf{B}H\subseteq\mathbf{B}G$ 是满子范畴(full subcategory)当且仅当 $H=G$. 再证明: 群胚的满子范畴一定是子群胚.
+    \item[(c)] 对范畴 $\mathcal C$, 其核心群胚 $\mathcal C^\simeq$ 保留所有对象和所有可逆态射. 证明 $\mathcal C^\simeq\subseteq\mathcal C$ 是满子范畴当且仅当 $\mathcal C$ 是群胚.
+    \item[(d)] 完整验证群同态 $H\to G$ 与函子 $\mathbf{B}H\to\mathbf{B}G$ 一一对应. 特别说明保持逆元为何由函子条件推出, 而不必另列为条件.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) 若对于任意的 $h_1,h_2 \in H$, 均有 $h_1h_2 \in H$, 且 $1_G\in H$, 则对于任意的 $h_1,h_2 \in H \subset \Aut_{\mathbf{B}G}(*)$, 均有 $h_1\circ h_2 \in H$, 并且 $1_{*} \in H$, 此时 $(\{*\},H)$ 构成 $\mathbf{B}G$ 的子范畴; 反过来也可以证明, 若 $(\{*\},H)$ 构成 $\mathbf{B}G$ 的子范畴, 则对于任意的 $h_1,h_2\in H$, 均有 $h_1h_2\in H$, 且 $1_G \in H$.
+
+	若除此之外, 还有对于任意的 $h\in H$, 均有 $h^{-1}\in H$, 则对于任意的 $h\in H\subset \Aut_{\mathbf{B}G}(*)$, 均存在 $h^{-1}\in H$ 使得 $h \circ h^{-1} = h^{-1} \circ h = 1_{*}$, 即 $h$ 是同构, 因而 $(\{*\}, H)$ 构成 $\mathcal{B}G$ 的子群胚; 反过来, 若 $(\{*\}, H)$ 构成 $\mathbf{B}G$ 的子群胚, 则对于任意的 $h\in H$, 均有 $h^{-1}\in H$.
+
+	对于 $\mathbb{N}_0 \subset \mathbb{Z}$, 首先有 $1_{(\mathbb{Z},+)} = 0 \in \mathbb{N}_0$, 并且对于任意的 $a,b\in \mathbb{N}_0$, 均有 $a+b \in \mathbb{N}_0$, 因此 $(\{*\}, \mathbb{Z}_0)$ 给出了 $\mathbf{B}\mathbb{Z}$ 的子范畴; 但是, 对于 $0<a \in \mathbb{N}_0$, $-a \not\in \mathbb{N}_0$, 因此 $\Aut_{\mathbf{B}\mathbb{Z}}(*) \ni a^{-1} \notin \mathbb{N}_0$, 因而 $a$ 在子范畴 $(\{*\}, \mathbb{Z}_0)$ 中不是同构, 因此此子范畴不是子群胚.
+
+	(b) 注意到
+	\[ H=G \Longleftrightarrow \End_{\mathbf{B}H}(\{*\}) = \End_{\mathbf{B}G}(\{*\}) \Longleftrightarrow \mathbf{B}H \subset \mathbf{B}G \text{ 是满子范畴.} \]
+
+	对于任意的一个群胚 $\mathcal{G}$ 及其满子范畴 $\mathcal{H}$, 对于 $\mathcal{H}$ 中的态射 $X \xrightarrow{h} Y$, 由于 $\Hom_{\mathcal{H}}(X,Y) = \Hom_{\mathcal{G}}(X,Y)$, 则 $h^{-1} \in \Hom_{\mathcal{H}}(X,Y)$, 即 $h$ 在子范畴 $\mathcal{H}$ 中也是同构, 因此 $\mathcal{H}$ 是群胚.
+
+	(c) 注意到
+	\[ \begin{array}{cc}
+		 & \mathcal{C}^{\cong} \subset \mathcal{C} \text{ 是满子范畴} \\
+		\Longleftrightarrow & \forall\, X,Y\in \operatorname{Obj}(\mathcal{C}),\ \Hom_{\mathcal{C}^{\cong}}(X,Y) = \Hom_{\mathcal{C}}(X,Y) \\
+		\Longleftrightarrow & \forall\, (X \xrightarrow{f} Y) \in \mathcal{C}, \Hom_{\mathcal{C}^{\cong}}(X,Y) \ni f^{-1} \in \Hom_{\mathcal{C}}(X,Y) \\
+		\Longleftrightarrow & \mathcal{C} \text{ 是群胚.}
+	\end{array} \]
+
+	(d) 对于群同态 $f: H \to G$, 构造函子 $\mathbf{B}f: \mathbf{B}H \to \mathbf{B}G$, 满足 $\mathbf{B}f(*_{\mathbf{B}H}) = *_{\mathbf{B}G}$, 并且
+	\[ \forall\,h\in H = \Aut_{\mathbf{B}H}(*_{\mathbf{B}H}),\  \mathbf{B}f(h) = f(h) \in G = \Aut_{\mathbf{B}G}(*_{\mathbf{B}G}). \]
+
+	下面来验证 $\mathbf{B}f$ 是一个函子: 对于 $1_{*_{\mathbf{B}H}}$, $\mathbf{B}f(1_{*_{\mathbf{B}H}}) = f(1_H) = 1_g = 1_{*_{\mathbf{B}G}}$; 而对于 $h_1,h_2 \in = \Aut_{\mathbf{B}H}(*_{\mathbf{B}H})$, 有
+	\[ \mathbf{B}f(h_1) \circ \mathbf{B}f(h_2) = f(h_1) \circ f(h_2) = f(h_1h_2) = \mathbf{B}f(h_1\circ h_2). \]
+	因此 $\mathbf{B}f$ 是一个函子. 
+
+	反过来, 对于一个函子 $\mathbf{B}f: \mathbf{B}H \to \mathbf{B}G$, 定义群同态 $f: H \to G$ 如下: 对于 $h \in H = Aut_{\mathbf{B}H}(*_{\mathbf{B}H})$, 定义 $f(h) = \mathbf{B}f(h) \in = \Aut_{\mathbf{B}G}(*_{\mathbf{B}G}) = G$. 
+	
+	下面来验证 $f$ 是一个群同态. 对于 $h_1,h_2 \in H$, 有
+	\[ f(h_1)f(h_2) = \mathbf{B}f(h_1) \circ \mathbf{B}f(h_2) = \mathbf{B}f(h_1\circ h_2) = f(h_1h_2). \]
+	并且, $f(1_H)f(1_H) = f(1_H1_H) = f(1_H)$, 从而 $f(1_H) = 1_G$; 对于 $h\in H$, 有 $f(h)f(h^{-1}) = f(hh^{-1}) = f(1_H) = 1_G$, 因此 $f(h^{-1}) = f(h)^{-1}$.
+	因此 $f$ 是一个群同态.
+\end{solution}
+
+
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 设 $\varnothing\neq H\subseteq G$. 证明 $H\leq G$ 当且仅当 $xy^{-1}\in H$ 对所有 $x,y\in H$ 成立.
+    \item[(b)] 设 $H\subseteq G$ 有限且非空, 并对乘法封闭. 证明 $H$ 是子群. 给出无限情形中结论不成立的例子.
+    \item[(c)] 设 $H,K\leq G$. 证明 $H\cup K$ 是子群当且仅当 $H\subseteq K$ 或 $K\subseteq H$.
+    \item[(d)] 设 $f:G\to H$ 是群同态. 证明 $\ker f\leq G$,$\operatorname{im}f\leq H$; 若 $L\leq H$, 证明 $f^{-1}(L)\leq G$.
+    \item[(e)] 设 $G=\langle S\rangle$ ($G$ 由 $S$ 生成), $H$ 是任意群, $f_1,f_2:G\to H$ 是群同态. 证明若它们在 $S$ 上相同, 则 $f_1=f_2$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) 必要性是显然的, 下面证明充分性. 取 $x \in H$, 知 $1_G = xx^{-1} \in H$, 即 $1_G \in H$; 对于 $h\in H$, 有 $h^{-1} = 1_G h^{-1} \in H$; 对于 $h_1,h_2\in H$, 由 $h_2^{-1}\in H$ 知 $h_1h_2 = h_1(h_2^{-1})^{-1} \in H$. 因此 $H \le G$.
+
+	(b) 我们只需要验证 $1_G \in H$, 并且任意的 $h\in H$, 均有 $h^{-1} \in H$. 对于任意的 $h\in H$, 考虑 
+	\[\{h^{n}: n \ge 1\} \subset H.\]
+	由于 $H \subset G$ 是有限的, 因此存在不同的正整数 $n_1<n_2$, 使得 $h^{n_1} = h^{n_2}$, 即 $h^{n_2-n_1} = 1_G \in H$. 
+	并且, 由于 $1_G = h^{n_2-n_1} = hh^{n_2-n_1-1}$, 因此 $h^{n_2-n_1-1} = h^{-1} \in H$.
+	因此 $H \le G$.
+
+	另一方面, 考虑乘法群 $(\R_+,\cdot)$. 容易知道 $\Z_+$ 是 $\R_+$ 的非空子集并且对乘法封闭, 但是 $(\Z_+,\cdot)$ 不构成群.
+
+	(c) 充分性显然, 下面证明必要性. 若 $H\not\subset K$ 且 $K\not\subset H$, 则可以取 $g_1 \in H-K$, $g_2 \in K-H$. 由于 $(H \cup K) \le G$, 因此 $g_1g_2 \in H\cup K$. 不妨设 $g_1g_2 \in H$, 则由 $g_1\in H-K\subset H$ 知 $g_2 \in H$, 但这与 $g_2 \in K-H$ 矛盾.
+	
+	(d) 对于 $k_1,k_2 \in\ker f$, 有 $f(k_1/k_2) = f(k_1)/f(k_2) = 1_H/1_H = 1_H$, 因此 $k_1/k_2 \in\ker f$, 这说明 $\ker f \le G$. 
+
+	对于 $h_1=f(g_1)\in \im f$ 与 $h_2 = f(g_2) \in \im f$, 有 $h_1/h_2 = f(g_1) f(g_2^{-1}) = f(g_1/g_2) \in \im f$, 即 $h_1/h_2 \in \im f$, 因此 $\im f \le H$. 
+
+	若 $L \le H$, 取 $g_1,g_2 \in f^{-1}(L)$, 则 $f(g_1),f(g_2) \in L$, 因此 $f(g_1/g_2) = f(g_1)/f(g_2) \in L$, 从而 $g_1/g_2 \in f^{-1}(L)$, 因此 $f^{-1}(L) \le H$.
+
+	(e) 对于任意的 $g\in G = \langle S \rangle$, 存在非负整数 $n$, 整数 $k_1,\dots,k_n$ 以及 $s_1,\dots,s_n \in S$, 使得 $g = s_1^{k_1}s_2^{k_2} \dots s_n^{k_n}$. 则
+	\[ f_1(g) = \prod_{i=1}^{n}f_1(s_i)^{k_i} = \prod_{i=1}^{n}f_2(s_i)^{k_i} = f_2(g)
+	\implies f_1 = f_2. \]
+\end{solution}
+
+
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 证明 $\mathbb Z$ 的每个子群都唯一地写成 $d\mathbb Z:=\langle d\rangle$ 的形式, 其中 $d\geq0$. 对整数 $m,n$, 证明 $\langle m,n\rangle=\gcd(m,n)\mathbb Z$, 其中约定 $\gcd(0,0)=0$.
+    \item[(b)] 设群 $G$ 中的元素 $g$ 满足其阶有限且记其阶为 $n$. (不用 Lagrange 定理,)证明 $g^r=1$ 当且仅当 $n\mid r$, 并推出
+      \[
+        \operatorname{ord}(g^r)=\frac{n}{\gcd(n,r)}\qquad(r\in\mathbb Z).
+      \]
+    \item[(c)] 在循环群 $C_{24}$ 中, 计算 $\langle\bar4\rangle$,$\langle\bar6\rangle$,它们的交以及 $\langle\bar4,\bar6\rangle$ 的全部元素. 取 $g=\bar1$, $r=4,6$, 检验第 (b) 问的阶公式.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	(a) 考虑 $\Z$ 的任意一个子群 $G$. 记
+	\[ d = \min\{\abs{g}: g\in G\} \subset \Z_0. \]
+	(由于上面的集合是自然数的子集, 由最小自然数原理知 $d$ 存在.) 则对于任意的整数 $n \in \Z$, 均有 $nd \in G$, 因此 $d\Z \subset G$. 而对于任意的 $g\in G$, 若 $g\notin d\Z$, 则考虑带余除法: $g = qd+r$, 其中 $q\in\Z$, $r\in\{1,2,\dots,d-1\}$. 则 $r = g-qd \in G$, 并且 $q$ 非零, $\abs{q}<d$, 这与 $d$ 的定义矛盾.
+
+	下面来证明 $\bracket{m,n} = \gcd(m,n)\Z$. 由初等数论中的 Bezout 定理, 知 $\gcd(m,n)\in \bracket{m,n}$, 因此 $\gcd(m,n)\Z \subset \bracket{m,n}$; 另一方面, 对于任意的 $x \in \bracket{m,n}$, 存在 $a,b\in\Z$ 使得 $x = am+bn$, 而由 $\gcd(m,n) | m$ 与 $\gcd(m,n) | n$ 知 $\gcd(m,n) | x$, 即 $x \in \gcd(m,n)\Z$. 结合上面两个结果, 知 $\bracket{m,n} = \gcd(m,n)\Z$.
+
+	(b) 考虑群同态 $f: \Z \to G,\ n \mapsto g^n$. 则 $\ker f \le \Z$, 由 (a) 中的结论, 存在正整数 $n'$, 使得 $\ker f = n'\Z$. 则
+	\[ n = \ord(g) = |\im f| = \#\{f(0), f(1), \dots, f(n'-1)\} = n'. \]
+	(不难验证 $f(0), f(1), \dots,f(n'-1)$ 两两不同. )即 $n'=n$. 故
+	\[ g^r = 1_G \Longleftrightarrow r \in \ker f \Longleftrightarrow n \mid r. \]
+
+	下面来计算 $\ord(g^r)$, 由 $\ord(g) = n \mid \operatorname{lcm}(n,r) = r (n/gcd(n,r))$ 知 $g^{r(n/gcd(n,r))} = 1_G$, 因此 $\ord(g^r) \mid n/gcd(n,r)$; 由 $g^{r \ord(g^r)} = 1_G$ 知 $n \mid r \ord(g^r)$, 即
+	\[ \left. \frac{n}{\gcd(n,r)}\,\right|\, \frac{r}{\gcd(n,r)} \ord(g^r).  \]
+	结合 $\gcd(n/\gcd(n,r), r/\gcd(n,r)) = 1$, 知 $n/\gcd(n,r) \mid \ord(g^r)$. 
+
+	因此 $\ord(g^r) = n/\gcd(n,r)$.
+
+	(c) 在 $C_{24}$ 中, $\bracket{\bar{4}} = \{\bar{0}, \bar{4}, \bar{8}, \bar{12}, \bar{16}, \bar{20}\}$, $\bracket{\bar{6}} = \{\bar{0}, \bar{6}, \bar{12}, \bar{18}\}$, $\bracket{\bar{4}} \cap \bracket{\bar{6}} = \{\bar{0}, \bar{12}\}$. 并且, 
+	\[ \bracket{\bar{4}, \bar{6}} = \{\bar{0}, \bar{2}, \bar{4}, \dots \bar{22}\}. \]
+
+	取 $g = \bar{1}$, 则 $r = 4$ 或 $6$ 时, 
+	\[ \ord(\bar{4}) = \frac{24}{\gcd(24,4)} = 6, \quad \ord(\bar{6}) = \frac{24}{\gcd(24,6)} = 4. \]
+\end{solution}
+
+
+
+\begin{problem}
+  对正整数 $n$, 对称群(symmetric group) $S_n$ 的元素是集合 $\{1,\ldots,n\}$ 到自身的全部双射(bijections), 称为置换(permutations). 群运算是函数复合: $\sigma\tau$ 表示先作用 $\tau$, 再作用 $\sigma$; 单位元是恒等映射, 逆元是逆函数.
+
+  对两两不同的 $i_1,\ldots,i_r\in\{1,\ldots,n\}$ ($2\leq r\leq n$), 循环记号(cycle notation) $(i_1\ i_2\ \cdots\ i_r)$ 表示把 $i_1$ 送到 $i_2$,$i_2$ 送到 $i_3$,依次把 $i_r$ 送回 $i_1$, 并固定其余元素的置换. 长度为二的循环称为换位(transposition). 例如, 在 $S_4$ 中,
+  \[
+    (1\ 2\ 3\ 4):\quad 1\mapsto2,\quad 2\mapsto3,\quad 3\mapsto4,\quad 4\mapsto1.
+  \]
+  \begin{enumerate}
+    \item[(a)] 在 $S_4$ 中令 $\sigma=(1\ 2\ 3\ 4)$,$\tau=(1\ 3)$. 计算 $\sigma\tau$,$\tau\sigma$,$\sigma\tau\sigma^{-1}$, 并求这些置换的阶.
+    \item[(b)] 证明对任意 $\rho\in S_n$
+      \[
+        \rho(i\ j)\rho^{-1}=(\rho(i)\ \rho(j)).
+      \]
+      再证明 $S_n$ 由相邻换位 $(1\ 2),(2\ 3),\ldots,(n-1\ n)$ 生成($n\geq2$).
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 内自同构群}(\textbf{inner automorphism group}). 定义
+  \[
+    Z(G)=\{z\in G:zg=gz\text{ 对所有 }g\in G\},\qquad
+    \text{对任意 }g\in G,\ \text{定义 }\phi_g(x)=gxg^{-1}:G\to G.
+  \]
+  我们在课上已经证明上述构造定义了映射:
+  \[
+    \Phi:G\longrightarrow\Aut(G),\qquad g\longmapsto\phi_g,
+  \]
+  并令 $\operatorname{Inn}(G)=\{\phi_g:g\in G\}$.
+  \begin{enumerate}
+    \item[(a)] 证明 $Z(G)\leq G$. 验证每个 $\phi_g$ 都是群 $G$ 的自同构, 并验证
+      \[
+        \phi_g\circ\phi_h=\phi_{gh},\qquad \phi_g^{-1}=\phi_{g^{-1}}.
+      \]
+      从而证明 $\Phi:G\to\Aut(G)$ 是群同态, $\operatorname{Inn}(G)\leq\Aut(G)$ (称 $\operatorname{Inn}(G)$ 为 $G$ 的内自同构群), 且 $\ker\Phi=Z(G)$.
+    \item[(b)] 对任意 $\alpha\in\Aut(G)$, 证明
+      \[
+        \alpha\phi_g\alpha^{-1}=\phi_{\alpha(g)}.
+      \]
+      推出 $\operatorname{Inn}(G)$ 在所有 $\Aut(G)$ 中的共轭下不变. (这样的子群称为正规子群(normal subgroup).)
+    \item[(c)] 计算 $\Aut(\mathbb Z)$,$\operatorname{Inn}(\mathbb Z)$,$\Aut(C_8)$ 和 $\operatorname{Inn}(C_8)$, 并给出一个不是内自同构的自同构.
+    \item[(d)] 证明 $Z(S_3)=\{1\}$, 并证明 $S_3$ 的每个自同构都是内自同构.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 初对象,终对象}(\textbf{initial and terminal objects}). 范畴 $\mathcal C$ 中, 一个元素 $0$ (只是记号)是初对象(initial object), 指对每个 $X$, $\Hom_{\mathcal C}(0,X)$ 恰有一个元素; $1$ (只是记号)是终对象(terminal object, 也称 final object), 指 $\Hom_{\mathcal C}(X,1)$ 恰有一个元素. 兼具两种性质的对象称为零对象(zero object).
+  \begin{enumerate}
+    \item[(a)] 证明任意两个初对象之间存在唯一同构; 终对象也一样. 证明初对象,终对象的自同态都只有恒等态射.
+    \item[(b)] 先证明: 对任意两个群 $A,B$, 至少存在一个群同态 $A\to B$. 再写出两个不同的群同态 $\mathbb Z\to\mathbb Z$, 并据此说明 $\mathbb Z$ 既不是 $\mathbf{Grp}$ 的初对象, 也不是终对象. 最后解释: 如果在初对象和终对象的定义中把"恰有一个态射"改成"至少存在一个态射", 那么每个群都会满足这两个削弱后的条件.
+    \item[(c)] 分别确定 $\mathbf{Set}$,$\mathbf{Grp}$,$\mathbf{Vect}_k$ 中的初对象与终对象, 并直接验证泛性质. 对固定集合 $T$, 记 $\mathcal P(T)$ 为 $T$ 的幂集, 考虑其作为偏序集对应的范畴 $\mathcal C_{(\mathcal P(T),\subseteq)}$, 确定其初对象与终对象.
+    \item[(d)] 固定 $S\subseteq G$. 令 $\mathcal S_{S,G}$ 的对象为包含 $S$ 的子群, 且仅在 $H\subseteq K$ 时有一支箭头 $H\to K$. 考虑其作为偏序集对应的范畴, 证明在这个范畴里 $\langle S\rangle$ 是初对象, $G$ 是终对象.
+    \item[(e)] 把 $\mathbf{B}G$ 本身当作范畴. 证明它有初对象当且仅当 $G=\{1_G\}$, 终对象也一样. 再分别指出 $\mathbf{B}G$ 和 $\mathbf{Grp}$ 的对象及态射, 以说明平凡群为何是 $\mathbf{Grp}$ 的零对象.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 集合的纤维积及其泛性质}(\textbf{fiber products of sets}). 给定集合映射 $f:X\to Z$,$g:Y\to Z$, 定义纤维积(fiber product, 也称 pullback)
+  \[
+    X\times_Z Y=\{(x,y)\in X\times Y:f(x)=g(y)\},
+  \]
+  并定义投影 $\pi_X(x,y)=x$,$\pi_Y(x,y)=y$, 所以 $f\circ\pi_X=g\circ\pi_Y$.
+  \begin{enumerate}
+    \item[(a)] 证明如下泛性质: 对任意集合 $T$ 及映射 $a:T\to X$,$b:T\to Y$, 若 $f\circ a=g\circ b$, 则存在唯一映射 $u:T\to X\times_Z Y$ 使
+      \[
+        \pi_X\circ u=a,\qquad \pi_Y\circ u=b.
+      \]
+      必须显式写出 $u$, 并分别证明其良定义性和唯一性.
+    \item[(b)] 定义辅助范畴 $\mathcal P(f,g)$: 对象为满足 $f\circ a=g\circ b$ 的三元组 $(T,a:T\to X,b:T\to Y)$; 态射 $h:(T,a,b)\to(T',a',b')$ 满足 $a'\circ h=a$,$b'\circ h=b$. 验证它是范畴, 并证明 $(X\times_ZY,\pi_X,\pi_Y)$ 是终对象. 由此证明任何两个满足上述泛性质的对象, 都存在唯一的,与两个投影相容的同构.
+    \item[(c)] 取 $Z=\{0,1\}$,$X=\{1,2,3\}$,$Y=\{a,b,c\}$, 令
+      \[
+        f(1)=f(2)=0,\qquad f(3)=1,\qquad g(a)=0,\qquad g(b)=g(c)=1.
+      \]
+      列出 $X\times_ZY$ 的全部元素, 以及两个投影的值.
+    \item[(d)] 当 $Z$ 是单点集时, 说明纤维积如何变为通常的 Cartesian 积.
+    \item[(e)] 若 $X,Y\subseteq Z$ 且 $f,g$ 都是包含映射, 验证此时有 $X\times_ZY\cong X\cap Y$ 的典范双射, 并说明此时的投影如何理解.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 有限循环群的判别法}(\textbf{a criterion for finite cyclic groups}). 对正整数 $d$, 定义 Euler 函数(Euler's totient function)
+  \[
+    \varphi(d)=\#\{1\leq r\leq d:\gcd(r,d)=1\},\qquad\varphi(1)=1.
+  \]
+  \begin{enumerate}
+    \item[(a)] 利用第 3 题, 证明阶为 $d$ 的循环群恰有 $\varphi(d)$ 个生成元. 再按元素的阶对 $C_n$ 分类, 证明
+      \[
+        \sum_{d\mid n}\varphi(d)=n.
+      \]
+      其中求和遍历 $n$ 的所有正因数.
+    \item[(b)] 设 $G$ 是基数为 $n$ 的有限群, 不预设 $G$ 是交换群. 证明: $G$ 是循环群, 当且仅当对每个正因数 $d\mid n$, 都有
+      \[
+        \#\{x\in G:x^d=1_G\}\leq d.
+      \]
+      证明中若使用了"元素的阶整除群的阶", 请先给出其初等证明: 可考察集合 $h\langle x\rangle$ 如何把 $G$ 分成等大的不交部分.
+    \item[(c)] 应用第 (b) 问, 证明任意域 $k$ 的乘法群 $k^\times=k\setminus\{0\}$ 中的有限子群都是循环群. 本问可使用: 域上的非零 $d$ 次多项式至多有 $d$ 个根.
+  \end{enumerate}
+  提示: 纪念 Jean-Pierre Serre 百岁: 想找线索, 可以翻他的 \emph{A Course in Arithmetic} 第 I 章 §1.2 正文. 本判别法似乎不是 Serre 最初提出的, 但具体出处未查到. Serre 在书中用此结果证明任意域中的元根(primitive root)的存在性.
+\end{problem}
+
+\begin{problem}
+  {\heiti 约化字}(\textbf{reduced words}){\heiti 的存在性与唯一性}. 本题及随后三题依次构造自由群,验证群公理,证明泛性质, 并与初对象定义对接. 本题只能使用普通字的连接和约化规则; 群结构将在下一题建立.
+
+  令 $I$ 为集合, $I^\pm=I\times\{+1,-1\}$; 把 $(i,+1)$ 记为 $i$, 把 $(i,-1)$ 记为 $\bar i$. 这里 $i$ 与 $\bar i$ 是两个不同的形式字母. 对任意字母 $a\in I^\pm$, $\bar a$ 表示交换其标记, 故 $\bar{\bar a}=a$. 本题中的横线只作用于形式字母; 群元素的逆将在下一题用上标 $-1$ 表示.
+
+  令 $W(I)$ 为 $I^\pm$ 上的全部有限字(word), 包括空字 $\varepsilon$; 字的前后连接记为 $uv$. 定义一步约化为删除字中的一对相邻字母 $a\bar a$. 一个字中没有这类相邻对子的字称为约化字(reduced word).
+  \begin{enumerate}
+    \item[(a)] 证明对任意字连续进行约化, 这一过程最终停止.
+    \item[(b)] 若同一个字可以分别约化一步得到 $u,v$, 分析两次消去的位置: 相同,互不相交,或重叠. 证明存在某个字 $z$, 使 $u,v$ 都可以通过若干次消去到达 $z$. 重叠时必须明确分析长度为三的字 $a\bar a a$.
+    \item[(c)] 对原字长度作强归纳, 证明每个字最终得到的约化字唯一, 记为 $\operatorname{red}(w)$. 这里主要是唯一性证明.
+    \item[(d)] 对任意字 $u,v$, 证明
+      \[
+        \operatorname{red}(\operatorname{red}(u)v)=\operatorname{red}(uv)
+        =\operatorname{red}(u\operatorname{red}(v)).
+      \]
+      并计算 $\operatorname{red}(xy\bar y\bar x)$ 与 $\operatorname{red}(xy\bar x x\bar y)$ ($x,y\in I$ 且 $x\neq y$).
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 字群的两种模型与单生成元自由群}(\textbf{word groups and the free group on one generator}). 记 $F(I)$ 为第 9 题中全部约化字组成的集合.
+  \begin{enumerate}
+    \item[(a)] 对 $u,v\in F(I)$ 定义 $u*v=\operatorname{red}(uv)$. 用第 9 题的结论证明 $*$ 满足结合律, 且空字 $\varepsilon$ 是单位元. 若 $u=a_1\cdots a_n$ 是约化字, 令 $v=\bar a_n\cdots\bar a_1$; 证明 $v$ 也约化, 且 $u*v=v*u=\varepsilon$. 由此证明 $(F(I),*)$ 是群, 并得到群元素的取逆公式
+      \[
+        u^{-1}=\bar a_n\cdots\bar a_1.
+      \]
+      当 $u=\varepsilon$ 时, 右边也按空字理解.
+    \item[(b)] 证明 $\eta_I:I\to F(I)$, $i\mapsto i$ 是单射, 且其像生成刚刚构造出的群. 说明每个生成字母都不是单位元.
+    \item[(c)] 在 $W(I)$ 上定义 $u\sim v$: 可以通过有限次插入或删除相邻逆字母对, 把 $u$ 变成 $v$. 证明这是与连接相容的等价关系, 且
+      \[
+        u\sim v\quad\Longleftrightarrow\quad\operatorname{red}(u)=\operatorname{red}(v).
+      \]
+      记 $W(I)/{\sim}$ 为所有等价类组成的集合. 证明 $G_I^{\mathrm{word}}=W(I)/{\sim}$ 在 $[u][v]=[uv]$ 下成为群, 写出 $[a_1\cdots a_n]$ 的逆, 并证明映射 $G_I^{\mathrm{word}}\to F(I)$,$[w]\mapsto\operatorname{red}(w)$ 是群同构.
+    \item[(d)] 令 $I=\{x\}$, 先用形式字母 $x,\bar x$ 列出全部约化字, 再证明构造出的群中每个元素都唯一写成 $x^m$ ($m\in\mathbb Z$), 其中 $x^0=\varepsilon$, 负指数按第 (a) 问的群逆解释. 验证以下乘法公式, 并证明所给映射 $\theta$ 是群同构:
+      \[
+        x^m*x^n=x^{m+n},\qquad
+        \theta:F(\{x\})\longrightarrow(\mathbb Z,+),\qquad x^m\longmapsto m.
+      \]
+      写出 $\theta$ 的逆映射, 并说明为何 $x$ 具有无限阶. 另计算 $F(\varnothing)$. 本问必须从约化字构造出发, 不得只引用"单生成元自由群是 $\mathbb Z$".
+    \item[(e)] 在 $F(\{x\})$ 中计算 $x^4*(x^{-1})^7$ 和 $(x^{-3})^{-1}$. 证明 $x^m\mapsto\bar m$ 定义满同态 $F(\{x\})\to C_5$, 并求其核. 说明 $C_5$ 可由一个元素生成, 并分别说明 $C_5$ 与 $F(\{x\})$ 中非单位元的阶.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 自由群的泛性质与生成子群}(\textbf{free groups and generated subgroups}). 设 $H$ 是任意群, $\varphi:I\to U(H)$ 是任意集合映射. 定义形式字母的取值映射 $\varphi^\pm:I^\pm\to U(H)$: 对 $i\in I$, 规定
+  \[
+    \varphi^\pm(i)=\varphi(i),\qquad
+    \varphi^\pm(\bar i)=\varphi(i)^{-1}.
+  \]
+  这里 $\bar i$ 是形式字母, $\varphi(i)^{-1}$ 是 $H$ 中的群逆.
+  \begin{enumerate}
+    \item[(a)] 定义普通字在 $H$ 中的取值
+      \[
+        E_\varphi(a_1\cdots a_n)
+        =\varphi^\pm(a_1)\cdots\varphi^\pm(a_n),\qquad
+        E_\varphi(\varepsilon)=1_H.
+      \]
+      证明每次消去都保持取值, 所以 $E_\varphi(\operatorname{red}(w))=E_\varphi(w)$.
+    \item[(b)] 证明取值给出唯一群同态 $\widetilde\varphi:F(I)\to H$, 满足 $U(\widetilde\varphi)\circ\eta_I=\varphi$. 从而完整证明典范双射
+      \[
+        \Hom_{\mathbf{Grp}}(F(I),H)\cong\operatorname{Map}(I,U(H)).
+      \]
+    \item[(c)] 给定 $S\subseteq G$, 令 $f_{\mathrm{can}}:F(S)\to G$ 是包含映射 $S\hookrightarrow U(G)$ 的唯一延拓. 用两种方法证明 $\operatorname{im}f_{\mathrm{can}}=\langle S\rangle$: 一种使用字的取值; 另一种只使用自由群泛性质及 $\langle S\rangle$ 的最小性. 明确写出经过 $\langle S\rangle$ 的分解, 以及用于比较两个同态的唯一性.
+    \item[(d)] 推出 $f_{\mathrm{can}}$ 满射当且仅当 $S$ 生成 $G$. 分别描述 $S=\varnothing$ 和 $S=\{1_G\}$ 时的 $F(S)$ 与 $f_{\mathrm{can}}$. 后一种情形, 记 $s=\eta_S(1_G)\in F(S)$; 求 $s$ 和 $f_{\mathrm{can}}(s)$ 的阶.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  {\heiti 验证课上定义与参考教材的初对象定义等价}(\textbf{free objects as initial objects}). 给定函子 $U:\mathcal C\to\mathbf{Set}$ 和集合 $I$. 定义范畴 $\mathcal F_U^I$ (也记 $I\downarrow U$): 对象为 $(A,j)$, 其中 $A\in\mathcal C$,$j:I\to U(A)$ 是任意集合映射; 态射 $h:(A,j)\to(B,k)$ 是 $\mathcal C$ 中满足 $U(h)\circ j=k$ 的态射.
+
+  映射 $j$ 可以不是单射, 其像也可以不生成 $A$.
+  \begin{enumerate}
+    \item[(a)] 验证该定义给出一个范畴, 并证明以下两种条件等价:
+      \begin{enumerate}
+        \item[(i)] $(F,\eta)$ 是 $\mathcal F_U^I$ 的初对象;
+        \item[(ii)] 对每个 $A\in\mathcal C$, 映射
+          \[
+            \Hom_{\mathcal C}(F,A)\longrightarrow\operatorname{Map}(I,U(A)),
+            \qquad h\longmapsto U(h)\circ\eta
+          \]
+          是双射.
+      \end{enumerate}
+    \item[(b)] 应用于 $U:\mathbf{Grp}\to\mathbf{Set}$, 证明第 10 题的约化字群与第 11 题的生成映射组成 $\mathcal F_U^I$ 的初对象. 因此它与按教材中"初对象"方式定义的自由群存在唯一的,保持生成映射的同构. 必须写出两个方向的同态, 并用唯一性验证它们互逆.
+    \item[(c)] 证明当 $I\neq\varnothing$ 时, $F(I)$ 本身不是 $\mathbf{Grp}$ 的初对象. 以 $I=\{x\}$ 为例, 比较 $x\mapsto x^{-1}$ 作为底层群自同构与作为 $\mathcal F_U^I$ 中态射的区别.
+    \item[(d)] (选做)思考此时这样定义的自由对象是否一定满足 $\eta$ 是单射? (Hint: 令 $\mathcal C$ 只含平凡群及其恒等态射, $U$ 取底层集合, 分析 $|I|\geq2$ 的情形. 另一方面, 仅利用泛性质证明对于 $\mathbf{Grp}\to\mathbf{Set}$, 自由群的生成映射必单射.)
+  \end{enumerate}
+  提示: 最后一句可以对两个不同生成元, 选择一个到二阶群 $C_2$ 的函数把它们分开.
+\end{problem}
+
+\begin{problem}
+  以下令 $F=F(\{x,y\})$, 并使用第 11 题的泛性质.
+  \begin{enumerate}
+    \item[(a)] 令 $u=xy^{-1}x$,$v=x^{-1}y^2$. 计算 $u*v$ 和 $u^{-1}$. 对于由 $\varphi(x)=(1\ 2)$,$\varphi(y)=(1\ 2\ 3)$ 定义的 $\varphi:F\to S_3$, 计算 $\varphi(u)$,$\varphi(v)$ 和 $\varphi(xyx^{-1}y^{-1})$.
+    \item[(b)] 用约化字证明 $xyx^{-1}y^{-1}\neq1_F$, 从而 $F$ 非交换. 再证明 $F$ 不与任何交换群同构.
+    \item[(c)] 证明下列对生成元的赋值分别定义群自同构, 并写出逆自同构在生成元上的值:
+      \[
+        \alpha:x\mapsto y,\ y\mapsto x;\qquad
+        \beta:x\mapsto x^{-1},\ y\mapsto y;\qquad
+        \gamma:x\mapsto xy,\ y\mapsto y.
+      \]
+    \item[(d)] 利用第 11 题构造同态 $\chi:F\to\mathbb Z$, 使 $\chi(x)=0$,$\chi(y)=1$. 比较 $\chi(x)$ 与 $\chi(\gamma(x))$, 证明 $\gamma$ 不是内自同构.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 对任意集合映射 $f:I\to J$, 利用泛性质构造唯一同态 $F(f):F(I)\to F(J)$, 满足
+      \[
+        F(f)\circ\eta_I=\eta_J\circ f.
+      \]
+      对任意 $g:J\to K$, 证明 $F(\id_I)=\id_{F(I)}$ 及 $F(g\circ f)=F(g)\circ F(f)$. 由此证明 $F:\mathbf{Set}\to\mathbf{Grp}$ 是函子.
+    \item[(b)] 若 $f$ 单射, 证明 $F(f)$ 单射; 若 $f$ 满射, 证明 $F(f)$ 满射. 需包含空集情形.
+    \item[(c)] 设 $I,J$ 有限. 若 $F(I)\cong F(J)$, 证明 $|I|=|J|$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  (选读/选做) {\heiti 从自由范畴到自由群胚: 路径,泛性质与生成树}(\textbf{free categories and free groupoids}). 本题可选读或选做, 也可分阶段完成. 允许引用第 6,9--12,14 题已证明的结果. 感兴趣的同学可以对比拓扑覆盖分类理论,基本群相关理论以及 Nielsen--Schreier 定理.
+
+  有向图(quiver)是 $Q=(Q_0,Q_1,s,t)$, 其中 $Q_0,Q_1$ 是集合, $s,t:Q_1\to Q_0$ 分别给出源与靶; 允许环和重边. 图映射 $f:Q\to Q'$ 是一对函数 $f_0,f_1$, 满足 $s'\circ f_1=f_0\circ s$,$t'\circ f_1=f_0\circ t$ (尝试举例并画出来一个对象). 以这些对象与态射组成 $\mathbf{Quiv}$; $\mathbf{Cat}$ 与 $\mathbf{Gpd}$ 分别是小范畴,小群胚及其函子组成的范畴. 对小范畴 $\mathcal C$, $U_{\mathbf{Cat}}(\mathcal C)$ 保留其所有对象,态射及源靶, 忘掉复合及恒等态射的指定; 对函子则取其在对象和态射上的函数. 同样定义 $U_{\mathbf{Gpd}}$.
+
+  长度为 $n$ 的路径按先后经过 $a_1,\ldots,a_n$; 作为复合表达式记为 $a_n\cdots a_1$. 长度为零的路径必须连同所在顶点记录, 不同顶点的空路径不是同一个态射.
+
+  \begin{enumerate}
+    \item[(a)] 以顶点为对象, 以有限有向路径为态射, 以接续为复合, 定义路径范畴 $P(Q)$. 证明它是小范畴. 证明每个图映射 $Q\to U_{\mathbf{Cat}}(\mathcal C)$ 唯一延拓为函子 $P(Q)\to\mathcal C$. 将它表述为典范双射
+      \[
+        \Hom_{\mathbf{Cat}}(P(Q),\mathcal C)
+        \cong\Hom_{\mathbf{Quiv}}(Q,U_{\mathbf{Cat}}(\mathcal C)).
+      \]
+      明确写出由 $Q$ 到各范畴底层图的映射组成的辅助范畴, 并证明 $(P(Q),j_Q)$ 是其中的初对象.
+    \item[(b)] 设 $Q$ 有三个顶点 $0,1,2$ 和箭头
+      \[
+        a:0\to1,\qquad b:1\to2,\qquad c:0\to2.
+      \]
+      列出 $P(Q)$ 的所有非空 $\Hom$ 集合, 说明 $c$ 与 $ba$ 是否相等. 设函子 $P(Q)\to\mathbf{Vect}_k$ 将 $a,b,c$ 分别送到线性映射 $A,B,C$; 说明给出这样的函子需要哪些数据, 以及是否必须满足 $C=B\circ A$. 再用路径长度证明: 对任意 $Q$, $P(Q)$ 的可逆态射只有空路径, 因此其核心群胚是 $Q_0$ 上的离散群胚(只有各顶点的恒等箭头).
+    \item[(c)] 对每个原始箭头 $a:u\to v$ 加入一个新的箭头 $a^{-1}:v\to u$, 形成 $Q^\pm$, 并规定 $\bar a=a^{-1}$,$\overline{a^{-1}}=a$. 若原图已有反向箭头 $b:v\to u$, 则 $a^{-1}$ 仍是新加入的箭头.
+
+      在 $P(Q^\pm)$ 中按插入/删除相邻逆箭头对取等价类. 证明操作保持起点和终点, 并对固定起点,终点证明每条路径有唯一约化代表. 解释第 9 题的证明怎样适用, 特别处理在不同顶点处的空路径.
+    \item[(d)] 以第 (c) 问的等价类为态射,原顶点为对象, 构造自由群胚 $G(Q)$, 并完整验证复合良定义,结合律,单位和逆.
+
+      证明自然函子 $P(Q)\to G(Q)$ 在每个 $\Hom$ 集合上都是单射; 这样的函子称为忠实(faithful). 用两个不同顶点 $x,y$ 之间仅有一支箭头 $x\to y$ 的图, 说明该函子在某个 $\Hom$ 集合上的映射不满射. 比较 $G(Q)$ 与 $P(Q)$ 的核心群胚的态射.
+    \item[(e)] 证明每个到小群胚 $\mathcal H$ 的图映射 $Q\to U_{\mathbf{Gpd}}(\mathcal H)$ 唯一延拓为函子 $G(Q)\to\mathcal H$. 给出相应的初对象表述. 若 $Q$ 只有一个顶点, 且环形生成箭头由集合 $I$ 标记, 构造保持生成元的典范同构
+      \[
+        G(Q)\cong\mathbf{B}F(I).
+      \]
+      同时说明此时 $P(Q)$ 的自同态结构是 $I$ 上的自由幺半群(free monoid): 对任意幺半群 $M$, 每个集合映射 $I\to M$ 都唯一延拓为保持乘法与单位的映射. 幺半群指具有结合运算和单位元,但不要求逆元的集合. 证明当 $I\neq\varnothing$ 时它不是群, 并单独讨论 $I=\varnothing$.
+    \item[(f)] 完成以下两个具体计算.
+      \begin{enumerate}
+        \item[(i)] 对含两个不同顶点 $x,y$ 且只有一支箭头 $a:x\to y$ 的图, 列出 $G(Q)$ 的全部态射, 证明任意两个对象之间恰有一支态射. 这样的群胚称为 pair groupoid.
+        \item[(ii)] 对含两个不同顶点 $x,y$ 且只有两支原始箭头 $a:x\to y$,$b:y\to x$ 的图, 令 $t=ba$. 证明 $\Aut_{G(Q)}(x)\cong\mathbb Z$, 并写出所有从 $x$ 到 $y$ 的态射. 说明为什么 $ba$ 不能被约化为空路径. 此问也可在第 (g) 问后完成.
+      \end{enumerate}
+    \item[(g)] 假设 $Q$ 有限且忽略箭头方向后连通, $Q_0\neq\varnothing$. 底层无向多重图把每一支原始箭头视为一条边: 若有两支方向相反的原始箭头, 就视为两条不同的边. 无向回路包括环, 以及两条平行边形成的长度为二的回路. 生成树(spanning tree) $T$ 是包含全部顶点,连通且没有无向回路的子图.
+
+      先证明这样的生成树存在且恰有 $|Q_0|-1$ 条边. 固定基点 $x$. 令 $p_v:x\to v$ 是 $T$ 中唯一无回退路径, 必要时沿边的形式逆行走, 并令 $p_x=1_x$. 对每支不属于 $T$ 的原始箭头 $e:u\to v$, 定义
+      \[
+        \ell_e=p_v^{-1}ep_u\in\Aut_{G(Q)}(x).
+      \]
+      证明这些 $\ell_e$ 自由生成 $\Aut_{G(Q)}(x)$. 进一步证明每个态射 $q:u\to v$ 都唯一写成
+      \[
+        p_v\,w(\ell_e)\,p_u^{-1},
+      \]
+      其中 $w$ 是非树边及其逆上的约化字. 由此推出
+      \[
+        \Aut_{G(Q)}(x)\cong F_r,\qquad r=|Q_1|-|Q_0|+1.
+      \]
+      这里 $F_r=F(\{1,\ldots,r\})$, 并约定 $F_0=F(\varnothing)$. 提示: 令 $S$ 为非树边集合. 把所有顶点送到 $\mathbf{B}F(S)$ 的唯一对象, 把树边送到单位, 把非树边送到对应自由生成元. 用第 (e) 问延拓为函子; 再构造反方向的群同态, 并利用路径中的望远镜消去验证逆关系.
+    \item[(h)] 在第 (g) 问的有限连通假设下, 证明 $G(Q)$ 有初对象当且仅当底层无向图是树; 同样的条件也等价于存在终对象, 此时每个顶点都是初对象和终对象. 应用到第 (b) 问的三角形图, 证明其在 $0$ 处的自同构群由 $c^{-1}ba$ 自由生成, 因而同构于 $\mathbb Z$.
+
+      最后用一段话比较: 生成一个子群; 从集合自由生成一个群; 从图自由生成一个范畴; 从图自由生成一个群胚. 这四种构造的输入,输出和泛性质各有什么不同?
+  \end{enumerate}
+\end{problem}
 
 \end{document}

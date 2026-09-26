@@ -62,6 +62,9 @@
 | `\bo{...}` | 粗体符号 | `\boldsymbol{...}` |
 | `\transpose` | 转置符号 | `^\mathrm{T}` |
 | `\inprod{...}{...}` | 内积符号 | `\left\langle ... , ... \right\rangle` |
+| `\bracket{...}` | 尖括号 | `\left\langle ... \right\rangle` |
+| `\bra{...}` | 量子力学中的左矢 | `\left\langle ... \right|` |
+| `\ket{...}` | 量子力学中的右矢 | `\left| ... \right\rangle` |
 
 ### 数学常数与微分符号
 
@@ -76,9 +79,12 @@
 | 命令 | 含义 | 定义 |
 |------|------|------|
 | `\Hom` | 态射集 | `\operatorname{Hom}` |
+| `\Obj` | 范畴的对象 | `\operatorname{Obj}` |
 | `\Aut` | 自同构群 | `\operatorname{Aut}` |
+| `\Inn` | 内自同构群 | `\operatorname{Inn}` |
 | `\Isom` | 同构集 | `\operatorname{Isom}` |
 | `\End` | 自同态环 | `\operatorname{End}` |
+| `\ord` | 元素的阶 | `\operatorname{ord}` |
 | `\id` | 恒等态射 | `\operatorname{id}` |
 | `\im` | 线性映射的像空间 | `\operatorname{im}` |
 | `\rank` | 矩阵的秩 | `\operatorname{rank}` |
