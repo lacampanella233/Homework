@@ -29,8 +29,3 @@
 *.glo
 *.gls
 *.ist
-
-# Generated homework PDFs use the numeric assignment name. Keep reference PDFs.
-/*/[0-9]/[0-9].pdf
-/*/[0-9][0-9]/[0-9][0-9].pdf
-/*/[0-9][0-9][0-9]/[0-9][0-9][0-9].pdf
