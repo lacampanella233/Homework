@@ -732,7 +732,7 @@
 
 	因此, 将 $\alpha$ 和 $\alpha^{-1}$ 唯一延拓为 $F$ 的自同态, 知这两个自同态互为逆, 因此均为自同构. 对于 $\beta$ 与 $\beta^{-1}$, $\gamma$ 与 $\gamma^{-1}$, 情况完全类似.
 
-	\paragraph{(d)} $\chi(x) = 0$, 而 $\chi(\gamma(x)) = \chi(xy) = 1$. 若 $\gamma$ 为内自同构, 则存在 $f \in F$, 使得 $\gamma(x) = fxf^{-1}$, 结合 $\Z$ 为交换群, $\chi(\gamma(x)) = \chi(f)\chi(x)\chi(f)^{-1} = \chi(x)$, 矛盾. 因此 $\gamma$ 不是内自同构.
+	\paragraph{(d)} $\chi(x) = 0$, 而 $\chi(\gamma(x)) = \chi(xy) = 1$. 若 $\gamma$ 为内自同构, 则存在 $f \in F$, 使得 $\gamma(x) = fxf^{-1}$, 结合 $\Z$ 为交换群, $\chi(\gamma(x)) = \chi(f)+\chi(x)-\chi(f) = \chi(x)$, 矛盾. 因此 $\gamma$ 不是内自同构.
 \end{solution}
 
 \begin{problem}
@@ -752,9 +752,13 @@
 
 	取 $J=I$, $f = \id_I$, 知 $F(\id_I) \circ \eta_I = \eta_I \circ \id_I$. 而 $\id_{F(I)} \circ \eta_I = \eta_I \circ \id_I$, 结合 $F(\id_I)$ 的唯一性, 知 $F(\id_I) = \id_{F(I	)}$.
 
-	同样地, 由 $(F(g) \circ F(f)) \circ \eta_I = F(g) \circ \eta_J = \eta_K$, 结合 $F(g\circ f)$ 的唯一性, 知 $F(g) \circ F(f) = F(g \circ f)$. 因此 $F$ 是函子.
+	同样地, 由 $(F(g) \circ F(f)) \circ \eta_I = F(g) \circ \eta_J \circ f = \eta_K \circ (g \circ f)$, 结合 $F(g\circ f)$ 的唯一性, 知 $F(g) \circ F(f) = F(g \circ f)$. 因此 $F$ 是函子.
 
-	\paragraph{(b)} 若 $f$ 为单射, 下面来证明 $F(f)$ 是单射. 根据定义, $\eta_J$ 为单射, 再结合 $f$ 为单射, 知 $\eta_J \circ f = F(f) \circ \eta_I$ 为单射 (我们将群同态看做底层集合之间的映射). 从而 $F(f)$ 为单射.
+	\paragraph{(b)} 若 $f$ 为单射, 下面来证明 $F(f)$ 是单射. 若 $I = \varnothing$, 则 $F(I)$ 为平凡群, 因此 $F(f)$ 为单射.
+
+	否则, 取 $F(I)$ 与 $F(J)$ 为相应集合上的既约字群. 对于任意非单位元 $w = i_1^{\delta_1}\dots i_n^{\delta_n}\in F(I)$, 其中 $n\ge 1$, 由 $F(f)\circ\eta_I=\eta_J\circ f$ 以及 $F(f)$ 为群同态知
+	\[ F(f)(w)=f(i_1)^{\delta_1}\dots f(i_n)^{\delta_n}. \]
+	若右侧有相邻的逆字母, 则存在 $1\le k<n$, 使得 $f(i_k)=f(i_{k+1})$ 且 $\delta_k=-\delta_{k+1}$. 由 $f$ 为单射知 $i_k=i_{k+1}$, 这与 $w$ 为既约字矛盾. 因此右侧仍为非空既约字, 故 $F(f)(w)\neq 1_{F(J)}$. 从而 $\ker F(f)=\{1_{F(I)}\}$, 因此 $F(f)$ 为单射.
 
 	若 $f$ 为满射, 下面来证明 $F(f)$ 是满射. 若 $I,J$ 均为空集, 则 $F(I)$ 与 $F(J)$ 均为平凡群, $f$ 为空映射, $F(f)$ 为平凡群同态, 因此为满射. 否则, 由 $f$ 为满射知 $I, J$ 均不为空集. 对于任意的 $x = j_1^{\delta_1} \dots j_n^{\delta_n} \in F(J)$ (其中 $j_k \in J$, $\delta_k \in \{\pm 1\}$), 存在 $i_1,\dots,i_n \in I$, 使得 $f(i_k) = j_k$. 则
 	\[ F(f) (i_1^{\delta_1} \dots, i_n^{\delta_n}) 
