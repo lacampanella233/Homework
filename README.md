@@ -110,6 +110,6 @@ python3 .agents/skills/homework-manager/scripts/homework.py Compile --course Alg
 
 创建、同步、切换及完成操作默认只输出计划；核对后通过 `--apply` 执行。课程／作业选项为 `--course`／`--number`。详细操作和安全边界见 `.agents/skills/homework-manager/SKILL.md`。
 
-编译生成的作业 PDF 刻意保留并追踪，便于在远程仓库查看；`Sync` 会包含目标作业目录中新增或更新的 PDF。仅忽略 LaTeX 中间文件，题目、绘图等输入 PDF 也继续追踪。当前仓库没有 Git LFS 文件，无需安装 Git LFS；其他仓库的全局 LFS 设置不受影响。
+只追踪数字作业主文件 `<number>.tex` 编译生成的同名 `<number>.pdf`，便于在远程仓库查看；其余 PDF（包括题目和绘图 PDF）均忽略并保留本地。现有作业使用根 `.gitignore` 的精确例外，新作业自动创建目录级 `.gitignore` 例外；`Sync` 包含作业 PDF，忽略其他 PDF 和 LaTeX 中间文件。当前仓库没有 Git LFS 文件，无需安装 Git LFS；其他仓库的全局 LFS 设置不受影响。
 
-本仓库的 macOS 管理脚本迁移、测试和相关文档由 AI 辅助完成。
+本仓库的 macOS 管理脚本迁移、PDF 追踪策略调整、测试和相关文档由 AI 辅助完成。
