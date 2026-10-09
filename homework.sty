@@ -12,9 +12,16 @@
 \RequirePackage[UTF8]{ctex}
 \RequirePackage{amsmath, amsthm, amssymb, bm, framed, enumitem, url, float}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
-\RequirePackage{newtxtext}
+% \RequirePackage{newtxtext}
 \RequirePackage{xparse}
 \RequirePackage{xcolor} % <--- 修改：由 color 改为 xcolor，以支持 \colorlet
+
+\setmainfont{texgyretermes-regular.otf}[
+    BoldFont       = texgyretermes-bold.otf,
+    ItalicFont     = texgyretermes-italic.otf,
+    BoldItalicFont = texgyretermes-bolditalic.otf,
+    Ligatures      = TeX
+]
 
 % 语言相关字符串定义
 \if@homework@zh
@@ -37,7 +44,18 @@
   \newcommand{\homework@lemmaname}{Lemma}
 \fi
 
-% 英文字体设置（pdfLaTeX）
+% 课程名, 学期, 作业编号未定义时抛出错误
+\newcommand{\thecourse}{\PackageError{homework}
+  {Course is not configured}
+  {Use \string\config{course}{term}{number} in the preamble.}}
+
+\newcommand{\theterm}{\PackageError{homework}
+  {Term is not configured}
+  {Use \string\config{course}{term}{number} in the preamble.}}
+
+\newcommand{\thehomeworkcounter}{\PackageError{homework}
+  {Homework number is not configured}
+  {Use \string\config{course}{term}{number} in the preamble.}}
 
 % 页面设置
 \geometry{a4paper, scale=0.8}
