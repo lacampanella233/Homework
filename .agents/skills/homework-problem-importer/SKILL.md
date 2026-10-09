@@ -1,6 +1,6 @@
 ---
 name: homework-problem-importer
-description: "Faithfully transcribe assignment problems from images or PDFs into an existing D:\\程昊一\\Homework LaTeX assignment, translating only when the source and target document languages differ, applying an explicitly supplied problem prefix, and reproducing necessary figures with TikZ or cropped graphics. Use for problem entry only; do not solve, correct, or paraphrase the assignment."
+description: "Faithfully transcribe assignment problems from images or PDFs into an existing Homework repository LaTeX assignment, translating only when the source and target document languages differ, applying an explicitly supplied problem prefix, and reproducing necessary figures with TikZ or cropped graphics. Use for problem entry only; do not solve, correct, or paraphrase the assignment."
 ---
 
 # Homework Problem Importer
@@ -92,11 +92,13 @@ Choose the width by visual inspection. Keep the filename relative to the assignm
 
 1. Re-read every inserted problem against the source at high resolution. Confirm the translation decision and every optional argument.
 2. Review the scoped diff and new assets only; ensure existing answers and unrelated files are unchanged.
-3. From the assignment directory, run:
+3. From the repository root, compile through the management dispatcher:
 
-```powershell
-latexmk -pdf -interaction=nonstopmode -halt-on-error <number>.tex
+```sh
+python3 .agents/skills/homework-manager/scripts/homework.py Compile --course <course> --number <number>
 ```
+
+This uses XeLaTeX and handles macOS paths directly; no PowerShell or Windows drive mapping is required.
 
 4. Report the exit code and key error if compilation fails. Preserve the source and log for diagnosis.
 5. Inspect the compiled pages containing the new problems. Check ordering, line breaks, clipping, figure legibility, TikZ fidelity, and any visible seam against the shaded background. Compilation alone does not verify transcription or translation accuracy.

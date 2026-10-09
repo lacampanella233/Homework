@@ -1,12 +1,12 @@
 # AGENTS.md
 
-本文件适用于整个 `D:\程昊一\Homework` 仓库。
+本文件适用于整个 Homework 仓库；当前 macOS checkout 位于 `/Users/chenghaoyi/Homework`。
 
 ## 仓库用途
 
 这是个人课程作业仓库，使用根目录 `homework.sty` 生成 LaTeX 作业。仓库管理自动化由 `.agents/skills/homework-manager/` 提供；涉及创建课程、创建作业、编译作业、同步、切换或完成作业时，优先使用该 Skill 的脚本，不要临时拼接一组等价命令。
 
-Skill 使用统一入口 `scripts/homework.ps1`：入口负责稳定参数、仓库初始化和白名单分派；公共逻辑位于 `scripts/Homework.Common.psm1`；每类任务的实现位于 `scripts/actions/<Action>.ps1`。Agent 应选择公开 Action，不直接执行内部动作脚本。
+Skill 使用统一入口 `scripts/homework.py`：入口负责稳定参数、仓库初始化和白名单分派；公共逻辑位于 `scripts/common.py`；每类任务的实现位于 `scripts/actions/` 中的 Python 模块。Agent 应选择公开 Action，不直接执行内部动作脚本。
 
 ## AI 使用声明
 
@@ -20,7 +20,7 @@ Skill 使用统一入口 `scripts/homework.ps1`：入口负责稳定参数、仓
 - 课程目录位于仓库根目录，当前形如 `Algebra-0`、`Analysis-0`、`Physics-0`。
 - 每次作业位于 `<course>/<number>/`；主文件必须是 `<number>.tex`，并在创建时复制根目录当前版本的 `homework.sty`。
 - 作业分支名为 `<course>-HW<number>`，例如 `Analysis-0-HW13`。
-- `main` 是汇总分支，远程名为 `origin`；当前远程使用 SSH。
+- `main` 是汇总分支，远程名为 `origin`；当前远程使用 HTTPS；以 `git remote get-url origin` 为准。
 - 新作业编号取该课程所有纯数字目录名的最大值加一。不要硬编码“当前下一次”编号。
 - 新作业默认沿用该课程最近一个数字作业目录中 `.tex` 文件的 `homework` 语言选项和 `\config` 课程显示名。当前约定是 Algebra/Analysis 使用中文，Physics 使用英文，但以仓库现状为准。
 
@@ -29,7 +29,7 @@ Skill 使用统一入口 `scripts/homework.ps1`：入口负责稳定参数、仓
 - “管理作业”“新建作业”“提交”“切换”“完成作业”等请求只授权仓库管理，不授权编写、改写或纠正题目、答案和证明。
 - 只有用户明确要求编辑某份作业内容时，才修改相应 `.tex`；保持其语言、数学记号和局部排版风格。
 - 根目录 `homework.sty` 是新作业模板来源。不要批量替换旧作业目录中的历史副本，除非用户明确要求迁移。
-- LaTeX 中间文件由根目录 `.gitignore` 统一忽略。数字作业主文件生成的同名 PDF（例如 `Analysis-0/13/13.pdf`）也不追踪；题目、绘图等作为源材料使用的其他 PDF 和图片仍应追踪。
+- LaTeX 中间文件由根目录 `.gitignore` 统一忽略。编译生成的作业 PDF 刻意保留并追踪，以便在远程仓库查看；`Sync` 应包含目标作业目录中新增或更新的 PDF。题目、绘图等作为源材料使用的其他 PDF 和图片也应追踪，不添加忽略作业 PDF 的规则。
 - 不要使用 `git add -f` 绕过编译产物忽略规则。若新增了未覆盖的编译产物类型，先确认它不是输入资源，再扩充根目录 `.gitignore`。
 
 ## Git 安全规则
@@ -48,30 +48,30 @@ Skill 使用统一入口 `scripts/homework.ps1`：入口负责稳定参数、仓
 
 脚本入口：
 
-```powershell
-pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 <Action> [parameters]
+```sh
+python3 .agents/skills/homework-manager/scripts/homework.py <Action> [options]
 ```
 
 - `Status` 是只读操作。
-- `Compile` 会通过临时 ASCII 盘符编译当前或指定作业，立即执行且不接受 `-Apply`；它必须在成功、失败或中断时解除自己创建的映射。
-- `NewCourse`、`NewHomework`、`Sync`、`Switch`、`Finish` 默认仅输出计划；确认与用户请求完全一致后才添加 `-Apply`。
-- `Finish -Apply` 会推送当前作业分支、在本地合并到更新后的 `main`、推送 `main`，然后尝试清理远程和本地作业分支。必须特别核对预览中的分支名。
-- `Open` 只在用户要求打开 VS Code、资源管理器、GitHub 网页或 GitHub Desktop 时使用。
-- 脚本的 `-RepoPath` 仅用于隔离测试或显式指定另一个仓库；正常使用保持默认或明确传入 `D:\程昊一\Homework`。
-- 新增任务类型时，同时更新入口的 `ValidateSet`、动作文件白名单、分派调用和 `SKILL.md`。公共 Git、路径和校验逻辑应放入 `Homework.Common.psm1`，不要复制到多个动作文件。
+- `Compile` 在作业目录中直接运行 `latexmk -xelatex`，立即执行且不接受 `--apply`；保留源文件和日志，返回编译器退出码。macOS 中文路径无需临时盘符映射。
+- `NewCourse`、`NewHomework`、`Sync`、`Switch`、`Finish` 默认仅输出计划；确认与用户请求完全一致后才添加 `--apply`。
+- `Finish --apply` 会推送当前作业分支、在本地合并到更新后的 `main`、推送 `main`，然后尝试清理远程和本地作业分支。必须特别核对预览中的分支名。
+- `Open` 只在用户要求打开 VS Code、Finder、GitHub 网页或 GitHub Desktop 时使用。
+- 脚本的 `--repo-path` 仅用于隔离测试或显式指定另一个仓库；默认从脚本位置解析仓库根目录，不依赖终端当前目录。
+- 新增任务类型时，同时更新入口的 Action 白名单、分派调用、动作模块和 `SKILL.md`。公共 Git、路径和校验逻辑应放入 `common.py`，不要复制到多个动作文件。
 
 ## LaTeX 验证
 
 修改某个 `<number>.tex` 或其 `homework.sty` 后，通过统一入口编译。在作业分支上可自动识别课程和编号：
 
-```powershell
-pwsh -NoProfile -File .agents/skills/homework-manager/scripts/homework.ps1 Compile
+```sh
+python3 .agents/skills/homework-manager/scripts/homework.py Compile
 ```
 
-当前分支无法识别作业时，显式传入 `-Course <name> -Number <number>`。不要从含非 ASCII 字符的目录直接调用 Windows `latexmk`；本机原生 Perl 会把工作目录按系统 ANSI 代码页转换，并可能以退出码 `22` 失败。
+当前分支无法识别作业时，显式传入 `--course <name> --number <number>`。本机使用 MacTeX 和 XeLaTeX，支持中文目录。管理脚本仅使用 Python 3 标准库，无需 PowerShell。
 
 - 只编译与任务相关的文档；不要为了仓库管理操作重编译历史作业。
-- 报告命令退出码和关键错误。生成的作业 PDF 与中间文件应保持未追踪、被忽略；生成 PDF 不等于数学内容正确。
+- 报告命令退出码和关键错误。生成的作业 PDF 应保留并追踪，中间文件应保持未追踪、被忽略；生成 PDF 不等于数学内容正确。
 - 若编译失败，保留源文件和日志供诊断，不删除用户产物。
 
 ## 完成前检查

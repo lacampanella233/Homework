@@ -97,3 +97,19 @@
 宏包会自动制作标题, 因此不需要使用`\maketitle`命令. 只需在文档导言区设置好上述3个参数.
 
 
+
+## macOS 使用
+
+仓库管理使用本机已有的 Python 3.9+ 和 Git；编译使用 MacTeX（`/Library/TeX/texbin`）。打开 Finder、浏览器及 GitHub Desktop 使用 macOS 的 `open` 命令；VS Code 可通过 `code` 或应用名打开。无需安装 PowerShell 或额外 Python 包。
+
+```sh
+python3 .agents/skills/homework-manager/scripts/homework.py Status
+python3 .agents/skills/homework-manager/scripts/homework.py NewHomework --course Analysis-1
+python3 .agents/skills/homework-manager/scripts/homework.py Compile --course Algebra-1 --number 2
+```
+
+创建、同步、切换及完成操作默认只输出计划；核对后通过 `--apply` 执行。课程／作业选项为 `--course`／`--number`。详细操作和安全边界见 `.agents/skills/homework-manager/SKILL.md`。
+
+编译生成的作业 PDF 刻意保留并追踪，便于在远程仓库查看；`Sync` 会包含目标作业目录中新增或更新的 PDF。仅忽略 LaTeX 中间文件，题目、绘图等输入 PDF 也继续追踪。当前仓库没有 Git LFS 文件，无需安装 Git LFS；其他仓库的全局 LFS 设置不受影响。
+
+本仓库的 macOS 管理脚本迁移、测试和相关文档由 AI 辅助完成。

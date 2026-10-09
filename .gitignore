@@ -30,5 +30,7 @@
 *.gls
 *.ist
 
-# Generated PDF for Analysis-1 homework 2
-/Analysis-1/2/2.pdf
+# macOS and Python runtime artifacts
+.DS_Store
+__pycache__/
+*.pyc
