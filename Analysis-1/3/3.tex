@@ -5,6 +5,124 @@
 
 \begin{document}
 
+截止日期: 10.21. 每题 10 分, 共 100 分.
 
+\begin{problem}
+  Banach 空间是作为度量空间完备的赋范向量空间. 利用压缩映射原理证明下列定理: 设 $X$ 是 Banach 空间, $\Phi:\overline{B_r(x_0)}\to X$ 满足 $\Phi(x_0)=y_0$, 其中 $\overline{B_r(x_0)}$ 是 $X$ 中的闭球. 假设 $\Phi$ 具有 $I+\Psi$ 的形式, 其中 $I$ 是恒等映射, 且对某个 $\gamma\in(0,1)$, $\Psi$ 满足
+  \[
+    \|\Psi(x_2)-\Psi(x_1)\|\leq\gamma\|x_2-x_1\|,\qquad x_1,x_2\in\overline{B_r(x_0)}.
+  \]
+  则对 $y\in\overline{B_R(y_0)}$, $R=(1-\gamma)r$, 存在唯一的 $x\in\overline{B_r(x_0)}$ 满足 $\Phi(x)=y$.
+\end{problem}
+
+\begin{proof}
+	由于此问题是平移不变的, 因此可以不妨设 $x_0 = 0$, $y_0 = 0$. 由于 $\Psi$ 是压缩映射, 因此 $x \mapsto \Psi(-x) - y$ 对于任意的 $y \in \overline{B_R(y_0)}$ 也是压缩映射. 因此, 存在唯一的不动点, 设为 $-x$. 由 $-x = \Psi(x) - y$, 知 $\Phi(x) = x + \Psi(x) = y$. 并且, 
+	\[ \abs{x} \le \abs{\Psi(x)-\Psi(x_0)} + \abs{y} \le \gamma r + (1-\Gamma) r = r. \]
+	因此 $x \in \overline{B_r(x_0)}$, 满足要求.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $\phi:\mathbb{R}^n\to\mathbb{R}$ 是 $C^1$ 的, 且 $d\phi(0)\neq0$. 证明: 对 $\mathbb{R}^n$ 中 $0$ 的某个小邻域 $U$, 存在 $C^1$ 映射 $\Psi:U\to\mathbb{R}^n$, 使得
+  \[
+    \phi(\Psi(x))=\phi(0)+d\phi(0)x,\qquad x\in U,
+  \]
+  且 $\Psi(0)=0$, $d\Psi(0)$ 是恒等映射.
+
+  (提示: 选取向量 $r_1,\cdots,r_{n-1}$, 使得 $\{r_1,\cdots,r_{n-1},\nabla\phi(0)\}$ 是 $\mathbb{R}^n$ 的一组正交基. 考虑一个适当的 $f:\mathbb{R}^n\times\mathbb{R}^n\to\mathbb{R}^n$, 使我们能够应用隐函数定理.)
+\end{problem}
+
+\begin{proof}
+	记 $r_n = \nabla \phi(0) \in \R^n$. 将 $r_n$ 扩充为 $\R^n$ 的一组正交基, 设为 $\{r_1,r_2,\dots,r_n\}$. 构造函数 $F: \R^n \times \R^n \to \R$, 其定义为 $\phi(y)-\d \phi(0)x - \phi(0)$ 在正交基 $\{r_1, r_2, \dots, r_n\}$ 下的分量. 我们将逐条验证 $F$ 满足隐函数定理的条件: 
+	\begin{enumerate}[label=(\arabic*)]
+		\item 由于 $\phi \in C^1(\R^n)$, 因此 $F \in C^1(\R^n \times \R^n)$;
+	\end{enumerate}
+\end{proof}
+
+
+
+\begin{problem}
+  定义 $f=(f_1,f_2):\mathbb{R}^2\to\mathbb{R}^2$ 为
+  \[
+    f_1(x,y)=e^x\cos y,\qquad f_2(x,y)=e^x\sin y.
+  \]
+  \begin{enumerate}
+    \item[(a)] 求 $f$ 的像.
+    \item[(b)] 证明 $f$ 的 Jacobian 处处非零, 但 $f$ 不是单射.
+    \item[(c)] 设 $a=(0,\pi/3)$, $b=f(a)$. 设 $g$ 是 $f$ 在 $b$ 的某个邻域中的逆映射. 计算 $df(a)$ 和 $dg(b)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  定义 $f:\mathbb{R}^3\to\mathbb{R}$ 为
+  \[
+    f(x,y_1,y_2)=x^2y_1+e^x+y_2.
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明: 在 $\mathbb{R}^2$ 中 $(1,-1)$ 的某个邻域内存在可微函数 $g$, 使得 $g(1,-1)=0$, 且
+      \[
+        f(g(y_1,y_2),y_1,y_2)=0.
+      \]
+    \item[(b)] 计算 $\partial_{y_1}g(1,-1)$ 和 $\partial_{y_2}g(1,-1)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  设 $f:\mathbb{R}^2\to\mathbb{R}$, 且 $\partial_x(\partial_y f)$ 处处存在且连续. 这是否意味着 $\partial_x f$ 在某处存在? 说明理由.
+\end{problem}
+
+\begin{problem}
+  定义 $f(0,0)=0$, 且
+  \[
+    f(x,y)=\frac{xy(x^2-y^2)}{x^2+y^2},\qquad (x,y)\neq(0,0).
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明 $f$, $\partial_x f$ 和 $\partial_y f$ 在 $\mathbb{R}^2$ 中连续.
+    \item[(b)] 计算 $\partial_x(\partial_y f)(0,0)$ 和 $\partial_y(\partial_x f)(0,0)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  证明下列恒等式:
+  \[
+    (h\cdot\nabla)^k=\sum_{|\alpha|=k}\frac{k!}{\alpha!}h^\alpha\partial^\alpha,\qquad h\in\mathbb{R}^n.
+  \]
+  这里等式两边都应视为作用于 $f\in C^k$ 的算子.
+\end{problem}
+
+\begin{problem}
+  定义 $f:\mathbb{R}^3\to\mathbb{R}$ 为
+  \[
+    f(x,y,z)=e^{x^2-yz^2}\cos(xz+y^2).
+  \]
+  求其在原点处的 5 阶 Taylor 多项式的显式表达式. (必要时, 允许直接使用任意单变量 Taylor 展开.)
+\end{problem}
+
+\begin{problem}
+  证明不等式:
+  \[
+    xy\leq x\ln x-x+e^y,\qquad x\geq1,\ y\geq0.
+  \]
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 证明
+      \[
+        f(x,y)=(1+e^y)\cos x-ye^y
+      \]
+      有无穷多个局部极大值点, 但没有局部极小值点.
+    \item[(b)] 求
+      \[
+        f(x,y)=\sin x+\sin y-\sin(x+y)
+      \]
+      在闭区域
+      \[
+        \{(x,y):x\geq0,\ y\geq0,\ x+y\leq2\pi\}
+      \]
+      上的 (绝对) 最大值和最小值.
+  \end{enumerate}
+\end{problem}
 
 \end{document}
