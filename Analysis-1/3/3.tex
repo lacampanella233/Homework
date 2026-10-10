@@ -16,9 +16,18 @@
 \end{problem}
 
 \begin{proof}
-	由于此问题是平移不变的, 因此可以不妨设 $x_0 = 0$, $y_0 = 0$. 由于 $\Psi$ 是压缩映射, 因此 $x \mapsto \Psi(-x) - y$ 对于任意的 $y \in \overline{B_R(y_0)}$ 也是压缩映射. 因此, 存在唯一的不动点, 设为 $-x$. 由 $-x = \Psi(x) - y$, 知 $\Phi(x) = x + \Psi(x) = y$. 并且, 
-	\[ \abs{x} \le \abs{\Psi(x)-\Psi(x_0)} + \abs{y} \le \gamma r + (1-\Gamma) r = r. \]
-	因此 $x \in \overline{B_r(x_0)}$, 满足要求.
+	固定任意的 $y \in \overline{B_R(y_0)}$, 定义 $T_y(x) = y - \Psi(x)$. 由于 $y_0 = x_0 + \Psi(x_0)$, 对于任意的 $x \in \overline{B_r(x_0)}$, 有
+	\begin{align*}
+		\|T_y(x)-x_0\|
+		&= \|(y-y_0)-(\Psi(x)-\Psi(x_0))\| \\
+		&\le \|y-y_0\| + \gamma\|x-x_0\|
+		\le (1-\gamma)r + \gamma r = r.
+	\end{align*}
+	因此 $T_y$ 将 $\overline{B_r(x_0)}$ 映入自身. 并且, 对任意的 $x_1,x_2 \in \overline{B_r(x_0)}$, 有
+	\[ \|T_y(x_2)-T_y(x_1)\| = \|\Psi(x_2)-\Psi(x_1)\| \le \gamma\|x_2-x_1\|. \]
+	故 $T_y$ 是压缩映射. 由于 $X$ 是 Banach 空间, 其闭球 $\overline{B_r(x_0)}$ 是完备的度量空间. 根据压缩映射原理, $T_y$ 在此闭球内存在唯一的不动点 $x$. 而
+	\[ T_y(x)=x \Longleftrightarrow x+\Psi(x)=y \Longleftrightarrow \Phi(x)=y, \]
+	因此此 $x$ 即为所需的唯一解.
 \end{proof}
 
 
@@ -34,10 +43,27 @@
 \end{problem}
 
 \begin{proof}
-	记 $r_n = \nabla \phi(0) \in \R^n$. 将 $r_n$ 扩充为 $\R^n$ 的一组正交基, 设为 $\{r_1,r_2,\dots,r_n\}$. 构造函数 $F: \R^n \times \R^n \to \R$, 其定义为 $\phi(y)-\d \phi(0)x - \phi(0)$ 在正交基 $\{r_1, r_2, \dots, r_n\}$ 下的分量. 我们将逐条验证 $F$ 满足隐函数定理的条件: 
+	记 $r_n = \nabla \phi(0) \in \R^n$. 将 $r_n$ 扩充为 $\R^n$ 的一组正交基, 设为 $\{r_1,r_2,\dots,r_n\}$, 并且 $\abs{r_1} = \dots = \abs{r_{n-1}} = 1$. 选择以此基的向量为坐标轴方向的笛卡尔坐标系. 构造函数 $F: \R^n \times \R^n \to \R^n$, 其定义为
+	\[ F(x,y) = \begin{pmatrix}
+		(y - x) \cdot r_1 \\
+		\vdots \\
+		(y - x) \cdot r_{n-1} \\
+		\phi(y) - \d \phi(0)x - \phi(0)
+	\end{pmatrix}. \]
+	我们将逐条验证 $F$ 满足隐函数定理的条件: 
 	\begin{enumerate}[label=(\arabic*)]
 		\item 由于 $\phi \in C^1(\R^n)$, 因此 $F \in C^1(\R^n \times \R^n)$;
+		\item 显然有 $F(0,0) = 0$.
+		\item 根据 Jacobian 的定义与基 $\{r_1, \dots, r_n\}$ 的选取, 有 $J_y F(0, 0) = \diag\{1, \dots, 1, \abs{\nabla \phi(0)}\}$, 因此 $\det J_y F(0,0) \neq 0$.
 	\end{enumerate}
+
+	根据隐函数定理, 存在 $x$ 的一个邻域 $I_x$ 以及 $y$ 的一个邻域 $I_y$ , 以及一个 $\Psi \in C^1 (I_x, I_y)$, 满足: 对于任意的 $x \in I_x$, $y \in I_y$, $F(x,y) = 0 \Longleftrightarrow y = \Psi(x)$. 因此, 由 $F(0, 0) = 0$ 知 $\Psi(0) = 0$. 并且, 
+	\[ J\Psi(0) = -(J_y F(0, 0))^{-1} J_x F(0, 0). \]
+	
+	而根据 $F$ 的定义, 我们有
+	\[ J_yF(0,0) = \diag\{1, \dots, 1, \abs{\nabla \phi(0)}\}, 
+	J_xF(0,0) = \diag\{-1, \dots, -1, -\abs{\nabla \phi(0)}\}. \]
+	故 $J \Psi(0) = \id $.
 \end{proof}
 
 
@@ -54,6 +80,44 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 平面 $\R^2$ 上的任意一点都可以用极坐标 $(x,y) = (r \cos\theta, r\sin\theta)$ 描述. 若 $r>0$, 则不难验证 $f(\ln r, \theta) = (x, y)$. 由于对于任意的 $x, y$, 均有 $e^x > 0$, 并且 $\cos y$ 与 $\sin y$ 不能同时为 $0$, 因此 $(0,0)$ 不在 $\im f$ 中. 
+	
+	故 $\im f = \R^2 - \{(0,0)\}$.
+
+	\paragraph{(b)} 通过计算, 知
+	\begin{align*}
+		\det Jf
+		&= \det \begin{pmatrix}
+			\partial_x f_1 & \partial_y f_1 \\
+			\partial_x f_2 & \partial_y f_2
+		\end{pmatrix}
+		= \det \begin{pmatrix}
+			e^x \cos y & - e^x \sin y \\
+			e^x \sin y & e^x \cos y
+		\end{pmatrix}
+		= e^{2x} \neq 0.
+	\end{align*}
+	因此 $f$ 的 Jacobian 处处非零. 但是 $f$ 显然不是单射, 因为 $f$ 关于 $y$ 以 $2\pi$ 为周期.
+
+	\paragraph{(c)} 直接套用上面的计算, 得到
+	\[ J f(a) = \begin{pmatrix}
+		1/2 & -\sqrt{3}/2 \\
+		\sqrt{3}/2 & 1/2
+	\end{pmatrix}. \]
+	由于 $g \circ f = \id$ 在 $a$ 的某个邻域内成立, 故
+	\begin{align*}
+		1 = Jg(f(a)) Jf(a)
+		\implies
+		Jg(b) = (Jf(a))^{-1} = \begin{pmatrix}
+			1/2 & \sqrt{3}/2 \\
+			-\sqrt{3}/2 & 1/2
+		\end{pmatrix}.
+	\end{align*}
+\end{solution}
+
+
+
 \begin{problem}
   定义 $f:\mathbb{R}^3\to\mathbb{R}$ 为
   \[
@@ -68,9 +132,44 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 下面来验证 $f$ 满足隐函数定理的条件. 
+	\begin{enumerate}[label = (\arabic*)]
+		\item 显然 $f \in C^1 (\R \times \R^2)$;
+		\item 不难验证 $f(0,1,-1) = 0 + 1 - 1 = 0$;
+		\item 由于 $\det J_x f(x,y_1,y_2) = 2xy_1 + e^x$, 因此 $\det J_x (0,1,-1) = 1 \neq 0$.
+	\end{enumerate}
+	因此在 $\R^2$ 中, 存在 $(1,-1)$ 的某个邻域上的 $C^1$ 函数 $g$, 使得 $g(1,-1) = 0$, 并且在此邻域内, $f(g(y_1,y_2), y_1, y_2) = 0$.
+
+	\paragraph{(b)} 由隐函数定理, 
+	\begin{align*}
+		J g(1,-1)
+		&= -(J_x f(0,1,-1))^{-1} J_y f(0,1,-1) \\
+		&= -\left( \partial_x f(x,y_1,y_2) \right)^{-1} \Big|_{(0,1,-1)}
+		\left( \partial_{y_1}f(x,y_1,y_2), \partial_{y_2}f(x,y_1,y_2) \right) \Big|_{(0,1,-1)} \\
+		&= -\left( 2xy_1 + e^x \right)^{-1} \Big|_{(0,1,-1)}
+		\left( x^2, 1 \right)  \Big|_{(0,1,-1)} \\
+		&= (0,-1).
+	\end{align*}
+	因此 $\partial_{y_1} g(1,-1) = 0$, $\partial_{y_2} g(1,-1) = -1$.
+\end{solution}
+
+
+
 \begin{problem}
   设 $f:\mathbb{R}^2\to\mathbb{R}$, 且 $\partial_x(\partial_y f)$ 处处存在且连续. 这是否意味着 $\partial_x f$ 在某处存在? 说明理由.
 \end{problem}
+
+\begin{solution}
+	不一定. 例如, 取
+	\[ f(x,y) = \begin{cases}
+		1, & x \in \Q; \\
+		0, & x \in \R - \Q.
+	\end{cases} \]
+	则 $\partial_y f$ 恒为 $0$, 因此 $\partial_x(\partial_y)$ 恒为 $0$, 因此处处存在且连续. 但是 $\partial_x f$ 在任何一点都没有定义.
+\end{solution}
+
+
 
 \begin{problem}
   定义 $f(0,0)=0$, 且
@@ -83,6 +182,42 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 计算知
+	\[ \partial_x f = y \frac{x^4 + 4x^2 y^2 - y^4}{(x^2+y^2)^2}, \quad 
+	\partial_y f = x \frac{x^4 - 4x^2 y^2 - y^4}{(x^2+y^2)^2}. \quad
+	(\ (x,y) \neq (0,0)\ ) \]
+	因此 $f$, $\partial_xf$, $\partial_y f$ 均为 $x, y$ 的有理函数, 因此在所有非零点均连续. 因此只需要验证这三个函数在 $(0, 0)$ 处连续. 由于对称性, 只需验证前两者.
+
+	对于任意的 $r>0$ 以及 $(x,y)$ 满足 $0 < x^2+y^2 < r^2$, 有
+	\[ \abs{f(x,y)} \le r^2 \frac{\abs{x^2 - y^2}}{\abs{x^2 + y^2}}
+	\le r^2 \frac{x^2 + y^2}{x^2 + y^2} =r^2
+	\implies \lim_{(x,y) \to (0,0)} f(x,y) = 0. \]
+	因此 $f$ 在 $(0,0)$ 处连续. 
+	
+	根据定义, $f(x,0) = f(0,y) = 0$ 对任意的 $x,y$ 成立, 因此 $\partial_xf(0,0) = \partial_yf(0,0) = 0$. 对于任意的 $r>0$ 以及 $(x,y)$ 满足 $0 < x^2+y^2 < r^2$, 有
+	\begin{align*}
+		\abs{\partial_x f(x,y)}
+		&= \abs{y}\frac{\abs{x^4 + 4x^2 y^2 - y^4}}{(x^2+y^2)^2} \\
+		&\le \abs{y}\frac{x^4 + 4x^2 y^2 + y^4}{(x^2+y^2)^2} \\
+		&\le r \left( 1 + 2\left( \frac{xy}{x^2+y^2} \right)^2 \right)
+		\le \frac{3}{2}r.
+	\end{align*}
+	因此 $\lim_{(x,y) \to (0,0)} \partial_x f(x,y) = 0$. 由对称性, $\lim_{(x,y) \to (0,0)} \partial_y f(x,y) = 0$, 故两个偏导函数在原点均连续.
+
+	\paragraph{(b)} 根据上一问的计算, 
+	\begin{align*}
+		\partial_x(\partial_yf)(0,0)
+		&= \lim_{h \to 0}\frac{\partial_yf(h,0) - \partial_yf(0,0)}{h}
+		= \lim_{h \to 0} \frac{h-0}{h} = 1, \\
+		\partial_y(\partial_xf)(0,0)
+		&= \lim_{h \to 0}\frac{\partial_xf(0,h) - \partial_xf(0,0)}{h}
+		= \lim_{h \to 0} \frac{-h-0}{h} = -1. 
+	\end{align*}
+\end{solution}
+
+
+
 \begin{problem}
   证明下列恒等式:
   \[
@@ -90,6 +225,13 @@
   \]
   这里等式两边都应视为作用于 $f\in C^k$ 的算子.
 \end{problem}
+
+\begin{proof}
+	由于等式两边均为作用在 $C^k$ 函数上的偏导算符, 因此所有的偏导算符均交换, 因此可以直接使用展开: 
+	\[ (h \cdot \nabla)^k = \left( \sum_{i=1}^{n}h_i \partial_i \right)^k = \sum_{\abs{\alpha} = k}^{}\frac{k!}{\alpha!} h^\alpha \partial^\alpha. \]
+\end{proof}
+
+
 
 \begin{problem}
   定义 $f:\mathbb{R}^3\to\mathbb{R}$ 为
