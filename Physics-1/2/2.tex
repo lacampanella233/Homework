@@ -1,0 +1,203 @@
+\documentclass{article}
+\usepackage[en]{homework}
+\usepackage{tikz}
+
+\config{Physics-1}{2026 Fall}{2}
+
+\begin{document}
+
+\begin{problem}
+(Note: The following is to help you derive the expression $\nabla\times\vec{F}=0$ that follows from $\oint\vec{F}\cdot\overrightarrow{ds}=0$ that is mentioned in the notes and not in the lecture.)
+
+\begin{enumerate}
+  \item[(a)] Show that $\mathbf{F}$ is a conservative force if and only if $\int_P\mathbf{F}\cdot d\boldsymbol{r}=0$ for any \textit{closed} path $P$.
+  \item[(b)] Consider the following three infinitesimal closed paths, expressed in a Cartesian coordinates:
+  \begin{enumerate}
+
+    \item[1.] $\begin{gathered}[t]
+      (x,y,z)\to(x,y+dy,z)\to(x,y+dy,z+dz)\\
+      \to(x,y,z+dz)\to(x,y,z)
+    \end{gathered}$
+    \item[2.] $\begin{gathered}[t]
+      (x,y,z)\to(x,y,z+dz)\to(x+dx,y,z+dz)\\
+      \to(x+dx,y,z)\to(x,y,z)
+    \end{gathered}$
+    \item[3.] $\begin{gathered}[t]
+      (x,y,z)\to(x+dx,y,z)\to(x+dx,y+dy,z+dz)\\
+      \to(x,y+dy,z)\to(x,y,z)
+    \end{gathered}$
+  \end{enumerate}
+  Calculating the line integral $\int\mathbf{F}\cdot d\boldsymbol{r}$ around each of these paths, find differential equations that a conservative force $\mathbf{F}$ satisfies. Conversely, if a force $\mathbf{F}$ satisfies these equations, is $\mathbf{F}$ a conservative force?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} If $\bo{F}$ is a conservative force, then for two distinct points $a,b$ on the path $P$, there are two paths from $a$ to $b$ in $P$. Since $\bo{F}$ is conservative, the integrals along the two different paths are the same:
+	\[ \int_{P_1: a \to b} \bo{F} \cdot \d \bo{r} = \int_{P_2: a \to b} \bo{F} \cdot \d \bo{r}. \]
+	Therefore
+	\[ \oint_{P} \bo{F} \cdot \d\bo{r} = \int_{P_1: a \to b} \bo{F} \cdot \d \bo{r} - \int_{P_2: a \to b} \bo{F} \cdot \d \bo{r} = 0. \]
+
+	Conversely, any two paths from $a$ to $b$, with one reversed, form a closed path. If every closed-path integral is zero, their integrals are equal, so $\bo{F}$ is conservative.
+
+	\paragraph{(b)} Expanding to first order, the first two paths give
+	\[ 0 \approx (\partial_y F_z-\partial_z F_y)\d y\d z, \qquad
+	0 \approx (\partial_z F_x-\partial_x F_z)\d x\d z. \]
+	Hence $(\nabla\times\bo{F})_x=(\nabla\times\bo{F})_y=0$. For the third path,
+	\begin{align*}
+		0
+		&= \left( \int_{(x,y,z)}^{(x+\d x,y,z)} + \int_{(x+\d x,y,z)}^{(x+\d x, y+\d y, z+\d z)} \right) \bo{F}\cdot\d\bo{r} \\
+		&\quad + \left( \int_{(x+\d x, y+\d y, z+\d z)}^{(x, y+\d y, z)} + \int_{(x, y+\d y, z)}^{(x,y,z)} \right) \bo{F}\cdot\d\bo{r} \\
+		&\approx \int_{y}^{y+\d y} (\bo{F}(x+\d x,y',z)-\bo{F}(x,y',z))\cdot\hat{\bo{y}}\d y'
+		- \int_{x}^{x+\d x} (\bo{F}(x',y+\d y,z)-\bo{F}(x',y,z))\cdot\hat{\bo{x}}\d x' \\
+		&\quad -\frac12(\partial_z F_x-\partial_x F_z)\d x\d z
+		-\frac12(\partial_y F_z-\partial_z F_y)\d y\d z \\
+		&\approx (\partial_x F_y-\partial_y F_x)\d x\d y
+		=(\nabla\times\bo{F})_z\d x\d y.
+	\end{align*}
+	The terms involving $\d z$ vanish by the first two equations. This equation, together with the two other equations, gives that $\nabla\times\bo{F}=0$.
+
+	Conversely, if a continuously differentiable force $\bo{F}$ satisfies $\nabla\times\bo{F}=0$ on a simply connected domain, then we can construct a potential of $\bo{F}$. Fix a point $\bo{r}_0$. Then define $\varphi(\bo{r})$ as
+	\[ \varphi(\bo{r}) = \int_{\bo{r}_0}^{\bo{r}} \bo{F}\cdot\d\bo{r}'. \]
+	The integration path does not affect the result, since Stokes' theorem gives zero integral around any closed path.
+
+	Then, by the Newton-Leibniz formula, we have $\nabla\varphi(\bo{r})=\bo{F}(\bo{r})$, and consequently $\bo{F}$ is conservative. Without the domain assumption, zero curl alone does not guarantee a conservative force.
+\end{solution}
+
+
+
+\begin{problem}
+\begin{enumerate}
+  \item[a)] Consider a 3-dimensional spring, where the restoring force is $\vec{F}=-k\vec{r}$, where $k$ is a constant, and $\vec{r}=(x,y,z)$. Is this a conservative force? What is the potential energy in the presence of this force? Draw equipotential surfaces.
+  \item[b)] Consider a potential of the form $V(\vec{r})=\dfrac{1}{|\vec{r}|}-\dfrac{1}{|\vec{r}-\overrightarrow{r_0}|}$, where $\overrightarrow{r_0}=(1,0,0)$ and $\vec{r}=(x,y,z)$.
+
+  Draw the equipotential surfaces on the x-y plane (the cross section at $z=0$) and the direction of the forces on this plane.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} The force is a conservative force, and the potential energy is $U(\bo{r}) = k \bo{r}^2/2$. 
+	The equipotential surfaces are concentric spheres. For equal potential
+	increments, the spheres become closer together as $r$ increases,
+	reflecting $|\nabla U|=kr$.
+
+	\begin{center}
+		% AI-assisted equipotential diagram; see generate_equipotentials.py.
+		\input{spring-equipotentials.tikz}
+	\end{center}
+
+	\noindent\begin{minipage}{\linewidth}
+	\paragraph{(b)} The arrows indicate the direction of $\bo{F}=-\nabla V$
+	on the $x$-$y$ plane. For equal potential increments, closer contours
+	indicate a larger $|\nabla V|$.
+
+	\begin{center}
+		% AI-assisted numerical equipotential contours and force directions.
+		\input{dipole-equipotentials.tikz}
+	\end{center}
+	\noindent{\small\textit{The equipotential diagrams and their accompanying descriptions were generated with AI assistance.}}
+	\end{minipage}
+\end{solution}
+
+
+
+\begin{problem}
+A pendulum, comprising a light string of length $L$ and a small sphere, swings in the vertical plane. The string hits a peg located a distance $d$ below the point of suspension.
+
+\begin{enumerate}
+  \item[(a)] Show that if the sphere is released from a height below that of the peg, it will return to this height after the string strikes the peg.
+  \item[(b)] Show that if the pendulum is released from rest at the horizontal position ($\theta=\pi/2$)) and is to swing in a complete circle centered on the peg, the minimum value of $d$ must be $3L/5$.
+\end{enumerate}
+
+\begin{center}
+  % AI-assisted TikZ redraw of the source pendulum-and-peg illustration.
+  \begin{tikzpicture}[scale=0.95, line width=0.6pt, >=stealth]
+    \coordinate (pivot) at (0,0);
+    \coordinate (peg) at (0,-1.95);
+    \coordinate (initial) at (225:3.5);
+    \coordinate (later) at (1.096,-3.046);
+
+    % Ceiling, initial string, and the vertical reference through the peg.
+    \shade[top color=shadecolor, bottom color=gray!40]
+      (-1.60,0) rectangle (1.34,0.55);
+    \draw[gray!60] (-1.60,0) -- (1.34,0);
+    \draw[line width=1pt, gray!75] (pivot) -- (initial);
+    \node[left] at (-1.20,-1.05) {$L$};
+    \draw[dashed] (pivot) -- (0,-3.5);
+    \draw (225:0.77) arc[start angle=225,end angle=270,radius=0.77];
+    \node at (-0.36,-0.95) {$\theta$};
+
+    % Distance from the suspension point to the peg.
+    \draw (peg) -- (1.08,-1.95);
+    \draw[<->] (0.85,0) -- (0.85,-1.95)
+      node[midway, fill=shadecolor, inner sep=2pt] {$d$};
+    \fill (peg) circle (0.095);
+    \node[left] at (peg) {Peg};
+
+    % The first arc is centered on the pivot; the second on the peg.
+    \draw[dashed] (initial) arc[start angle=225,end angle=270,radius=3.5];
+    \draw[dashed] (0,-3.5) arc[start angle=270,end angle=315,radius=1.55];
+    \draw[dashed] (peg) -- (later);
+    \shade[ball color=cyan!45!gray] (initial) circle (0.36);
+    \shade[ball color=cyan!20!gray, opacity=0.35] (later) circle (0.36);
+  \end{tikzpicture}
+\end{center}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} Since the mechanical energy is conserved, and the kinetic energy of the ball at both highest points is zero, the potential energy of the ball at these two points must be the same. Therefore, the ball will return to the same height.
+
+	\paragraph{(b)} When the ball reaches the highest point of the complete circle, its speed is $v=\sqrt{2g(2d-L)}$ by energy conservation. Since the string tension cannot be negative, the radial acceleration of the ball at the highest point must be at least $g$, i.e.
+	\[ \frac{v^2}{L-d}\ge g \implies 2g(2d-L)\ge g(L-d) \implies d\ge\frac{3L}{5}. \]
+\end{solution}
+
+
+
+\begin{problem}
+A frictionless tube is bent into the shape of a semicircle with radius $R$. The semicircle is tilted so that its diameter makes a fixed angle $\theta$ with respect to the vertical. A small mass is released from rest at the top of the tube and slides down through it. When the mass leaves the tube, it undergoes projectile motion. Let $d$ be the distance traveled in the projectile motion, up to the time when the mass returns to the height it had when it left the tube. What should $\theta$ be so that $d$ is as large as possible?
+
+\begin{center}
+  \begin{tikzpicture}[scale=1.25, line width=0.6pt, >=stealth]
+    % Two walls of the semicircular tube, with a tilted diameter.
+    \draw (120:1.30) arc[start angle=120,end angle=300,radius=1.30];
+    \draw (120:1.40) arc[start angle=120,end angle=300,radius=1.40];
+    \draw[dashed] (120:1.35) -- (300:1.35);
+    \fill (120:1.35) circle (0.025);
+    \draw[->] (-0.74,1.36) -- (-1.03,1.10);
+    % Vertical radius and the angle between it and the tilted diameter.
+    \draw[dashed] (0,0) -- (0,-1.35);
+    \node[left] at (0,-0.86) {$R$};
+    \draw (0,-0.43) arc[start angle=270,end angle=300,radius=0.43];
+    \node at (0.17,-0.56) {$\theta$};
+    % Projectile path and its horizontal range at the exit height.
+    \draw (0.675,-1.169) .. controls (1.48,-0.61) and (2.67,-0.61) .. (3.48,-1.169);
+    \draw[->] (2.02,-0.75) -- (2.17,-0.75);
+    \draw[dashed] (0.675,-1.169) -- (3.48,-1.169);
+    \node[below] at (2.08,-1.169) {$d$};
+    \node at (1.53,1.00) {(side view)};
+  \end{tikzpicture}
+\end{center}
+\end{problem}
+
+\begin{solution}
+	Since the tube is frictionless, the mechanical energy is conserved. The
+	height difference between the two ends of the tube is $2R\cos\theta$, so
+	\[ \frac{1}{2}mv^2 = mg\cdot 2R\cos\theta \implies v = 2\sqrt{gR\cos\theta}. \]
+
+	When the mass leaves the tube, its velocity is tangent to the tube and
+	makes an angle $\theta$ with the horizontal. The time until it returns to
+	the height of the exit is $t = 2v\sin\theta/g$. Therefore,
+	\begin{align*}
+		d &= v\cos\theta\cdot\frac{2v\sin\theta}{g}
+		= \frac{v^2}{g}\sin 2\theta \\
+		&= 4R\cos\theta\sin 2\theta
+		= 8R\sin\theta(1-\sin^2\theta).
+	\end{align*}
+
+	To maximize $d$, differentiate with respect to $\theta$:
+	\[ \frac{\d d}{\d\theta} = 8R\cos\theta(1-3\sin^2\theta) = 0. \]
+	For $0<\theta<\pi/2$, this gives $2\sin^2\theta = 1-\sin^2\theta$.
+	Since $d=0$ at both endpoints, the maximum is attained at
+	\[ \boxed{\theta = \arcsin\frac{1}{\sqrt{3}}}. \]
+\end{solution}
+
+\end{document}
