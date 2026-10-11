@@ -241,12 +241,34 @@
   求其在原点处的 5 阶 Taylor 多项式的显式表达式. (必要时, 允许直接使用任意单变量 Taylor 展开.)
 \end{problem}
 
+\begin{solution}
+	\begin{align*}
+		f(x,y,z)
+		&= e^{x^2-yz^2} \cos(xz+y^2) 
+		= \Re \exp\left( (x^2-yz^2) + i (xz+y^2) \right) \\
+		&= 1 + (x^2 - yz^2) + \frac{1}{2} \Re \left( (x^2-yz^2) + i (xz+y^2) \right)^2 + \dots \\
+		&= 1 + x^2 -yz^2 + \left( \frac{1}{2} x^4 - \frac{1}{2} x^2 z^2 - xy^2 z - \frac{1}{2} y^4 \right) -x^2yz^2 + \dots .
+	\end{align*}
+\end{solution}
+
+
+
 \begin{problem}
   证明不等式:
   \[
     xy\leq x\ln x-x+e^y,\qquad x\geq1,\ y\geq0.
   \]
 \end{problem}
+
+\begin{proof}
+	考虑函数 $f(y) = e^{y} - x(y - \ln x) - x$ ($y \ge 0$). 则 $f'(y) = e^y - x$.
+
+	由 $x \ge 1$ 知 $\ln x \ge 0$, 因此 $f(\ln x) = x - x (\ln x - \ln x) - x = 0$, 并且 $f'(\ln x) = e^{\ln x} - x = 0$. 而显然 $f'(y)$ 关于 $y$ 单调递增, 因此对于 $y>\ln x$ 有 $f'(y) > 0$, 即 $f(y)$ 在 $(\ln x, +\infty)$ 上单调递增, 同理在 $[0, \ln x)$ 上单调递减.
+
+	因此, 对于 $y> \ln x$, 有 $f(y) \ge f(\ln x) = 0$; 对 $y \in [0, \ln x)$, 有 $0 = f(\ln x) < f(y)$. 故对于任意的非负实数 $y$, 均有 $f(y) \ge 0$, 因此 $xy \le x \ln x - x + e^{y}$. 
+\end{proof}
+
+
 
 \begin{problem}
   \begin{enumerate}
@@ -266,5 +288,47 @@
       上的 (绝对) 最大值和最小值.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 计算可知
+	\[ \nabla f(x,y) = \left( -(1+e^y) \sin x, e^y (\cos x - 1 - y) \right), \quad 
+	\nabla^2 f(x,y) = \begin{pmatrix}
+		-(1+e^y) \cos x & -e^y \sin x \\
+		-e^y \sin x & e^y (\cos x - 2 - y)
+	\end{pmatrix}. \]
+	对于任意的整数 $n$, 可以验证 $\nabla f(2n \pi ,0) = 0$, 并且 $\nabla^2 f(2n \pi, 0) = \diag\{-2, -1\} \le 0$, 因此 $(2n \pi, 0)$ 是 $f$ 的极大值点. 
+
+	下面来证明 $f$ 没有极小值点. 若有, 设为 $(x_0, y_0)$. 由 $\nabla f(x_0,y_0) = 0$ 知 $\sin x_0 = 0$, $1+y_0 = \cos x_0$. 若 $x_0 = 2n \pi$, 则 $y_0 = 0$, 根据上面的结论, $(x_0, y_0)$ 为极大值点, 不满足要求; 若 $x_0 = (2n+1) \pi$, 则 $y_0 = -2$, 此时 $\nabla^2 f(x_0, y_0) = \diag\{1+e^{-2}, -e^{-2}	\}$ 是未定的, 因此不是极小值点.
+
+	综上, $f$ 没有极小值点.
+
+	\paragraph{(b)} 记题中的区域内部为 $\Omega$. 先来计算区域内部的极值点. 计算得
+	\begin{align*}
+		\nabla f(x,y)
+		&= 2\left( \sin\left( x+\frac{y}{2} \right) \sin \frac{y}{2}, 
+		\sin \left( y + \frac{x}{2} \right) \sin \frac{x}{2} \right), \\
+		\nabla^2 f(x,y)
+		&= \begin{pmatrix}
+			2\cos\left( x+\frac{y}{2} \right) \sin \frac{y}{2} & \sin(x+y) \\
+			\sin (x+y) & 2\cos \left( y+\frac{x}{2} \right) \sin \frac{x}{2}
+		\end{pmatrix}.
+	\end{align*}
+	令 $\nabla f(x,y) = 0$, 结合 $(x,y) \in \Omega$, 知 $(x,y) = (2\pi/3, 2\pi/3)$. 此时
+	\[ \nabla^2 f\left( \frac{2\pi}{3}, \frac{2\pi}{3} \right) = 
+	\begin{pmatrix}
+		-\sqrt{3} & -\sqrt{3}/2 \\
+		-\sqrt{3}/2 & -\sqrt{3}
+	\end{pmatrix} < 0. \]
+	因此 $(2\pi/3 ,2\pi/3)$ 是极大值点, 此时 $f(2\pi/3, 2\pi/3) = 3\sqrt{3}/2$.
+
+	再来计算边界上的极值点. 对于 $y = 0, 0 \le x \le 2\pi$, 有
+	\[ f(x,0) = \sin x + 0 - \sin x = 0. \]
+	同理, 对于 $x = 0, 0 \le y \le 2\pi$, 有 $f(0,y) = 0$. 而对于 $x+y = 2 \pi, 0 \le x \le 2\pi$, 有
+	\[ f(x,y) = \sin x + \sin (2\pi - x) - 0 = 0. \]
+
+	综上, $f$ 在所给区域的最大值为 $3\sqrt{3}/2$, 最小值为 $0$. 
+\end{solution}
+
+
 
 \end{document}
