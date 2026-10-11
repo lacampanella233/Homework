@@ -16,11 +16,17 @@
 \RequirePackage{xparse}
 \RequirePackage{xcolor} % <--- 修改：由 color 改为 xcolor，以支持 \colorlet
 
+% 字体设置
 \setmainfont{texgyretermes-regular.otf}[
     BoldFont       = texgyretermes-bold.otf,
     ItalicFont     = texgyretermes-italic.otf,
     BoldItalicFont = texgyretermes-bolditalic.otf,
     Ligatures      = TeX
+]
+
+\setCJKmainfont{Songti SC Regular}[
+    BoldFont = {Heiti SC Medium},
+    ItalicFont = {Kaiti SC}
 ]
 
 % 语言相关字符串定义
@@ -87,7 +93,7 @@
     \begin{shaded}
     \stepcounter{problemname}\par\noindent
     \boxed{\textbf{\homework@problemname\ \arabic{problemname}}%
-    \IfValueT{#1}{\,\textrm{(#1)}}.}%
+    \IfValueT{#1}{\,\textrm{(#1)}}.}\ %
     \if@homework@zh \kaishu \else \itshape \fi    % 中文楷体 / 英文斜体
 }
 {\end{shaded}\par}

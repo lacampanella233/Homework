@@ -22,7 +22,7 @@ Root `homework.config.json` supplies the semester and the language fallback. New
 ## Actions
 
 - `NewCourse --course <name>`: create a course on updated `main`, commit its `.gitkeep`, and push `main`.
-- `NewHomework --course <name> [--number <n>] [--semester <term>] [--language auto|zh|en] [--display-course <name>]`: create `<course>-HW<n>`, copy root `homework.sty`, create `<n>.tex`, commit the assignment directory, and push the branch. The next number is the maximum numeric directory plus one. Use `--open` only when opening VS Code was requested.
+- `NewHomework --course <name> [--number <n>] [--semester <term>] [--language auto|zh|en] [--display-course <name>]`: create `<course>-HW<n>`, copy root `homework.sty`, create `<n>.tex` and an assignment `.gitignore` allowing only `<n>.pdf`, commit the assignment directory, and push the branch. The next number is the maximum numeric directory plus one. Use `--open` only when opening VS Code was requested.
 - `Compile [--course <name>] [--number <n>]`: immediately run `latexmk -xelatex` in the assignment directory, preserve logs, and return the compiler exit code. It does not accept `--apply`. macOS supports Chinese paths directly; no drive mapping is used.
 - `Sync`: stage only the matching assignment directory, commit only when needed, and push the homework branch. Refuse existing staged changes. `--course` and `--number` can identify a directory, but must match the current homework branch.
 - `Switch --branch <name>`: switch a clean worktree to an existing branch and pull with `--ff-only`, including when already on that branch.
@@ -48,7 +48,7 @@ python3 .agents/skills/homework-manager/scripts/homework.py Finish --apply
 - If `main` was merged locally but its push fails, preserve both branches and the local merge; no cleanup runs.
 - After successful `main` push, cleanup failures are warnings. Report what remains; local deletion uses `git branch -d`.
 
-For assignment-content edits, follow repository `AGENTS.md`. Management requests do not authorize writing solutions or proofs. Generated homework PDFs are intentionally tracked so they can be viewed in the remote repository. `Sync` includes changed or newly compiled PDFs in the assignment directory; ignore only LaTeX intermediate files, never the homework PDF.
+For assignment-content edits, follow repository `AGENTS.md`. Management requests do not authorize writing solutions or proofs. Generated homework PDFs are intentionally tracked so they can be viewed in the remote repository. `Sync` includes the changed or newly compiled `<number>.pdf` in the assignment directory. All other PDFs (including problem sources and figure PDFs) are ignored and kept locally. Root `.gitignore` denies all PDFs and lists exact exceptions for existing homework outputs. `NewHomework` writes a directory-level `!/<number>.pdf` exception for future assignments; never use `git add -f` or a broad numeric wildcard to admit PDFs.
 
 Run isolated behavioral checks after changing these scripts:
 

@@ -44,7 +44,7 @@ class HomeworkTests(unittest.TestCase):
             path = self.root / self.course / str(number)
             path.mkdir(parents=True)
             (path / f'{number}.tex').write_text(r'\documentclass{article}\usepackage[en]{homework}\config{Course Name}{2026 Fall}{3}\begin{document}test\end{document}', encoding='utf-8')
-        (self.root / '.gitignore').write_text('*.log\n')
+        (self.root / '.gitignore').write_text(f'*.log\n*.[pP][dD][fF]\n!/{self.course}/1/1.pdf\n!/{self.course}/3/3.pdf\n')
         (self.root / 'README.md').write_text('fixture\n')
         (self.root / 'homework.sty').write_text('% fixture\n')
         (self.root / 'homework.config.json').write_text(json.dumps({'semester': '2026 秋季', 'defaultLanguage': 'zh'}))
@@ -122,13 +122,19 @@ class HomeworkTests(unittest.TestCase):
         self.assertIn(r'\usepackage[en]{homework}', content)
         self.assertIn(r'\config{Course Name}{2026 秋季}{4}', content)
         self.assertEqual((path / 'homework.sty').read_bytes(), (self.root / 'homework.sty').read_bytes())
+        self.assertEqual(git(self.root, 'ls-files', '--', self.course + '/4/.gitignore'), self.course + '/4/.gitignore')
+        for name in ('4-figure.pdf', 'HW 4.pdf', 'SOURCE.PDF', 'source.pdf'):
+            (path / name).write_bytes(b'local source/figure PDF')
         output = path / '4.pdf'
         output.write_bytes(b'compiled PDF')
         self.ok('Sync', '--apply')
         self.assertEqual(git(self.root, 'ls-files', '--', self.course + '/4/4.pdf'), self.course + '/4/4.pdf')
         other = subprocess.run(['git', '-C', str(self.root), 'check-ignore', '--', self.course + '/4/2.pdf'], capture_output=True)
-        self.assertEqual(other.returncode, 1)
+        self.assertEqual(other.returncode, 0)
         self.assertEqual(git(self.remote, 'show', self.course + '-HW4:' + self.course + '/4/4.pdf'), 'compiled PDF')
+        for name in ('4-figure.pdf', 'HW 4.pdf', 'SOURCE.PDF', 'source.pdf'):
+            self.assertEqual(git(self.root, 'ls-files', '--', self.course + '/4/' + name), '')
+            self.assertTrue((path / name).is_file())
         self.assertEqual(git(self.root, 'status', '--porcelain'), '')
         self.assertEqual(git(self.remote, 'rev-parse', self.course + '-HW4'), git(self.root, 'rev-parse', 'HEAD'))
 
@@ -144,6 +150,8 @@ class HomeworkTests(unittest.TestCase):
         source = self.root / self.course / '3/3.tex'
         source.write_text(source.read_text() + '\n% change\n')
         (source.parent / '3.pdf').write_bytes(b'generated')
+        (source.parent / 'HW 3.pdf').write_bytes(b'problem source')
+        (source.parent / '3-figure.pdf').write_bytes(b'figure source')
         self.ok('Sync', '--apply')
         changed = git(self.root, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD')
         self.assertEqual(set(changed.splitlines()), {self.course + '/3/3.tex', self.course + '/3/3.pdf'})
