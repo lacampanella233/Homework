@@ -9,6 +9,8 @@
 \ProcessOptions\relax
 
 % 加载必需宏包
+% AI 辅助修复: 保留 LaTeX 默认数学字体, 避免正文主字体影响数学正体和算子.
+\PassOptionsToPackage{no-math}{fontspec}
 \RequirePackage[UTF8]{ctex}
 \RequirePackage{amsmath, amsthm, amssymb, bm, framed, enumitem, url, float}
 \RequirePackage{graphicx, hyperref, mathrsfs, geometry, fancyhdr}
