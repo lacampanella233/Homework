@@ -1,0 +1,434 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+% 题目和阅读材料忠实转录自本目录中的原始 PDF.
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\newcommand{\op}{^{\mathrm{op}}}
+
+\config{Algebra-1}{2026 秋季}{3}
+
+\begin{document}
+
+{\heiti 我承诺, 本次作业的完成没有使用大语言模型.}
+
+\paragraph{约定} 以下范畴均假设局部小(locally small), 未加说明的函子均为协变函子(covariant functor). 所有未特别说明的群作用均为左作用(left action). 复合 $g\circ f$ 表示先做 $f$, 再做 $g$. 对于群 $G$, 记 $\mathbf{B}G$ 为对应的单对象群胚: 唯一对象记作 $*$, 且 $\Hom_{\mathbf{B}G}(*,*)=G$, 并规定 $g\circ h=gh$. 记 $S_n$ 为集合 $\{1,\ldots,n\}$ 的置换群; 置换乘积按从右到左的顺序作用. 记 $G$-$\mathbf{Set}$ 为左 $G$-集合及 $G$-等变映射组成的范畴.
+
+\section*{习题}
+
+\begin{problem}
+  设 $\varphi:G\to H$ 为群同态, 定义
+  \[
+    \ker\varphi=\{g\in G:\varphi(g)=1_H\},\qquad
+    \im\varphi=\{\varphi(g):g\in G\}.
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明 $\varphi$ 是单射, 当且仅当 $\ker\varphi=\{1_G\}$.
+    \item[(b)] 设 $S\subseteq G$ 生成 $G$, 即 $G=\langle S\rangle$. 证明
+      \[
+        \im\varphi=\langle\varphi(S)\rangle.
+      \]
+      再证明: 若另一个群同态 $\psi:G\to H$ 在 $S$ 上与 $\varphi$ 相同, 则 $\psi=\varphi$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 若 $\varphi$ 是单射, 则对于任意的 $g \in G$, 若 $\varphi(g) = \varphi(1_G) = 1_H$, 则 $g = 1_G$. 因此 $\ker \varphi = \{1_G\}$; 反过来, 若 $\ker \varphi = 1_G$, 则对于任意的 $g_1, g_2 \in G$, 若 $\varphi(g_1) = \varphi(g_2)$, 则 $\varphi(g_1g_2^{-1}) = \varphi(g_1) \varphi(g_2)^{-1} = 1_H$, 因此 $g_1g_2^{-1} = 1_G$, 即 $g_1 = g_2$. 因此 $\varphi$ 为单射.
+
+	\paragraph{(b)} 记 $L = \bracket{\varphi(S)}$. 我们来证明 $L = \im \varphi$. 一方面, 由 $\varphi(S) \subset \im \varphi$, 结合 $\im \varphi \le H$, 知 $L \subset \im \varphi$. 另一方面, 由 $\varphi(S) \subset L$ 知 $S \subset \varphi^{-1}(L)$, 而 $\varphi^{-1}(L) \le G$, 因此 $\varphi^{-1}(L) = G$, 故 $\im \varphi \subset L$. 综上, $\im \varphi = L$. 
+
+	再来证明下一个命题. 设 $E := \{g \in G: \varphi(g) = \psi(g)\}$. 由于 $\varphi$ 与 $\psi$ 均为群同态, 因此 $E\le G$. 而根据条件, $S \subset E$, 结合 $G = \bracket{S}$ 知 $E=G$, 即 $\varphi = \psi$.
+\end{solution}
+
+
+
+\begin{problem}
+  定义 $G^{\mathrm{op}}$ 与 $G$ 具有相同的底层集合, 乘法为
+  \[
+    g\star h=hg,
+  \]
+  其中右侧使用 $G$ 中的乘法.
+  \begin{enumerate}
+    \item[(a)] 验证 $G^{\mathrm{op}}$ 是群, 并证明映射 $G\to G^{\mathrm{op}}$, $g\mapsto g^{-1}$ 是群同构. 构造范畴同构
+      \[
+        \mathbf{B}(G^{\mathrm{op}})\cong(\mathbf{B}G)^{\mathrm{op}}.
+      \]
+    \item[(b)] 设 $X$ 带有右 $G$-作用(right $G$-action) $(x,g)\mapsto x\cdot g$. 证明公式 $g*x=x\cdot g$ 定义左 $G^{\mathrm{op}}$-作用, 并说明如何反向恢复右作用. 据此解释为什么右 $G$-作用可以用函子 $(\mathbf{B}G)^{\mathrm{op}}\to\mathbf{Set}$ 描述.
+    \item[(c)] 设 $X$ 带有左 $G$-作用. 证明
+      \[
+        x\cdot g=g^{-1}x
+      \]
+      定义右 $G$-作用, 并写出逆向转换. 说明这一转换如何作用于等变映射(equivariant map).
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 先来验证 $G\op$ 是一个群: 
+	\begin{enumerate}[label = (\arabic*)]
+		\item 单位元存在: 对任意的 $g \in G$, 有 $g \star 1_G = 1_Gg = g$, $1_G \star g = g1_G = g$, 因此 $1_G$ 也是 $G\op$ 的单位元.
+		\item 逆元存在: 对于任意的 $g \in G$, 有 $g \star g^{-1} = g^{-1}g = 1_G$, $g^{-1} \star g = gg^{-1} = 1_G$. 因此 $g^{-1}$ 是 $g$ 在 $G\op$ 中的逆元.
+		\item 结合律成立: 对于 $g_1, g_1, g_3 \in G$, 有
+		\[ (g_1 \star g_2) \star g_3 = g_3(g_2g_1) = (g_3g_2)g_1 = g_1 \star (g_2 \star g_3), \]
+		因此 $G\op$ 中的结合律成立.
+	\end{enumerate}
+	再来证明 $f: G \to G\op, g \mapsto g^{-1}$ 是群同构. 显然 $f$ 是单射, 并且对于 $g, h \in G$, 有
+	\[ f(g) \star f(h) = g^{-1}\star h^{-1} = h^{-1} g^{-1} = (gh)^{-1} = f(gh). \]
+	因此 $f$ 是群同构. 依此可构造范畴同构
+	\[ F: \mathbf{B}(G\op) \to (\mathbf{B}G)\op, \quad 
+	* \mapsto *, g \mapsto g\op. \]
+	同理可以验证 $F$ 是同构.
+
+	\paragraph{(b)} 先来证明 $g*x = x\cdot g$ 定义了 $G\op$ 作用. 由 $1_G * x = x \cdot 1_G = x$ 知 $1_G$ 保持 $X$ 的所有元素不变; 对于 $g, h \in G$, 有 $(g \star h) * x = (hg) * x = x \cdot (hg) = (x \cdot h) \cdot g$. 因此 $*$ 为 $G\op$ - 作用.
+
+	对于 $G\op$ - 作用 $g*x$, 只需定义 $x \cdot g = g*x$ 即可恢复为右作用.
+
+	由于每一个右 $G$ - 作用都可以对应一个左 $G\op$ - 作用, 可以用函子 $\mathbf{B}(G\op) \to \mathbf{Set}$ 描述, 再结合 $\mathbf{B}(G\op) \cong (\mathbf{B}G)\op$, 知右 $G$ - 作用可以用函子 $(\mathbf{B}G)\op \to \mathbf{Set}$ 描述.
+
+	\paragraph{(c)} 由于 $g \mapsto g^{-1}$ 给出了 $G \to G\op$ 的同构, 再由于 $gx := x \cdot g$ 给出了 $G\op$ - 左作用, 故 $x \cdot g = g^{-1} x$ 给出了 $G$ - 左作用. 逆向转换即为 $gx = x \cdot g^{-1}$. 
+
+	设集合 $X,Y$ 都带有 $G$ - 左作用, 并且有等变映射 $f: X \to Y$, 满足 $f(gx) = gf(x)$. 现在在两个群作用上使用 $x\cdot g =g^{-1} x$ 定义右作用, 我们来检查 $f$ 仍然是等边映射: 
+	\[ f(x \cdot g) = f(g^{-1}x) = g^{-1} f(x) = f(x) \cdot g. \]
+\end{solution}
+
+
+
+\begin{problem}
+  设 $X,Y$ 为左 $G$-集合.
+  \begin{enumerate}
+    \item[(a)] 在 $X\times Y$ 上定义对角作用(diagonal action)
+      \[
+        g\cdot(x,y)=(gx,gy).
+      \]
+      验证这确实是左作用, 并证明两个投影 $\pi_X:X\times Y\to X$ 和 $\pi_Y:X\times Y\to Y$ 都是 $G$-等变映射.
+    \item[(b)] 证明带平凡 $G$-作用的单点集 $\{*\}$ 是 $G$-$\mathbf{Set}$ 的终对象(terminal object), 空集是其始对象(initial object). 对任意左 $G$-集合 $X$, 记
+      \[
+        X^G=\{x\in X:gx=x\text{ 对所有 }g\in G\}.
+      \]
+      证明求值 $f\mapsto f(*)$ 给出双射 $\Hom_{G\text{-}\mathbf{Set}}(\{*\},X)\cong X^G$.
+    \item[(c)] (选做) 设 $Z$ 为左 $G$-集合, $f:Z\to X$, $h:Z\to Y$ 为 $G$-等变映射. 证明存在唯一的 $G$-等变映射 $u:Z\to X\times Y$, 满足 $\pi_X\circ u=f$ 和 $\pi_Y\circ u=h$. 明确写出 $u$ 的公式, 并说明这正是 $G$-$\mathbf{Set}$ 中积的泛性质(universal property).
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 根据定义, $1_G \cdot (x,y) = (1_G x, 1_G y) = (x,y)$, 并且对于 $g, h \in G$, 有 $g\cdot (h \cdot(x,y)) = g \cdot (hx, hy) = ((gh)x, (gh)y) = (gh) \cdot (x,y)$. 因此 ``$\cdot$'' 为 $X \times Y$ 上的左作用. 
+
+	再来验证两个投影映射为 $G$ - 等变映射: $g \cdot \pi_X(x,y) = gx = \pi_X(gx, gy)$. 因此 $\pi_X$ 为等变映射, 同理 $\pi_Y$ 也是等变映射.
+
+	\paragraph{(b)} 事实上, 对于任意一个集合 $X$, 其到单点集 $\{*\}$ 均有唯一的映射. 在 $X$ 上附上 $G$ 的作用 ``$\cdot$'', 上面的唯一映射就是 $(X,\cdot)$ 到平凡 $G$ - 集合 $(\{*\}, \cdot)$ 的 $G$ - 等变映射.
+
+	同理, 空集到任意一个集合 $X$ 均有唯一的空映射, 因此 $G$ - 集合 $(\varnothing, \cdot)$ 到 $(X, \cdot)$ 有唯一的 (空) 等变映射. 
+
+	接下来验证映射 $\Phi: \Hom_{G-\mathbf{Set}}(\{*\}, X) \to X^G$, $f \mapsto f(*)$ 是双射. 对于 $f_1, f_2 \in \Hom_{G-\mathbf{Set}}(\{*\}, X)$, 若 $f_1(*) = f_2(*)$, 则由于 $\{*\}$ 为单点集, 因此 $f_1$ 和 $f_2$ 由它们的像唯一确定, 因此 $f_1 = f_2$, 故 $\Phi$ 为单射. 对于任意的 $x \in X^G$, 定义 $f \in \Hom_{\mathbf{Set}}(\{*\}, X)$ 满足 $f(*) = x$. 由于对于任意的 $g$, 均有 
+	\[ f(g*) = f(*) = x = gx = gf(*), \]
+	故 $f$ 为 $G$ - 等变映射, 因此 $f \in \Hom_{G-\mathbf{Set}}(\{*\}, X)$, $f(*) = \Phi(f)$. 故 $\Phi$ 为满射. 两方面结合可知 $\Phi$ 为双射.
+
+	\paragraph{(c)} 定义 $u(z) = (f(z), h(z)) \in X \times Y$. 根据定义, $\pi_X \circ u = f$, $\pi_Y \circ u = h$. 若 $u$ 满足上述关系, 则 $u$ 的第一个分量必须为 $f$, 第二个分量必须为 $g$, 因此只能为 $u(z) = (f(z), g(z))$. 
+
+	构造一个范畴 $\mathcal{C}$, 其对象为 $(Z, f, h)$, 其中 $f: Z \to X$ 与 $h: Z \to Y$ 为 $G$ - 等变映射. 定义 $(Z_1, f_1, h_1)$ 到 $(Z_2, f_2, h_2)$ 的态射为集合的映射 $\varphi: Z_1 \to Z_2$, 满足 $f_2 \circ \varphi = f_1$, $g_2 \circ \varphi = g_1$. 则 $(X \times Y, \pi_X, \pi_Y)$ 为 $\mathcal{C}$ 的终对象. 
+\end{solution}
+
+
+
+\begin{problem}
+  记 $\mathbf{Vect}_{\mathbb R}$ 为实向量空间与线性映射组成的范畴. 说明给出函子 $\mathbf{B}G\to\mathbf{Vect}_{\mathbb R}$, 等价于给出一个实向量空间 $V$ 和群同态
+  \[
+    \rho:G\to\mathrm{GL}(V),
+  \]
+  其中 $\mathrm{GL}(V)$ 是 $V$ 的可逆线性变换群.
+\end{problem}
+
+\begin{proof}
+	给定一个函子 $F: \mathbf{B}G \to \mathbf{Vect}_\R$, 记 $V = F(*_{\mathbf{B}G})$. 对于 $\mathbf{B}G$ 中的态射 $g: * \to *$, $F(g)$ 为 $\End_{\mathbf{Vect}_\R}(V)$ 中的元素. 由于 $g$ 存在逆映射, 因此 $F(g)$ 也是可逆的, 因此 $F(g) \in \mathrm{GL}(V)$. 由函子的性质, 对于 $g,h \in G$, 有 $F(gh) = F(g)F(h)$. 因此这实际上给出了一个群同态 $\rho: G \to \mathrm{GL}(V), g \mapsto F(g)$.
+
+	反过来, 若给定了群同态 $\rho: G \to \mathrm{GL}(V)$, 也可以通过 $F(g) = \rho(g)$ 定义一个函子 $F: \mathbf{B}G \to \mathbf{Vect}_\R$. 
+\end{proof}
+
+
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 设 $f:G\to H$ 是双射(bijective)群同态. 证明集合映射 $f^{-1}:H\to G$ 仍为群同态, 因此 $f$ 是范畴 $\mathbf{Grp}$ 中的同构.
+    \item[(b)] 设 $\mathcal C$ 为局部小范畴, $u:A\to B$ 为同构. 证明共轭(conjugation)给出群同构
+      \[
+        c_u:\Aut_{\mathcal C}(A)\longrightarrow\Aut_{\mathcal C}(B),\qquad
+        a\longmapsto u\circ a\circ u^{-1}.
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 对于 $g_1, g_2 \in G$, 记 $h_1 = f(g_1), h_2 = f(g_2)$. 由 $f(g_1g_2) = f(g_1) f(g_2)$ 知 
+	\[ f^{-1}(h_1h_2) = f^{-1}(f(g_1)f(g_2)) = f^{-1}(f(g_1g_2)) = g_1g_2 = f^{-1}(h_1) f^{-1}(h_2). \]
+	因此 $f^{-1}: H \to G$ 为群同态.
+
+	\paragraph{(b)} 先来证明 $c_u$ 是群同态. 事实上, 对于 $a_1, a_2 \in \Aut_{\mathcal{C}}(A)$, 有
+	\[ c_u(a_1) \circ c_u(a_2) = u \circ a_1 \circ u^{-1} \circ u \circ a_2 \circ u^{-1} = u \circ (a_1 \circ a_2) \circ u^{-1} = c_u (a_1 \circ a_2). \]
+
+	因此 $c_u$ 是群同态.
+
+	再来证明 $c_u$ 是同构. 事实上, 考虑 
+	\[ c_u^{-1}: \Aut_{\mathcal{C}}(B) \to \Aut_{\mathcal{C}}(A), b \mapsto u^{-1} \circ b \circ u. \]
+	则对于任意的 $a \in \Aut_{\mathcal{C}}(A)$, 有 
+	\[ c_u^{-1} \circ c_u (a) = u^{-1} \circ u \circ a \circ u^{-1} \circ u = a = \id_A(a), \]
+	因此 $c_u^{-1} \circ c_u = \id_{\Aut_{\mathcal{C}}(A)}$. 同理, $c_u \circ c_u^{-1} = \id_{\Aut_{\mathcal{C}}(B)}$. 因此 $c_u$ 为同构.
+\end{proof}
+
+
+
+\begin{problem}
+  回顾: 若函子在每一对对象的 $\Hom$ 集上诱导的映射都是单射, 则称它为忠实函子(faithful functor). 课上我们还定义了什么叫群作用是忠实作用(faithful action).
+  \begin{enumerate}
+    \item[(a)] 设 $F:\mathbf{B}G\to\mathbf{Set}$, 令 $X=F(*)$, 并定义 $gx=F(g)(x)$. 验证这是左作用, 并证明该作用忠实当且仅当 $F$ 是忠实函子.
+    \item[(b)] 对 $g\in G$, 令 $\ell_g:G\to G$ 为 $\ell_g(h)=gh$. 写出由这些映射确定的函子 $L:\mathbf{B}G\to\mathbf{Set}$, 称为左正则作用(left regular action). 证明它就是协变 $\Hom$ 函子
+      \[
+        \Hom_{\mathbf{B}G}(*,-):\mathbf{B}G\longrightarrow\mathbf{Set}.
+      \]
+    \item[(c)] 对任意左 $G$-集合 $X$, 证明求值映射
+      \[
+        \Hom_{G\text{-}\mathbf{Set}}(G,X)\longrightarrow X,\qquad
+        f\longmapsto f(1_G)
+      \]
+      是双射, 并明确写出其逆映射. 这里定义域中的 $G$ 带左正则作用. (可以思考 Yoneda 引理, 但这里显然可以直接证明.)
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 我们来验证这是一个左作用. 对于 $g_1, g_2 \in G$, 由函子的性质, $F(g_1g_2) = F(g_1) \circ F(g_2)$. 则
+	\[ (gh) x = F(gh)(x) = F(g)(F(h)(x)) = g(hx). \]
+	因此 $gx$ 确实为左作用. 此群作用为忠实作用, 当且仅当映射 $g \mapsto F(g)$ 是单射, 当且仅当 $F$ 为忠实函子.
+
+	\paragraph{(b)} 这些映射确定了函子 (以下 $G$ 同时代表其底层集合)
+	\[ L: \mathbf{B}G \to \mathbf{Set}, \quad 
+	* \mapsto G, \quad 
+	g \in \Aut_{\mathbf{B}G}(*) \mapsto (l_g: h \mapsto gh) \in \Aut_{\mathbf{Set}}(G).  \]
+
+	接下来证明 $L$ 是协变 $\Hom$ 函子. 对于任意的 $g \in \Hom_{\mathbf{B}G}(*,*)$, 根据定义, $L(g)$ 实际上是一个集合之间的映射
+	\[ \Hom_{\mathbf{B}G}(*,*) \to \Hom_{\mathbf{B}G}(*,*), \quad h \mapsto g \circ h. \]
+	根据作业 1 的题目 9, $L$ 是一个协变 $\Hom$ 函子. 
+
+	\paragraph{(c)} 记上述求值映射为 $\Phi$. 先来证明 $\Phi$ 是单射. 若 $f_1(1_G) = f_2(1_G)$, 则对于任意的 $g \in G$, 均有 $f_1(g) = f_1 (g1_G) = gf_1(1_G) = gf_2(1_G) = f_2 (g)$, 因此 $f_1 = f_2$, 故 $\Phi$ 为单射.
+
+	再来证明 $\Phi$ 是满射. 对于任意的 $x_0 \in X$, 我们定义一个映射 $f \in \Hom_{G-\mathbf{Set}}(G,X)$, 定义为 $f(g) = gx_0$. 则对于任意的 $h \in G$, 有 $hf(g) = hgx_0 = f(hg)$, 因此 $f$ 为等变映射. 上面的式子在事实上也给出了 $\Phi$ 的逆映射的表达式.
+\end{solution}
+
+
+
+\begin{problem}
+  设 $X$ 为左 $G$-集合. 定义作用群胚 $\mathcal A_X=G\backslash\!\backslash X$: 对象为 $X$ 的元素; 对每个 $x\in X$ 与 $g\in G$, 有一个态射
+  \[
+    (x,g):x\longrightarrow gx.
+  \]
+  不同的 $g$ 给出不同的态射, 即使它们的起点和终点相同.
+  \begin{enumerate}
+    \item[(a)] 对满足 $y=gx$ 的两个态射 $(x,g):x\to y$ 和 $(y,h):y\to hy$, 写出它们的复合. 再写出恒等态射与逆态射, 并验证这确实定义了一个群胚. 在公式中注明各态射的起点与终点.
+    \item[(b)] 记
+      \[
+        G_x=\{g\in G:gx=x\},\qquad Gx=\{gx:g\in G\}.
+      \]
+      证明 $G_x$ 是 $G$ 的子群, 且 $\Aut_{\mathcal A_X}(x)\cong G_x$. 证明 $x,y$ 在 $\mathcal A_X$ 中同构, 当且仅当 $Gx=Gy$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 对于 $x \xrightarrow{(x,g)} y \xrightarrow{(y,h)} z$, 定义它们的复合为 $x \xrightarrow{(x,hg)} z$. 注意到 $(hg)x = hgx = hy = z$, 因此 $(x,hg) \in \Hom_{\mathcal{A}_X}(x,z)$. 复合的结合性可以由 $G$ 中乘法的结合性得到.
+
+	对于每一个对象 $x$, 其恒等态射即为 $(x, 1_G)$: 对于任意的 $x \xrightarrow{(x,g)} y$, 均有 $(x, g) \circ (x, 1_G) = (x, g)$; 对于任意的 $z \xrightarrow{(z,h)} x$, 均有 $(x, 1_G) \circ (z, h) = (z, h)$. 因此 $(x,1_G) = \id_x^{\mathcal{A}_X}$. 
+
+	对于每一个态射 $x \xrightarrow{(x,g)} y$, 定义其逆态射为 $y \xrightarrow{(y,g^{-1})} x$. 由 $gx = y$ 知 $g^{-1}y = x$, 因此 $(y, g^{-1}) \in \Hom_{\mathcal{A}_X}(y,x)$. 并且, $(x,g) \circ (y, g^{-1}) = (y,1_G) = \id_y^{\mathcal{A}_X}$, $(y, g^{-1}) \circ (x, g) = (x, 1_G) = \id_{x}^{\mathcal{A}_X}$. 因此 $(y, g^{-1})$ 确实为 $(x, g)$ 的逆态射. 
+
+	因此 $\mathcal{A}_X$ 为群胚.
+
+	\paragraph{(b)} 先来证明 $G_x \le G$. 对于任意的 $g_1, g_2 \in G_x$, 由 $g_1x = x$, $g_2x = x$, 知 $(g_1g_2)x = g_1(g_2x) = g_1x = x$, 因此 $g_1g_2 \in G_x$; $1_G x = x$, 因此 $1_G \in G_x$; 对于 $g \in G_x$, $g^{-1}x = g^{-1}gx = x$, 因此 $g^{-1} \in G_x$. 故 $G_x \le G$. 
+
+	再来证明 $\Aut_{\mathcal{A}_X}(x) \cong G_x$. 定义映射 
+	\[ \Phi: \Aut_{\mathcal{A}_X}(x) \to G_x, \quad (x,g) \mapsto g. \]
+	对于 $(x,g) \in \Aut_{\mathcal{A}_X}(x)$, 由 $(x,g)x = x$ 知 $gx = x$, 因此 $g = \Phi(x,g) \in G_x$, 故 $\Phi$ 是良定义的. 不难验证 $\Phi$ 是双射, 并且保持群乘法. 因此 $\Aut_{\mathcal{A}_X}(x) \cong G_x$. 
+
+	再来证明 $x \cong y \Leftrightarrow Gx = Gy$. 若 $x \cong y$, 则存在两个互逆的态射 $(x,g)$ 和 $(y,h)$. 对于任意的 $g'x \in Gx$, 由 $hy = x$ 知 $g'x = (g'h)y \in Gy$, 因此 $Gx \subset Gy$. 同理, $Gy \subset Gx$, 因此 $Gx = Gy$. 反过来, 若 $Gx = Gy$, 则由 $y \in Gx$ 知存在 $g \in G$ 使得 $y = gx$. 此时, $g^{-1}y = (g^{-1}g)x = x$. 则 $(x,g)$ 与 $(y,g^{-1})$ 为 $x$ 和 $y$ 之间的两个态射, 并且容易验证互逆. 因此 $x \cong y$.
+\end{solution}
+
+
+
+\begin{problem}
+  将 $\{1,2,3,4\}$ 分成两个无序的二元子集, 共有以下三种配对:
+  \begin{gather*}
+    P_1=\bigl\{\{1,2\},\{3,4\}\bigr\},\\
+    P_2=\bigl\{\{1,3\},\{2,4\}\bigr\},\\
+    P_3=\bigl\{\{1,4\},\{2,3\}\bigr\}.
+  \end{gather*}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.85]
+      \foreach \k/\shift in {1/0,2/3.8,3/7.6} {
+        \begin{scope}[xshift=\shift cm]
+          \coordinate (A\k) at (0,1.4);
+          \coordinate (B\k) at (1.6,1.4);
+          \coordinate (C\k) at (1.6,0);
+          \coordinate (D\k) at (0,0);
+          \fill (A\k) circle (1.7pt) node[above left] {$1$};
+          \fill (B\k) circle (1.7pt) node[above right] {$2$};
+          \fill (C\k) circle (1.7pt) node[below right] {$3$};
+          \fill (D\k) circle (1.7pt) node[below left] {$4$};
+          \node at (0.8,-0.65) {$P_{\k}$};
+        \end{scope}
+      }
+      \draw (A1)--(B1) (D1)--(C1);
+      \draw (A2)--(C2);
+      \draw[preaction={draw=shadecolor,line width=4pt}] (D2)--(B2);
+      \draw (A3)--(D3) (B3)--(C3);
+      \foreach \k in {1,2,3} {
+        \foreach \v in {A,B,C,D} {\fill (\v\k) circle (1.7pt);}
+      }
+    \end{tikzpicture}
+  \end{center}
+  令 $X=\{P_1,P_2,P_3\}$. 对 $\sigma\in S_4$, 将每个配对中的数字 $i$ 替换为 $\sigma(i)$, 得到 $\sigma P_j$.
+  \begin{enumerate}
+    \item[(a)] 验证这给出 $S_4$ 对 $X$ 的左作用, 并记相应群同态为
+      \[
+        \rho:S_4\longrightarrow\Aut_{\mathbf{Set}}(X)\cong S_3.
+      \]
+      以 $P_1,P_2,P_3$ 为字母, 用循环记号(cycle notation)计算 $\rho((12))$ 和 $\rho((1234))$. 判断 $\rho$ 是否满射, 并证明你的结论.
+    \item[(b)] 逐一列出集合
+      \[
+        K=\{\sigma\in S_4:\sigma P_i=P_i\text{ 对所有 }i=1,2,3\}
+      \]
+      中的元素, 并用循环记号表示. 由此判断该作用是否忠实.
+    \item[(c)] 逐一列出 $P_1$ 的稳定子中的所有元素. 判断 $P_1,P_2,P_3$ 在作用群胚 $S_4\backslash\!\backslash X$ 中是否彼此同构, 并给出对象 $P_1$ 的自同构群.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 先来验证这是 $S_4$ 对 $X$ 的左作用. 记 $S_4$ 的单位元为 $e$. 则对任意的 $P \in X$, $\rho(e,P) = \{\{e(i): i \in A\}: A \in P\} = P$; 对任意的 $\sigma_1, \sigma_2 \in S_4$ 以及 $P \in X$,
+	\[ \rho(\sigma_1,\rho(\sigma_2,P)) = \{\{\sigma_1(i): i \in A\}: A \in \rho(\sigma_2, P)\} = \{\{\sigma_1(\sigma_2(i)): i \in A\}: A \in P\} = \rho(\sigma_1\sigma_2, P).  \]
+	因此 $\rho$ 是群作用. 
+
+	根据定义, $\rho((12)) = (23)$, $\rho((1234)) = (13)$. $\rho$ 是满射, 因为由前面的式子, 已经知道 $\{(12), (23)\} \subset \im \rho$, 结合 $S_3 = \bracket{(12), (23)}$ 知 $\im \rho = S_3$. 
+
+	\paragraph{(b)} 我们有
+	\[ K = \ker \rho = \{e, (12)(34), (14)(23), (13)(24)\}.  \]
+	因此 $\rho$ 不是忠实的, 因为 $\rho$ 不是单射. 
+
+	\paragraph{(c)} 我们有
+	\[ G_{P_1} = \{e, (12), (34), (12)(34), (13)(24), (14)(23), (1324), (1423)\}. \]
+
+	$P_1$, $P_2$, $P_3$ 在作用群胚 $S_4 \backslash\backslash X$ 中彼此等价. 例如, $(P_1, (23))$ 和 $(P_2, (23))$ 为 $P_1$ 和 $P_2$ 中互逆的两个同构映射. 
+
+	由 $\Aut_{S_4 \backslash\backslash X}(P_1) = \{(P_1, g): g \in G\}$, 可以知道 $\Aut_{S_4 \backslash\backslash X}(P_1) \cong D_{8}$.
+\end{solution}
+
+
+
+\begin{problem}
+  将正方形的顶点沿顺时针方向标为 $1,2,3,4$, 令
+  \[
+    r=(1234),\qquad s=(24),\qquad G=\langle r,s\rangle\leq S_4.
+  \]
+  其中 $r$ 为旋转, $s$ 为关于连接顶点 $1,3$ 的对角线的反射. 令 $E$ 为八条有向边组成的集合:
+  \begin{gather*}
+    E=\{(1,2),(2,3),(3,4),(4,1),\\
+    (2,1),(3,2),(4,3),(1,4)\}.
+  \end{gather*}
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=0.85]
+      \begin{scope}
+        \coordinate (A) at (0,2);
+        \coordinate (B) at (2,2);
+        \coordinate (C) at (2,0);
+        \coordinate (D) at (0,0);
+        \draw (A)--(B)--(C)--(D)--cycle;
+        \draw[dashed] (-0.3,2.3)--(2.3,-0.3);
+        \draw[->] (-0.3,2.5) to[bend left=40] node[above] {$r=(1234)$} (2.3,2.5);
+        \fill (A) circle (1.7pt) node[above left] {$1$};
+        \fill (B) circle (1.7pt) node[above right] {$2$};
+        \fill (C) circle (1.7pt) node[below right] {$3$};
+        \fill (D) circle (1.7pt) node[below left] {$4$};
+        \node[right] at (2.3,-0.5) {$s=(24)$};
+        \node at (1,-0.95) {旋转与反射};
+      \end{scope}
+      \begin{scope}[xshift=6cm]
+        \coordinate (A) at (0,2);
+        \coordinate (B) at (2,2);
+        \coordinate (C) at (2,0);
+        \coordinate (D) at (0,0);
+        \foreach \a/\b in {A/B,B/C,C/D,D/A} {
+          \draw[->,shorten >=5pt,shorten <=5pt] (\a) to[bend left=12] (\b);
+          \draw[->,shorten >=5pt,shorten <=5pt] (\b) to[bend left=12] (\a);
+        }
+        \fill (A) circle (1.7pt) node[above left] {$1$};
+        \fill (B) circle (1.7pt) node[above right] {$2$};
+        \fill (C) circle (1.7pt) node[below right] {$3$};
+        \fill (D) circle (1.7pt) node[below left] {$4$};
+        \node at (1,-0.95) {集合 $E$ 中的八条有向边};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+  \begin{enumerate}
+    \item[(a)] 验证 $r^4=s^2=1$ 及 $srs=r^{-1}$. 证明 $G$ 恰有以下八个元素, 并逐一写成循环记号:
+      \[
+        1,\quad r,\quad r^2,\quad r^3,\quad s,\quad rs,\quad r^2s,\quad r^3s.
+      \]
+    \item[(b)] 验证 $g\cdot(i,j)=(g(i),g(j))$ 定义 $G$ 对 $E$ 的左作用. 用一张表列出上述八个群元素作用于 $(1,2)$ 后的像. 计算 $(1,2)$ 的轨道和稳定子, 并判断该作用是否忠实.
+    \item[(c)] 在作用群胚 $G\backslash\!\backslash E$ 中, 对任意 $a,b\in E$, 计算
+      \[
+        \bigl|\Hom_{G\backslash\!\backslash E}(a,b)\bigr|,
+      \]
+      并说明为什么这一答案对所有 $a,b$ 都成立.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 显然有 $r^4 = s^2 = 1$, 并且 
+	\[ srs = (24)(1234)(24) = (1432) = r^{-1}. \]
+
+	接下来证明 $G$ 恰有 $8$ 个元素. 事实上, $G$ 中的每一个元素都可以写成 $r$ 和 $s$ 的某种顺序的乘积. 而 $r^4 = s^2 = 1$, 因此在一个乘积中, 每一段连续的 $n$ 个 $r$ ($n \in Z$) 均可以约化为 $n'$ 个 $r$, 其中 $n' = n \mod 4 \in \{0,1,2,3\}$. 同理, 每一段连续的 $n$ 个 $s$ ($s \in \Z$) 均可以约化为 $0$ 个或 $1$ 个 $s$. 并且, 由于 $sr = (srs)s = r^{-1}s$, 每一个在 $s$ 后面的 $r$ 都可以被移动到 $s$ 前面. 因此所有的元素均可以表示为
+	\[ \{r^ns^m: m \in \{0,1\}, n \in \{0,1,2,3\}\}, \]
+	共 $8$ 个元素. 
+
+	下面将所有的元素均写为循环记号: 
+	\[ \begin{array}{c|c|c|c|c|c|c|c}
+		1 & r & r^2 & r^3 & s & rs & r^2s & r^3s \\ \hline 
+		(1) & (1234) & (13)(24) & (1432) & (24) & (12)(34) & (13) & (14)(23)
+	\end{array} \]
+
+	\paragraph{(b)} 将 $g$ 的元素依此作用于 $(1,2)$, 得到如下结果; 
+	\[ \begin{array}{c|cccccccc}
+		g & 1 & r & r^2 & r^3 & s & rs & r^2s & r^3s \\ \hline
+		g \cdot (1, 2) & (1, 2) & (2, 3) & (3, 4) & (4, 1) & (1, 4) & (2, 1) & (3, 2) & (4, 3)
+	\end{array} \]
+	因此 $G(1,2) = E$, $G_{(1,2)} = \{1_G\}$. 同理, 对于 $E$ 中的任意一个元素, 其稳定化子均为 $\{1_G\}$. 故此作用为忠实的.
+
+	\paragraph{(c)} 固定一个 $E$ 中的元素 $x$, 我们来证明: 对于任意的 $(a,b) \in E$, 均有 $\abs{\Hom_{G\backslash\backslash E}(a,b)} = \abs{\Aut_{G \backslash\backslash E}(x)}$. 事实上, 取两个态射 $\varphi: x \to a$ 和 $\psi: x \to b$, 映射
+	\[ \Hom_{G\backslash\backslash E}(a,b) \to \Aut_{G \backslash\backslash E}(x), \quad f \mapsto \psi^{-1} \circ f \circ \varphi \]
+	有逆映射
+	\[ \Aut_{G \backslash\backslash E}(x) \to \Hom_{G\backslash\backslash E}(a,b), \quad f \mapsto \psi \circ f \circ \varphi^{-1}. \]
+	因此两个态射集的元素个数相同. 取 $x = (1,2)$ 由上面列出的表格, 知 $\Aut_{G \backslash \backslash E}(x) = \{(x, 1_G)\}$, 依此对于任意的 $a,b \in E$, 均有
+	\[ \abs{\Hom_{G\backslash\!\backslash E}(a,b)} = 1. \]
+\end{solution}
+
+
+
+\begin{problem}
+  (选做) 设 $\mathcal C$ 为小范畴, $F:\mathcal C\to\mathbf{Set}$ 为协变函子. 定义元素范畴(category of elements) $\int_{\mathcal C}F$ 如下: 对象为二元组 $(c,x)$, 其中 $c\in\operatorname{Ob}(\mathcal C)$, $x\in F(c)$; 一个态射
+  \[
+    u:(c,x)\longrightarrow(d,y)
+  \]
+  是满足 $F(u)(x)=y$ 的 $\mathcal C$ 中态射 $u:c\to d$.
+  \begin{enumerate}
+    \item[(a)] 使用 $\mathcal C$ 中的恒等态射与复合, 定义 $\int_{\mathcal C}F$ 的恒等态射与复合, 并验证范畴公理. 证明投影
+      \[
+        p:\int_{\mathcal C}F\longrightarrow\mathcal C,\qquad
+        (c,x)\longmapsto c,\qquad u\longmapsto u
+      \]
+      是函子.
+    \item[(b)] 给定对象 $(c,x)$ 与态射 $u:c\to d$, 证明存在唯一以 $(c,x)$ 为起点, 被 $p$ 送到 $u$ 的态射, 并写出它的终点. 说明如何从 $p$ 在每个对象上方的对象集合及这些唯一提升(unique lift)恢复 $F$.
+    \item[(c)] 分别讨论以下三种情况.
+      \begin{enumerate}
+        \item[(i)] 当 $\mathcal C$ 是离散范畴(discrete category)时(没有不是恒等映射的箭头), 描述 $\int_{\mathcal C}F$ 的对象和态射.
+        \item[(ii)] 当 $\mathcal C$ 是群胚时, 证明每个 $F(u)$ 都是双射, 并证明 $\int_{\mathcal C}F$ 也是群胚.
+        \item[(iii)] 当 $\mathcal C=\mathbf{B}G$, 且 $F$ 对应左 $G$-集合 $X$ 时, 构造 $\int_{\mathbf{B}G}F$ 与第 7 题中 $G\backslash\!\backslash X$ 之间的同构. 说明它与到 $\mathbf{B}G$ 的投影相容; 后者的投影把每个对象送到 $*$, 把 $(x,g)$ 送到 $g$.
+      \end{enumerate}
+  \end{enumerate}
+\end{problem}
+
+
+
+\end{document}
