@@ -1,10 +1,244 @@
 \documentclass{article}
 \usepackage[zh]{homework}
+\usepackage{needspace}
+% 题目及原作业说明忠实转录自 HW4.pdf; 以下引用的承诺要求为原文件内容.
 
 \config{Algebra-1}{2026 秋季}{4}
 
 \begin{document}
 
+\paragraph{原作业说明(原文)}
+\begin{quote}
+{\heiti 请在提交的作业正文最前面写下以下承诺:}
 
+{\heiti 我承诺, 本次作业没有使用大语言模型.}
+\end{quote}
+
+{\heiti 截止时间: 2026-10-23 (周五) 23:59}
+
+\paragraph{约定} 群作用均为左作用; 复合 $g\circ f$ 表示先做 $f$, 再做 $g$, 置换也从右向左复合. $S_n$ 为 $\{1,\ldots,n\}$ 的置换群, 采用通常的循环记号. $\mathbf{B}G$ 为群 $G$ 的单对象群胚, 态射复合由群乘法给出. $G/H$ 表示左陪集集合; 当 $H\unlhd G$ 时, 其商群乘法为 $(gH)(hH)=ghH$. 所涉及的范畴均假设局部小, 未加说明的函子均为协变函子; 允许使用选择公理.
+
+本次作业共 10 题, 第 9 题 (c) 问和第 10 题选做, 其余必做. 可使用课堂已证明的结果及此前必做题的结论, 但不得将当前小问要求证明的结论作为已知结果直接引用.
+
+\section*{习题}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+设 $S$ 为集合, $\sim$ 为 $S$ 上的等价关系. 令
+\[
+  S/{\sim}=\{[x]:x\in S\},\qquad q:S\longrightarrow S/{\sim},\quad x\longmapsto[x].
+\]
+\begin{enumerate}
+  \item[(a)] 证明 $q$ 是满射. 对任意集合 $T$ 和函数 $f:S\to T$, 证明: 存在唯一函数 $\overline f:S/{\sim}\to T$ 满足 $\overline f\circ q=f$, 当且仅当
+  \[
+    x\sim y\implies f(x)=f(y).
+  \]
+  当上述条件成立时, 给出 $\overline f$ 的公式, 并验证良定义, 存在性与唯一性.
+  \item[(b)] 设集合 $Q$ 及映射 $p:S\to Q$ 满足 $x\sim y\Rightarrow p(x)=p(y)$, 且具有如下泛性质: 对任意集合 $T$ 及在每个等价类上取常值的 $f:S\to T$, 存在唯一 $u:Q\to T$ 使 $u\circ p=f$. 利用两个泛性质证明存在唯一双射
+  \[
+    \theta:S/{\sim}\xrightarrow{\sim}Q,\qquad \theta\circ q=p.
+  \]
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+对小群胚 $\mathcal G$, 在其对象集合上定义 $x\sim y$ 当且仅当存在同构 $x\to y$. 证明这是等价关系, 并记
+\[
+  \pi_0(\mathcal G)=\operatorname{Ob}(\mathcal G)/{\sim},
+\]
+称为 $\mathcal G$ 的连通分支集合.
+\begin{enumerate}
+  \item[(a)] 设 $\mathcal H$ 也是小群胚. 对函子 $F:\mathcal G\to\mathcal H$, 利用第 1 题证明
+  \[
+    \pi_0(F):\pi_0(\mathcal G)\longrightarrow\pi_0(\mathcal H),\quad [x]\longmapsto[F(x)]
+  \]
+  良定义. 验证 $\pi_0(\operatorname{id}_{\mathcal G})=\operatorname{id}_{\pi_0(\mathcal G)}$, 且对小群胚之间可复合的函子 $F,Q$ 有 $\pi_0(QF)=\pi_0(Q)\pi_0(F)$.
+  \item[(b)] 若 $F$ 是范畴等价, 选择准逆 $Q$, 利用自然同构 $QF\cong\operatorname{id}_{\mathcal G}$, $FQ\cong\operatorname{id}_{\mathcal H}$, 证明 $\pi_0(\mathcal G)$ 与 $\pi_0(\mathcal H)$ 之间存在互逆的双射.
+  \item[(c)] 设 $H\le G$. 对 $g\in G$, 称 $gH=\{gh:h\in H\}$ 为左陪集, $Hg=\{hg:h\in H\}$ 为右陪集. 所有左陪集和所有右陪集组成的集合分别记为
+  \[
+    G/H=\{gH:g\in G\},\qquad H\backslash G=\{Hg:g\in G\}.
+  \]
+  验证公式 $h\cdot g=gh^{-1}$ 与 $h*g=hg$ 定义 $H$ 在 $G$ 上的两个左作用, 并分别确定它们的轨道. 利用取逆映射 $g\mapsto g^{-1}$ 构造对应作用群胚之间的同构, 写出它在对象和态射上的作用. 利用第 (b) 问证明左陪集集合 $G/H$ 与右陪集集合 $H\backslash G$ 存在双射, 并写出该双射及其逆映射.
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+设有限群 $G$ 作用于有限集合 $X$. 对 $g\in G$ 和 $x\in X$, 分别记
+\[
+  X^g=\{x\in X:gx=x\},\qquad G_x=\{g\in G:gx=x\},
+\]
+并记 $X/G=\{Gx:x\in X\}$ 为轨道集合, 其中 $Gx=\{gx:g\in G\}$. 证明 Burnside 引理:
+\[
+  |X/G|=\frac{1}{|G|}\sum_{g\in G}|X^g|.
+\]
+本题可以使用轨道--稳定子公式.
+
+提示: 对集合 $\{(g,x)\in G\times X:gx=x\}$ 作两种计数, 并按轨道整理所得的和.
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+在小范畴 $\mathcal C$ 的每个 $\Hom_{\mathcal C}(X,Y)$ 上给定等价关系 $\sim_{X,Y}$, 并假设它们与复合相容: 若 $a,a':X\to Y$, $b,b':Y\to Z$ 满足 $a\sim a'$ 和 $b\sim b'$, 则 $ba\sim b'a'$. 这样的关系族称为同余(congruence); 仅比较具有相同源和靶的态射.
+\begin{enumerate}
+  \item[(a)] 定义 $\mathcal C/{\sim}$ 与 $\mathcal C$ 有相同对象, 且
+  \[
+    \Hom_{\mathcal C/{\sim}}(X,Y)=\Hom_{\mathcal C}(X,Y)/{\sim_{X,Y}},\qquad [b]\circ[a]=[ba].
+  \]
+  证明复合良定义, 写出恒等态射并验证范畴公理. 证明 $q:\mathcal C\to\mathcal C/{\sim}$, $q(X)=X$, $q(a)=[a]$, 是函子.
+  \item[(b)] 若 $\mathcal C$ 是群胚, 证明 $\mathcal C/{\sim}$ 仍是群胚, 且 $[a]^{-1}=[a^{-1}]$. 说明这一公式不依赖代表的选择.
+  \item[(c)] 设 $T:\mathcal C\to\mathcal D$ 为函子, 满足 $a\sim a'\Rightarrow T(a)=T(a')$. 利用第 1 题在各 $\Hom$ 集上的泛性质, 证明存在唯一函子 $\overline T:\mathcal C/{\sim}\to\mathcal D$ 使 $\overline T\circ q=T$. 给出 $\overline T$ 在对象及态射上的公式, 并验证函子公理.
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+\begin{enumerate}
+  \item[(a)] 设 $H\le G$. 证明 $hH=H$ 对每个 $h\in H$ 成立, 并证明
+  \[
+    gH=g'H\iff g^{-1}g'\in H.
+  \]
+  \item[(b)] 设 $N\le G$. 记号 $N\unlhd G$ 表示 $N$ 是 $G$ 的正规子群(normal subgroup), 即对所有 $g\in G$ 都有 $gNg^{-1}=N$. 证明
+  \[
+    N\unlhd G\iff gNg^{-1}\subseteq N\text{ 对所有 }g\in G\text{ 成立}.
+  \]
+  \item[(c)] 对任意子群 $N\le G$, 定义
+  \[
+    g\sim_N h\iff g^{-1}h\in N.
+  \]
+  证明这是等价关系, 其等价类为左陪集, 且总与左乘相容, 即 $g\sim_N h\Rightarrow ag\sim_N ah$ 对所有 $a\in G$ 成立. 证明它与右乘相容(即 $g\sim_N h\Rightarrow ga\sim_N ha$ 对所有 $a\in G$ 成立), 当且仅当 $N\unlhd G$. 由此证明: $N\unlhd G$ 当且仅当 $\sim_N$ 与乘法相容, 即对任意 $g,g',h,h'\in G$, 有
+  \[
+    g\sim_N g',\ h\sim_N h'\implies gh\sim_N g'h'.
+  \]
+  \item[(d)] 反过来, 设 $\sim$ 是 $G$ 上与乘法相容的等价关系. 证明 $N=[1_G]$ 为正规子群, 且
+  \[
+    g\sim h\iff g^{-1}h\in N.
+  \]
+  证明 $N\mapsto{\sim_N}$ 与 ${\sim}\mapsto[1_G]$ 这两个构造互逆, 从而得到乘法同余与正规子群之间的一一对应.
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+本题可以使用商群结构, 但不得预先引用第一同构定理.
+\begin{enumerate}
+  \item[(a)] 设 $N\unlhd G$, 令 $q:G\to G/N$ 为自然投影. 对任意群同态 $f:G\to H$, 证明存在群同态 $\overline f:G/N\to H$ 满足 $\overline f\circ q=f$, 当且仅当
+  \[
+    N\subseteq\ker f.
+  \]
+  证明这样的 $\overline f$ 若存在, 则唯一.
+  \item[(b)] 对群同态 $f:G\to H$, 记 $K=\ker f$. 证明 $K\unlhd G$, 并验证
+  \[
+    \widetilde f:G/K\longrightarrow\operatorname{im}f,\qquad gK\longmapsto f(g)
+  \]
+  良定义且为群同态. 请写出由 $gK=g'K$ 推得 $f(g)=f(g')$ 的过程, 以及 $\widetilde f$ 保持乘法的计算.
+  \item[(c)] 证明 $\widetilde f$ 是双射, 其集合逆映射也是群同态, 从而得到第一同构定理
+  \[
+    G/\ker f\cong\operatorname{im}f.
+  \]
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+采用加法记号, 令
+\[
+  G=(\Z/12\Z)\times(\Z/18\Z),\qquad N=\langle([2]_{12},[3]_{18})\rangle,
+\]
+其中 $[a]_m$ 表示整数 $a$ 模 $m$ 的剩余类.
+\begin{enumerate}
+  \item[(a)] 列出 $N$ 的全部元素, 证明 $N\unlhd G$, 并计算 $|G/N|$.
+  \item[(b)] 考察映射
+  \[
+    \psi:G\longrightarrow\Z/36\Z,\qquad ([a]_{12},[b]_{18})\longmapsto[3a-2b]_{36}.
+  \]
+  证明它不依赖整数代表的选择, 是满射的群同态, 且 $\ker\psi=N$. 由此确定 $G/N$ 的群同构类型, 并写出所得同构及其逆映射.
+  \item[(c)] 在 $G/N$ 中令
+  \[
+    \xi=([1]_{12},[0]_{18})+N,\qquad\eta=([0]_{12},[1]_{18})+N.
+  \]
+  分别计算 $\xi,\eta,\xi+\eta$ 的阶, 判断这三个元素中哪些能单独生成整个商群.
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+令
+\[
+  G=S_4,\qquad N=\{1,(12)(34),(13)(24),(14)(23)\},
+\]
+并令 $K=\{\sigma\in S_4:\sigma(4)=4\}$.
+\begin{enumerate}
+  \item[(a)] 证明 $N$ 是 $S_4$ 的正规子群, 并计算 $|S_4/N|$.
+  \item[(b)] 证明 $K$ 是 $S_4$ 的子群, 且限制映射 $K\to S_3$, $\sigma\mapsto\sigma|_{\{1,2,3\}}$, 是群同构. 再证明 $K\cap N=\{1\}$. 证明每个左陪集 $gN$ 都包含唯一一个 $K$ 中的元素, 并以这些元素为代表列出全部陪集.
+  \item[(c)] 证明
+  \[
+    K\longrightarrow S_4/N,\qquad k\longmapsto kN
+  \]
+  是群同构, 从而确定 $S_4/N$ 的同构类型. 不得使用第二同构定理或直接引用 $S_4/N$ 的已知同构类型.
+  \item[(d)] 令 $r=(1234)$, $s=(12)$. 将 $rN,sN,(rN)(sN),(sN)(rN)$ 分别写成 $kN$, 其中 $k\in K$. 计算 $rN$, $sN$ 的阶, 并判断这两个商群元素是否交换.
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+对群 $G$ 和 $g\in G$, 定义
+\[
+  \phi_g:G\to G,\quad\phi_g(h)=ghg^{-1},\qquad
+  \Phi:G\to\operatorname{Aut}_{\mathbf{Grp}}(G),\quad g\mapsto\phi_g.
+\]
+形如 $\phi_g$ 的自同构称为内自同构(inner automorphism), 记 $\operatorname{Inn}(G)=\{\phi_g:g\in G\}$; 不属于 $\operatorname{Inn}(G)$ 的自同构称为外自同构(outer automorphism).
+\begin{enumerate}
+  \item[(a)] 验证 $\phi_g$ 是自同构, $\Phi$ 是群同态, 且
+  \[
+    \ker\Phi=Z(G)=\{g\in G:gh=hg\text{ 对所有 }h\in G\}.
+  \]
+  由第 6 题推出 $G/Z(G)\cong\operatorname{Inn}(G)$.
+  \item[(b)] 对任意 $\alpha\in\operatorname{Aut}_{\mathbf{Grp}}(G)$, 证明
+  \[
+    \alpha\circ\phi_g\circ\alpha^{-1}=\phi_{\alpha(g)}.
+  \]
+  由此证明 $\operatorname{Inn}(G)\unlhd\operatorname{Aut}_{\mathbf{Grp}}(G)$, 于是可以定义外自同构群
+  \[
+    \operatorname{Out}(G):=\operatorname{Aut}_{\mathbf{Grp}}(G)/\operatorname{Inn}(G).
+  \]
+  解释 $\operatorname{Out}(G)$ 的元素与外自同构之间的区别.
+  \item[(c)] ({\heiti 选做}) 对 $\alpha,\beta\in\operatorname{Aut}_{\mathbf{Grp}}(G)$, 记对应的函子为 $\mathbf B\alpha,\mathbf B\beta:\mathbf BG\to\mathbf BG$. 证明它们自然同构, 当且仅当存在 $u\in G$ 使
+  \[
+    \beta(h)=u\alpha(h)u^{-1}\qquad(h\in G).
+  \]
+  由此解释 $\operatorname{Out}(G)$ 如何描述这些自同构函子的自然同构类.
+  \item[(d)] 取 $G=C_3=\langle x\rangle$ 为三阶循环群, 计算 $\operatorname{Aut}_{\mathbf{Grp}}(G),\operatorname{Inn}(G),\operatorname{Out}(G)$, 并写出一个具体的外自同构.
+\end{enumerate}
+\end{problem}
+
+\Needspace{5\baselineskip}
+\begin{problem}
+({\heiti 选做}) 设 $F:\mathcal C\to\mathcal D$ 是小范畴之间的函子. 称 $F$ 完全忠实(fully faithful), 若对每对对象 $c,c'$, 映射
+\[
+  \Hom_{\mathcal C}(c,c')\longrightarrow\Hom_{\mathcal D}(F(c),F(c')),\quad a\longmapsto F(a)
+\]
+都是双射; 称 $F$ 本质满(essentially surjective), 若每个 $d\in\operatorname{Ob}(\mathcal D)$ 都同构于某个 $F(c)$. 称 $F$ 为范畴等价(equivalence), 若存在函子 $Q:\mathcal D\to\mathcal C$ 及自然同构 $QF\cong\operatorname{id}_{\mathcal C}$, $FQ\cong\operatorname{id}_{\mathcal D}$. 证明
+\[
+  F\text{ 是范畴等价}\iff F\text{ 完全忠实且本质满}.
+\]
+\begin{enumerate}
+  \item[(a)] 若存在函子 $Q:\mathcal D\to\mathcal C$ 及自然同构 $QF\cong\operatorname{id}_{\mathcal C}$, $FQ\cong\operatorname{id}_{\mathcal D}$, 证明 $F$ 完全忠实且本质满.
+
+  提示: 先证明 $F$ 与 $Q$ 都忠实, 再利用 $Q$ 的忠实性证明 $F$ 满; 不要假设给定的自然同构满足定义以外的恒等式.
+  \item[(b)] 证明完全忠实函子反映同构: 若 $F$ 完全忠实, 且 $\mathcal C$ 中的态射 $a$ 满足 $F(a)$ 是同构, 则 $a$ 是同构.
+  \item[(c)] 反过来, 设 $F$ 完全忠实且本质满. 对每个 $d\in\operatorname{Ob}(\mathcal D)$, 选择 $c_d\in\operatorname{Ob}(\mathcal C)$ 以及同构 $\varepsilon_d:F(c_d)\xrightarrow{\sim}d$, 令 $Q(d)=c_d$. 对 $v:d\to e$, 用完全忠实性定义唯一的 $Q(v):c_d\to c_e$, 使
+  \[
+    F(Q(v))=\varepsilon_e^{-1}\circ v\circ\varepsilon_d.
+  \]
+  验证 $Q$ 是函子.
+  \item[(d)] 证明分量 $\varepsilon_d$ 给出自然同构 $FQ\Rightarrow\operatorname{id}_{\mathcal D}$. 对每个 $c\in\operatorname{Ob}(\mathcal C)$, 定义唯一的 $\theta_c:QF(c)\to c$, 使
+  \[
+    F(\theta_c)=\varepsilon_{F(c)}.
+  \]
+  证明这些态射给出自然同构 $QF\Rightarrow\operatorname{id}_{\mathcal C}$, 完成证明.
+\end{enumerate}
+\end{problem}
 
 \end{document}
