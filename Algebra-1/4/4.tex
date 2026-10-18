@@ -7,14 +7,7 @@
 
 \begin{document}
 
-\paragraph{原作业说明(原文)}
-\begin{quote}
-{\heiti 请在提交的作业正文最前面写下以下承诺:}
-
-{\heiti 我承诺, 本次作业没有使用大语言模型.}
-\end{quote}
-
-{\heiti 截止时间: 2026-10-23 (周五) 23:59}
+{\heiti 我承诺, 本次作业的完成没有使用大语言模型.}
 
 \paragraph{约定} 群作用均为左作用; 复合 $g\circ f$ 表示先做 $f$, 再做 $g$, 置换也从右向左复合. $S_n$ 为 $\{1,\ldots,n\}$ 的置换群, 采用通常的循环记号. $\mathbf{B}G$ 为群 $G$ 的单对象群胚, 态射复合由群乘法给出. $G/H$ 表示左陪集集合; 当 $H\unlhd G$ 时, 其商群乘法为 $(gH)(hH)=ghH$. 所涉及的范畴均假设局部小, 未加说明的函子均为协变函子; 允许使用选择公理.
 
@@ -22,7 +15,7 @@
 
 \section*{习题}
 
-\Needspace{5\baselineskip}
+
 \begin{problem}
 设 $S$ 为集合, $\sim$ 为 $S$ 上的等价关系. 令
 \[
@@ -41,7 +34,21 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+\begin{solution}
+	\paragraph{(a)} 事实上, 对于任意的 $A \in S/{\sim}$, 由于 $A \neq \varnothing$, 取 $x \in A$, 则 $q(x) = A$. 故 $q$ 为满射. 下面来证明下一个命题, 即商集的泛性质.
+
+	``$\implies$'': 若存在满足条件的函数 $\bar{f}$, 则对于任意的 $x, y\in S$, 若 $x \sim y$, 则 $[x] = [y]$ ,即 $q(x) = q(y)$, 因而 $f(x) = \bar{f}(q(x)) = \bar{f}(q(y)) = f(y)$.
+
+	``$\impliedby$'': 若 $f$ 满足 $x \sim y \implies f(x) = f(y)$, 则定义函数 $\bar{f}: S/{\sim} \to T, [x] \mapsto f(x)$. 首先, 由
+	\[ [x] = [y] \implies x \sim y \implies f(x) = f(y) \implies \bar{f}([x]) = \bar{f}([y]) \]
+	知 $\bar{f}$ 是良定义的. 其次, 根据定义, 显然有 $f = \bar{f} \circ q$. 若有两个满足条件的函数 $\bar{f}_1, \bar{f}_2$, 则对于任意的 $[x] \in S/{\sim}$,
+	\[ \bar{f}_1([x]) = f(x) = \bar{f}_2([x]) \implies \bar{f}_1 = \bar{f}_2. \]
+	因此这样的 $\bar{f}$ 是唯一的.
+
+	\paragraph{(b)} 考虑一个范畴 $\mathcal{C}$, 其对象为一个二元对 $(X,f)$, 其中 $f \in \Hom_{\mathbf{Set}}(S,X)$, 满足 $f$ 在 $S$ 的每一个等价类上都取常值; $(X_1, f_1)$ 到 $(X_2, f_2)$ 的态射为映射 $\varphi: X_1 \to X_2$, 满足 $\varphi \circ f_1 = f_2$. 不难验证这是一个范畴, 并且根据上面的结论, $Q$ 和 $S/{\sim}$ 均为初对象. 因此存在唯一的同构态射 $\theta: S/{\sim} \to Q$. 根据态射的定义, 有 $\theta \circ q = p$.
+\end{solution}
+
+
 \begin{problem}
 对小群胚 $\mathcal G$, 在其对象集合上定义 $x\sim y$ 当且仅当存在同构 $x\to y$. 证明这是等价关系, 并记
 \[
@@ -63,7 +70,53 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+\begin{solution}
+	我们先来证明 ``$\sim$'' 是等价关系. 由于 $x \xrightarrow{\id_x} x$, 因此 $x \sim x$; 若存在同构 $x \xrightarrow{f} y$, 则 $y \xrightarrow{f^{-1}} x	$ 也是同构, 因此 $x \sim y \implies y \sim x$; 若存在两个同构 $x \xrightarrow{f} y \xrightarrow{g} z$, 则 $x \xrightarrow{g \circ f} z$ 也是同构, 因此 $x \sim y \sim z \implies x \sim z$. 因此 ``$\sim$'' 是等价关系.
+
+	\paragraph{(a)} 若 $[x] = [y]$, 则存在同构 $x \xrightarrow{f} y$, 而根据函子的性质, $F(x) \xrightarrow{F(f)} F(y)$ 也是同构, 因此 $F(x)\sim F(y)$, 故 $[F(x)] = [F(y)]$. 因此 $\pi_0(F)$ 是良定义的.
+
+	根据定义, 对于 $[x] \in \pi_0(\mathcal{G})$, 有 $\pi_0(\id_{\mathcal{G}})([x]) = [\id_{\mathcal{G}}(x)] = [x	]$, 因此 $\pi_0(\id_{\mathcal{G}}) = \id_{\pi_0(\mathcal{G})}$. 
+
+	对于小群胚之间可以复合的函子 $F,Q$, 有
+	\[ \pi_0(Q \circ F)([x]) = [Q(F(x))] = \pi_0(Q)([F(x)]) = \pi_0(Q) \circ \pi_0(F) ([x]). \]
+	因此 $\pi_0(Q \circ F) = \pi_0(Q) \circ \pi_0(F)$.
+
+	\paragraph{(b)} 取出准逆 $Q$. 由 $Q \circ F \cong \id_{\mathcal{G}}$, 知对于任意的 $x \in \Obj(\mathcal{G})$, 有 $Q \circ F(x) \sim x$, 因而 $\pi_0(Q \circ F)([x]) = [x]$, 故 $\pi_0(Q) \circ \pi_0(F) = \id_{\pi_0(\mathcal{G})}$. 同理, $\pi_0(F) \circ \pi_0(Q) = \id_{\pi_0(\mathcal{H})}$. 这说明 $\pi_0(F)$ 与 $\pi_0(Q)$ 是 $\pi_0(\mathcal{G})$ 和 $\pi_0(\mathcal{H})$ 之间互逆的双射. 
+
+	\paragraph{(c)} 先来验证 ``$\cdot$'' 和 ``$*$'' 是 $H$ 在 $G$ 上的两个左作用. 事实上, 对于任意的 $g\in G$, 有 $1_G \cdot g = g1_G^{-1} = g$, $1_G * g = 1_Gg = g$; 对于 $h_1, h_2 \in H$ 与 $g \in G$, 有
+	\begin{align*}
+		h_1 \cdot (h_2 \cdot g) &= (gh_2^{-1}) h_1^{-1} = g(h_1h_2)^{-1} = (h_1h_2) \cdot g, \\
+		h_1 * (h_2 * g) &= h_1 (h_2 g) = (h_1h_2) g = (h_1h_2) * g.
+	\end{align*}
+	因此``$\cdot$'' 和 ``$*$'' 是左作用. 
+
+	不难得出, 两个作用的轨道分别为 $H \cdot g = gH$, $H * g = Hg$. 
+
+	现在来构造两个作用群胚之间的同构函子. 设前者对应的作用群胚为 $\mathcal{A}^{\cdot}$, 后者对应的作用群胚为 $\mathcal{A}^{*}$. 取函子
+	\begin{align*}
+		&F_1: \mathcal{A}^\cdot \to \mathcal{A}^*, \quad 
+		g \mapsto g^{-1}, \quad (g, h) \mapsto (g^{-1}, h) ; \\
+		&F_2: \mathcal{A}^* \to \mathcal{A}^\cdot, \quad 
+		g \mapsto g^{-1}, \quad (g,h) \mapsto (g^{-1}, h).
+	\end{align*}
+
+	先来验证 $F_1$ 和 $F_2$ 是函子. 对于恒等态射 $\id_{g}^{\mathcal{A}^\cdot} = (g, 1_H)$, 有 $F_1((g, 1_H)) = (g^{-1}, 1_H) = \id_{F_1(g)}^{\mathcal{A}^*}	$; 对于 $g_1 \xrightarrow{(g_1, h_1)} g_2 \xrightarrow{(g_2, h_2)} g_3$, 有 $g_2^{-1} = (h_1 \cdot g_1)^{-1} = (g_1h_1^{-1})^{-1} = h_1 g_1^{-1}$, 因此有
+	\begin{align*}
+		F_1((g_2, h_2)) \circ F_1((g_1, h_1)) &= (g_2^{-1}, h_2) \circ (g_1^{-1}, h_1) = (g_1^{-1}, h_2h_1) \\
+		&= F_1((g_1, h_2h_1)) = F_1((g_2, h_2) \circ (g_1, h_1)). 
+	\end{align*}
+	因此 $F_1$ 是函子. 同理可以验证 $F_2$ 也是函子.
+
+	再来验证 $F_1$ 和 $F_2$ 互为准逆. 事实上, 从 $F_1$ 和 $F_2$ 的定义就可以看出, $F_2 \circ F_1(g) = (g^{-1})^{-1} = g$, 并且 $F_2 \circ F_1((g,h)) = ((g^{-1})^{-1}, h) = (g, h)$, 因此 $F_2 \circ F_1 = \id_{\mathcal{A}^\cdot}$. 同理可以验证, $F_1 \circ F_2 = \id_{\mathcal{A}^*}$. 
+
+	最后, 根据 \textbf{(b)} 中的结论, 结合 $G/H = \pi_0(\mathcal{A^\cdot})$ 与 $H\backslash G = \pi_0(\mathcal{A^*})$, 知 $G/H$ 与 $H\backslash G$ 之间存在同构双射. 根据上面的构造, 知这两个集合之间的双射为
+	\begin{align*}
+		\varphi:& G/H \to H \backslash G, \quad gH \mapsto Hg^{-1} ; \\
+		\varphi^{-1}:& H \backslash G \to G/H, \quad Hg \mapsto g^{-1}H.
+	\end{align*}
+\end{solution}
+
+
 \begin{problem}
 设有限群 $G$ 作用于有限集合 $X$. 对 $g\in G$ 和 $x\in X$, 分别记
 \[
@@ -78,7 +131,30 @@
 提示: 对集合 $\{(g,x)\in G\times X:gx=x\}$ 作两种计数, 并按轨道整理所得的和.
 \end{problem}
 
-\Needspace{5\baselineskip}
+\begin{proof}
+	我们对集合 $S := \{(g,x) \in G \times X: gx = x\}$ 进行计数. 
+
+	一方面, 
+	\begin{align*}
+		\abs{S}
+		&= \sum_{g \in G}^{}\#\{x \in X: gx = x\}
+		= \sum_{g \in G}^{} \abs{X^g};
+	\end{align*}
+	另一方面, 
+	\begin{align*}
+		\abs{S}
+		&= \sum_{x \in X}^{}\#\{g \in G: gx = x\}
+		= \sum_{Gx \in X/G}^{} \sum_{y \in Gx}^{} \abs{G_y} 
+		= \sum_{Gx \in X/G}^{} \abs{Gx}\abs{G_x} \\
+		&= \sum_{Gx \in X/G}^{} \abs{G}
+		= \abs{G} \abs{X/G}.
+	\end{align*}
+
+	因此 $\abs{G} \abs{X/G} = \sum_{g \in G}^{}\abs{X^g}$, 原式即证.
+\end{proof}
+
+
+
 \begin{problem}
 在小范畴 $\mathcal C$ 的每个 $\Hom_{\mathcal C}(X,Y)$ 上给定等价关系 $\sim_{X,Y}$, 并假设它们与复合相容: 若 $a,a':X\to Y$, $b,b':Y\to Z$ 满足 $a\sim a'$ 和 $b\sim b'$, 则 $ba\sim b'a'$. 这样的关系族称为同余(congruence); 仅比较具有相同源和靶的态射.
 \begin{enumerate}
@@ -92,7 +168,37 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+\begin{solution}
+	我们来证明此复合是良定义的. 事实上, 若 $[a] = [a']$, $[b] = [b']$, 则 $a \sim a'$, $b \sim b'$, 根据同余关系的性质, 有 $b \circ a \sim b' \circ a'$, 从而 $[b \circ a] = [b' \circ a']$. 故此复合是良定义的.
+
+	$\mathcal{C}/\sim$ 中的恒等态射应为 $\id_{X}^{\mathcal{C}/\sim} = [\id_{X}^{\mathcal{C}}]$. 接下来验证范畴公理: 
+	\begin{enumerate}[label=(\arabic*)]
+		\item 恒等态射公理: 对于 $[f] \in \Hom_{\mathcal{C}/\sim}(X,Y)$ 以及 $[g] \in \Hom_{\mathcal{C}/\sim}(Y,X)$, 有 $[f] \circ \id_{X}^{\mathcal{C}/\sim} = [f \circ \id_{X}^{\mathcal{C}}] = [f]$, $\id_{X}^{\mathcal{C}/\sim} \circ [g] = [\id_{X}^{\mathcal{C}} \circ g] = [g]$;
+		\item 结合律公理: 对于 $\mathcal{C}/\sim$ 中的态射 $X \xrightarrow{[f]} Y \xrightarrow{[g]} Z \xrightarrow{[h]} W$, 有 $([h] \circ [g]) \circ [f] = [(h \circ g) \circ f] = [h \circ (g \circ f)] = [h] \circ ([g] \circ [f])$.
+	\end{enumerate}
+	因此 $C/\sim$ 确实是一个范畴.
+
+	接下来证明 $q$ 是函子. 事实上, 由前面的结论, 知 $q(\id_{X}^{\mathcal{C}}) = [\id_{X}^{\mathcal{C}}] = \id_{X}^{\mathcal{C}/\sim}$, 并且对于 $\mathcal{C}$ 中的两个态射 $X \xrightarrow{f} Y \xrightarrow{g} Z$, 有 $q(g) \circ q(f) = [g] \circ [f] = [g \circ f] = q(g \circ f)$. 因此 $q$ 是函子.
+
+	\paragraph{(b)} 若 $\mathcal{C}$ 为群胚, 则 $\mathcal{C}$ 中每一个态射均可逆. 如果下面的命题成立的话, 则可以说明 $\mathcal{C}/\sim$ 中的每一个态射均可逆, 因此 $\mathcal{C}/\sim$ 也是群胚.
+	
+	下面来验证 $[a]^{-1} = [a^{-1}]$, 且此公式不依赖于代表元的选择.
+	
+	事实上, 对于 $\mathcal{C}$ 中的态射 $a$, 有 $[a] \circ [a^{-1}] = [a \circ a^{-1}] = \id^{\mathcal{C}/\sim}$, 同理 $[a^{-1}] \circ [a] = \id^{\mathcal{C}/\sim}$. 因此 $[a^{-1}]$ 是 $[a]$ 的逆态射, 即 $[a^{-1}] = [a]^{-1}$. 并且, 若 $a \sim a'$, 则由逆态射的唯一性, 知 $[a^{-1}] = [a]^{-1} = [a']^{-1} = [a'^{-1}	]$.
+
+	\paragraph{(c)} 对任意的 $X,Y \in \Obj(\mathcal{C})$, 由 $\Hom_{\mathcal{C}}(X,Y)/ \sim_{X,Y}$ 的泛性质, 知存在唯一的映射 
+	\[ \bar{T}_{X,Y}: \Hom_{\mathcal{C}/\sim}(X,Y) \to \Hom_{\mathcal{D}}(T(X), T(Y)), \text{ 满足 }\ \bar{T}_{X,Y} \circ q\big|_{\Hom_{\mathcal{C}}(X,Y)} = T\big|_{\Hom_{\mathcal{C}}(X,Y)}. \]
+	再按照唯一的选法来选取 $\bar{T}(X) = T(X)$, 这就给出了唯一的函子 $\bar{T}: \mathcal{C}/\sim \to \mathcal{D}$, 满足 $\bar{T} \circ q = T$. 
+
+	事实上, 按照上面的定义给出的 $\bar{T}$, 其在态射上的公式如下: 对于 $\mathcal{C}/\sim $ 中的态射 $X \xrightarrow{[f]} Y$, 有 $\bar{T}([f]) = T(f)$. 根据 $T$ 的性质, 不难验证 $\bar{T}$ 是良定义的. 并且, 由于
+	\begin{gather*}
+		\bar{T}(\id_{X}^{\mathcal{C}/\sim}) = \bar{T}([\id_{X}^{\mathcal{C}}]) = T(\id_{X}^{\mathcal{C}}) = \id_{T(X)}^{\mathcal{D}}, \\
+		\bar{T}([g]) \circ \bar{T}([f]) = T(g) \circ T(f) = T(g \circ f) = \bar{T}([g] \circ [f]),
+	\end{gather*}
+	知 $\bar{T}$ 是函子.
+\end{solution}
+
+
 \begin{problem}
 \begin{enumerate}
   \item[(a)] 设 $H\le G$. 证明 $hH=H$ 对每个 $h\in H$ 成立, 并证明
@@ -119,7 +225,7 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+
 \begin{problem}
 本题可以使用商群结构, 但不得预先引用第一同构定理.
 \begin{enumerate}
@@ -140,7 +246,7 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+
 \begin{problem}
 采用加法记号, 令
 \[
@@ -162,7 +268,7 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+
 \begin{problem}
 令
 \[
@@ -181,7 +287,7 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+
 \begin{problem}
 对群 $G$ 和 $g\in G$, 定义
 \[
@@ -213,7 +319,7 @@
 \end{enumerate}
 \end{problem}
 
-\Needspace{5\baselineskip}
+
 \begin{problem}
 ({\heiti 选做}) 设 $F:\mathcal C\to\mathcal D$ 是小范畴之间的函子. 称 $F$ 完全忠实(fully faithful), 若对每对对象 $c,c'$, 映射
 \[
