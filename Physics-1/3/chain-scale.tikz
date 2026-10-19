@@ -1,0 +1,44 @@
+% AI-assisted TikZ redraw of chain-scale.png; no additional physical information.
+\begin{tikzpicture}[x=1cm,y=1cm,line width=0.7pt,
+  draw=black!65,line cap=round,line join=round]
+  % Ground, supporting feet, and the stem beneath the weighing pan.
+  \path[fill=gray!45,draw=gray!65] (-2.25,-0.24) rectangle (2.25,0);
+  \draw (-0.85,0) -- (-0.55,0.55);
+  \draw (0.85,0) -- (0.55,0.55);
+  \draw (-0.85,0) -- (0.85,0);
+  \path[fill=shadecolor,draw=black!65] (-0.065,2.53) rectangle (0.065,3.40);
+  \path[fill=shadecolor,draw=black!65] (-0.38,2.40) rectangle (0.38,2.56);
+
+  % Dial: two concentric rims, twelve unnumbered ticks, and one pointer.
+  \path[fill=shadecolor,draw=black!65,line width=0.85pt] (0,1.38) circle[radius=1.08];
+  \draw (0,1.38) circle[radius=0.99];
+  \foreach \angle in {0,30,...,330} {
+    \draw ({0.79*cos(\angle)},{1.38+0.79*sin(\angle)})
+      -- ({0.91*cos(\angle)},{1.38+0.91*sin(\angle)});
+  }
+  \draw[black!80,line width=1.1pt] (-0.26,1.12) -- (0.67,2.05);
+  \draw[black!80,line width=2.2pt] (-0.24,1.14) -- (0,1.38);
+  \fill[black!80] (0,1.38) circle[radius=0.065];
+
+  % Shallow pan and the few links resting on it.
+  \path[fill=shadecolor,draw=black!65] (-1.04,3.64) -- (1.04,3.64)
+    -- (0.89,3.41) -- (-0.89,3.41) -- cycle;
+  \foreach \x/\y/\angle in {
+    -0.53/3.52/15,-0.30/3.56/35,-0.08/3.50/-15,
+    0.15/3.55/15,0.38/3.52/-20,0.08/3.65/-35} {
+    \draw[rotate around={\angle:(\x,\y)}]
+      (\x,\y) ellipse[x radius=0.19,y radius=0.075];
+  }
+
+  % The free vertical chain ends at the links already touching the pan.
+  \foreach \link in {0,...,11} {
+    \begin{scope}[shift={(0,{3.82+0.30*\link})}]
+      \draw (-0.015,-0.17)
+        .. controls (-0.08,-0.17) and (-0.10,-0.12) .. (-0.10,-0.06)
+        -- (-0.10,0.09)
+        .. controls (-0.10,0.19) and (0.10,0.19) .. (0.10,0.09)
+        -- (0.10,-0.05);
+      \draw (0,-0.18) -- (0,-0.055);
+    \end{scope}
+  }
+\end{tikzpicture}
