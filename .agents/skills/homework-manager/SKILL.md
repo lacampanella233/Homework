@@ -11,7 +11,7 @@ Call only the dispatcher. Shared Git, path and validation logic lives in `script
 
 ## Start every request
 
-Run `Status` and inspect the branch and every existing change. Treat pre-existing changes as user-owned. Do not clean, restore, stage or commit them merely to unblock a workflow. Identify the exact course, assignment, branch and requested remote effects. Do not infer permission to push, merge or delete branches.
+Run `Status` and inspect the branch and every existing change. Treat pre-existing changes as user-owned. Do not clean, restore, stage or commit them merely to unblock a workflow. Identify the exact course, assignment, branch and requested remote effects. Do not infer permission to push, merge or delete branches beyond the standing local-cleanup authorization below.
 
 ```sh
 python3 .agents/skills/homework-manager/scripts/homework.py Status
@@ -38,6 +38,16 @@ python3 .agents/skills/homework-manager/scripts/homework.py Compile --course Alg
 python3 .agents/skills/homework-manager/scripts/homework.py Sync --apply
 python3 .agents/skills/homework-manager/scripts/homework.py Finish --apply
 ```
+
+## Clean up completed homework branches
+
+The user has authorized automatic local cleanup after an authorized homework merge. Once the completed homework branch is merged into `main` and `main` is successfully pushed, delete that local branch as part of the same workflow without another confirmation. This applies to `Finish` and other explicitly authorized homework-merge workflows. `Finish` already implements this behavior. These cleanup instructions were updated with AI assistance.
+
+- Confirm the branch tip is contained in `main` with `git merge-base --is-ancestor <branch> main`. Do not use upstream disappearance or matching assignment files as proof of a merge.
+- Use only `git branch -d <branch>`, never force deletion. Preserve branches with unmerged commits, the current branch, and branches checked out in other worktrees. If `main` has not been successfully pushed, preserve the branch.
+- Cleanup failures after a successful merge and push are warnings; report the remaining branch without misreporting the merge as failed.
+- For a request to inspect existing branches, list every local branch and identify merged homework branches as cleanup candidates. An inspection request alone does not authorize deleting those existing branches.
+- This standing authorization covers local branch deletion. Remote branch deletion still requires explicit authorization. Deleting a branch does not authorize removing ignored PDFs, build files, or assignment directories left in the checkout.
 
 ## Stop conditions
 
