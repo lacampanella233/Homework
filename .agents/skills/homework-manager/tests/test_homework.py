@@ -47,7 +47,7 @@ class HomeworkTests(unittest.TestCase):
         (self.root / '.gitignore').write_text(f'*.log\n*.[pP][dD][fF]\n!/{self.course}/1/1.pdf\n!/{self.course}/3/3.pdf\n')
         (self.root / 'README.md').write_text('fixture\n')
         (self.root / 'homework.sty').write_text('% fixture\n')
-        (self.root / 'homework.config.json').write_text(json.dumps({'semester': '2026 秋季', 'defaultLanguage': 'zh'}))
+        (self.root / 'homework.config.json').write_text(json.dumps({'courses': {self.course: {'semester': '2026 秋季', 'defaultLanguage': 'zh'}}}))
         git(self.root, 'add', '--', 'README.md', 'homework.sty', 'homework.config.json', '.gitignore', self.course)
         git(self.root, 'commit', '-m', 'Fixture')
         git(self.root, 'remote', 'add', 'origin', str(self.remote))
@@ -68,6 +68,49 @@ class HomeworkTests(unittest.TestCase):
         result = self.ok('Status')
         self.assertIn('next: 4', result.stdout)
         self.assertEqual(git(self.root, 'status', '--porcelain'), '')
+
+    def test_course_defaults_and_explicit_overrides(self):
+        config = {'courses': {
+            self.course: {'semester': '2026 秋季', 'defaultLanguage': 'zh'},
+            'Physics-1': {'semester': '2026 Fall', 'defaultLanguage': 'en'},
+        }}
+        (self.root / 'homework.config.json').write_text(json.dumps(config))
+        (self.root / 'Physics-1').mkdir()
+        git(self.root, 'add', '--', 'homework.config.json')
+        git(self.root, 'commit', '-m', 'Configure course defaults')
+        # A course without previous assignments uses its own configured language.
+        result = self.ok('NewHomework', '--course', 'Physics-1')
+        self.assertIn('semester=2026 Fall; language=en', result.stdout)
+        result = self.ok('NewHomework', '--course', 'Physics-1', '--semester', '2027 Spring', '--language', 'zh')
+        self.assertIn('semester=2027 Spring; language=zh', result.stdout)
+        # Existing assignments still supply language and display-name inheritance.
+        result = self.ok('NewHomework', '--course', self.course)
+        self.assertIn('semester=2026 秋季; language=en; course label=Course Name', result.stdout)
+        status = self.ok('Status').stdout
+        self.assertIn('Physics-1 (next: 1; semester=2026 Fall; language=en)', status)
+        self.assertIn(f'{self.course} (next: 4; semester=2026 秋季; language=zh)', status)
+
+    def test_unconfigured_course_requires_missing_defaults(self):
+        (self.root / 'New').mkdir()
+        result = self.cli('NewHomework', '--course', 'New')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('--semester', result.stderr)
+        result = self.cli('NewHomework', '--course', 'New', '--semester', '2027 Spring')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('--language', result.stderr)
+        self.ok('NewHomework', '--course', 'New', '--semester', '2027 Spring', '--language', 'en')
+        result = self.ok('Status')
+        self.assertIn('New (next: 1; defaults not configured)', result.stdout)
+
+    def test_invalid_course_config_is_rejected(self):
+        for config in ({}, {'courses': []}, {'courses': {'New': []}},
+                       {'courses': {'New': {'semester': '', 'defaultLanguage': 'en'}}},
+                       {'courses': {'New': {'semester': '2026 Fall', 'defaultLanguage': 'fr'}}}):
+            with self.subTest(config=config):
+                (self.root / 'homework.config.json').write_text(json.dumps(config))
+                result = self.cli('Status')
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('ERROR:', result.stderr)
 
     def test_paths_reject_escape_and_symlink(self):
         repo = Repository(self.root)

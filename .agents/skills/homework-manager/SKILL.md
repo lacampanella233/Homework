@@ -17,7 +17,7 @@ Run `Status` and inspect the branch and every existing change. Treat pre-existin
 python3 .agents/skills/homework-manager/scripts/homework.py Status
 ```
 
-Root `homework.config.json` supplies the semester and the language fallback. New assignments inherit the latest numbered assignment's language and course display name when available; explicit options override those defaults.
+Root `homework.config.json` supplies per-course defaults under `courses`, keyed by the exact course directory name (for example, `"Physics-1": {"semester": "2026 Fall", "defaultLanguage": "en"}`). New assignments inherit the latest numbered assignment's language and course display name when available; explicit options override those defaults. An unconfigured course requires `--semester`, plus `--language` when no language can be inherited. `Status` shows each course's configured defaults. The per-course configuration and reader changes were AI-assisted.
 
 ## Actions
 

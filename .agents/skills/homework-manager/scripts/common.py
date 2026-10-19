@@ -92,9 +92,16 @@ class Repository:
             raise HomeworkError(f'Cannot read repository configuration {path}: {error}')
         if not isinstance(data, dict):
             raise HomeworkError('homework.config.json must contain an object.')
-        one_line(data.get('semester'), 'semester')
-        if data.get('defaultLanguage') not in ('zh', 'en'):
-            raise HomeworkError("defaultLanguage must be 'zh' or 'en'.")
+        courses = data.get('courses')
+        if not isinstance(courses, dict):
+            raise HomeworkError('homework.config.json must contain a courses object.')
+        for name, settings in courses.items():
+            self.course_path(name, must_exist=False)
+            if not isinstance(settings, dict):
+                raise HomeworkError(f'courses.{name} must contain an object.')
+            one_line(settings.get('semester'), f'courses.{name}.semester')
+            if settings.get('defaultLanguage') not in ('zh', 'en'):
+                raise HomeworkError(f"courses.{name}.defaultLanguage must be 'zh' or 'en'.")
         return data
 
     def next_number(self, course):
@@ -113,9 +120,12 @@ class Repository:
         style = self.child('homework.sty')
         if not style.is_file():
             raise HomeworkError(f'Root homework.sty is missing: {style}')
-        config = self.config()
-        semester = one_line(args.semester if args.semester is not None else config['semester'], 'semester')
-        language = args.language if args.language != 'auto' else config['defaultLanguage']
+        config = self.config()['courses'].get(args.course, {})
+        semester = args.semester if args.semester is not None else config.get('semester')
+        if semester is None:
+            raise HomeworkError(f"No semester configured for '{args.course}'. Add it to homework.config.json or supply --semester.")
+        semester = one_line(semester, 'semester')
+        language = args.language if args.language != 'auto' else config.get('defaultLanguage')
         display = latex_text(args.display_course if args.display_course is not None else args.course)
         latest = sorted((p for p in course.iterdir() if p.is_dir() and re.fullmatch(r'[0-9]+', p.name)), key=lambda p: int(p.name), reverse=True)
         for directory in latest:
@@ -129,6 +139,8 @@ class Repository:
                 if args.display_course is None and match:
                     display = match.group(1)
                 break
+        if language is None:
+            raise HomeworkError(f"No default language configured or inherited for '{args.course}'. Add it to homework.config.json or supply --language.")
         return path, branch, number, style, semester, language, display
 
     def assignment(self, course=None, number=None):
