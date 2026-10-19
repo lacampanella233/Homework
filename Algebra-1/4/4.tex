@@ -225,6 +225,50 @@
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 对于 $h' \in H$, $hh' \in H$, 故 $hH \subset H$; 而对于任意的 $h' \in H$, 由 $h^{-1}h' \in H$ 知 $h' = h(h^{-1}h') \in hH	$, 因此 $H \subset hH$. 故 $hH = H$. 
+
+	注意到
+	\[ \begin{array}{cc}
+		 & gH = g'H \\
+		\Leftrightarrow & (\forall h \in H, gh \in g'H) \wedge (\forall h \in H, g'h \in gH) \\
+		\Leftrightarrow & (\forall h \in H,\ \exists h' \in H, gh = g'h') \wedge (\forall h \in H,\ \exists h' \in H, g'h = gh') \\
+		\Leftrightarrow & (\forall h \in H,\ \exists h' \in H, g^{-1}g' = h(h')^{-1}) \wedge (\forall h \in H,\ \exists h' \in H, g^{-1}g' = h'h^{-1}) \\
+		\Leftrightarrow & g^{-1} g' \in H.
+	\end{array} \]
+	因此 $gH = g'H \Leftrightarrow g^{-1}g' \in H$.
+
+	\paragraph{(b)} 根据正规子群的定义, 必要性是显然的. 下面来证明充分性. 若 $gNg^{-1} \subset N$ 对所有的 $g \in G$ 成立, 则对于任意的 $g \in G$ 以及 $n \in N$, 都存在 $n' \in N$, 使得 $g^{-1}ng = n'$, 即 $n = gn'g^{-1} \in gNg^{-1}$. 因此对任意的 $g \in G$, 都有 $N \subset gNg^{-1}$, 再结合 $gNg^{-1} \subset N$ 知 $gNg^{-1} = N$. 因此 $N \unlhd G$. 
+
+	\paragraph{(c)} 首先, 对于任意的 $g \in G$, 均有 $g^{-1}g = 1_G \in N$, 因此 $g \sim_N g$; 若 $g_1 \sim_{N} g_2$, 则 $g_2^{-1}g_1 = (g_1^{-1}g_2)^{-1} \in N$, 故 $g_2 \sim_N g_1$; 若 $g_1 \sim_N g_2 \sim_N g_3$, 则 $g_1^{-1}g_3 = (g_1^{-1}g_2)(g_2^{-1}g_3) \in N$, 因此 $g_1 \sim_N g_3$. 综上, ``$\sim_N$'' 为等价关系.
+
+	任取一个等价类 $[g]$, 我们来证明 $[g] = gN$. 首先, 对于任意的 $gn \in gN$, 由 $g^{-1}(gn) = n \in N$ 知 $gn \sim_N g$, 因此 $gn \in [g]$, 由此知 $gN \subset [g]$; 反过来, 若 $g' \in [g]$, 则 $g^{-1}g' =: n \in N$, 故$g' = gn \in gN$, 由此知 $[g] \subset gN$. 故 $[g] = gN$. 
+
+	若 $g \sim_N h$, 则对于任意的 $a\in G$, $(ag)^{-1}(ah) = g^{-1}a^{-1}ah = g^{-1}h \in N$, 故 $ag \sim_N ah$.
+
+	下面来证明: $\sim_N$ 与右乘相容, 当且仅当 $N \unlhd G$. 若 $\sim_N$ 与右乘相容, 则对于任意的 $n \in N$, 由 $1_G \sim_N n$ 知对任意的 $g \in G$, 有 $1_G = g1_Gg^{-1} \sim_N gng^{-1}$, 因此 $gng^{-1}\in N$. 因此对于任意的 $g \in G$, 有 $gNg^{-1} \subset N$, 故 $N \unlhd G$. 
+
+	反过来, 若 $N \unlhd G$, 则对于任意的 $g \sim_N h$, 由 $g^{-1}h \in N$ 知 $(ga)^{-1}(ha) = a^{-1}(g^{-1}h)a \in a^{-1}Na = N$, 故 $ga \sim_N ha$. 由此命题得证. 
+
+	下面来证明: $\sim_N$ 与乘法相容, 当且仅当 $N \unlhd G$. 若 $\sim_N$ 与乘法相容, 则 $\sim_N$ 也与右乘相容, 故 $N \unlhd G$; 反过来, 若 $N \unlhd G$, 则对于 $g \sim_N g'$, $h \sim_N h'$, 有
+	\[ gh \sim_N g'h \sim_N g'h' \implies gh \sim_N g'h'. \]
+
+	\paragraph{(d)} 先来证明 $N \le G$. 显然 $1_G \in N$; 对于 $n \in N$, 有
+	\[ n \sim 1_G, \ n^{-1} \sim n^{-1} \implies 1_G \sim n^{-1} \implies n^{-1} \in N. \]
+	另外, 对于 $n_1, n_2 \in N$, 有
+	\[ n_1 \sim 1_G, \ n_2 \sim 1_G \implies n_1n_2 \sim 1_G \implies n_1n_2 \in N. \]
+	因此 $N \le G$.
+
+	对于任意的 $n \in N$, 由于 ``$\sim$'' 与乘法相容, 结合 $n \sim 1_G$, 知
+	\[ gng^{-1} \sim g1_Gg^{-1} = 1_G \implies gng^{-1} \in N. \]
+	因此, 对于任意的 $g \in G$, 均有 $gNg^{-1} \subset N$. 故 $N \unlhd G$. 
+
+	下面来证明 $g \sim h \Leftrightarrow g^{-1}h \in N$. 只需注意到以下事实即可: 
+	\[ g \sim h \Longleftrightarrow 1_G = g^{-1}g \sim g^{-1}h \Longleftrightarrow g^{-1}h \in [1_G] = N. \]
+
+	下面来说明上面两个构造是互逆的. 对于正规子群 $N$, 根据 \textbf{(c)} 定义出 $\sim_N$, 则 $1_G \sim_N n \Longleftrightarrow n = 1_G^{-1}n \in N$. 因此在等价关系 ``$\sim_N$'' 下, $[1_G] = N$. 反之, 对于一个与乘法相容的等价关系 $\sim$, 取 $N = [1_G]$, 则根据上面证明的命题, $g \sim h \Longleftrightarrow g^{-1}h \in N$, 因此 ``$\sim$'' 与 ``$\sim_{N}$'' 是同一个等价关系. 
+\end{solution}
+
 
 \begin{problem}
 本题可以使用商群结构, 但不得预先引用第一同构定理.
@@ -245,6 +289,41 @@
   \]
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 若存在这样的同态 $\bar{f}$, 则对于 $n \in N$, 有 $f(n) = \bar{f}(q(n)) = \bar{f}(1_{G/N}) = 1_{H}$, 因此 $n \in \ker f$. 因此 $N \subset \ker f$. 反过来, 若 $N \subset \ker f	$, 则构造 
+	\[ \bar{f}: \ G/N \to H, \ gN \mapsto f(g). \]
+	下面来证明良定义并验证其为群同态. 对于 $g_1N = g_2N$, 由 $g_1^{-1} g_2 \in N	 \subset \ker f$ 知 $f(g_1)^{-1} f(g_2) = 1_H$, 即 $f(g_1) = f(g_2)$. 故 $\bar{f}$ 是良定义的. 对于 $g_1N, g_2N \in G/N$, 由
+	\[ \bar{f}(g_1N) \bar{f}(g_2N) = f(g_1) f(g_2) = f(g_1g_2) = \bar{f}(g_1g_2N) = \bar{f}((g_1N)(g_2N)) \]
+	知 $\bar{f}$ 为群同态. 
+
+	下面来证明 $\bar{f}$ 的唯一性. 若存在两个群同态 $\bar{f}_1$, $\bar{f}_2$, 满足 $\bar{f}_{1,2} \circ q = f$, 则对于任意的 $gN \in G/N$, 有
+	\[ \bar{f}_1(gN) = f(g), \ \bar{f}_2(gN) = f(g) \implies \bar{f}_1 = \bar{f}_2. \]
+
+	\paragraph{(b)} 对于任意的 $g \in G$ 以及 $k \in K$, 有 $f(gkg^{-1}) = f(g) f(k) f(g)^{-1} = 1_H$, 因此 $gkg^{-1} \in K$. 故对于任意的 $g \in G$, 均有 $gKg^{-1} \subset K$, 因此 $K \unlhd G$. 
+
+	下面来验证 $\tilde{f}$ 良定义且为群同态. 对于 $g_1K = g_2K$, 有 $g_1^{-1}g_2 \in K$, 因此 $f(g_1) = f(g_1)f(g_1^{-1}g_2) = f(g_2)$, 因此 $\tilde{f}$ 是良定义的. 
+	
+	并且, 对于 $g_1K, g_2K \in G/K$, 有 
+	\[ \tilde{f}(g_1K) \tilde{f}(g_2K) = f(g_1) f(g_2) = f(g_1g_2) = \tilde{f}(g_1g_2K) = \tilde{f}((g_1K)(g_2K)). \]
+	因此 $\tilde{f}$ 是群同态.
+
+	\paragraph{(c)} 定义集合映射 
+	\[ \tilde{f}^{-1}: \im f \to G/K, h \mapsto gK, \ \text{其中}\ g \in f^{-1}(h). \]
+
+	先来验证 $\tilde{f}^{-1}$ 是良定义的. 对于 $g_1, g_2 \in f^{-1}(h)$, 由于 $f(g_1^{-1}g_2) = f(g_1)^{-1}f(g_2) = h^{-1}h = 1_H$, 故 $g_1^{-1}g_2 \in K$, 因此 $g_1K = g_2K$. 故 $\tilde{f}^{-1}$ 是良定义的. 
+
+	再来验证 $\tilde{f}^{-1}$ 是群同态. 对于 $h_1, h_2 \in \im f$, 取 $g_1 \in f^{-1}(h_1)$, $g_2 \in f^{-1}(h_2)$. 则
+	\[ \tilde{f}^{-1}(h_1) \tilde{f}^{-1}(h_2) = (g_1K)(g_2K) = (g_1g_2)K = \tilde{f}^{-1}(h_1h_2). \]
+	因此 $\tilde{f}^{-1}$ 是群同态. 
+
+	再来验证 $\tilde{f}$ 与 $\tilde{f}^{-1}$ 互逆. 对于 $gK \in G/K$, 有
+	\[ \tilde{f}^{-1} \circ \tilde{f}(gK) = \tilde{f}^{-1}(f(g)) = gK, \]
+	因此 $\tilde{f}^{-1} \circ \tilde{f} = \id_{G/K}$; 对于 $h \in \im f$, 取 $g \in f^{-1}(h)$, 则
+	\[ \tilde{f} \circ \tilde{f}^{-1}(h) = \tilde{f}(gK) = f(g) = h, \]
+	因此 $\tilde{f} \circ \tilde{f}^{-1} = \id_{\im f}$. 所以 $\tilde{f}^{-1}$ 和 $\tilde{f}$ 互为逆映射. 因此第一同构定理 $G/\ker f \cong \im f$ 得证. 
+\end{solution}
+
 
 
 \begin{problem}
@@ -268,6 +347,40 @@
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} $N$ 的全部元素为
+	\[ N = \{([0]_{12}, [0]_{18}), ([2]_{12}, [3]_{18}), ([4]_{12}, [6]_{18}), ([6]_{12}, [9]_{18}), ([8]_{12}, [12]_{18}), ([10]_{12}, [15]_{18})\}. \]
+	由于 $G$ 为交换群, 而 $N \le G$, 则 $N \unlhd G$. 显然 $\abs{G/N} = \abs{G} / \abs{N} = 12 \times 18 / 6 = 36$.
+
+	\paragraph{(b)} 先来证明 $\psi$ 是良定义的. 若 $[a]_{12} = [a']_{12}$, $[b]_{18} = [b']_{18}$, 则 $a \equiv a' \mod 12$, $b \equiv b' \mod 18$, 因此 $3a \equiv 3a' \mod 12 \times 3$, $2b \equiv 2b' \mod 18 \times 2$, 故$[3a-2b]_{36} = [3a'-2b']_{36}$.
+
+	再来证明 $\psi$ 是群同态. 对于 $([a_1]_{12}, [b_1]_{18}	)$ 与 $([a_2]_{12}, [b_2]_{18})$, 有
+	\[ \psi([a_1]_{12}, [b_1]_{18}) + \psi([a_2]_{12}, [b_2]_{18}) = [3(a_1+a_2) - 2(b_1+b_2)]_{36} = \psi(([a_1]_{12}, [b_1]_{18})+([a_2]_{12}, [b_2]_{18})). \]
+	因此 $\psi$ 是群同态.
+
+	再来证明 $\psi$ 是满射. 事实上, 
+	\[ \psi([1]_{12}, [1]_{18}) = [1]_{36}, \quad \Z/36\Z = \bracket{[1]_{36}}, \]
+	因此 $\im \psi = \Z/36\Z$. 
+	
+	而
+	\[ \begin{array}{cc}
+		& ([a]_{12}, [b]_{18}) \in \ker \psi \\
+		\Longleftrightarrow & 3a - 2b \equiv 0 \mod 36 \\
+		\Longleftrightarrow & \exists n \in \Z,\ a \equiv 2n \mod 12,\ b \equiv 3n \mod 36 \\
+		\Longleftrightarrow & ([a]_{12}, [b]_{18}) = n([2]_{12}, [3]_{18}) \\
+		\Longleftrightarrow & ([a]_{12}, [b]_{18}) \in N.
+	\end{array} \] 
+	因此 $\ker \psi = N$. 
+
+	因此, 由第一同构定理, 得到 $G/N \cong \Z/36\Z$. 两个方向的同构即为
+	\begin{gather*}
+		\varphi: \ G/N \to \Z/36\Z, \ ([a]_{12}, [b]_{18})+N \mapsto [3a-2b]_{36}; \\
+		\varphi^{-1}: \ \Z/36\Z \to G/N, \ [a]_{36} \mapsto ([a]_{12}, [a]_{18})+N.
+	\end{gather*}
+
+	\paragraph{(c)} 不难知道 $\ord(\xi) = 12$, $\ord(\eta) = 18$, $\ord(\xi + \eta) = 36 = \abs{\Z/36\Z}$. 因此 $\xi + \eta$ 可以生成整个商群.
+\end{solution}
+
 
 \begin{problem}
 令
@@ -286,6 +399,35 @@
   \item[(d)] 令 $r=(1234)$, $s=(12)$. 将 $rN,sN,(rN)(sN),(sN)(rN)$ 分别写成 $kN$, 其中 $k\in K$. 计算 $rN$, $sN$ 的阶, 并判断这两个商群元素是否交换.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 不难验证 $N \le S_4$. 先来验证 $N \unlhd G$. 事实上, 对于任意的 $\sigma \in S_4$, 有 $\sigma 1 \sigma^{-1} = 1 \in N$; 而对于 $(ab)(cd) \in N-\{1\}$ ($a,b,c,d$ 是 $1,2,3,4$ 的一个排列), 有
+	\[ \sigma (ab)(cd) \sigma^{-1} = (\sigma (ab) \sigma^{-1}) (\sigma (cd) \sigma^{-1}) = (\sigma(a)\ \sigma(b))(\sigma(c)\ \sigma(d)) \in N. \]
+	因此对于任意的 $\sigma \in S_4$, 均有 $\sigma N \sigma^{-1} \subset N$. 
+
+	$\abs{S_4/N} = \abs{S_4} / \abs{N} = 24/4 = 6$.
+
+	\paragraph{(b)} 由于 $K = G_{4}$, 因此 $K \le G$. 显然限制映射 $K \to S_3, \sigma \mapsto \sigma \big|_{\{1,2,3\}}$ 是群同态, 且有逆映射
+	\[ S_3 \to K, \ \sigma \mapsto \Big( \tilde{\sigma} \in S_4:\ \tilde{\sigma}(i) = \sigma(i)\ (i \in \{1,2,3\}),\ \tilde{\sigma}(4) = 4 \Big). \]
+	因此上面的限制映射是群同构. 并且, 显然有 $K \cap N = \{1\}$. 下面列出 $N$ 的所有左陪集, 并以粗体指出每一个陪集中唯一的 $K$ 中的元素.
+	\[ \begin{array}{c|c}
+		g & gN \\ \hline
+		1 & \{\bo{1},\ (12)(34),\ (13)(24),\ (14)(23)\} \\
+		(12) & \{\bo{(12)},\ (34),\ (1324),\ (1423)\} \\
+		(13) & \{\bo{(13)},\ (1234),\ (24),\ (1432)\} \\
+		(23) & \{\bo{(23)},\ (1342),\ (1243),\ (14)\} \\
+		(123) & \{\bo{(123)},\ (134),\ (243),\ (142)\} \\
+		(132) & \{\bo{(132)},\ (234),\ (124),\ (143)\}
+	\end{array} \]
+
+	\paragraph{(c)} 此映射是群同态, 而根据上面的表格知此映射也是集合之间的双射, 因此为群同构. 因此 $S_4 / N \cong S_3$. 
+
+	\paragraph{(d)} 根据上面的表格, 知 $r \in (13)N$, $s \in (12)N$, $rs = (134) \in (123)N$, $sr = (234) \in (132)N$, 因此
+	\[ rN = (13)N,\ sN = (12)N,\ (rN)(sN) = (123)N,\ (sN)(rN) = (132)N. \]
+
+	计算不难得出 $\ord(rN) = 2$, $\ord(sN) = 2$. 这两个商群元素不交换, 因为上面的计算给出了 $(rN)(sN) \neq (sN)(rN)$.
+\end{solution}
+
 
 
 \begin{problem}
@@ -319,6 +461,27 @@
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 事实上, 对于任意的 $h_1,h_2 \in G$, 均有 $\phi_g(h_1) \phi_g(h_2) = gh_1g^{-1} gh_2g^{-1} = \phi_g(h_1h_2)$, 因此 $\phi_g$ 是自同态, 而不难验证 $\phi_g$ 与 $\phi_{g^{-1}}$ 是互逆的群同态, 因此 $\phi_g$ 是自同构.
+
+	而对于 $g_1, g_2 \in G$, 有 $\phi_{g_1}(\phi_{g_2}(x)) = g_1g_2xg_2^{-1}g_1^{-1} = \phi_{g_1g_2}(x)$, 因此 $\Phi$ 是群同态. 若 $g \in \ker \Phi$, 则对于任意的 $h \in G$, 均有 $\phi_g(h) = h$, 因此 $gh = hg$, 故 $g \in Z(G)$; 反正, 若 $g \in Z(G)$, 则 $\phi_g(h) = h$ 对于任何的 $h \in G$ 均成立, 故 $g \in \ker \Phi$. 
+
+	由于 $\Inn(G) = \im \Phi$, 根据第一同构定理, 有 $G/Z(G) \cong \Inn(G)$. 
+
+	\paragraph{(b)} 对任意的 $h \in G$, 有
+	\[ (\alpha \circ \phi_g \circ \alpha^{-1})(h) = \alpha(g \alpha^{-1}(h) g^{-1}) = \alpha(g) h \alpha(g)^{-1} = \phi_{\alpha(g)}(h). \]
+	因此, 对于任意的 $\alpha \in \Aut_{\mathbf{Grp}}(G)$ 以及 $\phi_g \in \Inn(G)$, 有 $\alpha \phi_g \alpha^{-1} \in \Inn(G)$. 故 $\Inn(G) \unlhd \Aut_{\mathbf{Grp}}(G)$. 
+
+	因此可以定义 $\Out(G):= \Aut_{\mathbf{Grp}}(G)/\Inn(G)	$. $\Out(G)$ 中的元素是 $G$ 的自同构关于 $\Inn(G)$ 的等价类, 而并非特定的外自同构.
+
+	\paragraph{(c)} 若 $\mathbf{B}\alpha$ 与 $\mathbf{B}\beta$ 之间存在自然同构, 则存在一个同构态射 $u: *_{\mathbf{B}G} \to *_{\mathbf{B}G}$ (因此 $u \in G$), 使得 $u \circ \mathbf{B}\alpha(h) = \mathbf{B}\beta(h) \circ u$. 对应到 $G$ 中, 即为 $\beta(h) = u \alpha(h) u^{-1}$. 
+	
+	反之, 若存在 $u \in G$ 满足 $\beta(h) = u \alpha(h) u^{-1}$ 对任意 $h \in G$ 成立, 则在 $\mathbf{B}G$ 中有 $u \circ \mathbf{B}\alpha(h) = \mathbf{B}\beta(h) \circ u$. 而 $u$ 是同构态射, 因此 $\mathbf{B}\alpha$ 与 $\mathbf{B}\beta$ 自然同构.
+
+	\paragraph{(d)} 改用加法记号, 则 $\Aut_{\mathbf{Grp}}(G) = \{\id, -\id\} \cong \Z_2$, 而 $\Inn(G) = \{\id\} \cong \{1\}$, $\Out(G) \cong \Z_2$. 唯一的一个外自同构即为 $x \mapsto -x$. 
+\end{solution}
+
+
 
 \begin{problem}
 ({\heiti 选做}) 设 $F:\mathcal C\to\mathcal D$ 是小范畴之间的函子. 称 $F$ 完全忠实(fully faithful), 若对每对对象 $c,c'$, 映射
@@ -346,5 +509,54 @@
   证明这些态射给出自然同构 $QF\Rightarrow\operatorname{id}_{\mathcal C}$, 完成证明.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 设自然同构 $\eta: QF \Rightarrow \id_{\mathcal C}$, $\varepsilon: FQ \Rightarrow \id_{\mathcal D}$. 由 $\eta$ 的自然性, 对于任意的 $f: c \to c'$, 有
+	\[ \eta_{c'} \circ QF(f) = f \circ \eta_c, \]
+	即 $QF(f) = \eta_{c'}^{-1} \circ f \circ \eta_c$. 因此映射
+	\[ \Hom_{\mathcal C}(c, c') \to \Hom_{\mathcal C}(QF(c), QF(c')), \quad f \mapsto QF(f) \]
+	是双射, 其逆映射为 $a \mapsto \eta_{c'} \circ a \circ \eta_c^{-1}$. 同理, 由 $\varepsilon$ 的自然性知映射
+	\[ \Hom_{\mathcal D}(d, d') \to \Hom_{\mathcal D}(FQ(d), FQ(d')), \quad v \mapsto FQ(v) \]
+	也是双射.
+
+	下面先来证明 $F$ 与 $Q$ 都忠实. 若 $F(f) = F(g)$, 则 $QF(f) = QF(g)$, 由上面映射的单射性知 $f = g$, 因此 $F$ 忠实. 同理, 若 $Q(v) = Q(w)$, 则 $FQ(v) = FQ(w)$, 从而 $v = w$, 因此 $Q$ 忠实.
+
+	再来证明 $F$ 满. 对于任意的 $v: F(c) \to F(c')$, 有 $Q(v): QF(c) \to QF(c')$. 由上面第一个映射的满射性, 存在 $f: c \to c'$, 使得 $QF(f) = Q(v)$. 而 $Q$ 忠实, 因此 $F(f) = v$. 故 $F$ 完全忠实.
+
+	最后, 对于任意的 $d \in \Obj(\mathcal D)$, 取 $c = Q(d)$, 则 $\varepsilon_d: F(c) = FQ(d) \xrightarrow{\sim} d$. 因此 $F$ 本质满.
+
+	\paragraph{(b)} 设 $a: c \to c'$, 且 $F(a)$ 是同构. 由 $F$ 满, 存在 $b: c' \to c$, 使得 $F(b) = F(a)^{-1}$. 因此
+	\[ F(b \circ a) = F(b) \circ F(a) = \id_{F(c)} = F(\id_c). \]
+	由 $F$ 忠实知 $b \circ a = \id_c$. 同理, $a \circ b = \id_{c'}$. 故 $a$ 是同构, 其逆为 $b$.
+
+	\paragraph{(c)} 由于 $F$ 本质满, 对于每个 $d \in \Obj(\mathcal D)$, 可选择 $c_d \in \Obj(\mathcal C)$ 以及同构 $\varepsilon_d: F(c_d) \xrightarrow{\sim} d$, 令 $Q(d) = c_d$. 对于任意的 $v: d \to e$, 由 $F$ 完全忠实, 存在唯一的 $Q(v): c_d \to c_e$, 使得
+	\[ F(Q(v)) = \varepsilon_e^{-1} \circ v \circ \varepsilon_d. \]
+	这就定义了 $Q$ 在对象和态射上的作用. 下面来验证 $Q$ 是函子.
+
+	对于任意的 $d \in \Obj(\mathcal D)$, 有
+	\[ F(Q(\id_d)) = \varepsilon_d^{-1} \circ \id_d \circ \varepsilon_d = \id_{F(c_d)} = F(\id_{c_d}). \]
+	由 $F$ 忠实知 $Q(\id_d) = \id_{c_d} = \id_{Q(d)}$. 对于任意的 $v: d \to e$ 以及 $w: e \to k$, 有
+	\[ \begin{aligned}
+		F(Q(w) \circ Q(v)) &= F(Q(w)) \circ F(Q(v)) \\
+		&= (\varepsilon_k^{-1} \circ w \circ \varepsilon_e) \circ (\varepsilon_e^{-1} \circ v \circ \varepsilon_d) \\
+		&= \varepsilon_k^{-1} \circ (w \circ v) \circ \varepsilon_d = F(Q(w \circ v)).
+	\end{aligned} \]
+	再由 $F$ 忠实知 $Q(w \circ v) = Q(w) \circ Q(v)$. 故 $Q$ 是函子.
+
+	\paragraph{(d)} 由 $Q(v)$ 的定义, 对于任意的 $v: d \to e$, 有
+	\[ \varepsilon_e \circ FQ(v) = v \circ \varepsilon_d. \]
+	这正是 $\varepsilon: FQ \Rightarrow \id_{\mathcal D}$ 的自然性条件. 而每个 $\varepsilon_d$ 均为同构, 因此 $\varepsilon$ 是自然同构.
+
+	对于任意的 $c \in \Obj(\mathcal C)$, 由于 $\varepsilon_{F(c)}: FQF(c) \to F(c)$, 由 $F$ 完全忠实知存在唯一的 $\theta_c: QF(c) \to c$, 使得
+	\[ F(\theta_c) = \varepsilon_{F(c)}. \]
+	而 $\varepsilon_{F(c)}$ 是同构, 由 \textbf{(b)} 知 $\theta_c$ 也是同构. 下面来验证这些态射给出自然变换.
+
+	对于任意的 $f: c \to c'$, 由 $\varepsilon$ 对于 $F(f): F(c) \to F(c')$ 的自然性, 有
+	\[ \begin{aligned}
+		F(\theta_{c'} \circ QF(f)) &= \varepsilon_{F(c')} \circ FQ(F(f)) \\
+		&= F(f) \circ \varepsilon_{F(c)} = F(f \circ \theta_c).
+	\end{aligned} \]
+	由 $F$ 忠实知 $\theta_{c'} \circ QF(f) = f \circ \theta_c$, 因此 $\theta: QF \Rightarrow \id_{\mathcal C}$ 是自然同构. 综上, $F$ 是范畴等价.
+\end{solution}
 
 \end{document}
