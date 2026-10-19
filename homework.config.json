@@ -1,4 +1,16 @@
 {
-  "semester": "2026 秋季",
-  "defaultLanguage": "zh"
+  "courses": {
+    "Algebra-1": {
+      "semester": "2026 秋季",
+      "defaultLanguage": "zh"
+    },
+    "Analysis-1": {
+      "semester": "2026 秋季",
+      "defaultLanguage": "zh"
+    },
+    "Physics-1": {
+      "semester": "2026 Fall",
+      "defaultLanguage": "en"
+    }
+  }
 }

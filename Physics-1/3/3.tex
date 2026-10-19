@@ -1,0 +1,203 @@
+\documentclass{article}
+% Problems faithfully transcribed from Problem Set 3.pdf.
+\usepackage[en]{homework}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+\config{Physics-1}{2026 秋季}{3}
+
+\begin{document}
+
+\begin{problem}
+A commonly used potential energy function to describe the interaction between two atoms is the Lennard-Jones 6-12 potential given by
+\[
+  U=\epsilon\left[\left(\frac{r_0}{r}\right)^{12}-2\left(\frac{r_0}{r}\right)^6\right]
+\]
+\begin{enumerate}
+  \item[a)] Find the position of the potential minimum and its value.
+  \item[b)] Near the minimum the atoms execute simple harmonic motion. Find the frequency of oscillation.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} Calculate the derivatives of the potential, we get 
+	\[ \frac{\d U}{\d r} = \frac{12\epsilon}{r_0} \left[ \left( \frac{r_0}{r} \right)^{7} - \left( \frac{r_0}{r} \right)^{13} \right], 
+	\frac{\d^2 U}{\d r^2} = \frac{12\epsilon}{r_0^2} \left[ 13 \left( \frac{r_0}{r} \right)^{14} - 7 \left( \frac{r_0}{r} \right)^{8} \right]. \]
+	So $r_0$ is the unique point which satisfies $U'(r_0) = 0$. Then the minimum value of the potential is $U(r_0) = -\epsilon$. 
+
+	\paragraph{(b)} The frequency of the oscillation is
+	\[ f = \frac{1}{2\pi} \sqrt{\frac{U''(r_0)}{m}} = \frac{3\sqrt{2}}{\pi r_0} \sqrt{\frac{\epsilon}{m}}, \]
+	where $m$ is the reduced mass.
+\end{solution}
+
+
+
+\begin{problem}
+\textit{Sand and conveyor belt}
+
+Sand runs from a hopper at constant rate $dm/dt$ onto a horizontal conveyor belt driven at constant speed $V$ by a motor.
+\begin{center}
+  \resizebox{0.55\linewidth}{!}{\input{sand-conveyor.tikz}}
+\end{center}
+\begin{enumerate}
+  \item[(a)] Find the power needed to drive the belt.
+  \item[(b)] Compare the answer to (a) with the rate of change of kinetic energy of the sand. Can you account for the difference?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} Denote $\alpha = \d m/\d t$. The increase of the momentum of the sand per time $\d t$ is $V \d m = \alpha V \d t$. Then we have $F_{\mathrm{ext}} \d t = \alpha V \d t$, and therefore $F_{\mathrm{ext}} = \alpha V$, and consequently $P= \alpha V^2$. 
+
+	\paragraph{(b)} The increase of the kinetic energy of the sand is $\d m V^2/2 = \alpha V^2 \d t/2$. But the work done by the force in time $\d t$ is $F_{\mathrm{ext}} V\d t = \alpha V^2 \d t$. That is because there will be relative displacement between the sand and the belt before the velocity of the sand reach $V$, so the friction caused a loss of energy. This phenomenon can be also interpreted as: the interaction of the sand and the belt in the \textit{horizontal} direction can be understood as perfectly inelastic collision.
+\end{solution}
+
+
+
+\begin{problem}
+A block of mass $M$ on a horizontal frictionless table is connected to a spring (spring constant $k$). The block is set in motion so that it oscillates about its equilibrium point with a certain amplitude $A_0$. The period of motion is $T_0=2\pi\sqrt{M/k}$.
+\begin{enumerate}
+  \item[(a)] A lump of sticky putty of mass $m$ is dropped onto the block. The putty sticks without bouncing. The putty hits $M$ at the instant when the velocity of $M$ is zero. Find
+  \begin{enumerate}
+    \item[(1)] The new period.
+    \item[(2)] The new amplitude.
+    \item[(3)] The change in the mechanical energy of the system.
+  \end{enumerate}
+  \item[(b)] Repeat part (a), but this time assume that the sticky putty hits $M$ at the instant when $M$ has its maximum velocity.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	The initial angular frequency is $\omega = \sqrt{k/M}$, so the period is
+	\[ T_0 = \frac{2\pi}{\omega} = 2\pi\sqrt{\frac{M}{k}}. \]
+	Denote the initial mechanical energy by $U$.
+
+	\paragraph{(a)} When the putty hits the block at zero velocity, the total mass becomes $M+m$, while the amplitude remains unchanged. Therefore
+	\begin{gather*}
+		T' = 2\pi\sqrt{\frac{M+m}{k}}, \qquad A' = A_0, \\
+		U' = \frac12 k(A')^2 = \frac12 kA_0^2 = U, \qquad \Delta U = 0.
+	\end{gather*}
+
+	\paragraph{(b)} When the putty hits the block at its maximum velocity, the new period is again
+	\[ T'' = 2\pi\sqrt{\frac{M+m}{k}}. \]
+
+	According the momentum conservation, the maximum speed becomes 
+	\[ v'_{\mathrm{max}} = \frac{M}{M+m}v_{\mathrm{max}}, \]
+	where $v_{\mathrm{max}}$ is the original maximum speed which satisfies $M v_{\mathrm{max}}^2/2 = U$. Therefore
+	\[ U'' = \frac{1}{2}(M+m)(v'_{\mathrm{max}})^{2} = \frac{M}{M+m}U, \quad \Delta U = -\frac{m}{M+m}U, \quad A'' = \sqrt{\frac{2U''}{k}} = \sqrt{\frac{M}{M+m}}A_0. \]
+\end{solution}
+
+
+
+\begin{problem}
+A light particle of mass $m$ is placed at rest ($v_0=0$) on a frictionless floor, facing a wall. A heavy particle of mass $M$ collides at speed $V_0$ on the particle of mass $m$. After the collision, the light particle is shot leftward, collides on the wall and bounces back. Then, the light particle collides on the heavy particle (which is still moving leftward) and bounces back. Then, the light particle collides on the wall and bounces back... It continues to bounce back and forth in this manner until the heavy particle moves rightward at speed larger than the rightward speed of the light particle. All collisions are elastic. For $m=1$ kg and $M=100$ kg, there are 31 collisions. (See the video clip posted online along with the exercise.)
+\begin{center}
+\begin{tikzpicture}[scale=0.95, line width=0.7pt]
+  \fill[pattern=north east lines] (-0.25,0) rectangle (0,2.4);
+  \fill[pattern=north east lines] (-0.25,-0.25) rectangle (5,0);
+  \draw[thick] (0,2.4) -- (0,0) -- (5,0);
+  \fill (1.25,0.13) circle (0.13);
+  \fill (3.75,0.25) circle (0.25);
+  \node at (0.83,0.22) {$m$};
+  \node at (3.12,0.26) {$M$};
+  \node at (1.25,0.7) {$v=0$};
+  \draw[->,thick] (3.75,0.75) -- (2.5,0.75);
+  \node at (3.15,1.1) {$V_0$};
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+  \item[(a)] Let $v$ be the velocity of mass $m$ and $V$ be the velocity $M$. Suppose we have $V=V(n)$ and $v=v(n)$ after the mass $m$ collides with $M$ and the wall $n$ times. We have $V(0)=V_0$ and $v(0)=0$. Using momentum conservation and energy conservation, write down two equations that relate $(v(1),V(1))$ and $(v_0,V_0)$.
+  \item[(b)] Introduce variables $X=cv$ and $Y=CV$ for some constants $c$ and $C$ such that the points $(v_0,V_0)$ and $(v(1),V(1))$ are on the unit circle $X^2+Y^2=1$. Plot on this circle the point $(v(2),V(2))$, determined by the velocities of the masses right after $m$ hits the wall for the first time.
+  \item[(c)] Give a rough plot of the subsequent points $(X(n),Y(n))$ corresponding to $(v(n),V(n))$, $n=3,4,\ldots$, on the circle $X^2+Y^2=1$.
+  \item[(d)] For $\theta\ll1$, we have $\arctan\theta\approx\theta$. What is the total number of collisions when $m=1$ kg and $M=100,000,000$ kg?
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} Take the left direction as positive for both $V$ and $v$, so $V_0 > 0$. Denote the number of collisions, including collisions with the wall, by $n$. From momentum conservation and energy conservation, we have
+	\[
+		\begin{cases}
+			M V(1) + m v(1) = M V_0 + m v_0, \\
+			\frac12 M V(1)^2 + \frac12 m v(1)^2 = \frac12 M V_0^2 + \frac12 m v_0^2.
+		\end{cases}
+	\]
+	Since $v_0 = 0$, we get
+	\[
+		V(1) = \frac{M-m}{M+m}V_0, \qquad v(1) = \frac{2M}{M+m}V_0.
+	\]
+
+	\paragraph{(b)} Denote
+	\[
+		X = cv, \qquad Y = CV, \qquad c = \frac{1}{V_0}\sqrt{\frac{m}{M}}, \qquad C = \frac{1}{V_0}.
+	\]
+	Then we have $m v^2 + M V^2 = M V_0^2$ by energy conservation, so $X^2 + Y^2 = 1$. Let
+	\[
+		\theta = 2\arctan\sqrt{\frac{m}{M}}, \qquad
+		\cos\theta = \frac{M-m}{M+m}, \qquad \sin\theta = \frac{2\sqrt{mM}}{M+m}.
+	\]
+	The initial point is $(X(0),Y(0)) = (0,1)$. After the first collision, we get $(X(1),Y(1)) = (\sin\theta,\cos\theta)$. When the light particle hits the wall, $v$ changes sign and $V$ remains unchanged. Therefore
+	\[
+		(X(2),Y(2)) = (-\sin\theta,\cos\theta).
+	\]
+	So the point after the wall collision is the reflection of $(X(1),Y(1))$ across the $Y$ axis.
+
+	\paragraph{(c)} Using $X$ and $Y$, the collisions between the particles and with the wall can be written in matrix form as
+	\[
+		\begin{pmatrix} -\cos\theta & \sin\theta \\ \sin\theta & \cos\theta \end{pmatrix},
+		\qquad
+		\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix},
+	\]
+	respectively. Then one collision between the particles followed by a collision with the wall gives
+	\[
+		\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+		\begin{pmatrix} -\cos\theta & \sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
+		= \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}.
+	\]
+	This matrix is a rotation through angle $\theta$. Since the initial point is $(0,1)$, we get
+	\begin{gather*}
+		(X(2k-1),Y(2k-1)) = (\sin k\theta,\cos k\theta), \qquad k\geq 1, \\
+		(X(2k),Y(2k)) = (-\sin k\theta,\cos k\theta), \qquad k\geq 0.
+	\end{gather*}
+	The points are shown below, where the numbers are the collision counts $n$ and the angles are schematic. The solid arrows represent collisions between the particles, and the dashed arrows represent collisions with the wall.
+	\begin{center}
+		\input{collision-circle.tikz}
+	\end{center}
+	{\small \textit{This plot is drawn with the assistance of Artificial Intellegence.}}
+
+	\paragraph{(d)} After a wall collision numbered $2k$, the two particles will collide again if and only if $v(2k) < V(2k)$. From the formulas above, this condition can be written as
+	\[
+		V(2k)-v(2k)
+		= V_0\left(\cos k\theta + \sqrt{\frac{M}{m}}\sin k\theta\right)
+		= \frac{V_0\sin((k+\tfrac12)\theta)}{\sin(\theta/2)} > 0.
+	\]
+	Before the collisions stop, this gives $(k+\tfrac12)\theta < \pi$. After collision $2k-1$ between the particles, the light particle hits the wall if and only if $v(2k-1) > 0$, which gives $k\theta < \pi$. So the $n$th collision occurs if and only if $n\theta/2 < \pi$, and therefore the total number of collisions is
+	\[
+		N = \left\lceil\frac{2\pi}{\theta}\right\rceil - 1.
+	\]
+	Then for $m = 1$ kg and $M = 100,000,000$ kg, we have
+	\begin{gather*}
+		\theta = 2\arctan 10^{-4} \approx 2\times 10^{-4}, \\
+		\frac{2\pi}{\theta} = \frac{\pi}{\arctan 10^{-4}} \approx 31415.92664.
+	\end{gather*}
+	Therefore the total number of collisions is $31415$.
+\end{solution}
+
+
+
+\begin{problem}
+A chain of mass $M$ and length $l$ is suspended vertically with its lowest end touching a scale. The chain is released and falls onto the scale. What is the reading of the scale when a length of chain, $x$, has fallen? (Neglect the size of individual links.)
+\begin{center}
+  \resizebox{0.23\linewidth}{!}{\input{chain-scale.tikz}}
+\end{center}
+\end{problem}
+
+\begin{solution}
+	Suppose that the chain up in the air undergo the free-fall motion. Let $\rho = M/l$ be the linear density of the chain. The velocity of this part of chain is $v(t) = gt$.
+
+	During the time $\d t$, there is a part of chain of mass $\d m = \rho v(t)\d t$ and velocity $v(t)$ hitting onto the scale. By the momentum theorem, 
+	\[ F(t) \d t = v(t) \d m = \rho g^2 t^2 \d t
+	\implies F(t) = \frac{Mg^2 t^2}{l}. \]
+	Since $x = gt^2/2$, adding the graviational force of the chain on the sacle, the final expression reads
+	\[ F(x) = \frac{2Mgx}{l}+ \rho x = \frac{3Mgx}{l}. \]
+\end{solution}
+
+\end{document}
