@@ -82,6 +82,7 @@
 | `\Obj` | 范畴的对象 | `\operatorname{Obj}` |
 | `\Aut` | 自同构群 | `\operatorname{Aut}` |
 | `\Inn` | 内自同构群 | `\operatorname{Inn}` |
+| `\Out` | 外自同构群 | `\operatorname{Out}` |
 | `\Isom` | 同构集 | `\operatorname{Isom}` |
 | `\End` | 自同态环 | `\operatorname{End}` |
 | `\ord` | 元素的阶 | `\operatorname{ord}` |
