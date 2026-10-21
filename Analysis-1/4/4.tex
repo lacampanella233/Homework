@@ -5,6 +5,94 @@
 
 \begin{document}
 
+截止日期: 10.30. 每题 10 分, 共 100 分.
 
+\begin{problem}
+  设 $\Omega\subset\mathbb{R}^n$ 是凸集, 且 $f,g$ 在 $\Omega$ 上是凸函数.
+  \begin{enumerate}
+    \item[(a)] 证明函数 $\mathcal{M}:x\mapsto\max\{f(x),g(x)\}$ 在 $\Omega$ 上是凸函数.
+    \item[(b)] 函数 $m:x\mapsto\min\{f(x),g(x)\}$ 在 $\Omega$ 上总是凸函数吗? 说明理由.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  设 $\Omega\subset\mathbb{R}^n$ 是凸开集, 且 $f:\Omega\to\mathbb{R}$. 证明:
+  \begin{enumerate}
+    \item[(a)] 若 $f$ 在 $\Omega$ 中可微, 则 $f$ 严格凸当且仅当
+      \[
+        f(x)>f(p)+df(p)(x-p),\qquad x\neq p\in\Omega.
+      \]
+    \item[(b)] 若 $f\in C^2(\Omega)$, 则对每个 $p\in\Omega$, Hessian $Hf(p)$ 正定蕴含 $f$ 严格凸. 说明为什么反之不成立.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  在一维情形下, 令
+  \[
+    L(q)=\bigl(\max\{|q|-1,0\}\bigr)^2.
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明 $L$ 是凸的, 连续可微的且超线性的, 但它不是严格凸的.
+    \item[(b)] 证明 $L^*$ 在 $0$ 处不可微.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 考虑 $f:\mathbb{R}\to\mathbb{R}$. 即使 $f$ 在某处不可微, $f$ 的图像是否仍可能是 $\mathbb{R}^2$ 的一维 $C^1$ 子流形?
+    \item[(b)] 考虑 $C^1$ 映射 $F:\mathbb{R}^2\to\mathbb{R}$. 即使 $0$ 不是 $F$ 的正则值, 水平集 $F^{-1}(0)$ 是否仍可能是 $\mathbb{R}^2$ 的一维子流形?
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  考虑 $\gamma:\mathbb{R}\to\mathbb{R}^2$. 它是浸入吗? 它是单射吗?
+  \begin{enumerate}
+    \item[(a)] $\gamma:t\mapsto(t^2,t^3)$.
+    \item[(b)] $\gamma:t\mapsto(t^2-4,t^3-4t)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  设 $\alpha$ 是给定的无理数. 考虑映射 $\gamma:\mathbb{R}\to S^1\times S^1$, 定义为
+  \[
+    t\mapsto(e^{2\pi it},e^{2\pi i\alpha t}).
+  \]
+  这里根据 $x+yi$ 与 $(x,y)$ 之间的自然对应, 将 $\mathbb{C}$ 与 $\mathbb{R}^2$ 等同.
+  \begin{enumerate}
+    \item[(a)] 证明 $\gamma$ 是浸入且是单射.
+    \item[(b)] 证明 $\gamma$ 不是嵌入. 允许使用 Dirichlet 逼近定理: 给定正整数 $N$, 存在整数 $n,m$, 其中 $1\leq n\leq N$, 使得 $|n\alpha-m|<1/N$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  考虑 (球极投影的逆映射) $f:\mathbb{R}^2\to\mathbb{R}^3$, 定义为
+  \[
+    (x,y)\mapsto\left(\frac{2x}{x^2+y^2+1},\frac{2y}{x^2+y^2+1},\frac{x^2+y^2-1}{x^2+y^2+1}\right).
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明 $f$ 是到 $S^2\setminus\{(0,0,1)\}$ 的同胚.
+    \item[(b)] 证明 $f$ 是保角的, 即对每个 $p\in\mathbb{R}^2$,
+      \[
+        df(p)u\cdot df(p)v=c_p(u\cdot v),\qquad u,v\in\mathbb{R}^2.
+      \]
+      这里 $c_p$ 是依赖于 $p$ 的常数.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  证明 $C^1$ 嵌入的像是一个 $d$ 维子流形.
+\end{problem}
+
+\begin{problem}
+  求下列曲面在给定点处的切平面方程.
+  \begin{enumerate}
+    \item[(a)] $z=2x^4+3y^3$, 在 $(2,1,35)$ 处.
+    \item[(b)] $x=u+v$, $y=u^2+v^2$, $z=u^3+v^3$, 在 $u=0$, $v=1$ 所对应的点处.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  设 $a,b$ 为正常数. 假设两个球面 $S_1:x^2+y^2+z^2=2ax$ 和 $S_2:x^2+y^2+z^2=2by$ 相交于点 $P$. 证明 $S_1$ 和 $S_2$ 在 $P$ 处的法向量正交.
+\end{problem}
 
 \end{document}
