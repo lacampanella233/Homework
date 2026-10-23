@@ -22,6 +22,8 @@ Import problem statements into one existing `<course>/<number>/<number>.tex` fil
 
 If the target assignment does not exist, stop and explain that creating it is a separate repository-management action handled by `$homework-manager` after explicit authorization.
 
+Before transcribing, save the original problem files in the target assignment directory following [Preserve assignment sources](../homework-manager/SKILL.md#preserve-assignment-sources), including files supplied after the assignment was created.
+
 ## Transcribe the problems
 
 - Treat OCR as a draft, never as the source of truth. Compare the finished transcription visually against the source, including signs, superscripts, subscripts, accents, primes, bounds, matrices, cases, units, option labels, and problem numbers.

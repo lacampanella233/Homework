@@ -39,6 +39,14 @@ python3 .agents/skills/homework-manager/scripts/homework.py Sync --apply
 python3 .agents/skills/homework-manager/scripts/homework.py Finish --apply
 ```
 
+## Finish after review
+
+When the user says “完成作业” after reviewing the current assignment, treat it as explicit authorization to commit the reviewed assignment changes, merge its branch into `main`, and push. Do not request the same authorization again. Run `Sync` to commit and push assignment changes, then run `Finish` once the worktree is clean, inspecting both previews and the exact homework branch first. Handle separately authorized rule or Skill changes in a separate scoped commit; do not include unrelated user changes. This convention does not authorize editing assignment content. This user convention was recorded with AI assistance.
+
+## Preserve assignment sources
+
+Whenever creating homework, copy the user-provided original problem files (PDFs, images, etc.) into `<course>/<number>/` after `NewHomework` creates that directory. If the files arrive later, save them there when received. Keep the originals in place and preserve their filenames when possible; avoid collisions with `<number>.tex`, `<number>.pdf`, or other existing files. Reuse an identical existing copy; otherwise choose a distinct filename without overwriting. Verify that each copy matches its source. Problem PDFs remain ignored and local under the existing PDF policy. Source-preservation instructions were added with AI assistance.
+
 ## Clean up completed homework branches
 
 The user has authorized automatic local cleanup after an authorized homework merge. Once the completed homework branch is merged into `main` and `main` is successfully pushed, delete that local branch as part of the same workflow without another confirmation. This applies to `Finish` and other explicitly authorized homework-merge workflows. `Finish` already implements this behavior. These cleanup instructions were updated with AI assistance.
