@@ -15,6 +15,20 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 对于 $x, y \in \Omega$ 以及 $\lambda \in [0,1]$, 有
+	\begin{gather*}
+		f(\lambda x + (1-\lambda)y) \le \lambda f(x) + (1-\lambda)f(y) \le \lambda \mathcal{M}(x) + (1-\lambda)\mathcal{M}(y), \\
+		g(\lambda x + (1-\lambda)y) \le \lambda g(x) + (1-\lambda)g(y) \le \lambda \mathcal{M}(x) + (1-\lambda)\mathcal{M}(y) \\
+		\implies \mathcal{M}(\lambda x + (1-\lambda)y) \le \lambda \mathcal{M}(x) + (1-\lambda)\mathcal{M}(y).
+	\end{gather*}
+	因此 $\mathcal{M}$ 在 $\Omega$ 上为凸函数.
+
+	\paragraph{(b)} 并不一定. 取 $n=1$, $\Omega = \R$, $f(x) = (x-1)^{2}$, $g(x) = (x+1)^{2}$. 则 $m(0) = 1 > 0 = (m(1) + m(-1))/2$. 因此 $m$ 不是凸函数.
+\end{solution}
+
+
+
 \begin{problem}
   设 $\Omega\subset\mathbb{R}^n$ 是凸开集, 且 $f:\Omega\to\mathbb{R}$. 证明:
   \begin{enumerate}
@@ -25,6 +39,31 @@
     \item[(b)] 若 $f\in C^2(\Omega)$, 则对每个 $p\in\Omega$, Hessian $Hf(p)$ 正定蕴含 $f$ 严格凸. 说明为什么反之不成立.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} ``$\implies$'': 记 $m = (x+p)/2$. 对于任意的 $\theta \to 0^+$, 有
+	\begin{gather*}
+		f(p) + \theta\d f(p) (m-p) + o(\theta) = f(\theta m + (1-\theta) p) < \theta f(m) + (1-\theta) f(p) \\
+		\implies f(m) > f(p) + \d f(p)(m-p) + \frac{o(\theta)}{\theta} 
+		\implies f(m) \ge f(p) + \d f(p)(m-p).
+	\end{gather*}
+	再结合 $f(m) < (f(p)+f(x))/2$, 知
+	\[ f(x) > 2f(m) - f(p) \ge f(p) + \d f(p)(x-p). \]
+
+	``$\impliedby$'': 对于 $x,y \in \Omega$, $x \neq y$ 以及 $\theta \in (0,1)$, 记 $z = \theta x + (1-\theta) y$. 则
+	\[ f(x)>f(z) + \d f(z) (x-z), f(y)>f(z) + \d f(z)(y-z), \]
+	因此
+	\[ \theta f(x) + (1-\theta) f(y) > f(z) + \d f(z)(\theta x + (1-\theta) y -z) = f(z). \]
+	故 $f$ 严格凸.
+
+	\paragraph{(b)} 根据带有 Lagrange 余项的 Taylor 公式, 对于任意的 $p, x \in \Omega$, $p \neq x$, 存在 $\theta \in (0,1)$, 满足
+	\[ f(x) = f(p) + \d f(p)(x-p) + \frac{1}{2}\bracket{Hf(p+\theta(x-p))(x-p), x-p} > f(p) + \d f(p)(x-p). \]
+	结合 \textbf{(a)} 的结论, 知 $f$ 是严格凸函数. 
+
+	但是, 若 $f$ 严格凸, $Hf$ 未必处处正定. 例如, 取 $\Omega = \R^2$, $f(x,y) = x^4 + y^4$. 不难计算出 $f$ 严格凸, 但是 $Hf(0) = 0$.
+\end{solution}
+
+
 
 \begin{problem}
   在一维情形下, 令
@@ -37,12 +76,44 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 事实上, 不难计算出
+	\[ L'(q) = \begin{cases}
+		2(q-1), & q>1; \\
+		0, & -1 \le q \le 1; \\
+		2(q+1), & q<-1.
+	\end{cases}, \]
+	因此 $L \in C^1(\R)$, 并且 $L'(q)$ (非严格) 单调递增. 下面来证明 $L$ 是凸函数.
+
+	对于任意的 $x < y \in \R$ 与 $\theta \in (0,1)$, 取 $z = \theta x + (1-\theta) y$. 由 Lagrange 中值定理, 存在 $\xi \in (x,z)$ 与 $\eta \in (z,y)$, 使得
+	\[ \frac{L(z) - L(x)}{z-x} = L'(\xi) \le L'(\eta) = \frac{L(y) - L(z)}{y-z}. \]
+	整理得
+	\[ L(z) \le \frac{y-z}{y-x} L(x) + \frac{z-x}{y-x} L(y) = \theta L(x) + (1-\theta) L(y). \]
+	因此 $L$ 为凸函数.
+
+	在 $\abs{q} \ge 1$ 时, $L(q)/\abs{q} = (\abs{q}-1)^{2}/\abs{q} \to +\infty$ ($\abs{q} \to +\infty$). 因此 $L$ 是超线性的
+
+	但是 $L$ 不是严格凸的, 因为 $L(0) = 0 = (L(1) + L(-1))/2$. 
+
+	\paragraph{(b)} 经过计算可知 $L^*(p) = \abs{p} + p^2/4$, 它在 $0$ 处的左导数和右导数分别为 $-1$ 和 $1$, 两者并不相等. 因此 $L^*$ 在 $0$ 处不可微.
+\end{solution}
+
+
+
 \begin{problem}
   \begin{enumerate}
     \item[(a)] 考虑 $f:\mathbb{R}\to\mathbb{R}$. 即使 $f$ 在某处不可微, $f$ 的图像是否仍可能是 $\mathbb{R}^2$ 的一维 $C^1$ 子流形?
     \item[(b)] 考虑 $C^1$ 映射 $F:\mathbb{R}^2\to\mathbb{R}$. 即使 $0$ 不是 $F$ 的正则值, 水平集 $F^{-1}(0)$ 是否仍可能是 $\mathbb{R}^2$ 的一维子流形?
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 可能. 考虑 $f(x) = x^{1/3}$. 此时 $f$ 在 $0$ 处不可微, 但是其图像与函数 $x \mapsto x^3$ 全等, 因此是子流形.
+
+	\paragraph{(b)} 可以. 取 $F(x,y) = x^2$, 则对于满足 $x=0$ 的点 $p = (x,y)$, 均有 $\rank JF(p) = 0 \neq 2-1$, 因此 $0$ 不是 $F$ 的正则值. 然而, $F^{-1}(0) = \{0\} \times \R$, 是 $\R^2$ 的一维子流形.
+\end{solution}
+
+
 
 \begin{problem}
   考虑 $\gamma:\mathbb{R}\to\mathbb{R}^2$. 它是浸入吗? 它是单射吗?
@@ -51,6 +122,14 @@
     \item[(b)] $\gamma:t\mapsto(t^2-4,t^3-4t)$.
   \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} $\gamma$ 不是浸入, 因为 $J\gamma(0) = (0,0)$, 因此 $\rank J\gamma(0) = 0$. $\gamma$ 是单射.
+
+	\paragraph{(b)} $\gamma$ 是浸入, 因为对于任意的 $t \in \R$, 均有 $J\gamma(t) = (2t, 3t^2-4) \ne (0,0)$; $\gamma$ 不是单射, 因为 $\gamma(2) = \gamma(-2) = (0,0)$. 
+\end{solution}
+
+
 
 \begin{problem}
   设 $\alpha$ 是给定的无理数. 考虑映射 $\gamma:\mathbb{R}\to S^1\times S^1$, 定义为
@@ -63,6 +142,18 @@
     \item[(b)] 证明 $\gamma$ 不是嵌入. 允许使用 Dirichlet 逼近定理: 给定正整数 $N$, 存在整数 $n,m$, 其中 $1\leq n\leq N$, 使得 $|n\alpha-m|<1/N$.
   \end{enumerate}
 \end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 对于任意的 $t \in \R$, 有 $J\gamma(t) = (2\pi i e^{2 \pi i t}, 2\pi i \alpha e^{2\pi i \alpha t}) \neq (0,0)	$, 因此 $\gamma$ 是浸入. 对于任意的 $t_1, t_2 \in \R$, 若 $\gamma(t_1) = \gamma(t_2)$, 则 $e^{2 \pi i t_1} = e^{2 \pi i t_2}$, 并且 $e^{2 \pi i \alpha t_1} = e^{2 \pi i \alpha t_2}$. 这表明 $t_1 - t_2$ 与 $\alpha (t_1 - t_2)$ 均为整数. 而 $\alpha$ 为无理数, 因此只能有 $t_1 = t_2$. 因此 $\gamma$ 为单射.
+
+	\paragraph{(b)} 我们将取一列整数列 $\{n_k\}_{k \ge 0}$, 使得 $\gamma(n_k) \to \gamma(0)$ ($k \to \infty$) 但是 $n_k$ 的极限不为 $0$. 这样就可以证明 $\gamma^{-1}$ 不连续.
+
+	事实上, 对于任意的 $k \ge 1$, 存在整数 $n_k \ge 1$ 与 $m_k$, 使得 $\abs{n_k \alpha - m_k} \le 1/k$. 此时, 
+	\[ \abs{e^{2 \pi i \alpha n_k} - 1} = \abs{e^{2\pi i (\alpha n_k - m_k)} - 1} \le 2\pi\abs{\alpha n_k - m_k} \le \frac{2\pi}{k}.  \]
+	再结合 $e^{2\pi i n_k} = 1$, 知 $\gamma(n_k) \to (1,1) = \gamma(0)$ ($k \to \infty$). 但是由于 $\{n_k\}$ 是正整数序列, 不可能以 $0$ 为极限. 因此 $\gamma^{-1}$ 不连续.
+\end{proof}
+
+
 
 \begin{problem}
   考虑 (球极投影的逆映射) $f:\mathbb{R}^2\to\mathbb{R}^3$, 定义为
@@ -79,9 +170,51 @@
   \end{enumerate}
 \end{problem}
 
+\begin{proof}
+	\paragraph{(a)} 考虑映射 $g: S^2 \setminus \{(0,0,1)\} \to \R^2$ (此处 $S^2$ 为单位球), 定义为
+	\[ g(x,y,z) = \left( \frac{x}{1-z}, \frac{y}{1-z} \right). \]
+	不难验证 $f$ 和 $g$ 为互逆的映射. 并且, 由于两个映射的分量均为有理函数, 并且在定义域内没有奇点, 因此均为连续映射. 故 $f$ 是同胚.
+
+	\paragraph{(b)} 不难计算得出
+	\[ Jf(x,y) = \begin{pmatrix}
+		\frac{2(-x^2 + y^2 + 1)}{(x^2 + y^2 + 1)^2} & \frac{-4xy}{(x^2 + y^2 + 1)^{2}} \\
+		\frac{-4xy}{(x^2 + y^2 + 1)^{2}} & \frac{2(x^2 - y^2 + 1)}{(x^2 + y^2 + 1)^{2}} \\
+		\frac{4x}{(x^2 + y^2 + 1)^{2}} & \frac{4y}{(x^2 + y^2 + 1)^{2}}
+	\end{pmatrix}. \]
+	这样, 对于任意的 $u = (u_x, u_y)$ 与 $v = (v_x, v_y)$, 有
+	\begin{align*}
+		&\d f(x,y)u \cdot \d f(x,y)v\\
+		=& \left( \frac{2(-x^2 + y^2 + 1)}{(x^2 + y^2 + 1)^2}u_x + \frac{-4xy}{(x^2 + y^2 + 1)^{2}} u_y \right) \left( \frac{2(-x^2 + y^2 + 1)}{(x^2 + y^2 + 1)^2}v_x + \frac{-4xy}{(x^2 + y^2 + 1)^{2}} v_y \right) \\
+		+& \left( \frac{-4xy}{(x^2 + y^2 + 1)^{2}}u_x + \frac{2(x^2 - y^2 + 1)}{(x^2 + y^2 + 1)^{2}}u_y \right) \left( \frac{-4xy}{(x^2 + y^2 + 1)^{2}}v_x + \frac{2(x^2 - y^2 + 1)}{(x^2 + y^2 + 1)^{2}}v_y \right) \\
+		+& \left( \frac{4x}{(x^2 + y^2 + 1)^{2}}u_x + \frac{4y}{(x^2 + y^2 + 1)^{2}}u_y \right) \left( \frac{4x}{(x^2 + y^2 + 1)^{2}}v_x + \frac{4y}{(x^2 + y^2 + 1)^{2}}v_y \right) \\
+		=& \frac{4}{(x^2 + y^2 + 1)^{2}}(u_x v_x + u_y v_y) 
+		= \frac{4}{(x^2 + y^2 + 1)^{2}} u \cdot v.
+	\end{align*}
+
+	因此 $f$ 是保角映射.
+\end{proof}
+
+
+
 \begin{problem}
   证明 $C^1$ 嵌入的像是一个 $d$ 维子流形.
 \end{problem}
+
+\begin{proof}
+	设区域 $\Omega \subset \R^d$, 映射 $f \in C^1(\Omega, \R^n)$ 是一个 $C^1$ 嵌入. 
+
+	对于任意的 $p \in \Omega$, 由于 $\rank Jf(p) = d$, 因此可以通过重排 $f$ 的分量使得
+	\[ f = (g, h), \text{ 其中 } g \in C^1(\Omega, \R^d),\ h \in C^1(\Omega, \R^{n-d}), \ \rank Jg(p) = d. \]
+	由于 $g$ 是 $C^1$ 连续的, 并且 $\rank Jg(p) = d$, 因此存在 $p$ 的一个邻域 $U \subset \Omega$ 以及 $V = g(U) \subset \R^d$, 使得 $g: U \to V$ 是 $C^1$ 微分同胚. 
+
+	令 $\tilde{h} = h \circ g^{-1}: V \to \R^{n-d}$. 则 $\tilde{h}$ 是 $C^1$ 连续的. 故 $f(U) = \{(x, \tilde{h}(x)): x \in V	\} := M$ 是 $\tilde{h}$ 的图像, 因此是流形.
+
+	由于 $f$ 是微分同胚, 因此 $f(U)$ 相对于 $f(\Omega)$ 为开集. 因此, 根据子空间拓扑的定义, 存在开集 $O \subset \R^n$, 使得 $f(U) = f(\Omega) \cap O$. 
+
+	根据流形的定义, 存在 $f(p)$ 的一个邻域 $W \subset O$, 以及 $C^1$ 微分同胚 $\Phi: W \to W' = \Phi(W) \subset \R^n$, 使得 $\Phi(W \cap M) = W' \cap (\R^d \times \{0\})$. 以上性质对任意的 $p \in \Omega$ 成立, 因此 $f(\Omega)$ 为流形.
+\end{proof}
+
+
 
 \begin{problem}
   求下列曲面在给定点处的切平面方程.
@@ -91,8 +224,46 @@
   \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 设 $f(x,y) = (x,y,2x^4 + 3y^3)$. 则
+	\[ Jf(x,y) = \begin{pmatrix}
+		1 & 0 \\
+		0 & 1 \\
+		8x^3 & 9y^2
+	\end{pmatrix}, \quad 
+	Jf(2,1) = \begin{pmatrix}
+		1 & 0 \\
+		0 & 1 \\
+		64 & 9
+	\end{pmatrix}. \]
+	则切平面为 $(2,1,35) + \d f(2,1)(\R^2)$, 即为 $z = 64x + 9y -102$. 
+
+	\paragraph{(b)} 设 $g(u, v) = (u+v, u^2+v^2, u^3+v^3)$, 则
+	\[ Jg(u, v) = \begin{pmatrix}
+		1 & 1 \\
+		2u & 2v \\
+		3u^2 & 3v^2
+	\end{pmatrix}, \quad 
+	Jg(0,1) = \begin{pmatrix}
+		1 & 1 \\
+		0 & 2 \\
+		0 & 3
+	\end{pmatrix} \]
+	则切平面为 $g(0,1) + \d g(0,1)(\R^2)$, 即为 $z = \frac{3}{2}y-\frac{1}{2}$. 
+\end{solution}
+
+
+
 \begin{problem}
   设 $a,b$ 为正常数. 假设两个球面 $S_1:x^2+y^2+z^2=2ax$ 和 $S_2:x^2+y^2+z^2=2by$ 相交于点 $P$. 证明 $S_1$ 和 $S_2$ 在 $P$ 处的法向量正交.
 \end{problem}
+
+\begin{proof}
+	设 $P = (x_0,y_0,z_0)$. 由于 $P \in S_1 \cap S_2$, 因此
+	\[ x_0^2+y_0^2+z_0^2 = 2ax_0 = 2by_0. \]
+	两个球面的球心分别为 $(a,0,0)$ 和 $(0,b,0)$, 因此可以分别取法向量 $n_1 = (x_0-a,y_0,z_0)$, $n_2 = (x_0,y_0-b,z_0)$. 计算知
+	\[ n_1 \cdot n_2 = x_0^2+y_0^2+z_0^2-ax_0-by_0 = 0. \]
+	故两个球面在 $P$ 处的法向量正交.
+\end{proof}
 
 \end{document}
