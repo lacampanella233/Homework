@@ -76,21 +76,26 @@
 
 ### 映射与代数算子
 
+固定名称的数学算子使用 `\DeclareMathOperator` 声明; 需要像 `\lim` 一样自动调整上下标位置的算子使用带星号的 `\DeclareMathOperator*`.
+
 | 命令 | 含义 | 定义 |
 |------|------|------|
-| `\Hom` | 态射集 | `\operatorname{Hom}` |
-| `\Obj` | 范畴的对象 | `\operatorname{Obj}` |
-| `\Aut` | 自同构群 | `\operatorname{Aut}` |
-| `\Inn` | 内自同构群 | `\operatorname{Inn}` |
-| `\Out` | 外自同构群 | `\operatorname{Out}` |
-| `\Isom` | 同构集 | `\operatorname{Isom}` |
-| `\End` | 自同态环 | `\operatorname{End}` |
-| `\ord` | 元素的阶 | `\operatorname{ord}` |
-| `\id` | 恒等态射 | `\operatorname{id}` |
-| `\im` | 线性映射的像空间 | `\operatorname{im}` |
-| `\rank` | 矩阵的秩 | `\operatorname{rank}` |
-| `\sspan` | 向量空间的生成子空间 | `\operatorname{span}` |
-| `\diag` | 对角矩阵 | `\operatorname{diag}` |
+| `\Hom` | 态射集 | `\DeclareMathOperator{\Hom}{Hom}` |
+| `\Obj` | 范畴的对象 | `\DeclareMathOperator{\Obj}{Obj}` |
+| `\Aut` | 自同构群 | `\DeclareMathOperator{\Aut}{Aut}` |
+| `\Inn` | 内自同构群 | `\DeclareMathOperator{\Inn}{Inn}` |
+| `\Out` | 外自同构群 | `\DeclareMathOperator{\Out}{Out}` |
+| `\Isom` | 同构集 | `\DeclareMathOperator{\Isom}{Isom}` |
+| `\End` | 自同态环 | `\DeclareMathOperator{\End}{End}` |
+| `\ord` | 元素的阶 | `\DeclareMathOperator{\ord}{ord}` |
+| `\id` | 恒等态射 | `\DeclareMathOperator{\id}{id}` |
+| `\im` | 线性映射的像空间 | `\DeclareMathOperator{\im}{im}` |
+| `\rank` | 矩阵的秩 | `\DeclareMathOperator{\rank}{rank}` |
+| `\sspan` | 向量空间的生成子空间 | `\DeclareMathOperator{\sspan}{span}` |
+| `\diag` | 对角矩阵 | `\DeclareMathOperator{\diag}{diag}` |
+| `\colim` | 余极限 | `\DeclareMathOperator*{\colim}{colim}` |
+
+`\colim_{i\in I} F(i)` 的下标行为与 `\lim` 一致: 在行内公式中位于算子右下角, 在行间公式中位于算子正下方.
 
 注: 之所以使用`\sspan`而不是`\span`, 是因为`\span`在LaTeX中已经被定义为表格环境中的命令, 直接使用会导致冲突.
 
