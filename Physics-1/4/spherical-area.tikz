@@ -1,0 +1,103 @@
+% AI-assisted TikZ reconstruction of the source spherical surface element.
+\begin{tikzpicture}[
+  x={(-0.60cm,-0.44cm)}, y={(0.95cm,0cm)}, z={(0cm,1cm)},
+  line width=0.65pt, font=\small, >=stealth
+]
+  \def\Rad{3.3}
+  \def\ThetaA{43}
+  \def\ThetaB{55}
+  \def\PhiA{52}
+  \def\PhiB{69}
+  \coordinate (O) at (0,0,0);
+  \coordinate (Paa) at
+    ({\Rad*sin(\ThetaA)*cos(\PhiA)},
+     {\Rad*sin(\ThetaA)*sin(\PhiA)},{\Rad*cos(\ThetaA)});
+  \coordinate (Pab) at
+    ({\Rad*sin(\ThetaA)*cos(\PhiB)},
+     {\Rad*sin(\ThetaA)*sin(\PhiB)},{\Rad*cos(\ThetaA)});
+  \coordinate (Pba) at
+    ({\Rad*sin(\ThetaB)*cos(\PhiA)},
+     {\Rad*sin(\ThetaB)*sin(\PhiA)},{\Rad*cos(\ThetaB)});
+  \coordinate (Pbb) at
+    ({\Rad*sin(\ThetaB)*cos(\PhiB)},
+     {\Rad*sin(\ThetaB)*sin(\PhiB)},{\Rad*cos(\ThetaB)});
+  \coordinate (Qba) at
+    ({\Rad*sin(\ThetaB)*cos(\PhiA)},
+     {\Rad*sin(\ThetaB)*sin(\PhiA)},0);
+  \coordinate (Qbb) at
+    ({\Rad*sin(\ThetaB)*cos(\PhiB)},
+     {\Rad*sin(\ThetaB)*sin(\PhiB)},0);
+  \draw[->,gray!80] (O) -- (3.65,0,0) node[below left,black] {$x$};
+  \draw[->,gray!80] (O) -- (0,3.75,0) node[right,black] {$y$};
+  \draw[->,gray!80] (O) -- (0,0,3.75) node[above,black] {$z$};
+  % Visible spherical octant and a meridian/latitude through the patch.
+  \draw[blue!45] plot[domain=0:90,samples=50,variable=\t]
+    ({\Rad*sin(\t)},0,{\Rad*cos(\t)});
+  \draw[blue!45] plot[domain=0:90,samples=50,variable=\t]
+    (0,{\Rad*sin(\t)},{\Rad*cos(\t)});
+  \draw[blue!45] plot[domain=0:90,samples=50,variable=\t]
+    ({\Rad*cos(\t)},{\Rad*sin(\t)},0);
+  \draw[gray,densely dotted] plot[domain=0:90,samples=50,variable=\t]
+    ({\Rad*sin(\t)*cos(\PhiA)},
+     {\Rad*sin(\t)*sin(\PhiA)},{\Rad*cos(\t)});
+  \draw[gray] plot[domain=0:90,samples=50,variable=\t]
+    ({\Rad*sin(\ThetaA)*cos(\t)},
+     {\Rad*sin(\ThetaA)*sin(\t)},{\Rad*cos(\ThetaA)});
+  \draw[gray,dashed] (Pba) -- (Qba) -- (O) -- (Qbb) -- (Pbb);
+  \draw[gray] (O) -- (Paa) node[pos=0.48,right,text=black] {$r$};
+  \draw[gray] (O) -- (Pba);
+  \draw[gray] (0,0,{\Rad*cos(\ThetaA)}) -- (Paa)
+    node[midway,above,sloped,text=black] {$r\sin\theta$};
+  % Curved boundaries follow the two meridians and two latitudes.
+  \path[fill=cyan!30,draw=blue!60!black]
+    plot[domain=\PhiA:\PhiB,samples=16,variable=\t]
+      ({\Rad*sin(\ThetaA)*cos(\t)},
+       {\Rad*sin(\ThetaA)*sin(\t)},{\Rad*cos(\ThetaA)})
+    -- plot[domain=\ThetaA:\ThetaB,samples=16,variable=\t]
+      ({\Rad*sin(\t)*cos(\PhiB)},
+       {\Rad*sin(\t)*sin(\PhiB)},{\Rad*cos(\t)})
+    -- plot[domain=\PhiB:\PhiA,samples=16,variable=\t]
+      ({\Rad*sin(\ThetaB)*cos(\t)},
+       {\Rad*sin(\ThetaB)*sin(\t)},{\Rad*cos(\ThetaB)})
+    -- plot[domain=\ThetaB:\ThetaA,samples=16,variable=\t]
+      ({\Rad*sin(\t)*cos(\PhiA)},
+       {\Rad*sin(\t)*sin(\PhiA)},{\Rad*cos(\t)}) -- cycle;
+  \node at
+    ({\Rad*sin(49)*cos(60.5)},
+     {\Rad*sin(49)*sin(60.5)},{\Rad*cos(49)}) {$\mathrm{d}A$};
+  \draw[gray,->] plot[domain=0:\ThetaA,samples=30,variable=\t]
+    ({0.75*sin(\t)*cos(\PhiA)},
+     {0.75*sin(\t)*sin(\PhiA)},{0.75*cos(\t)});
+  \node[left] at (0.12,0.15,0.68) {$\theta$};
+  \draw[gray,->] plot[domain=\ThetaA:\ThetaB,samples=15,variable=\t]
+    ({1.25*sin(\t)*cos(\PhiA)},
+     {1.25*sin(\t)*sin(\PhiA)},{1.25*cos(\t)});
+  \coordinate (AngleDtheta) at
+    ({1.25*sin(49)*cos(\PhiA)},
+     {1.25*sin(49)*sin(\PhiA)},{1.25*cos(49)});
+  \draw[gray] (AngleDtheta) -- ([xshift=0.35cm,yshift=-0.15cm]AngleDtheta);
+  \node[right,inner sep=1pt,fill=shadecolor] at
+    ([xshift=0.35cm,yshift=-0.15cm]AngleDtheta) {$\mathrm{d}\theta$};
+  \draw[gray,->] plot[domain=0:\PhiA,samples=30,variable=\t]
+    ({0.82*cos(\t)},{0.82*sin(\t)},0);
+  \node[below] at ({0.95*cos(26)},{0.95*sin(26)},0) {$\phi$};
+  \draw[gray,->] plot[domain=\PhiA:\PhiB,samples=16,variable=\t]
+    ({1.85*cos(\t)},{1.85*sin(\t)},0);
+  \node[below,inner sep=1pt,fill=shadecolor] at
+    ({1.85*cos(60.5)},{1.85*sin(60.5)},0) {$\mathrm{d}\phi$};
+  % Red dimension brackets retain the labels in the source drawing.
+  \draw[red!65!black] (Pab) -- ([xshift=0.17cm]Pab)
+    -- ([xshift=0.17cm]Pbb) -- (Pbb);
+  \path (Pab) -- (Pbb) coordinate[midway] (Dtheta);
+  \draw[red!65!black] ([xshift=0.17cm]Dtheta)
+    -- ([xshift=0.65cm,yshift=0.35cm]Dtheta)
+    -- ([xshift=1.8cm,yshift=0.35cm]Dtheta)
+    node[right,black] {$r\,\mathrm{d}\theta$};
+  \draw[red!65!black] (Pba) -- ([yshift=-0.16cm]Pba)
+    -- ([yshift=-0.16cm]Pbb) -- (Pbb);
+  \path (Pba) -- (Pbb) coordinate[midway] (Dphi);
+  \draw[red!65!black] ([yshift=-0.16cm]Dphi)
+    -- ([xshift=0.35cm,yshift=-0.45cm]Dphi)
+    -- ([xshift=2.0cm,yshift=-0.45cm]Dphi)
+    node[right,black] {$r\sin\theta\,\mathrm{d}\phi$};
+\end{tikzpicture}

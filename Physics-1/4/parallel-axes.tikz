@@ -1,0 +1,17 @@
+% AI-assisted TikZ reconstruction of the source parallel-axis diagram.
+\begin{tikzpicture}[line width=0.8pt,>=stealth,font=\small]
+  \draw[->,thick] (0,0) -- (0,4.4) node[above] {$z'$};
+  \draw[thick] (1.4,0) -- (1.4,1.0);
+  \shade[ball color=cyan!30,draw=blue!35!black,line width=0.4pt]
+    (0.2,1.7)
+    .. controls (0.16,2.23) and (0.66,2.57) .. (1.12,2.85)
+    .. controls (1.42,3.03) and (1.63,3.4) .. (1.8,3.12)
+    .. controls (1.98,2.84) and (2.2,2.36) .. (2.45,2.0)
+    .. controls (2.85,1.33) and (2.2,0.98) .. (1.65,0.97)
+    .. controls (1.0,0.94) and (0.29,1.08) .. (0.2,1.7) -- cycle;
+  \draw[thick,densely dashed] (1.4,1.0) -- (1.4,3.12);
+  \draw[->,thick] (1.4,3.12) -- (1.4,4.4) node[above] {$z$};
+  \draw[<->] (0,3.65) -- (1.4,3.65) node[midway,above] {$d$};
+  \fill[orange!85!red] (1.4,1.85) circle (0.055);
+  \node[right=3pt,text=red!80!black] at (1.4,1.85) {$\mathrm C$};
+\end{tikzpicture}
