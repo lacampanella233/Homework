@@ -1,0 +1,271 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{Analysis-1}{2026 秋季}{5}
+
+\begin{document}
+
+截止日期: 11.6. 每题 10 分, 共 100 分.
+
+\begin{problem}
+  已知平面 $x+y+z=0$ 与椭球面 $x^2+y^2+4z^2=1$ 的交集是以原点为中心的椭圆. 使用 Lagrange 乘数法求此椭圆的面积. 允许使用椭圆面积为 $\pi ab$ 这一事实, 其中 $a$ 为半长轴的长度, $b$ 为半短轴的长度.
+\end{problem}
+
+\begin{solution}
+	在此椭圆上定义函数 $f(x,y,z) = x^2 + y^2 + z^2$. 则这个椭圆的半长轴和半短轴的长度的平方分别为此函数的最大值和最小值. 下面来求解 $f$ 的两个极值.
+
+	设题中的平面为 $P(x,y,z) := x + y + z = 0$, 椭球面为 $E(x, y, z) := x^2 + y^2 + 4z^2 - 1 = 0$. 取出一个极值点 $p = (x_0, y_0, z_0)$, 则存在实数 $\lambda_1, \lambda_2$ 满足
+	\[ \nabla f(p) = \lambda_1 \nabla P(p) + \lambda_2 \nabla E(p)
+	\implies \begin{pmatrix}
+		2x_0 \\ 2y_0 \\ 2z_0
+	\end{pmatrix}
+	= \lambda_1 \begin{pmatrix}
+		1 \\ 1 \\ 1
+	\end{pmatrix} + \lambda_2 \begin{pmatrix}
+		2x_0 \\ 2y_0 \\ 8z_0
+	\end{pmatrix}. \]
+	将此方程与 $P(p) = 0$, $E(p) = 0$ 联立, 知 $p = \pm(\sqrt{2}/6, \sqrt{2}/6, -\sqrt{2}/3)$ 或 $(\pm \sqrt{2}/2, \mp \sqrt{2}/2, 0)$. 分别代入 $f$, 知椭圆的半长轴和半短轴分别为 $1$ 和 $1/\sqrt{3}$. 因此面积为 $\pi/\sqrt{3}$.
+\end{solution}
+
+
+
+\begin{problem}
+  使用 Lagrange 乘数法证明 Hadamard 不等式:
+  \[
+    |\det M|\leq\prod_{j=1}^n|v_j|,\qquad v_j\in\mathbb{R}^n.
+  \]
+  这里矩阵 $M$ 的第 $j$ 列为向量 $v_j$.
+\end{problem}
+
+\begin{proof}
+	若有 $v_i = 0$, 则不等式显然成立. 以下设所有 $v_i \neq 0$. 由于 $\det M$ 关于每个 $v_i$ 都是线性的, 因此可以不妨设 $\abs{v_i} = 1$, 来证明 $(\det M)^2$ 的最大值为 $1$.
+
+	设 $c_j = (M_{ij})_{i=1}^n$ 为第 $j$ 列对应的代数余子式组成的列向量. 则根据行列式的展开, 不难知道
+	\[ \nabla_{v_j}\det M = c_j. \]
+	由于将 $v_j$ 替换为 $v_{j'}$ ($j' \neq j$) 之后, 行列式为 $0$, 因此 $c_j \cdot v_{j'} = 0$.
+
+	记 $f(M) = (\det M)^2$, 约束为 $g_j(M) = \abs{v_j}^2 - 1 = 0$. 由于约束集合 $(S^{n-1})^n$ 紧, 因此 $f$ 可以取到最大值. 并且 $f(I_n) = 1$, 故在最大值点处有 $\det M \neq 0$. 以下均在这个最大值点处计算.
+
+	各个约束的梯度仅在对应列的变量中非零, 因此线性无关.
+
+	由 Lagrange 乘数法, 存在实数 $\lambda_1, \ldots, \lambda_n$, 满足
+	\[ \nabla_{v_j} f(M) = 2\det M \, c_j = 2\lambda_j v_j, \qquad j = 1, \ldots, n. \]
+	两边与 $v_j$ 取内积, 根据 $c_j \cdot v_j = \det M$ 以及 $\abs{v_j} = 1$, 得
+	\[ \lambda_j = (\det M)^2 > 0. \]
+	对于 $j' \neq j$, 两边与 $v_{j'}$ 取内积, 得
+	\[ 0 = 2\det M \, c_j \cdot v_{j'} = 2\lambda_j v_j \cdot v_{j'}. \]
+	因此 $v_j \cdot v_{j'} = 0$, 即所有列向量两两正交. 再结合 $\abs{v_j} = 1$, 知 $M^{\mathsf T}M = I_n$, 因此
+	\[ f(M) = (\det M)^2 = \det(M^{\mathsf T}M) = 1. \]
+	故 $f$ 的最大值为 $1$. 恢复各列原来的长度, 即得 $\abs{\det M} \le \prod_{j=1}^n \abs{v_j}$.
+\end{proof}
+
+
+
+\begin{problem}
+  给定测度空间 $(X,\mathcal{F},\mu)$ 和 $E\in\mathcal{F}$, 定义
+  \[
+    \mu_E(A):=\mu(E\cap A),\qquad A\in\mathcal{F}.
+  \]
+  证明 $\mu_E$ 是测度.
+\end{problem}
+
+\begin{proof}
+	我们来验证 $\mu_E$ 满足测度的条件. 首先, $\mu_E(\varnothing) = \mu(E \cap \varnothing) = 0$; 其次, 对于可数个不交的集合 $\{A_n\}$, 显然 $\{A_n \cap E\}$ 两两不交, 并且 $E \cap \left( \bigcup_{n \ge 1}^{}A_n \right) = \bigcup_{n \ge 1}^{}(E \cap A_n)$. 因此, 
+	\[ \sum_{n \ge 1}^{}\mu_E(A_n) = \sum_{n \ge 1}^{} \mu(E \cap A_n) = \mu \left( \bigcup_{n \ge 1}^{}(E \cap A_n) \right) = \mu \left( E \cap \left( \bigcup_{n \ge 1}^{}A_n \right) \right) = \mu_E \left( \bigcup_{n \ge 1}^{}A_n \right). \]
+	因此 $\mu_E$ 满足可数可加性. 故 $\mu_E$ 为测度.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $(X,\mathcal{F},\mu)$ 是测度空间, 且 $\{E_j\}_{j=1}^\infty\subset\mathcal{F}$. 定义
+  \[
+    \limsup E_j:=\bigcap_{j=1}^\infty\bigcup_{i=j}^\infty E_i,
+    \qquad
+    \liminf E_j:=\bigcup_{j=1}^\infty\bigcap_{i=j}^\infty E_i.
+  \]
+  \begin{enumerate}
+    \item[(a)] 证明
+      \[
+        \mu(\liminf E_j)\leq\liminf\mu(E_j).
+      \]
+    \item[(b)] 在 $\mu(\bigcup_{j=1}^\infty E_j)<\infty$ 的条件下, 证明
+      \[
+        \mu(\limsup E_j)\geq\limsup\mu(E_j).
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 记 $A_j = \bigcap_{i \ge j}^{}E_i$. 则 $A_1 \subset A_2 \subset \dots$. 则
+	\[ \mu(\liminf E_j) = \mu \left( \bigcup_{j = 1}^{\infty} A_j \right) = \lim_{j \to \infty} \mu(A_j). \]
+	由于对于任意的 $i \ge j$, 均有 $A_j \subset E_i$, 因此 $\mu(A_j) \le \mu(E_i)$, 故 $\mu(A_j) \le \inf_{i \ge j}\mu(E_i)$. 因此
+	\[ \lim_{j \to \infty} \mu(A_j) \le \lim_{j \to \infty} \inf_{i \ge j} \mu(E_i) = \liminf \mu(E_i). \]
+
+	\paragraph{(b)} 记 $A_j = \bigcup_{i \ge j}^{}E_i$. 则 $A_1 \supset A_2 \supset \dots$, 且 $\mu(A_1) < \infty$. 则
+	\[ \mu(\limsup E_j) = \mu \left( \bigcap_{j = 1}^{\infty} A_j \right) = \lim_{j \to \infty} \mu(A_j). \]
+	由于对于任意的 $i \ge j$, 均有 $A_j \supset E_i$, 因此 $\mu(A_j) \ge \mu(E_i)$, 故 $\mu(A_j) \ge \sup_{i \ge j}\mu(E_i)$. 因此
+	\[ \lim_{j \to \infty} \mu(A_j) \ge \lim_{j \to \infty} \sup_{i \ge j} \mu(E_i) = \limsup \mu(E_i). \]
+\end{proof}
+
+
+
+\begin{problem}
+  设 $(X,\mathcal{F},\mu)$ 是概率空间 (即 $\mu(X)=1$), 且 $\{E_j\}_{j=1}^\infty\subset\mathcal{F}$. 证明第一 Borel--Cantelli 引理: 若 $\sum_{j=1}^\infty\mu(E_j)<\infty$, 则 $\mu(\limsup E_j)=0$.
+\end{problem}
+
+\begin{proof}
+	事实上, 与上一题的 \textbf{(b)} 类似, 结合级数 $\sum_{j = 1}^{\infty}\mu (E_j)$ 收敛, 知
+	\[ \mu(\limsup E_j) = \lim_{j \to \infty} \mu\left( \bigcup_{i \ge j}^{}E_i \right) \le \lim_{j \to \infty} \sum_{i \ge j}^{}\mu (E_i) = 0. \]
+\end{proof}
+
+
+
+\begin{problem}
+  设 $(X,\mathcal{F},\mu)$ 是概率空间, 且 $\{E_j\}_{j=1}^\infty\subset\mathcal{F}$ 对每个有限序列 $j_1<\cdots<j_k$ 满足独立性条件
+  \[
+    \mu\left(\bigcap_{m=1}^k E_{j_m}\right)=\prod_{m=1}^k\mu(E_{j_m}).
+  \]
+  证明第二 Borel--Cantelli 引理: 若 $\sum_{j=1}^\infty\mu(E_j)=\infty$, 则 $\mu(\limsup E_j)=1$. 允许使用对 $x\geq 0$ 有 $1-x\leq e^{-x}$ 这一事实. (提示: 考虑集合 $\limsup E_j$ 的补集.)
+\end{problem}
+
+\begin{proof}
+	先来证明 $\{E_j^c\}_{j = 1}^{\infty}$ 也满足独立性条件. 任取有限的序列 $j_1 < j_2 < \dots < j_n$. 由归纳法不难得到如下的容斥原理:
+	\begin{align*}
+		\mu \left( \bigcap_{i=1}^{n}E_{j_i}^c \right)
+		&= 1 - \mu \left( \bigcup_{i=1}^{n}E_{j_i} \right)
+		= \sum_{I \subset \{1,2,\dots,n\}}^{} (-1)^{\abs{I}} \mu \left( \bigcap_{i \in I}^{}E_{j_i} \right) \\
+		&= \sum_{I \subset \{1,2,\dots,n\}}^{} (-1)^{\abs{I}} \prod_{i \in I}^{}\mu(E_{j_i}) 
+		= \prod_{i=1}^{n}(1 - \mu(E_{j_i}))
+		= \prod_{i=1}^{n} \mu(E_{j_i}^c).
+	\end{align*}
+	
+	再来证明: 对于任意的 $i$, 均有
+	\[ \lim_{k \to \infty} \mu\left( \bigcup_{j = i}^{k}E_j \right) = 1. \]
+	事实上, 对于任意的 $k \ge i$, 都有
+	\begin{align*}
+		\mu \left( \bigcup_{j = i}^{k} E_j \right) 
+		&= 1 - \mu \left( \bigcap_{j = i}^{k} E_j^c \right) = 1 - \prod_{j = i}^{k} (1 - \mu (E_j)) \\
+		&\ge 1 - \prod_{j = i}^{k} \exp (- \mu (E_j))
+		= 1 - \exp \left( - \sum_{j = i}^{k} \mu (E_j) \right).
+	\end{align*}
+	由于 $\sum_{j=1}^{\infty} \mu(E_j) = \infty$, 因此 $k \to \infty$ 时, 上式的右侧的极限为 $1$. 因此上述极限等式成立.
+
+	由测度的连续性, 知 $\mu(\bigcup_{j = i}^{\infty} E_j) = \lim_{k \to \infty} \mu(\bigcup_{j = i}^{k} E_j) = 1$. 因此, 
+	\[ \mu (\limsup E_j) = \mu \left( \bigcap_{i=1}^{\infty} \bigcup_{j \ge i}^{}E_j \right) = \lim_{i \to \infty} \mu \left( \bigcup_{j \ge i}^{}E_j \right) = \lim_{i \to \infty} 1 = 1. \]
+\end{proof}
+
+
+
+\begin{problem}
+  证明下列命题:
+  \begin{enumerate}
+    \item[(i)] 若距离 $d(E_1,E_2)=\inf\{|x-y|:x\in E_1,y\in E_2\}>0$, 则
+      \[
+        m^*(E_1\cup E_2)=m^*(E_1)+m^*(E_2).
+      \]
+    \item[(ii)] 若 $E=\bigcup_{j=1}^\infty Q_j$ 是可数个几乎不交的立方体的并, 则
+      \[
+        m^*(E)=\sum_{j=1}^\infty|Q_j|.
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(i)} 对于两个不交的开集 $U_1, U_2$, 由于每一个开集都可以精确地写为几乎不交的闭立方体的并, 并且此开集的 $m^*$ 测度恰好等于这些立方体的大小的和 (即 \textbf{(ii)} 中的结论), 因此不难证明 $m^*(U_1 \cup U_2) = m^*(U_1) + m^*(U_2)$.
+	
+	下面来证明原命题. 一方面, 对于任意的 $\varepsilon>0$, 均存在 $E_1$ 和 $E_2$ 的闭长方体的可数覆盖 $\bigcup_{n = 1}^{\infty}Q_n \supset E_1$ 和 $\bigcup_{n = 1}^{\infty} R_n \supset E_2$, 使得 
+	\[ \sum_{n = 1}^{\infty} \abs{Q_n} \le m^*(E_1) + \frac{\varepsilon}{2}, \quad 
+	\sum_{n = 1}^{\infty} \abs{R_n} \le m^*(E_2) + \frac{\varepsilon}{2}. \]
+	而 $(\bigcup_{n=1}^{\infty}Q_n) \cup (\bigcup_{n=1}^{\infty}R_n) \supset (E_1 \cup E_2)$, 因此
+	\[ m^*(E_1 \cup E_2) \le \sum_{n=1}^{\infty}\abs{Q_n} + \sum_{n=1}^{\infty}\abs{R_n} \le m^*(E_1) + m^*(E_2) + \varepsilon. \]
+	由于 $\varepsilon>0$ 是任意的, 因此 $m^*(E_1 \cup E_2) \le m^*(E_1) + m^*(E_2)$.
+
+	另一方面, 由于 $d(E_1, E_2) > 0$, 因此根据 $m^*$ 的性质, 可以找到两个不交的开集 $U_1, U_2$, 使得 $E_1 \subset U_1$, $E_2 \subset U_2$. 对于任意的开集 $U \supset E_1 \cup E_2$, $U \cap U_1$ 和 $U \cap U_2$ 是两个不交的开集, 且分别覆盖 $E_1$ 和 $E_2$, 因此
+	\[ m^*(U) \ge m^*(U \cap (U_1 \cup U_2)) = m^*(U \cap U_1) + m^*(U \cap U_2) \ge m^*(E_1) + m^*(E_2). \]
+	再结合 $m^*(E_1 \cup E_2) = \inf \{m^*(U): U \text{ 为开集, } E_1 \cup E_2 \subset U\}$, 知 $m^*(E_1 \cup E_2) \ge m^*(E_1) + m^*(E_2)$.
+
+	两个结论综合, 知 $m^*(E_1 \cup E_2) = m^*(E_1) + m^*(E_2)$.
+
+	\paragraph{(ii)} 根据定义, 显然有 $m^*(E) \le \sum_{n=1}^{\infty}\abs{Q_n}$. 下面来证明另一边的不等式. 
+
+	对于 $E$ 的任何一个闭矩形覆盖 $E \subset \bigcup_{n=1}^{\infty}R_n$ 以及任意的正实数 $\varepsilon>0$, 显然存在开矩形 $R_n' \supset R_n$, 并且 $\abs{R_n'} \le \abs{R_n} + \varepsilon/2^n$. 对于任意的正整数 $N$, $K_N := \bigcup_{n=1}^{N}Q_n$ 为紧集, 并且 $\bigcup_{n=1}^{\infty} R_n'$ 是它的一个开覆盖, 因此存在有限子覆盖, 不妨设为
+	\[ K_N \subset \bigcup_{n=1}^{M} R_n'. \]
+	
+	由于这里只涉及有限个矩形, 沿所有矩形的边界进行有限网格细分, 再结合 $Q_i$ 两两几乎不交, 得
+	\[ \sum_{n=1}^{N} \abs{Q_n} \le \sum_{n=1}^{M} \abs{R_n'} \le \sum_{n=1}^{M} \abs{R_n} + \varepsilon \le \sum_{n=1}^{\infty} \abs{R_n} + \varepsilon. \]
+	而 $\varepsilon>0$ 是任意的, 因此 $\sum_{n=1}^{\infty}\abs{R_n} \ge \sum_{n=1}^{N}\abs{Q_n}$. 此结论对任意的闭矩形覆盖 $E \subset \bigcup_{n=1}^{\infty} R_n$ 成立, 因此
+	\[ \sum_{n=1}^{N} \abs{Q_n} \le \inf \left\{ \sum_{n=1}^{\infty} \abs{R_n}: E \subset \bigcup_{n=1}^{\infty} R_n \right\} = m^*(E). \]
+	令 $N \to \infty$, 知 $\sum_{n=1}^{\infty} \abs{Q_n} \le m^*(E)$. 
+
+	两方面结合, 知 $m^*(E) = \sum_{n=1}^{\infty}\abs{Q_n}$.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $E$ 是 $\mathbb{R}$ 的子集, 且 $m^*(E)>0$. 证明对每个 $0<\alpha<1$, 存在开区间 $I$, 使得
+  \[
+    m^*(E\cap I)\geq\alpha\,m^*(I).
+  \]
+\end{problem}
+
+\begin{proof}
+	对正整数 $N$, 记 $E_N = E \cap (-N, N)$. 若对于所有的 $N$ 均有 $m^*(E_N) = 0$, 则由 $E = \bigcup_{N \ge 1}^{}E_N$ 知 $m^*(E) = 0$, 矛盾. 因此存在正整数 $N$ 使得 $0 < m^*(E_N) \le 2N <\infty$. 由于 $(E_N \cap I) \subset (E \cap I)$ 对任意的开区间 $I$ 成立, 因此如果对 $E_N$ 证明了命题, 原命题自动成立. 下面用 $E_N$ 代替 $E$.
+
+	如果命题不成立, 则对于每一个开区间 $I$, 均有 $m^*(E \cap I) < \alpha m^*(I)$. 由于区间端点的外测度为 $0$, 因此若 $I$ 为闭区间, 也有 $m^*(E \cap I) \le \alpha m^*(I)$.
+	
+	取正实数 $\varepsilon>0$ 使得 $\alpha(1 + \varepsilon) < 1$. 则存在 $E$ 的闭区间覆盖 $E \subset \bigcup_{n=1}^{\infty} I_n$, 使得 $\sum_{n=1}^{\infty} \abs{I_n} \le (1 + \varepsilon) m^*(E)$. 则由于 $E \subset \bigcup_{n=1}^{\infty} (E \cap I_n)$, 再结合 $0 < m^*(E) < \infty$, 知
+	\[ m^*(E) \le m^* \left( \bigcup_{n=1}^{\infty} (E \cap I_n) \right)
+	\le \sum_{n=1}^{\infty}m^*(E \cap I_n)
+	\le \sum_{n=1}^{\infty}\alpha \abs{I_n}
+	\le \alpha(1 + \varepsilon) m^*(E) < m^*(E). \]
+	矛盾. 因此原命题成立.
+\end{proof}
+
+
+
+\begin{problem}
+  定义
+  \[
+    \mathcal{F}:=\left\{E\subset\mathbb{R}^n;\ \begin{gathered}
+      \text{对每个 $\epsilon>0$, 存在开集 $U\supset E$,}\\
+      \text{使得 $m^*(U\setminus E)\leq\epsilon$}
+    \end{gathered}\right\}.
+  \]
+  证明步骤 (iv) 中的命题, 以完成主定理 (a) 部分的证明: 每个闭集都属于 $\mathcal{F}$. (允许使用前三个步骤中已证明的结果.)
+\end{problem}
+
+\begin{proof}
+	先来证明每一个紧集都属于 $\mathcal{F}$. 任取紧集 $K \subset \R^n$. 由于 $K$ 有界, 故 $m^*(K)$ 有限. 对于任意的 $\varepsilon>0$, 均存在开集 $U \supset K$, 使得 $m^*(U) < m^*(K) + \varepsilon$. 
+
+	由于 $U \setminus K = U \cap K^c$ 是开集, 因此可以写成可数个几乎不交的闭立方体的并, 即 $U \setminus K = \bigcup_{n=1}^{\infty} Q_n$. 对于任意的正整数 $N$, 由于 $K$ 和 $\bigcup_{n=1}^{N} Q_n$ 是不交的紧集, 因此两者的距离为正. 由第 7 题的结论, 有
+	\[ m^*(K) + m^* \left( \bigcup_{n=1}^{N} Q_n \right) = m^* \left( K \cup \left( \bigcup_{n=1}^{N} Q_n \right) \right) \le m^*(U) < m^*(K) + \varepsilon, \]
+	由此知 $m^* \left( \bigcup_{n=1}^{N}Q_n \right) < \varepsilon$. 令 $N \to \infty$, 结合 $m^*(U \setminus K) = \sum_{n=1}^{\infty} \abs{Q_n}$, 知 $m^*(U \setminus K) \le \varepsilon$. 由于 $\varepsilon$ 是任意的, 因此 $K \in \mathcal{F}$.
+
+	再来对一般的闭集证明. 事实上, 可以将 $\R^n$ 划分为可数个边长为 $1$ 的闭立方体的几乎不交的并: $\R^n = \bigcup_{j = 1}^{\infty}R_j$. 则对于任意的闭集 $E$, $E \cap R_j$ 是紧集, 因此在 $\mathcal{F}$ 中. 再结合 $\mathcal{F}$ 对可数并封闭, 知
+	\[ E = \bigcup_{j=1}^{\infty} (E \cap R_j) \in \mathcal{F}. \]
+\end{proof}
+
+
+
+\begin{problem}
+  定义
+  \[
+    m=m^*|_{\mathcal{F}}.
+  \]
+  证明步骤 (ii) 中的命题, 以完成主定理 (b) 部分的证明: 设 $E_1,E_2,\cdots\in\mathcal{F}$ 两两不交. 令 $E=\bigcup_{j=1}^\infty E_j$. 则
+  \[
+    m(E)=\sum_{j=1}^\infty m(E_j).
+  \]
+  (每个 $E_j$ 都有界的情形已在步骤 (i) 中证明. 需要将一般情形化归到有界情形.)
+\end{problem}
+
+\begin{proof}
+	将 $\R^n$ 划分为可数个两两不交的 ``半开半闭'' 的立方体 $\R^n = \bigcup_{j=1}^{\infty} R_j$, 每一个 $R_j$ 均由 $[0, 1)^n$ 平移而来. 记 $E_{i, j} = E_i \cap R_j$. 则每一个 $E_{i,j}$ 均属于 $\mathcal{F}$ 且有界, 并且 $E_i = \bigcup_{j=1}^{\infty} E_{i, j}$, 根据已经证明的结论, 有
+	\[ m(E_i) = \sum_{j=1}^{\infty} m(E_{i,j}). \] 
+	注意到 $E = \bigcup_{i, j=1}^{\infty}E_{i, j}$, 全体 $E_{i,j}$ 两两不交, 并且非负项级数可以交换各项, 故
+	\[ m(E) = \sum_{i, j = 1}^{\infty} m(E_{i, j}) = \sum_{i = 1}^{\infty} \left( \sum_{j=1}^{\infty} m(E_{i, j}) \right) = \sum_{i=1}^{\infty} m(E_i). \]
+\end{proof}
+
+\end{document}
