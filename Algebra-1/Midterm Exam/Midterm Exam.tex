@@ -1,0 +1,137 @@
+\documentclass[UTF8,a4paper,zihao=5]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage[
+  left=26mm,right=26mm,top=13mm,bottom=15mm,
+  includeheadfoot,headheight=17pt,headsep=12pt,footskip=24pt
+]{geometry}
+\usepackage{enumitem,fancyhdr,lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{代数 1H\quad 期中考试}
+\fancyfoot[C]{第 \thepage{} 页, 共 \pageref{LastPage} 页}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\newlist{parts}{enumerate}{1}
+\setlist[parts]{label=(\alph*),leftmargin=2em,topsep=4pt,itemsep=4pt,parsep=0pt}
+\newcommand{\question}[2]{%
+  \par\addvspace{.8\baselineskip}%
+  \noindent{\large\bfseries\heiti 第 #1 题\hfill (#2 分)}\par\nobreak\smallskip
+}
+\newcommand{\points}[1]{{\bfseries\heiti (#1 分)}}
+\newcommand{\actionquotient}{\mathbin{\backslash\!\backslash}}
+
+\begin{document}
+
+{\centering
+  {\LARGE\bfseries\heiti 代数 1H 期中考试\par}
+  \smallskip
+  考试时间: 90 分钟 \qquad 满分: 100 分\par
+}
+
+\medskip
+姓名: \rule[-.4ex]{3.4cm}{.4pt}\hfill 学号: \rule[-.4ex]{4.7cm}{.4pt}
+
+\begin{center}
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabular}{c|ccccc|c}
+    \hline
+    题号 & 1 & 2 & 3 & 4 & 5 & 总分 \\
+    \hline
+    满分 & 15 & 20 & 20 & 20 & 25 & 100 \\
+    得分 & & & & & & \\
+    \hline
+  \end{tabular}
+\end{center}
+
+共五题, 全部必答, 请在答题纸上作答. 证明与计算均须说明理由. 可引用前六周已证明的定理, 包括 Sylow 定理. 各题的小问可引用前面小问的结论, 即使尚未完成其证明.
+
+记 $C_n=\mathbb{Z}/n\mathbb{Z}$, $[a]_n$ 为整数 $a$ 模 $n$ 的剩余类; $S_n$ 为 $n$ 个元素的置换群. 范畴均局部小, 函子均协变; $g\circ f$ 表示先作 $f$ 再作 $g$.
+
+\question{1}{15}
+\begin{parts}
+  \item \points{8} 设 $F_1,F_2:\mathcal{C}\to\mathcal{D}$ 为函子. 准确陈述自然变换 $\eta:F_1\Rightarrow F_2$ 的定义, 并说明何时称 $\eta$ 为自然同构.
+  \item \points{7} 设 $BC_2$, $BC_4$ 分别为群 $C_2$, $C_4$ 对应的单对象群胚. 确定函子 $BC_2\to BC_4$ 的个数, 并写出这些函子在对象和态射上的作用, 说明理由.
+\end{parts}
+
+\question{2}{20}
+\begin{parts}
+  \item \points{4} 设 $S$ 为集合, $F(S)$ 为集合 $S$ 上的自由群. 在自由群的约化词模型中, 典范映射 $\iota:S\to F(S)$ 将每个 $s\in S$ 映为仅由字母 $s$ 组成的单字母词. 准确陈述 $F(S)$ 关于 $\iota$ 的泛性质.
+\end{parts}
+
+以下三问中, 令 $F=F(\{x,y\})$ 为由 $x,y$ 自由生成的群, $N$ 为 $yx^{-2}$ 的正规闭包, 即包含 $yx^{-2}$ 的最小正规子群. 记 $Q=F/N$, $q:F\to Q$ 为自然投影.
+
+\begin{parts}[resume]
+  \item \points{6} 用自由群的泛性质构造同态 $f:F\to(\mathbb{Z},+)$, 使 $f(x)=1$, $f(y)=2$; 证明存在唯一同态 $\bar{f}:Q\to\mathbb{Z}$ 满足 $\bar{f}\circ q=f$.
+  \item \points{8} 定义 $s:\mathbb{Z}\to Q$, $s(n)=q(x)^n$. 证明 $s$ 是同态, 且与 $\bar{f}$ 互为逆映射.
+  \item \points{2} 令 $w=xy^{-1}x^2y$. 判断 $q(w)$ 在 $Q$ 中的阶是否有限; 若有限, 求其阶.
+\end{parts}
+
+\question{3}{20}
+设 $G$ 是阶为 $56$ 的群, $n_p$ 表示 $G$ 的 Sylow $p$-子群数.
+\begin{parts}
+  \item \points{4} 由 Sylow 定理的整除与同余条件, 求 $n_7$ 的可能值.
+  \item \points{16} 证明 $G$ 至少有一个正规 Sylow 子群.
+\end{parts}
+
+\newpage
+
+\question{4}{20}
+\begin{parts}
+  \item \points{5} 设群 $G$ 在集合 $X$ 上左作用. 准确描述相应的商群胚 (quotient groupoid, 亦称作用群胚) $G\actionquotient X$: 给出对象及任意两个对象之间的态射, 写出态射的复合, 恒等态射与逆态射, 并验证这些数据确实定义一个群胚.
+\end{parts}
+
+以下三问中, 设整数 $n\ge 1$. 将集合 $\{1,\ldots,2n\}$ 中的元素两两配对, 每个元素恰好属于一对. 记所有这些配对组成的集合为 $\mathcal{M}_n$. 具体地, $\mathcal{M}_n$ 的一个元素是集合
+\[
+  M=\{B_1,\ldots,B_n\},
+\]
+其中每个 $B_i$ 都是二元子集, 这些子集两两不交, 且
+\[
+  B_1\cup\cdots\cup B_n=\{1,\ldots,2n\}.
+\]
+每对内部不分先后, 各对之间也不排序. 例如, 当 $n=2$ 时,
+\[
+  \bigl\{\{1,3\},\{2,4\}\bigr\}
+  \quad\text{与}\quad
+  \bigl\{\{4,2\},\{3,1\}\bigr\}
+\]
+表示同一个配对.
+
+$S_{2n}$ 通过置换元素作用于 $\mathcal{M}_n$, 记商群胚 (quotient groupoid) 为
+\[
+  \mathcal{P}_n=S_{2n}\actionquotient\mathcal{M}_n.
+\]
+
+\begin{parts}[resume]
+  \item \points{4} 证明该作用传递.
+  \item \points{5} 对
+  \[
+    M_0=\bigl\{\{1,2\},\{3,4\},\ldots,\{2n-1,2n\}\bigr\},
+  \]
+  求 $\operatorname{Aut}_{\mathcal{P}_n}(M_0)$ 的阶, 并说明计数理由.
+  \item \points{6} 通过比较 $\mathcal{P}_n$ 的群胚基数的两种表达式, 证明
+  \[
+    |\mathcal{M}_n|=\frac{(2n)!}{2^n n!}=1\cdot 3\cdot 5\cdots(2n-1),
+  \]
+  并求六个元素的配对数.
+\end{parts}
+
+{\heiti 第 \textbf{(d)} 问须使用群胚基数公式, 直接组合数方式证明不得分.}
+
+\question{5}{25}
+设 $G$ 为有限群, $\alpha:G\to G$ 为群自同构, 满足
+\[
+  \alpha\circ\alpha=\mathrm{id}_G,\qquad
+  \{g\in G:\alpha(g)=g\}=\{1_G\}.
+\]
+\begin{parts}
+  \item \points{15} 定义映射
+  \[
+    d:G\longrightarrow G,\qquad d(g)=g^{-1}\alpha(g).
+  \]
+  证明 $d$ 是双射, 并由此证明 $\alpha(g)=g^{-1}$ 对所有 $g\in G$ 成立.
+  \item \points{10} 证明 $G$ 是阿贝尔群, 并且 $|G|$ 为奇数.
+\end{parts}
+
+\end{document}
