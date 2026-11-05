@@ -1,0 +1,7 @@
+\begin{tikzpicture}[scale=.9, line width=.9pt, >=Stealth, font=\normalfont\normalsize]
+  \foreach \x in {0,2.03} {
+    \draw (\x,0) circle[radius=.98];
+    \draw[->] (\x-.36,1.27) to[bend left=19] (\x+.36,1.27);
+    \node at (\x,1.54) {$\omega$};
+  }
+\end{tikzpicture}
