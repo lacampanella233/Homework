@@ -1,0 +1,9 @@
+\begin{tikzpicture}[scale=.9, line width=1pt, >=Stealth, font=\normalfont\normalsize]
+  \fill[gray!35] (.35,-.3) rectangle (4.3,0);
+  \draw (.35,0) -- (4.3,0);
+  \draw (1.4,1.03) circle[radius=1.03];
+  \draw[dashed] (1.4,1.03) -- (2.25,.45);
+  \node at (1.99,.98) {$R$};
+  \draw[-{Stealth[length=3mm]}] (2.85,1.03) -- (4.0,1.03);
+  \node at (3.45,1.38) {$V_0$};
+\end{tikzpicture}

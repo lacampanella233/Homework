@@ -1,0 +1,43 @@
+\begin{tikzpicture}[line width=.65pt, >=Stealth, font=\normalfont\normalsize]
+  % The tape and the two circular bodies share the source's oblique view.
+  % Background-coloured fills hide only the lines behind solid objects.
+  \draw[fill=shadecolor] (-1.25,.95) -- (-.63,1.3) -- (-.23,1.08)
+    -- (-.23,.36) -- (-.85,0) -- (-1.25,.22) -- cycle;
+  \draw (-1.25,.95) -- (-.85,.72) -- (-.23,1.08);
+  \draw (-.85,.72) -- (-.85,0);
+  \node at (-.52,.54) {$m$};
+
+  \draw[fill=shadecolor] (-.98,3.3) -- (-.66,3.46)
+    -- (-.66,1.3) -- (-.98,1.1) -- cycle;
+  \draw[fill=shadecolor] (.98,3.3) -- (1.30,3.46)
+    -- (1.30,.43) -- (.98,.25) -- cycle;
+
+  % Rear part of the pulley axle.
+  \draw[fill=shadecolor, rounded corners=.025cm]
+    (.25,3.39) -- (1.56,4.15) -- (1.61,4.06) -- (.30,3.30) -- cycle;
+  \draw[fill=shadecolor] (.32,3.46) ellipse[x radius=.98,y radius=1.05];
+  \draw[fill=shadecolor] (0,3.3) ellipse[x radius=.98,y radius=1.05];
+  % Front part of the axle, in front of the pulley face.
+  \draw[fill=shadecolor, rounded corners=.035cm]
+    (-1.43,2.43) -- (-.02,3.25) -- (.03,3.34)
+    -- (-.02,3.4) -- (-1.48,2.55) -- cycle;
+
+  \draw[fill=shadecolor] (2.62,.43) ellipse[x radius=1.28,y radius=1.35];
+  \draw[fill=shadecolor] (2.25,.25) ellipse[x radius=1.28,y radius=1.35];
+  \node at (1.57,.86) {$M$};
+  \draw[-{Stealth[length=1.7mm,width=1.2mm]},line width=.45pt]
+    (2.25,.25) -- (1.42,-.63);
+  \node at (1.67,.10) {$R$};
+  \draw[-{Stealth[length=2.4mm]},line width=1.5pt]
+    (2.25,.25) -- (2.25,-.87);
+  \node at (2.51,-.57) {$A$};
+  \draw[->] (2.49,1.26) arc[start angle=75,end angle=0,x radius=.94,y radius=1.04];
+  \node at (2.93,.11) {$\alpha$};
+
+  \draw[-{Stealth[length=2.4mm]},line width=1.4pt]
+    (-.82,-.10) -- (-.82,-.89);
+  \node at (-.57,-.48) {$a$};
+  \draw[-{Stealth[length=2.4mm]},line width=1.4pt]
+    (2.62,3.68) -- (2.62,2.88);
+  \node at (2.88,3.28) {$g$};
+\end{tikzpicture}
