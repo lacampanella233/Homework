@@ -90,6 +90,7 @@
 | `\ord` | 元素的阶 | `\DeclareMathOperator{\ord}{ord}` |
 | `\id` | 恒等态射 | `\DeclareMathOperator{\id}{id}` |
 | `\im` | 线性映射的像空间 | `\DeclareMathOperator{\im}{im}` |
+| `\supp` | 支撑集 | `\DeclareMathOperator{\supp}{supp}` |
 | `\rank` | 矩阵的秩 | `\DeclareMathOperator{\rank}{rank}` |
 | `\sspan` | 向量空间的生成子空间 | `\DeclareMathOperator{\sspan}{span}` |
 | `\diag` | 对角矩阵 | `\DeclareMathOperator{\diag}{diag}` |
