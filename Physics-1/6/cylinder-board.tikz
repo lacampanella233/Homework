@@ -1,0 +1,14 @@
+\begin{tikzpicture}[homework diagram]
+  \fill[gray!35] (0,-.36) rectangle (5,0);
+  \draw (0,0) -- (5,0);
+  \draw (.9,0) rectangle (4.1,.46);
+  \draw (2.5,1.26) circle[radius=.8];
+  \draw[dashed] (2.5,1.26) -- (2.5,2.06);
+  \node at (2.23,1.68) {$R$};
+  \node at (2.85,1.02) {$m$};
+  \node at (3.47,.23) {$m$};
+  \node[anchor=east] at (1.53,.69) {board};
+  \node at (.62,-.62) {table};
+  \node at (2.64,-.19) {$\mu_k$};
+  \draw[-{Stealth[length=2.7mm]}] (3.75,.88) -- (4.57,.88);
+\end{tikzpicture}
