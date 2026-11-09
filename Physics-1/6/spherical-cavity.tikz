@@ -1,0 +1,9 @@
+\begin{tikzpicture}[homework diagram]
+  \def\outerradius{1.46}
+  \def\innerradius{.76}
+  \path[fill=gray!35, even odd rule]
+    (0,0) circle[radius=\outerradius] circle[radius=\innerradius];
+  \draw (0,0) circle[radius=\outerradius] circle[radius=\innerradius];
+  \draw[<->] (-\outerradius,0) -- node[pos=.31, above] {$a$} (0,0);
+  \draw[<->] (0,0) -- node[midway, below right, inner sep=2pt] {$b$} (45:\innerradius);
+\end{tikzpicture}

@@ -1,0 +1,11 @@
+\begin{tikzpicture}[homework diagram]
+  \draw (0,-2.02) -- (0,2.02);
+  \draw (-.57,0) -- (2.80,0);
+  \foreach \y in {-1.52,1.52} {
+    \node[circle, fill=gray!35, minimum size=5.8mm, inner sep=0pt] at (0,\y) {$M$};
+    \draw[line width=.55pt] (-.57,\y) -- (-.29,\y);
+    \draw[<->, line width=.55pt] (-.46,0) -- node[fill=shadecolor, inner sep=1.3pt] {$a$} (-.46,\y);
+  }
+  \node[below] at (1.28,0) {$r$};
+  \fill (2.66,0) circle[radius=1.55pt] node[below=1pt] {$P$};
+\end{tikzpicture}

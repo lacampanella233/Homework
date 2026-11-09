@@ -1,0 +1,16 @@
+\begin{tikzpicture}[homework diagram, x=1cm, y=1.5cm]
+  % Schematic horizontal spacing, with b at 1 and a at 2.
+  \path[use as bounding box] (-2,-1.65) rectangle (6.4,.7);
+  \draw[->] (0,-1.30) -- (0,.35) node[above] {$F(r)$};
+  \draw[->] (0,0) -- (6,0) node[right] {$r$};
+  \node[above left] at (0,0) {$0$};
+  \node[above] at (1,0) {$b$};
+  \node[above] at (2,0) {$a$};
+  \node[left] at (0,-1) {$-\dfrac{GMm}{a^2}$};
+  \draw[dashed, gray] (0,-1) -- (2,-1) -- (2,0);
+  \draw[line width=1pt] (0,0) -- (1,0);
+  \draw[line width=1pt, domain=1:2, samples=40]
+    plot (\x,{-4*(\x-1/(\x*\x))/7});
+  \draw[->, line width=1pt, domain=2:5.6, samples=60]
+    plot (\x,{-4/(\x*\x)});
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+\begin{tikzpicture}[homework diagram]
+  \fill[gray!35] (0,-1.10) -- (0,0) -- (2.70,0) -- (2.70,2.12)
+    -- (2.98,2.12) -- (2.98,-.28) -- (.28,-.28) -- (.28,-1.10) -- cycle;
+  \draw (0,-1.10) -- (0,0) -- (2.70,0) -- (2.70,2.12);
+  % The stair corner is one quarter of the way along the stick.
+  \draw[line width=1pt] (-.90,-.52) -- (0,0) -- (2.70,1.56);
+  \node[above] at (.91,.55) {$l$};
+  \node[below] at (1.69,.96) {$m$};
+  \node at (.76,.20) {$\theta$};
+  \node[align=left] (length) at (-.23,1.01) {1/4 of the\\length};
+  \draw[->, line width=.6pt] (length.south west) to[out=-100,in=125] (-.52,-.17);
+\end{tikzpicture}
