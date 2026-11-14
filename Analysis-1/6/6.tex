@@ -5,6 +5,272 @@
 
 \begin{document}
 
+截止日期: 11.18. 每题 10 分, 共 100 分.
 
+\begin{problem}
+  设 $E\subset\mathbb{R}^n$ 是 Lebesgue 可测集. 证明对每个 $\epsilon>0$:
+  \begin{enumerate}
+    \item[(a)] 存在闭集 $F$, 使得 $F\subset E$ 且 $m(E\setminus F)\leq\epsilon$.
+    \item[(b)] 若 $m(E)$ 有限, 则存在紧集 $K$, 使得 $K\subset E$ 且 $m(E\setminus K)\leq\epsilon$.
+    \item[(c)] 若 $m(E)$ 有限, , 则存在有限个闭立方体的并 $F=\bigcup_{j=1}^N Q_j$, 使得
+      \[
+        m(E\Delta F)\leq\epsilon,
+      \]
+      其中
+      \[
+        E\Delta F:=(E\setminus F)\cup(F\setminus E).
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 由于 $E$ 是 Lebesgue 可测的, 因此 $E^c$ 也是 Lebesgue 可测的. 因此, 对于任意的 $\varepsilon>0$, 存在开集 $U \supset E^c$, 使得 $m(U \setminus E^c) < \varepsilon$. 取 $F = U^c$, 则 $F$ 为闭集, 并且
+	\[ m(E \setminus F) = m(F^c \setminus E^c) = m(U \setminus E^c) < \varepsilon. \]
+
+	\paragraph{(b)} 根据 \textbf{(a)}, 对于 $\varepsilon/2$, 存在闭集 $F \subset E$ 使得 $m(E \setminus F) \le \varepsilon/2$.
+
+	将 $\R^n$ 沿着网格划分为可数个边长为 $1$ 的闭立方体的并: $\R^n = \bigcup_{k=1}^{\infty} Q_k$, 并令 $F_k = Q_k \cap F$. 则 $F = \bigcup_{k=1}^{\infty}F_k$. 由于每一个 $F_k$ 都闭且有界, 因此是紧集, 从而对于任意的正整数 $N$, $\bigcup_{k=1}^{N}F_k$ 是紧集.
+
+	对于任意的 $k < l$, 因为 $F_k \cap F_l$ 包含于某一个网格边界 (一个 $n-1$ 维的超平面), 因此可以用任意薄的盒子覆盖, 故 $m(F_l \cap F_k) = 0$. 因此, 根据 Lebesgue 测度的可数可加性,
+	\[ m(F) 
+	= m \left( \bigcup_{k=1}^{\infty} \left( F_k \setminus \bigcup_{i=1}^{k-1} F_i \right) \right)
+	= \sum_{k=1}^{\infty} m \left( F_k \setminus \bigcup_{i=1}^{k-1} (F_i \cap F_k) \right) = \sum_{k=1}^{\infty} m(F_k). \]
+
+	由于 $m(F) \le m(E)$ 有限, 因此存在 $N$, 使得 $\sum_{k=1}^{N} m(F_k) \ge m(F) - \varepsilon/2$. 取 $K = \bigcup_{k=1}^{N} F_k$, 则
+	\[ m(E \setminus K) = m(E \setminus F) + m(F \setminus K) \le \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon. \]
+
+	\paragraph{(c)} 取开集 $U \supset E$, 使得 $m(U \setminus E) \le \varepsilon/2$. 根据讲义上的结论, 开集可以划分为可数个闭立方体的 (几乎不交) 并: $U = \bigcup_{n=1}^{\infty} Q_n$, 并且 $m(U) = \sum_{n=1}^{\infty} m(Q_n)$. 由于 $m(U)$ 有限, 故存在正整数 $N$, 使得 $\sum_{n=1}^{N} m(Q_n) \ge m(U) - \varepsilon/2$.
+
+	取 $F = \bigcup_{n=1}^{N}Q_n \subset U$. 则 $m(F \setminus E) \le m(U \setminus E) \le \varepsilon/2$, $m(E \setminus F) \le m(U \setminus F) \le \varepsilon/2$, 因此 $m(E \Delta F) = m(E \setminus F) + m(F \setminus E) \le \varepsilon$.
+\end{proof}
+
+
+
+\begin{problem}
+  证明 $\mathbb{R}^n$ 的子集 $E$ 是 Lebesgue 可测集
+  \begin{enumerate}
+    \item[(a)] 当且仅当 $E=A\setminus H$, 其中 $A$ 是某个包含 $E$ 的 $G_\delta$ 集, $H$ 是某个零测集;
+    \item[(b)] 当且仅当 $E=B\cup H$, 其中 $B$ 是某个包含于 $E$ 的 $F_\sigma$ 集, $H$ 是某个零测集.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 对于任意的正整数 $n$, 存在开集 $U_n \supset E$, 使得 $m(U_n \setminus E) \le 1/n$. 取 $A = \bigcap_{n=1}^{\infty} U_n$. 则由于每一个 $U_n$ 都是开集, 因此 $A$ 是 $G_\delta$ 集. 取 $H = A \setminus E$, 则 $m(H) \le m(U_n \setminus E) \le 1/n$ 对所有 $n$ 成立, 因此 $m(H) = 0$. 故我们构造出了满足要求的 $A$ 和 $H$.
+
+	反之, 由于 $G_\delta$ 集和零测集都是 Lebesgue 可测的, 因此 $E = A \setminus H$ 也是 Lebesgue 可测的.
+
+	\paragraph{(b)} 对于任意的正整数 $n$, 存在闭集 $F_n \subset E$, 使得 $m(E \setminus F_n) \le 1/n$. 取 $B = \bigcup_{n=1}^{\infty} F_n$. 则由于每一个 $F_n$ 都是闭集, 因此 $B$ 是 $F_\sigma$ 集. 取 $H = E \setminus B$, 则 $m(H) \le m(E \setminus F_n) \le 1/n$ 对所有 $n$ 成立, 因此 $m(H) = 0$. 故我们构造出了满足要求的 $B$ 和 $H$.
+
+	反之, 由于 $F_\sigma$ 集和零测集都是 Lebesgue 可测的, 因此 $E = B \cup H$ 也是 Lebesgue 可测的.
+\end{proof}
+
+
+
+\begin{problem}
+  记 $\mathcal{N}$ 为课堂上构造的 $I=[0,1]$ 的不可测子集.
+  \begin{enumerate}
+    \item[(a)] 证明若 $E$ 是 $\mathcal{N}$ 的 Lebesgue 可测子集, 则 $m(E)=0$.
+    \item[(b)] 证明
+      \[
+        m^*(\mathcal{N})+m^*(I\setminus\mathcal{N})\neq m^*(I).
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 取 $\Q \cap [-1,1]$ 的一个排列 $\{r_n\}_{n \ge 1}$. 由于 $\mathcal{N}$ 中的两个不同元素之差不是有理数, 因此集合 $r_n + E$ 两两不交. 再结合 $\bigcup_{n \ge 1} (r_n + E) \subset [-1, 2]$, 根据 Lebesgue 测度的可数可加性, 知 $\sum_{n=1}^{\infty} m(r_n + E) = \sum_{n=1}^{\infty} m(E) \le 3$. 由此知 $m(E) = 0$.
+
+	\paragraph{(b)} 熟知 $m^*(I \setminus \mathcal{N}) = \inf \{m^*(U): U \text{ 为开集, } I \setminus \mathcal{N} \subset U\}$. 对于任意的开集 $U \supset I \setminus \mathcal{N}$, 由于 $I \setminus U$ 为闭集, 因此是 Lebesgue 可测的, 再结合 $I \setminus U \subset \mathcal{N}$, 因此 $m^*(I \setminus U) = 0$, 从而 $m^*(U) \ge m^*(I) - m^*(I \setminus U) = 1$, 从而 $m^*(I \setminus \mathcal{N}) = 1$. 
+
+	由于 $\mathcal{N}$ 不可测, 所以 $m^*(\mathcal{N}) > 0$ (注意每一个外测度为 $0$ 的集合都是 Lebesgue 可测的), 从而 $m^*(\mathcal{N}) + m^*(I \setminus \mathcal{N}) > 1 = m^*(I)$. 
+\end{solution}
+
+
+
+\begin{problem}
+  若 $E$ 是 $\mathbb{R}$ 的子集, 且 $m^*(E)>0$, 证明 $E$ 存在一个非 Lebesgue 可测的子集.
+\end{problem}
+
+\begin{proof}
+	由于 $E = \bigcup_{M=1}^{\infty} (E \cap [-M,M])$, 因此根据外测度的可数次可加性, 存在正整数 $M$, 使得 $E_0 = E \cap [-M,M]$ 满足 $m^*(E_0) > 0$.
+
+	在 $E_0$ 上定义等价关系 $x \sim y \iff x-y \in \Q$. 取每一个等价类中的一个元素, 组成集合 $V \subset E_0$. 假设 $V$ 是 Lebesgue 可测的. 取 $\Q \cap [-1,1]$ 的一个排列 $\{r_n\}_{n \ge 1}$. 由于 $V$ 中的两个不同元素之差不是有理数, 因此集合 $r_n + V$ 两两不交. 再结合 $\bigcup_{n=1}^{\infty} (r_n + V) \subset [-M-1,M+1]$, 根据 Lebesgue 测度的可数可加性, 知
+	\[ \sum_{n=1}^{\infty} m(V) = \sum_{n=1}^{\infty} m(r_n + V) = m \left( \bigcup_{n=1}^{\infty} (r_n + V) \right) \le 2M+2. \]
+	因此 $m(V) = 0$.
+
+	另一方面, 根据 $V$ 的选取, $E_0 \subset \bigcup_{q \in \Q} (V+q)$. 因此, 根据外测度的可数次可加性,
+	\[ 0 < m^*(E_0) \le \sum_{q \in \Q} m(V+q) = 0, \]
+	矛盾. 故 $V$ 是 $E$ 的一个非 Lebesgue 可测的子集.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $f:[0,1]\to[0,1]$ 是 Cantor--Lebesgue 函数, 定义为
+  \[
+    f(x)=
+    \begin{cases}
+      \displaystyle\sum_{n=1}^{\infty}\frac{a_n}{2^n},
+        & \displaystyle x=\sum_{n=1}^{\infty}\frac{2a_n}{3^n}\in\mathcal{C},\quad a_n\in\{0,1\};\\[6pt]
+      \displaystyle\sup_{y\leq x,\,y\in\mathcal{C}}f(y),
+        & x\in[0,1]\setminus\mathcal{C}.
+    \end{cases}
+  \]
+  这里 $\mathcal{C}$ 是 Cantor 集. 令 $g(x):=f(x)+x$.
+  \begin{enumerate}
+    \item[(a)] 证明 $g$ 是从 $[0,1]$ 到 $[0,2]$ 的同胚.
+    \item[(b)] 证明 $m(g(\mathcal{C}))=1$.
+    \item[(c)] 设 $A$ 是包含于 $g(\mathcal{C})$ 的 Lebesgue 不可测集. (上一题的结论保证了 $A$ 的存在性.) 令 $B=g^{-1}(A)$. 证明 $B$ 是 Lebesgue 可测集, 但不是 Borel 集.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 只需要证明 $g$ 是双射且连续. 由于 $g(0) = 0$, $g(1) = 2$, 因此只需要证明 $g$ 严格单调递增, 且 $f$ 连续.
+
+	先来证明第一个结论. 若对于 $\mathcal{C}$ 中的两个数 $x = \sum_{n=1}^{\infty}2a_n/3^n$ 和 $y = \sum_{n=1}^{\infty} 2b_n/3^n$, 若 $x<y$, 则不难知道存在正整数 $N$, 使得 $a_1 = b_1$, $\dots$, $a_{N-1} = b_{N-1}$, $a_N < b_N$. 此时也容易证明 $\sum_{n=1}^{\infty} a_n/2^n \le \sum_{n=1}^{\infty} b_n/2^n$, 即 $f(x) \le f(y)$. 因此, $f$ 在 $\mathcal{C}$ 上非严格单调递增. 因此对于任意的 $x \in \mathcal{C}$, 都有 $f(x) = \sup f([0, x] \cap \mathcal{C})$. 根据定义, 此式对所有的 $x \in [0,1]$ 均成立, 因此 $f$ 非严格单调递增, 从而 $g$ 严格单调递增.
+
+	再来证明第二个结论. 若 $x \in [0,1] \setminus \mathcal{C}$, 由于 $[0,1] \setminus \mathcal{C}$ 是开集, 因此存在 $x$ 的开邻域 $(x-\varepsilon, x+\varepsilon) \subset [0,1] \setminus \mathcal{C}$. 根据定义, $f$ 在 $(x-\varepsilon, x+\varepsilon)$ 上是常值函数, 因此连续. 而若 $x = \sum_{n=1}^{\infty} 2a_n/3^n \in \mathcal{C} \setminus \{0,1\}$, 则对任意的 $\varepsilon>0$, 取正整数 $N$ 使得 $2^{-N} < \min\{\varepsilon, f(x), 1-f(x)\}$. 设 $f(x) \pm 2^{-N}$ 的二进制表示如下:
+	\[ f(x) - 2^{-N} = f(y) = \sum_{n = 1}^{\infty} \frac{b_n}{2^n}, \quad
+	f(x) + 2^{-N} = f(z) = \sum_{n = 1}^{\infty} \frac{c_n}{2^n}. \]
+	则 $y<x<z$, 根据 $f$ 的单调性, 对于任意的 $x' \in (y, z)$, 均有 $f(y) \le f(x') \le f(z)$, 因此 $\abs{f(x) - f(x')} \le 2^{-N} < \varepsilon$.
+
+	最后, 当 $0 \le x \le 3^{-N}$ 时, 有 $0 \le f(x) \le f(3^{-N}) = 2^{-N}$. 当 $1-3^{-N} \le x \le 1$ 时, 有 $1-2^{-N} = f(1-3^{-N}) \le f(x) \le 1$. 因此 $f$ 在 $0$ 和 $1$ 处也连续. 综上, $f$ 是连续函数, 从而 $g$ 连续.
+
+	综上, $g$ 是 $[0,1]$ 到 $[0,2]$ 的同胚.
+
+	\paragraph{(b)} 熟知 $[0,1] \setminus \mathcal{C}$ 可以写为可数个不交的开区间的并: $[0,1] \setminus \mathcal{C} = \bigcup_{n=1}^{\infty}(a_n, b_n)$. 并且, 根据 $g$ 的定义, 不难知道 $g((a_n, b_n)) = (a_n + f(a_n), b_n + f(a_n))$, 因此
+	\[ m([0,2] \setminus g(\mathcal{C})) = \sum_{n=1}^{\infty} m(g((a_n, b_n))) = \sum_{n=1}^{\infty}m((a_n, b_n)) = m([0,1] \setminus \mathcal{C}) = 1. \]
+	从而 $m(g(\mathcal{C})) = m([0,2]) - m([0,2] \setminus g(\mathcal{C})) = 1$.
+
+	\paragraph{(c)} 由于 $A \subset g(\mathcal{C})$, 因此 $B = g^{-1}(A) \subset \mathcal{C}$, 从而 $m^*(B) \le m^*(\mathcal{C}) = 0$. 故 $B$ 是 Lebesgue 可测的.
+
+	假设 $B$ 是 Borel 集. 根据 \textbf{(a)}, $g$ 是同胚, 因此 $h = g^{-1}: [0,2] \to [0,1]$ 连续. 由于连续映射的 Borel 集的原像仍为 Borel 集, 因此 $A = h^{-1}(B)$ 是 $[0,2]$ 中的 Borel 集. 再结合 $[0,2]$ 为闭集, 知 $A$ 也是 $\R$ 中的 Borel 集, 从而是 Lebesgue 可测的, 与题设矛盾. 故 $B$ 不是 Borel 集.
+\end{solution}
+
+
+
+\begin{problem}
+  设 $f(x,y)$ 是 $\mathbb{R}^2$ 上的逐变量连续函数: 固定任一变量时, $f$ 关于另一个变量连续. 证明 $f$ 在 $\mathbb{R}^2$ 上 Lebesgue 可测.
+\end{problem}
+
+\begin{proof}
+	对于正整数 $n$, 考虑函数 
+	\[ f_n(x, y) = f\left( \frac{\fl{nx}}{n}, y \right).  \]
+
+	先来说明 $f_n \to f$ ($n \to \infty$). 这是因为, 对于实数 $x$, 显然有 $\lim_{n \to \infty} \fl{nx}/n = x$, 结合 $f(x, y)$ 关于 $x$ 连续, 知 $\lim_{n \to \infty}f_n(x, y) = f(x, y)$.
+
+	再来说明每一个 $f_n$ 都是 Lebesgue 可测的. 对任意的实数 $a \in \R$, 我们来证明 $\{f_n < a\}$ 是 Lebesgue 可测的. 对于整数 $k$, 记 $I_k = \{y \in \R; f(k/n, y) < a\}$. 由于 $f(k/n, y)$ 关于 $y$ 连续, 故 $I_k$ 是开集, 因此 Lebesgue 可测; 而
+	\[ \{f_n < a\} = \bigcup_{k \in \Z}^{} \left\{ (x, y): x \in \left[ \frac{k}{n}, \frac{k+1}{n} \right), f\left( \frac{k}{n}, y \right) < a \right\}
+	= \bigcup_{k \in \Z}^{} \left[ \frac{k}{n}, \frac{k+1}{n} \right) \times I_k. \]
+	而每一个 $[k/n,(k+1)/n) \times I_k$ 是可测的, 因此它们的可数并也是可测的, 即 $\{f_n < a\}$ 可测.
+
+	综上, $f$ 是 Lebesgue 可测的.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $\{f_n\}\subset L^+$, $f_n$ 逐点递减至 $f$, 且 $\int f_1<\infty$.
+  \begin{enumerate}
+    \item[(a)] 证明 $\{x:f_1(x)=\infty\}$ 的测度为零.
+    \item[(b)] 证明 $\lim\int f_n=\int f$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 记 $E = \{x: f_1(x) = \infty\}$. 若 $m(E) \neq 0$, 取 $a > (\int f_1)/m(E)$. 考虑一个简单函数 $\phi = a \chi_E \in L^+$. 按照 $E$ 的定义, 显然有 $\phi(x) \le f_1(x)$ 对任意的 $x$ 成立. 因此根据 Lebesgue 积分的定义, 
+	\[ \int f_1 \ge \int \phi = a m(E) > \int f_1. \]
+	矛盾. 因此 $m(E) = 0$.
+
+	\paragraph{(b)} 由于 $E$ 是零测集, 因此仅在 $E$ 的补集上考虑积分, 结果不变. 记 $g_n = f_1 - f_n$. 则 $g_n \in L^+$, 并且, $\{g_n\}$ 单调递增地逐点收敛到 $f_1 - f$. 因此 $\lim_{n} \int (f_1 - f_n) = \int (f_1 - f)$, 故 $\lim_{n} \int f_n = \int f$. 
+\end{proof}
+
+
+
+\begin{problem}
+  设 $\{f_n\}\subset L^+$, $f_n\to f$ 逐点成立, 且 $\lim\int f_n=\int f<\infty$.
+  \begin{enumerate}
+    \item[(a)] 证明对每个 Lebesgue 可测集 $E$, 都有 $\lim\int_E f_n=\int_E f$.
+    \item[(b)] 若 $\lim\int f_n=\int f=\infty$, (a) 是否仍然成立? 说明理由.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 由于 $f = \lim_n f_n = \liminf_n f_n$, 根据 Fatou 引理, 有
+	\[ \int_E f = \int_E \liminf_n f_n \le \liminf_n \int_E f_n, \quad
+	\int_{E^c} f = \int_{E^c} \liminf_n f_n \le \liminf_n \int_{E^c} f_n. \]
+
+	因此, 对于任意的 $\varepsilon>0$, 存在 $N_1$, 使得对于任意的 $n>N_1$, 均有 $\int_{E^c} f_n > (\int_{E^c} f) - \varepsilon$; 由于 $\lim \int f_n = \int f < \infty$, 因此存在 $N_2$, 使得对于任意的 $n > N_2$, 均有 $\int f_n < \int f + \varepsilon$. 因此, 对于任意的 $n > \max\{N_1, N_2\}$, 有
+	\[ \int_{E} f_n = \int f_n - \int_{E^c} f_n < \left( \int f + \varepsilon \right) - \left( \int_{E^c} f - \varepsilon \right) = \int_E f + 2 \varepsilon. \]
+
+	因此, 根据 $\varepsilon$ 的任意性, 知 $\limsup_n \int_E f_n \le \int_E f$. 结合 $\liminf_n \int_E f_n \ge \int_E f$, 知
+	\[ \limsup_n \int_E f_n = \liminf_n \int_E f_n = \int_E f
+	\implies \lim_n \int_E f_n = \int_E f. \]
+
+	\paragraph{(b)} 不成立. 反例: 取 $f_n = n \chi_{[-1, 1/n]}$, $E = [0,1]$. 容易知道
+	\[ \lim_n f_n = \begin{cases}
+		+\infty, & x \in [-1, 0] \\ 0, & x \notin [-1, 0]
+	\end{cases}. \]
+	因此确实有 $\lim_n \int f_n = \int f = +\infty$; 但是 $\lim_n \int_{E} f_n = 1$, $\lim_n \int_E f = 0$, 不满足 \textbf{(a)} 中的结论.
+\end{solution}
+
+
+
+\begin{problem}
+  \begin{enumerate}
+    \item[(a)] 设 $f_n,g_n,f,g\in L^1$, $f_n\to f$ 和 $g_n\to g$ 几乎处处成立, $|f_n|\leq g_n$, 且 $\int g_n\to\int g$. 证明 $\int f_n\to\int f$.
+    \item[(b)] 设 $f_n,f\in L^1$, 且 $f_n\to f$ 几乎处处成立. 证明 $\int|f_n-f|\to0$ 当且仅当 $\int|f_n|\to\int|f|$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 不妨设 $f_n \to f$ 和 $g_n \to g$ 处处成立. 由于 $g_n \pm f_n \in L^+$, 并且 $\int g_n \to \int g$, 因此由 Fatou 引理,
+	\begin{align*}
+		\liminf_n \int f_n + \int g 
+		&= \liminf_n \int f_n + \liminf_n \int g_n 
+		= \liminf_n \int (f_n + g_n) \\
+		& \ge \int \liminf_n (f_n + g_n) 
+		= \int f + \int g; \\
+		-\limsup_n \int f_n + \int g 
+		&= \liminf_n \int (-f_n) + \liminf_n \int g_n 
+		= \liminf_n \int (-f_n + g_n) \\
+		& \ge \int \liminf_n (-f_n + g_n)
+		= -\int f + \int g.
+	\end{align*}
+	由此知
+	\[ \limsup_n \int f_n \le \int f \le \liminf_n \int f_n. \]
+	故 $\lim_n \int f_n = \int f$.
+
+	\paragraph{(b)} 不妨设 $f_n \to f$ 处处成立. 
+
+	``$\implies$'': 只需要注意到下面的不等式即可:
+	\[ \int \abs{f_n - f} \ge \int \abs{\abs{f_n} - \abs{f}}
+	\ge \abs{\int \abs{f_n} - \int \abs{f}}. \]
+
+	``$\impliedby$'': 取 $g_n = \abs{f_n} + \abs{f}$, $h_n = \abs{f_n - f}$. 则 $\abs{h_n} \le g_n$, 并且 $\lim \int g_n = 2\int \abs{f} = \int (\lim g_n)$. 由 \textbf{(a)} 中的结论, 知 $\lim \int h_n = \int \lim h_n = 0$.
+\end{proof}
+
+
+
+\begin{problem}
+  设 $f:\mathbb{R}^n\times[a,b]\to\mathbb{R}$, 且对每个 $t\in[a,b]$, $f(\cdot,t):\mathbb{R}^n\to\mathbb{R}$ 可积. 令 $F(t)=\int_{\mathbb{R}^n}f(x,t)\,dm(x)$.
+  \begin{enumerate}
+    \item[(a)] 设存在 $g\in L^1$, 使得对所有 $x,t$ 都有 $|f(x,t)|\leq g(x)$. 证明若对每个 $x$ 都有 $\lim_{t\to t_0}f(x,t)=f(x,t_0)$, 则 $\lim_{t\to t_0}F(t)=F(t_0)$.
+    \item[(b)] 设 $\partial f/\partial t$ 存在, 且存在 $g\in L^1$, 使得对所有 $x,t$ 都有 $|(\partial f/\partial t)(x,t)|\leq g(x)$. 证明 $F$ 可微, 且
+      \[
+        F'(t)=\int_{\mathbb{R}^n}\frac{\partial f}{\partial t}(x,t)\,dm(x).
+      \]
+  \end{enumerate}
+  (与 9.20 讲义中的定理 1.2 比较.)
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 对于 $[a, b]$ 内任意以 $t_0$ 为极限的序列 $t_n$, 记 $f_n(x) = f(x, t_n)$ ($n \ge 0$). 则 $f_n \in L^1$, $f_n \to f_0$ 处处成立, 并且 $\abs{f_n} \le \abs{g}$. 故由控制收敛定理知 $\lim \int f_n = \int f_0$, 即 $\lim_{n \to \infty} F(t_n) = F(t_0)$. 此结论对任意满足 $t_n \to t_0$ 的序列 $\{t_n\} \subset [a, b]$ 成立, 因此 $\lim_{t \to t_0} F(t) = F(t_0)$.
+
+	\paragraph{(b)} 对于 $t, t + \delta t \in [a, b]$ ($\delta t \neq 0$) 与任意的 $x \in \R^n$, 由 Lagrange 定理, 存在 $t_{x}(\delta t) \in (t, t + \delta t)$ 或 $(t + \delta t, t)$, 使得 $f(x, t+\delta t) - f(x, t) = \delta t \, \partial_t f(x, t_{x}(\delta t))$. 因此,
+	\[ q_{\delta t}(x) := \frac{f(x, t+\delta t) - f(x, t)}{\delta t} = \partial_t f(x, t_x(\delta t)) \]
+	属于 $L^1$, 并且 $\abs{q_{\delta t}(x)} \le g(x)$. 根据偏导数的定义, $q_{\delta t}(x) \to \partial_t f(x,t)$ ($\delta t \to 0$). 因此由控制收敛定理, 知
+	\[ F'(t) = \lim_{\delta t \to 0} \frac{F(t+\delta t) - F(t)}{\delta t} = \lim_{\delta t \to 0} \int_{\R^n} q_{\delta t}(x) \d m(x) = \int_{\R^n} \partial_t f(x,t) \d m(x). \]
+\end{solution}
 
 \end{document}
