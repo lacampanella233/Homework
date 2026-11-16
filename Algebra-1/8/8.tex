@@ -1,10 +1,229 @@
 \documentclass{article}
 \usepackage[zh]{homework}
+% 题目 1--9 及原作业说明忠实转录自 HW8.pdf; 以下承诺要求为原文件内容的引用.
 
 \config{Algebra-1}{2026 秋季}{8}
 
 \begin{document}
 
+{\heiti 请在提交的作业正文最前面写下以下承诺:}
+\begin{quote}
+  {\heiti 我承诺, 本次作业没有使用大语言模型.}
+\end{quote}
 
+{\heiti 截止时间:} \textbf{2026} {\heiti 年} \textbf{11} {\heiti 月} \textbf{20} {\heiti 日 (星期五)} \textbf{23:59}.
+
+\paragraph{约定.} 所有未注明下标的张量积均为阿贝尔群在 $\Z$ 上的张量积. 环均含幺, 环同态保持单位元, 允许零环; 模均满足单位元作用为恒等映射. 记 $\Z[X]=\Z^{(X)}$ 为集合 $X$ 上的自由阿贝尔群, $[x]:=\chi_{\{x\}}$ 表示相应的特征函数. 复合 $g\circ f$ 表示先做 $f$, 再做 $g$.
+
+可使用课堂已证明的结果及前面习题的结论, 但不得直接引用当前小问要求证明的结论. 第 7, 8, 9 题及题内标注的相应小问为思考题; 前面的习题不得直接引用第 8 题的一般结论.
+
+\section*{习题}
+\enlargethispage{\baselineskip}
+
+\begin{problem}
+注意: 映射均须先用泛性质证明存在, 再证明它们是同构.
+\begin{enumerate}
+  \item[(a)] 构造 $s_{A,B}:A\otimes B\to B\otimes A$, 使 $s_{A,B}(a\otimes b)=b\otimes a$. 证明 $s_{B,A}s_{A,B}=\id$, 并验证它关于 $A,B$ 的自然性.
+  \item[(b)] 记 $\operatorname{Tri}(A,B,C;D)$ 为对每个变量分别可加的映射 $A\times B\times C\to D$ 的集合. 证明存在自然于 $D$ 的双射
+  \begin{gather*}
+    \Hom_{\mathbf{Ab}}((A\otimes B)\otimes C,D)\cong\operatorname{Tri}(A,B,C;D),\\
+    \Hom_{\mathbf{Ab}}(A\otimes(B\otimes C),D)\cong\operatorname{Tri}(A,B,C;D).
+  \end{gather*}
+  \item[(c)] 由第 (b) 问构造自然同构
+  \[
+    \alpha_{A,B,C}:(A\otimes B)\otimes C\xrightarrow{\sim}A\otimes(B\otimes C),\qquad
+    (a\otimes b)\otimes c\longmapsto a\otimes(b\otimes c).
+  \]
+  写出其逆, 并验证关于三个变量的自然性.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+设 $I$ 为任意集合, $(A_i)_{i\in I}$ 为阿贝尔群族. 定义它们的直和为
+\[
+  \bigoplus_{i\in I}A_i
+  =\left\{(a_i)_{i\in I}\in\prod_{i\in I}A_i:
+    \{i\in I:a_i\ne0_{A_i}\}\text{ 是有限集}\right\}.
+\]
+加法按坐标定义: $(a_i)_i+(b_i)_i=(a_i+b_i)_i$; 零元为 $(0_{A_i})_i$, $(a_i)_i$ 的负元为 $(-a_i)_i$. 对每个 $i\in I$, 典范嵌入 $\iota_i:A_i\to\bigoplus_{j\in I}A_j$ 把 $a\in A_i$ 送到第 $i$ 个坐标为 $a$, 其余坐标均为零的元素族.
+\begin{enumerate}
+  \item[(a)] 直接利用张量积与直和的泛性质构造互逆同态, 证明
+  \[
+    \gamma:\left(\bigoplus_{i\in I}A_i\right)\otimes B
+    \xrightarrow{\sim}\bigoplus_{i\in I}(A_i\otimes B),\qquad
+    (a_i)_i\otimes b\longmapsto(a_i\otimes b)_i.
+  \]
+  说明公式为何确实落在直和中. 对逆映射所用的每个求和, 说明其有限性.
+  \item[(b)] 利用 $\Z[X]=\bigoplus_{x\in X}\Z$ 或直接利用泛性质, 证明
+  \[
+    \beta_{X,Y}:\Z[X]\otimes\Z[Y]\xrightarrow{\sim}\Z[X\times Y],\qquad
+    [x]\otimes[y]\longmapsto[(x,y)].
+  \]
+  对集合映射 $u:X\to X'$, $v:Y\to Y'$ 验证该同构的自然性.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+\begin{enumerate}
+  \item[(a)] 设 $n\ge1$, $B$ 为阿贝尔群, $nB=\{nb:b\in B\}$. 先证明赋值
+  \[
+    \beta:(\Z/n\Z)\times B\longrightarrow B/nB,\qquad
+    (\bar r,b)\longmapsto rb+nB
+  \]
+  良定义且双加, 再利用张量积的泛性质构造群同态
+  \[
+    \theta_B:(\Z/n\Z)\otimes B\longrightarrow B/nB,\qquad
+    \bar r\otimes b\longmapsto rb+nB.
+  \]
+  构造逆映射, 证明 $\theta_B$ 是同构, 并说明逆映射为何不依赖代表元的选择. 对 $v:B\to B'$, 写出诱导的商群同态 $\bar v$, 并证明 $\bar v\theta_B=\theta_{B'}(\id\otimes v)$.
+  \item[(b)] 设 $m,n\ge1$, $d=\gcd(m,n)$. 证明
+  \[
+    (\Z/n\Z)\otimes(\Z/m\Z)\xrightarrow{\sim}\Z/d\Z,\qquad
+    \bar r\otimes\bar s\longmapsto\overline{rs}
+  \]
+  是同构, 并解释此处右端剩余类的模数.
+  \item[(c)] 计算
+  \[
+    (\Z/4\Z)\otimes(\Z/6\Z),\qquad
+    (\Z/2\Z)\otimes(\Z/3\Z),\qquad
+    (\Z/n\Z)\otimes\Q.
+  \]
+  再取 $n\ge2$, 比较 $\Hom_{\mathbf{Ab}}(\Z/n\Z,\Z)$ 与 $(\Z/n\Z)\otimes\Z$. 可使用课堂公式 $\Hom_{\mathbf{Ab}}(\Z/n\Z,B)\cong B[n]$, 其中 $B[n]=\{b:nb=0\}$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+设 $G$ 为群, 单位元为 $e$. 先把 $\Z[G]$ 视为以 $G$ 为基的自由阿贝尔群.
+\begin{enumerate}
+  \item[(a)] 将群乘法 $m:G\times G\to G$ 视为集合映射, 利用第 2 题构造
+  \[
+    \mu_G:\Z[G]\otimes\Z[G]\xrightarrow{\beta_{G,G}}\Z[G\times G]
+    \xrightarrow{\Z[m]}\Z[G].
+  \]
+  证明这使 $\Z[G]$ 成为含幺环, 单位为 $[e]$, 并写出有限和之间的乘法公式. 验证结合律时, 可以比较三重张量积上两个群同态在基元上的值.
+  \item[(b)] 证明 $g\mapsto[g]$ 给出单射群同态 $G\hookrightarrow\Z[G]^\times$. 给出一个不属于其像的单位. 证明 $\Z[G]$ 交换当且仅当 $G$ 交换.
+  \item[(c)] 取 $G=C_2=\{e,s\}$, 记 $1=[e]$, $u=[s]$. 写出 $(a+bu)(c+du)$, 计算 $(2-u)(1+3u)$, 并证明 $1-u$ 与 $1+u$ 是非零零因子.
+  \item[(d)] 对任意环 $R$, 证明限制到基元给出双射
+  \[
+    \Hom_{\mathbf{Ring}}(\Z[G],R)\xrightarrow{\sim}\Hom_{\mathbf{Grp}}(G,R^\times).
+  \]
+  对给定群同态 $\rho:G\to R^\times$, 写出对应环同态 $\widetilde\rho$ 的公式, 并验证存在性与唯一性.
+  \item[(e)] 对群同态 $v:G'\to G$ 构造 $\Z[v]:\Z[G']\to\Z[G]$, 对环同态 $w:R\to S$ 构造 $w^\times:R^\times\to S^\times$. 验证函子性, 以及
+  \[
+    \widetilde{\rho\circ v}=\widetilde\rho\circ\Z[v],\qquad
+    \widetilde{w^\times\circ\rho}=w\circ\widetilde\rho.
+  \]
+  说明这正是第 (d) 问双射关于两个变量的自然性.
+  \item[(f)] 证明
+  \[
+    \varepsilon_G:\Z[G]\to\Z,\qquad
+    \sum_g a_g[g]\longmapsto\sum_g a_g
+  \]
+  是满的含幺环同态, 称为增广同态. 证明其核作为加法群由 $[g]-[e]$ ($g\in G$) 生成.
+  \item[(g)] ({\heiti 思考题}) 一个 $G$ 在阿贝尔群 $M$ 上通过群自同构的作用, 是群同态 $G\to\Aut_{\mathbf{Ab}}(M)$. 证明这种作用与 $M$ 上的左 $\Z[G]$-模结构一一对应. 写出 $\sum_g a_g[g]$ 对 $m\in M$ 的作用. 再证明, 两个这样的群作用之间的等变群同态恰好是 $\Z[G]$-模同态.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+``群环的商'' 指存在某个群 $G$ 及满的含幺环同态 $\Z[G]\twoheadrightarrow R$.
+\begin{enumerate}
+  \item[(a)] 证明一个环 $R$ 同构于某个整数群环, 当且仅当存在子群 $V\le R^\times$, 使 $V$ 作为一族元素成为 $(R,+)$ 的一组 $\Z$-基. 这里 ``基'' 指每个元素都能唯一写成这些元素的有限整数线性组合.
+  \item[(b)] 证明整数群环的加法群没有非零有限阶元素, 且其特征为零, 即 $n1_{\Z[G]}\ne0$ 对每个正整数 $n$ 成立. 由此判断素域 $\F_p$ 是否可能是整数群环; 再判断它是否是某个整数群环的商.
+  \item[(c)] 构造典范环同态
+  \[
+    \epsilon_R:\Z[R^\times]\to R,\qquad [u]\longmapsto u.
+  \]
+  证明下列条件等价: $R$ 是某个整数群环的商; $\epsilon_R$ 满射; $(R,+)$ 由 $R^\times$ 生成; $R$ 由 $R^\times$ 作为含幺环生成.
+  \item[(d)] ({\heiti 思考题}) 令 $\Z[t]$ 为整数系数多项式环, 求其全部单位. 证明它的加法群自由, 特征为零, 但它既不是整数群环, 也不是任何整数群环的商.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+范畴 $\mathcal D$ 上的一个 \emph{monad} 是函子 $T:\mathcal D\to\mathcal D$, 连同自然变换 $\eta:\id_{\mathcal D}\Rightarrow T$, $\mu:T^2\Rightarrow T$, 满足
+\[
+  \mu_A\circ T(\eta_A)=\id_{T(A)}=\mu_A\circ\eta_{T(A)},\qquad
+  \mu_A\circ T(\mu_A)=\mu_A\circ\mu_{T(A)}.
+\]
+这里 $T^2=T\circ T$, 第二式的定义域为 $T^3(A)$.
+\begin{enumerate}
+  \item[(a)] 固定环 $R$, 在 $\mathbf{Ab}$ 上令 $T(A)=R\otimes A$, $T(f)=\id_R\otimes f$. 构造同态
+  \[
+    \eta_A(a)=1_R\otimes a,\qquad
+    \mu_A\bigl(r\otimes(s\otimes a)\bigr)=rs\otimes a,
+  \]
+  并证明它们是上述类型的自然变换.
+  \item[(b)] 验证 monad 的全部公理, 分别指出每条等式使用了环的哪条公理.
+  \item[(c)] 一个 $T$-代数是对象 $A$ 与态射 $h:T(A)\to A$, 满足
+  \[
+    h\eta_A=\id_A,\qquad h\mu_A=hT(h).
+  \]
+  证明第 (a) 问给出的 monad 对应的 $T$-代数恰好是左 $R$-模, 并给出互逆构造. 这里 ``代数'' 指 monad 的代数, 其定义与之后介绍的 $R$-代数不同.
+  \item[(d)] 从 $(A,h)$ 到 $(A',h')$ 的 $T$-代数态射定义为满足 $fh=h'T(f)$ 的态射 $f:A\to A'$. 证明这恰好是 $R$-模同态, 从而 $T$-代数范畴与 $R$-$\mathbf{Mod}$ 等价.
+\end{enumerate}
+\end{problem}
+
+\section*{思考题}
+\enlargethispage{\baselineskip}
+
+\begin{problem}
+设 $A$ 为阿贝尔群, $\mu:A\otimes A\to A$, $\eta:\Z\to A$ 为群同态. 采用第 1 题的 $\alpha,s$ 记号, 并记
+\[
+  \lambda_A:\Z\otimes A\to A,\quad n\otimes a\mapsto na;\qquad
+  \varrho_A:A\otimes\Z\to A,\quad a\otimes n\mapsto na.
+\]
+\begin{enumerate}
+  \item[(a)] 定义 $ab=\mu(a\otimes b)$, $1_A=\eta(1)$. 证明两条分配律自动成立.
+  \item[(b)] 证明上述运算使 $A$ 成为含幺环, 当且仅当
+  \begin{gather*}
+    \mu\circ(\mu\otimes\id_A)=\mu\circ(\id_A\otimes\mu)\circ\alpha_{A,A,A},\\
+    \mu\circ(\eta\otimes\id_A)=\lambda_A,\qquad
+    \mu\circ(\id_A\otimes\eta)=\varrho_A.
+  \end{gather*}
+  写明每个等式两边的共同定义域. 证明对固定的 $\mu$, 若满足单位条件的 $\eta$ 存在, 则它唯一.
+  \item[(c)] 在第 (b) 问的条件下, 证明环交换当且仅当 $\mu\circ s_{A,A}=\mu$. 另取非零阿贝尔群 $A$ 与零同态 $\mu$, 判断结合律与单位律分别能否成立.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+设 $I$ 为任意小范畴, $F:I\to\mathbf{Ab}$ 为图表, $L$ 连同 $\iota_i:F(i)\to L$ 是它的 colimit. 固定阿贝尔群 $B$. 本题使用 Lecture 9--10 中的定义: $\Delta_C$ 是取值为 $C$ 的常值图表, 一个余锥就是自然变换 $F\Rightarrow\Delta_C$; colimit 要求任意余锥唯一经过典范余锥分解.
+\begin{enumerate}
+  \item[(a)] 定义图表 $F\otimes B:i\mapsto F(i)\otimes B$, 其箭头为 $F(\alpha)\otimes\id_B$. 证明 $\iota_i\otimes\id_B$ 构成余锥, 并直接验证它的泛性质, 从而得到
+  \[
+    \operatorname{colim}_{i\in I}\bigl(F(i)\otimes B\bigr)
+    \cong\bigl(\operatorname{colim}_{i\in I}F(i)\bigr)\otimes B.
+  \]
+  必须说明诱导映射的存在与唯一性; 不得引用 ``左伴随保持 colimit'' 作为证明.
+  \item[(b)] 用 Lecture 10 的 Hom--Nat 判据, 将第 (a) 问的证明写成一串关于 $C$ 自然的双射.
+  \item[(c)] 这里固定 $B$ 是必要的限定. 取两个对象, 没有非恒等箭头的离散范畴 $I$, 令两个图表 $F,H:I\to\mathbf{Ab}$ 在每个对象上都取值 $\Z$. 比较
+  \[
+    \operatorname{colim}_{i\in I}\bigl(F(i)\otimes H(i)\bigr)
+    \quad\text{与}\quad
+    \bigl(\operatorname{colim}_{i\in I}F(i)\bigr)\otimes
+    \bigl(\operatorname{colim}_{i\in I}H(i)\bigr).
+  \]
+  写出由两族典范映射诱导的比较同态, 并判断它是否为同构.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+设 $\mathcal C$ 为小范畴. 定义 $\Z\mathcal C$ 与 $\mathcal C$ 有相同对象, 并令
+\[
+  \Hom_{\Z\mathcal C}(X,Y)=\Z[\Hom_{\mathcal C}(X,Y)].
+\]
+对可复合的箭头, 规定
+\[
+  \left(\sum_j b_j[g_j]\right)\circ\left(\sum_i a_i[f_i]\right)
+  =\sum_{i,j}a_i b_j[g_j\circ f_i].
+\]
+\begin{enumerate}
+  \item[(a)] 验证这些数据定义预加性范畴, 写出恒等态射. 设 $U$ 表示忘记 Hom 群的加法, 验证 $j:\mathcal C\to U(\Z\mathcal C)$, $f\mapsto[f]$ 是函子.
+  \item[(b)] 对任意局部小的预加性范畴 $\mathcal A$, 证明每个函子 $F:\mathcal C\to U\mathcal A$ 唯一延拓为加性函子 $\overline F:\Z\mathcal C\to\mathcal A$, 其对象赋值不变. 写出延拓在箭头上的公式, 并核对恒等与复合.
+  \item[(c)] 证明每个自然变换 $F\Rightarrow F'$ 唯一延拓为 $\overline F\Rightarrow\overline{F'}$, 其分量不变. 由此证明沿 $j$ 限制给出函子范畴的同构
+  \[
+    \operatorname{Add}(\Z\mathcal C,\mathcal A)\cong\operatorname{Fun}(\mathcal C,U\mathcal A).
+  \]
+  取 $\mathcal C=BG$ (单对象, 箭头为 $G$, 复合为群乘法), 说明 $\Z(BG)$ 的端同态环如何恢复第 4 题的群环.
+\end{enumerate}
+\end{problem}
 
 \end{document}
