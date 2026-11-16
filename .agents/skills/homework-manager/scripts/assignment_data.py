@@ -36,11 +36,17 @@ def map_assignment_courses(assignments, course_mapping):
     return mapped, unmapped
 
 
-def add_assignment_binding(bindings, assignment, local_number):
-    """Return a new list with the assignment binding added if needed, raising ValueError on conflicts."""
+def build_binding_index(bindings):
+    """Build the binding dictionary from platform_id to local_id."""
     binded_dict = {}
     for bind in bindings:
         binded_dict[(bind["course_id"], bind["assignment_id"])] = (bind["local_course"], bind["local_number"])
+    return binded_dict
+
+
+def add_assignment_binding(bindings, assignment, local_number):
+    """Return a new list with the assignment binding added if needed, raising ValueError on conflicts."""
+    binded_dict = build_binding_index(bindings)
     new_bindings = bindings[:]
     assignment_platform_id = (assignment["course_id"], assignment["assignment_id"])
     assignment_local_id = (assignment["local_course"], local_number)

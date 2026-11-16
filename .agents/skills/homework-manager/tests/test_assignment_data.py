@@ -169,7 +169,6 @@ class MapAssignmentCoursesTests(unittest.TestCase):
         self.assertEqual(course_mapping, original_course_mapping)
 
 
-# AI-assisted regression tests for assignment binding behavior.
 class AddAssignmentBindingTests(unittest.TestCase):
     def setUp(self):
         self.assignment = {
