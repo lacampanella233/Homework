@@ -1,24 +1,20 @@
 \documentclass{article}
 \usepackage[zh]{homework}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 % 题目 1--9 及原作业说明忠实转录自 HW8.pdf; 以下承诺要求为原文件内容的引用.
 
 \config{Algebra-1}{2026 秋季}{8}
 
 \begin{document}
 
-{\heiti 请在提交的作业正文最前面写下以下承诺:}
-\begin{quote}
-  {\heiti 我承诺, 本次作业没有使用大语言模型.}
-\end{quote}
-
-{\heiti 截止时间:} \textbf{2026} {\heiti 年} \textbf{11} {\heiti 月} \textbf{20} {\heiti 日 (星期五)} \textbf{23:59}.
+{\heiti 我承诺, 本次作业的完成没有使用大语言模型.}
 
 \paragraph{约定.} 所有未注明下标的张量积均为阿贝尔群在 $\Z$ 上的张量积. 环均含幺, 环同态保持单位元, 允许零环; 模均满足单位元作用为恒等映射. 记 $\Z[X]=\Z^{(X)}$ 为集合 $X$ 上的自由阿贝尔群, $[x]:=\chi_{\{x\}}$ 表示相应的特征函数. 复合 $g\circ f$ 表示先做 $f$, 再做 $g$.
 
 可使用课堂已证明的结果及前面习题的结论, 但不得直接引用当前小问要求证明的结论. 第 7, 8, 9 题及题内标注的相应小问为思考题; 前面的习题不得直接引用第 8 题的一般结论.
 
 \section*{习题}
-\enlargethispage{\baselineskip}
 
 \begin{problem}
 注意: 映射均须先用泛性质证明存在, 再证明它们是同构.
@@ -37,6 +33,65 @@
   写出其逆, 并验证关于三个变量的自然性.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 构造双线性函数 $\varphi_{A, B}: A \times B \to B \otimes A, (a, b) \mapsto b \otimes a$. 则根据泛性质, 存在线性映射 $s_{A, B}: A \otimes B \to B \otimes A, a \otimes b \mapsto b \otimes a$. 同理可以构造 $s_{B, A}$. 
+
+	根据定义, 显然有
+	\[ s_{B, A} \circ s_{A, B} (a \otimes b) = s_{B, A}(b \otimes a) = a \otimes b = \id_{A \otimes B}(a \otimes b). \]
+	再结合 $A \otimes B = \braket{a \otimes b: a \in A, b \in B}$, 知 $s_{B, A} \circ s_{A, B} = \id_{A \otimes B}$.
+
+	再来验证自然性. 事实上, 对于任意的群同态 $f: A \to A'$, $g: B \to B'$, 只需要验证 $(g \otimes f) \circ s_{A, B} = s_{A', B'} \circ (f \otimes g	)$. 对于任意的 $a \in A$ 和 $b \in B$, 有
+	\[ (g \otimes f) \circ s_{A, B} (a \otimes b) = (g \otimes f)(b \otimes a) = g(b) \otimes f(a) = s_{A', B'}(f(a) \otimes g(b)) = s_{A', B'} \circ (f \otimes g)(a \otimes b). \]
+	再结合 $A \otimes B = \braket{a \otimes b: a \in A, b \in B}$, 知结论成立.
+
+	\paragraph{(b)} 我们只证明第一个同构关系, 第二个与第一个完全类似. 根据张量积的泛性质, $\Hom_{\mathbf{Ab}}((A \otimes B) \otimes C, D) \cong \operatorname{Bil}(A \otimes B, C; D)$. 因此只需证明: $\operatorname{Bil}(A \otimes B, C; D) \cong \operatorname{Tri}(A, B, C; D)$.
+
+	任取 $\varphi \in \operatorname{Tri}(A, B, C; D)$, 对于固定的 $c \in C$, $\varphi(a, b, c)$ 关于 $a, b$ 是双线性函数, 因此存在唯一的 $\tilde{\varphi}(\cdot, c) \in \Hom_{\mathbf{Ab}}(A \otimes B, D)$, 使得 $\varphi(a, b, c) = \tilde{\varphi}(a \otimes b, c)$. 因此 $\tilde{\varphi}$ 关于第一个变量是线性的. 而对于 $c_1, c_2 \in C$, 有
+	\[ \tilde{\varphi}(a \otimes b, c_1 + c_2) = \varphi(a, b, c_1 + c_2) = \varphi(a, b, c_1) + \varphi(a, b, c_2) = \tilde{\varphi}(a \otimes b, c_1) + \tilde{\varphi}(a \otimes b, c_2). \]
+	再结合 $A \otimes B = \braket{a \otimes b: a \in A, b \in B}$, 因此 $\tilde{\varphi}$ 关于第二个变量也线性, 即 $\tilde{\varphi} \in \operatorname{Bil}(A \otimes B, C; D)$. 因此, 存在 $\operatorname{Tri}(A, B, C; D)$ 到 $\operatorname{Bil}(A \otimes B, C; D)$ 的单射.
+
+	反之, 任取 $\psi \in \operatorname{Bil}(A \otimes B, C; D)$, 定义 $\varphi_\psi(a, b, c) = \psi(a \otimes b, c)$. 由于 $a \otimes b$ 关于 $a, b$ 分别线性, 而 $\psi$ 关于两个变量分别线性, 因此 $\varphi_\psi \in \operatorname{Tri}(A, B, C; D)$.
+
+	下面验证这两个构造互为逆映射. 对于任意的 $\varphi \in \operatorname{Tri}(A, B, C; D)$, 根据定义有
+	\[ \varphi_{\tilde{\varphi}}(a, b, c) = \tilde{\varphi}(a \otimes b, c) = \varphi(a, b, c), \]
+	因此 $\varphi_{\tilde{\varphi}} = \varphi$. 而对于任意的 $\psi \in \operatorname{Bil}(A \otimes B, C; D)$, 固定 $c \in C$, 有
+	\[ \widetilde{\varphi_\psi}(a \otimes b, c) = \varphi_\psi(a, b, c) = \psi(a \otimes b, c). \]
+	由于等式两边关于第一个变量都是群同态, 再结合 $A \otimes B = \braket{a \otimes b: a \in A, b \in B}$, 知 $\widetilde{\varphi_\psi}(\cdot, c) = \psi(\cdot, c)$. 由 $c$ 的任意性知 $\widetilde{\varphi_\psi} = \psi$.
+
+	因此上述两个构造互为逆映射, 从而
+	\[ \operatorname{Bil}(A \otimes B, C; D) \cong \operatorname{Tri}(A, B, C; D). \]
+
+	再来验证关于 $D$ 的自然性. 记第一个双射为 $\Phi_D$, 则 $\Phi_D(F)(a,b,c) = F((a \otimes b) \otimes c)$. 对于任意的同态 $q: D \to D'$, 有
+	\[ \Phi_{D'}(q \circ F)(a,b,c) = q(F((a \otimes b) \otimes c)) = (q \circ \Phi_D(F))(a,b,c). \]
+	因此 $\Phi_{D'}(q \circ F) = q \circ \Phi_D(F)$, 即第一个双射自然于 $D$. 第二个双射的自然性同理可得.
+
+	\paragraph{(c)} 由第 (b) 问, 三线性函数 $(a, b, c) \mapsto a \otimes (b \otimes c)$ 唯一确定同态
+	\[ \alpha_{A, B, C}: (A \otimes B) \otimes C \to A \otimes (B \otimes C), \quad (a \otimes b) \otimes c \mapsto a \otimes (b \otimes c). \]
+	同理, 三线性函数 $(a, b, c) \mapsto (a \otimes b) \otimes c$ 唯一确定同态
+	\[ \tilde{\alpha}_{A, B, C}: A \otimes (B \otimes C) \to (A \otimes B) \otimes C, \quad a \otimes (b \otimes c) \mapsto (a \otimes b) \otimes c. \]
+	根据定义, 对于任意的 $a \in A$, $b \in B$, $c \in C$, 有
+	\begin{gather*}
+		(\tilde{\alpha}_{A, B, C} \circ \alpha_{A, B, C})((a \otimes b) \otimes c)
+		= \tilde{\alpha}_{A, B, C}(a \otimes (b \otimes c)) = (a \otimes b) \otimes c, \\
+		(\alpha_{A, B, C} \circ \tilde{\alpha}_{A, B, C})(a \otimes (b \otimes c))
+		= \alpha_{A, B, C}((a \otimes b) \otimes c) = a \otimes (b \otimes c).
+	\end{gather*}
+	由于上述元素分别生成 $(A \otimes B) \otimes C$ 与 $A \otimes (B \otimes C)$, 且两边都是群同态, 因此 $\tilde{\alpha}_{A, B, C} \circ \alpha_{A, B, C} = \id_{(A \otimes B) \otimes C}$, $\alpha_{A, B, C} \circ \tilde{\alpha}_{A, B, C} = \id_{A \otimes (B \otimes C)}$. 因此 $\alpha_{A, B, C}$ 是同构, 其逆为 $\tilde{\alpha}_{A, B, C}$.
+
+	下面来验证关于三个变量的自然性, 即: 对于任意的同态 $f: A \to A'$, $g: B \to B'$, $h: C \to C'$, 有
+	\[ \alpha_{A', B', C'} \circ ((f \otimes g) \otimes h) = (f \otimes (g \otimes h)) \circ \alpha_{A, B, C}. \]
+	事实上, 对于任意的 $a \in A$, $b \in B$, $c \in C$, 根据定义有
+	\begin{gather*}
+		\alpha_{A', B', C'}\bigl(((f \otimes g) \otimes h)((a \otimes b) \otimes c)\bigr)
+		= f(a) \otimes (g(b) \otimes h(c)), \\
+		(f \otimes (g \otimes h))\bigl(\alpha_{A, B, C}((a \otimes b) \otimes c)\bigr)
+		= f(a) \otimes (g(b) \otimes h(c)).
+	\end{gather*}
+	再结合 $(A \otimes B) \otimes C = \braket{(a \otimes b) \otimes c: a \in A, b \in B, c \in C}$, 知所需等式成立, 因此 $\alpha_{A, B, C}$ 关于三个变量的自然性成立.
+\end{solution}
+
+
 
 \begin{problem}
 设 $I$ 为任意集合, $(A_i)_{i\in I}$ 为阿贝尔群族. 定义它们的直和为
@@ -62,6 +117,109 @@
   对集合映射 $u:X\to X'$, $v:Y\to Y'$ 验证该同构的自然性.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 先构造双线性函数
+	\begin{gather*}
+		\tilde{\gamma}: \left(\bigoplus_{i \in I} A_i\right) \times B \to \bigoplus_{i \in I}(A_i \otimes B), \quad 
+		\tilde{\gamma}((a_i)_{i \in I}, b) = (a_i \otimes b)_{i \in I}.
+	\end{gather*}
+	由于
+	\[ \{i \in I: a_i \otimes b \neq 0\} \subseteq \{i \in I: a_i \neq 0\}, \]
+	而右边是有限集, 因此 $(a_i \otimes b)_{i \in I}$ 确实落在直和中. 并且, 根据张量积关于两个变量的线性性, 显然 $\tilde{\gamma}$ 是双线性函数. 因此根据张量积的泛性质, 存在唯一的同态 $\gamma$, 使得
+	\[ \gamma((a_i)_{i \in I} \otimes b) = (a_i \otimes b)_{i \in I}. \]
+
+	下面构造反向同态. 对每个 $i \in I$, 利用典范嵌入 $\iota_i: A_i \to \bigoplus_{j \in I} A_j$, 构造双线性函数
+	\[
+		\tilde{\gamma}_i^{-1}: A_i \times B \to \left(\bigoplus_{j \in I} A_j\right) \otimes B,
+		\quad (a_i, b) \mapsto \iota_i(a_i) \otimes b.
+	\]
+	由张量积的泛性质, 存在唯一的同态
+	\[
+		\gamma_i^{-1}: A_i \otimes B \to \left(\bigoplus_{j \in I} A_j\right) \otimes B,
+		\quad a_i \otimes b \mapsto \iota_i(a_i) \otimes b.
+	\]
+	再由直和的泛性质, 存在唯一的同态
+	\begin{gather*}
+		\gamma^{-1}: \bigoplus_{i \in I}(A_i \otimes B) \to \left(\bigoplus_{i \in I} A_i\right) \otimes B, \\
+		\gamma^{-1}((x_i)_{i \in I}) = \sum_{i \in I} \gamma_i^{-1}(x_i), \quad x_i \in A_i \otimes B.
+	\end{gather*}
+	由于
+	\[ \{i \in I: \gamma_i^{-1}(x_i) \neq 0\} \subseteq \{i \in I: x_i \neq 0\}, \]
+	而右边是有限集, 因此上述求和是有限求和.
+
+	下面验证这两个同态互为逆映射. 对于任意的 $(a_i)_{i \in I} \in \bigoplus_{i \in I} A_i$ 与 $b \in B$, 有
+	\begin{align*}
+		(\gamma^{-1} \circ \gamma)((a_i)_{i \in I} \otimes b)
+		&= \gamma^{-1}((a_i \otimes b)_{i \in I}) \\
+		&= \sum_{i \in I} \iota_i(a_i) \otimes b \\
+		&= \left(\sum_{i \in I} \iota_i(a_i)\right) \otimes b
+		= (a_i)_{i \in I} \otimes b.
+	\end{align*}
+	这里的求和只有 $a_i \neq 0$ 的有限多个指标可能贡献非零项. 再结合纯张量生成整个张量积, 知 $\gamma^{-1} \circ \gamma = \id$.
+
+	同理, 对于上述 $(a_i)_{i \in I}$ 与 $b$, 有
+	\begin{align*}
+		(\gamma \circ \gamma^{-1})((a_i \otimes b)_{i \in I})
+		&= \gamma\left(\sum_{i \in I} \iota_i(a_i) \otimes b\right) \\
+		&= \gamma((a_i)_{i \in I} \otimes b)
+		= (a_i \otimes b)_{i \in I}.
+	\end{align*}
+	这样的元素包含每个直和分量中纯张量的典范像, 因此生成 $\bigoplus_{i \in I}(A_i \otimes B)$. 故 $\gamma \circ \gamma^{-1} = \id$, 从而 $\gamma$ 是同构.
+
+	\paragraph{(b)} 将 $[x]$ 视为生成元 $\chi_{\{x\}}$. 构造双线性函数
+	\begin{gather*}
+		\tilde{\beta}_{X, Y}: \Z[X] \times \Z[Y] \to \Z[X \times Y], \\
+		\tilde{\beta}_{X, Y}(f, g)(x, y) = f(x)g(y).
+	\end{gather*}
+	由于 $f, g$ 的支撑集均有限, 而
+	\[ \supp(\tilde{\beta}_{X, Y}(f, g)) \subseteq \supp(f) \times \supp(g), \]
+	因此上述公式确实给出 $\Z[X \times Y]$ 中的元素. 根据整数乘法的分配律, 显然 $\tilde{\beta}_{X, Y}$ 关于两个变量分别线性. 由张量积的泛性质, 存在唯一的同态 $\beta_{X, Y}$, 使得
+	\[ \beta_{X, Y}(f \otimes g)(x, y) = f(x)g(y). \]
+	特别地, $\beta_{X, Y}([x] \otimes [y]) = [(x, y)]$.
+
+	反之, 构造集合映射
+	\[
+		\tilde{\beta}_{X, Y}^{-1}: X \times Y \to \Z[X] \otimes \Z[Y],
+		\quad (x, y) \mapsto [x] \otimes [y].
+	\]
+	由自由阿贝尔群的泛性质, 存在唯一的同态
+	\[
+		\beta_{X, Y}^{-1}: \Z[X \times Y] \to \Z[X] \otimes \Z[Y],
+		\quad [(x, y)] \mapsto [x] \otimes [y].
+	\]
+	根据定义, 对于任意的 $x \in X$, $y \in Y$, 有
+	\begin{gather*}
+		(\beta_{X, Y}^{-1} \circ \beta_{X, Y})([x] \otimes [y])
+		= \beta_{X, Y}^{-1}([(x, y)]) = [x] \otimes [y], \\
+		(\beta_{X, Y} \circ \beta_{X, Y}^{-1})([(x, y)])
+		= \beta_{X, Y}([x] \otimes [y]) = [(x, y)].
+	\end{gather*}
+	再结合
+	\begin{gather*}
+		\Z[X] \otimes \Z[Y] = \braket{[x] \otimes [y]: x \in X, y \in Y}, \\
+		\Z[X \times Y] = \braket{[(x, y)]: x \in X, y \in Y},
+	\end{gather*}
+	知 $\beta_{X, Y}^{-1} \circ \beta_{X, Y} = \id$, $\beta_{X, Y} \circ \beta_{X, Y}^{-1} = \id$, 因此 $\beta_{X, Y}$ 是同构.
+
+	下面来验证自然性. 对于任意的集合映射 $u: X \to X'$, $v: Y \to Y'$, 由自由阿贝尔群的泛性质, 可以构造同态 $\tilde{u}: \Z[X] \to \Z[X']$, $\tilde{v}: \Z[Y] \to \Z[Y']$ 与 $\widetilde{u \times v}: \Z[X \times Y] \to \Z[X' \times Y']$, 使得
+	\begin{gather*}
+		\tilde{u}([x]) = [u(x)], \quad \tilde{v}([y]) = [v(y)], \\
+		\widetilde{u \times v}([(x, y)]) = [(u(x), v(y))].
+	\end{gather*}
+	对于任意的 $x \in X$, $y \in Y$, 有
+	\begin{align*}
+		\beta_{X', Y'}((\tilde{u} \otimes \tilde{v})([x] \otimes [y]))
+		&= \beta_{X', Y'}([u(x)] \otimes [v(y)]) \\
+		&= [(u(x), v(y))] \\
+		&= \widetilde{u \times v}(\beta_{X, Y}([x] \otimes [y])).
+	\end{align*}
+	再结合 $\Z[X] \otimes \Z[Y] = \braket{[x] \otimes [y]: x \in X, y \in Y}$, 知
+	\[ \beta_{X', Y'} \circ (\tilde{u} \otimes \tilde{v}) = \widetilde{u \times v} \circ \beta_{X, Y}. \]
+	因此 $\beta_{X, Y}$ 关于两个变量的自然性成立.
+\end{solution}
+
+
 
 \begin{problem}
 \begin{enumerate}
@@ -91,6 +249,88 @@
   再取 $n\ge2$, 比较 $\Hom_{\mathbf{Ab}}(\Z/n\Z,\Z)$ 与 $(\Z/n\Z)\otimes\Z$. 可使用课堂公式 $\Hom_{\mathbf{Ab}}(\Z/n\Z,B)\cong B[n]$, 其中 $B[n]=\{b:nb=0\}$.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 记 $\Z_n = \Z / n\Z$. 由于 $B$ 是阿贝尔群, 映射 $b \mapsto nb$ 是群同态, 因此 $nB$ 是 $B$ 的子群.
+
+	先来验证 $\beta$ 的良定义性. 若 $\bar{r} = \bar{r}'$, 则存在 $k \in \Z$, 使得 $r' = r + kn$. 因此对于任意的 $b \in B$, 有
+	\[ r'b + nB = rb + n(kb) + nB = rb + nB. \]
+	因此 $\beta(\bar{r}, b) = rb + nB$ 不依赖于代表元 $r$ 的选择, 故 $\beta$ 是良定义的.
+
+	对于任意的 $\bar{r}_1, \bar{r}_2, \bar{r} \in \Z_n$ 与 $b, b_1, b_2 \in B$, 有
+	\begin{gather*}
+		\beta(\bar{r}_1, b) + \beta(\bar{r}_2, b) = r_1b + r_2 b + nB = \beta(\bar{r}_1 + \bar{r}_2, b); \\
+		\beta(\bar{r}, b_1) + \beta(\bar{r}, b_2) = r(b_1 + b_2) + nB = \beta(\bar{r}, b_1 + b_2).
+	\end{gather*}
+	因此 $\beta$ 关于两个变量分别线性. 根据张量积的泛性质, 存在唯一的群同态
+	\[ \theta_B: \Z_n \otimes B \to B/nB, \quad \bar{r} \otimes b \mapsto rb + nB. \]
+
+	下面来验证 $\theta_B$ 是同构. 构造逆映射 $\theta_B^{-1}$ 如下: 对于 $b + nB \in B/nB$, 取 $\theta_B^{-1}(b + nB) = \bar{1} \otimes b$.
+
+	先证明 $\theta_B^{-1}$ 良定义. 事实上, 若 $b + nB = b' + nB$, 则 $b' - b \in nB$, 即存在 $b'' \in B$, 使得 $b' - b = nb''$. 因此, 
+	\[ \bar{1} \otimes b' = \bar{1} \otimes (b + nb'') = \bar{1} \otimes b + n (\bar{1} \otimes b'') = \bar{1} \otimes b + \bar{n} \otimes b'' = \bar{1} \otimes b. \]
+
+	并且, 对于任意的 $b,c \in B$, 有
+	\[ \theta_B^{-1}((b+nB)+(c+nB)) = \bar{1} \otimes (b+c) = \bar{1} \otimes b + \bar{1} \otimes c = \theta_B^{-1}(b+nB) + \theta_B^{-1}(c+nB). \]
+	因此 $\theta_B^{-1}$ 是群同态.
+
+	再证明 $\theta_B$ 与 $\theta_B^{-1}$ 互逆. 对于任意的 $\bar{r} \otimes b$, 有
+	\begin{align*}
+		\theta_B^{-1} \circ \theta_B (\bar{r} \otimes b)
+		&= \theta_B^{-1} (rb + nB)
+		= \bar{1} \otimes rb
+		=r(\bar{1} \otimes b)
+		= \bar{r} \otimes b.
+	\end{align*}
+	并且, 对于任意的 $b + nB \in B/nB$, 有
+	\begin{align*}
+		\theta_B \circ \theta_B^{-1} (b + nB)
+		&= \theta_B(\bar{1} \otimes b)
+		= 1b + nB = b + nB.
+	\end{align*}
+
+	再结合纯张量生成 $\Z_n \otimes B$, 知 $\theta_B$ 与 $\theta_B^{-1}$ 互逆. 因此 $\theta_B$ 是同构.
+
+	对于同态 $v: B \to B'$, 由于 $v(nB) \subseteq nB'$, 其诱导的商群同态为
+	\[ \bar{v}: B / nB \to B' / nB', \quad b + nB \mapsto v(b) + nB'. \]
+	对于任意的 $\bar{r} \otimes b$, 均有
+	\begin{align*}
+		\bar{v} \circ \theta_B (\bar{r} \otimes b) = \bar{v} (rb + nB) = r v(b) + nB' = \theta_{B'} (\bar{r} \otimes v(b)) = \theta_{B'} \circ (\id \otimes\, v) (\bar{r} \otimes b).
+	\end{align*}
+	因此 $\bar{v} \circ \theta_B = \theta_{B'} \circ (\id \otimes\, v)$.
+
+	\paragraph{(b)} 记 $d = \gcd(m, n)$, 并用 $\bar{r}_k$ 表示整数 $r$ 模 $k$ 的剩余类. 先构造双线性函数
+	\[ \tilde{\varphi}: \Z_n \times \Z_m \to \Z_d, \quad (\bar{r}_n, \bar{s}_m) \mapsto \overline{rs}_d. \]
+	事实上, 若 $r' = r + an$, $s' = s + bm$, 其中 $a, b \in \Z$, 则
+	\[ r's' - rs = ans + bmr + abnm. \]
+	由于 $d \mid n$, $d \mid m$, 因此 $d \mid (r's' - rs)$, 故 $\tilde{\varphi}$ 不依赖于代表元的选择. 根据整数乘法的分配律, 显然 $\tilde{\varphi}$ 关于两个变量分别线性. 由张量积的泛性质, 存在唯一的群同态
+	\[ \varphi: \Z_n \otimes \Z_m \to \Z_d, \quad \bar{r}_n \otimes \bar{s}_m \mapsto \overline{rs}_d. \]
+
+	下面利用 Bézout 定理构造逆映射. 存在 $u, v \in \Z$, 使得 $un + vm = d$. 记 $e = \bar{1}_n \otimes \bar{1}_m$. 根据张量积的线性性, 有
+	\begin{gather*}
+		n e = \bar{n}_n \otimes \bar{1}_m = 0, \\
+		m e = \bar{1}_n \otimes \bar{m}_m = 0.
+	\end{gather*}
+	因此 $de = (un + vm)e = u(ne) + v(me) = 0$. 定义
+	\[ \psi: \Z_d \to \Z_n \otimes \Z_m, \quad \bar{t}_d \mapsto te. \]
+	若 $\bar{t}_d = \bar{t}'_d$, 则存在 $k \in \Z$, 使得 $t' - t = kd$, 因此 $t'e - te = kde = 0$. 故 $\psi$ 不依赖于代表元的选择. 并且, 显然 $\psi$ 保持加法, 因此 $\psi$ 是良定义的群同态.
+
+	再来验证这两个同态互为逆映射. 对于任意的 $\bar{t}_d \in \Z_d$ 及纯张量 $\bar{r}_n \otimes \bar{s}_m$, 有
+	\begin{gather*}
+		(\varphi \circ \psi)(\bar{t}_d) = \varphi(te) = t\bar{1}_d = \bar{t}_d, \\
+		(\psi \circ \varphi)(\bar{r}_n \otimes \bar{s}_m)
+		= \psi(\overline{rs}_d) = rs e = \bar{r}_n \otimes \bar{s}_m.
+	\end{gather*}
+	再结合纯张量生成 $\Z_n \otimes \Z_m$, 知 $\varphi \circ \psi = \id$, $\psi \circ \varphi = \id$. 因此 $\varphi$ 是同构.
+
+	这里的 $\overline{rs}_d$ 表示模 $d$ 的剩余类. 事实上, 每个纯张量都等于 $rs e$, 因此 $e$ 生成 $\Z_n \otimes \Z_m$. Bézout 等式给出 $de = 0$, 而 $\varphi(e) = \bar{1}_d$ 的阶为 $d$, 因此 $e$ 的阶恰为 $d$, 这也说明了右端的模数为何为 $d$.
+
+	\paragraph{(c)} 根据 \textbf{(b)} 中的结果, 有 $\Z_4 \otimes \Z_6 \cong \Z_2$, $\Z_2 \otimes \Z_3 \cong \{0\}$. 根据 \textbf{(a)} 中的结论, 有 $\Z_n \otimes \Q \cong \Q / n\Q \cong \{0\}	$.
+
+	当 $n \ge 2$ 时, 由于 $\Z$ 没有非零的 $n$-挠元, 因此 $\Hom_{\mathbf{Ab}}(\Z_n, \Z) \cong \Z[n] = \{0\}$. 而根据 \textbf{(a)} 中的结论, $\Z_n \otimes \Z \cong \Z/n\Z = \Z_n \neq \{0\}$. 因此这两个阿贝尔群不同构.
+\end{solution}
+
+
 
 \begin{problem}
 设 $G$ 为群, 单位元为 $e$. 先把 $\Z[G]$ 视为以 $G$ 为基的自由阿贝尔群.
@@ -124,6 +364,201 @@
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	\paragraph{(a)} 由第 2 题的结论, 可以构造群同态
+	\[ \mu_G = \Z[m] \circ \beta_{G, G}: \Z[G] \otimes \Z[G] \to \Z[G], \]
+	并且对于任意的 $g, h \in G$, 有 $\mu_G([g] \otimes [h]) = [gh]$. 以 $\mu_G$ 定义乘法. 对于 $f_1 = \sum_g a_g[g]$, $f_2 = \sum_h b_h[h]$, 有
+	\begin{align*}
+		f_1f_2
+		&= \mu_G\left(\sum_{g, h \in G} a_gb_h([g] \otimes [h])\right) \\
+		&= \sum_{g, h \in G} a_gb_h[gh]
+		= \sum_{k \in G}\left(\sum_{g \in G}a_gb_{g^{-1}k}\right)[k].
+	\end{align*}
+	由于 $a_g$, $b_h$ 均只有有限多个非零项, 因此上述求和均为有限求和. 更具体地, 内层求和只有 $a_g \neq 0$ 的有限多个指标可能贡献非零项, 而乘积的支撑集包含于有限集 $\{gh: a_g \neq 0, b_h \neq 0\}$.
+
+	下面来验证结合律. 对于任意的 $g, h, k \in G$, 有
+	\begin{align*}
+		\mu_G\bigl(\mu_G([g] \otimes [h]) \otimes [k]\bigr)
+		&= [(gh)k] = [g(hk)] \\
+		&= \mu_G\bigl([g] \otimes \mu_G([h] \otimes [k])\bigr).
+	\end{align*}
+	等式两边对三个变量分别线性, 再结合 $[g]$ 生成 $\Z[G]$, 知结合律成立. 分配律由 $\mu_G$ 的双线性性直接得到. 并且, 对于任意的 $g \in G$, 有
+	\[ [e][g] = [eg] = [g] = [ge] = [g][e]. \]
+	再结合 $[g]$ 生成 $\Z[G]$, 知 $[e]$ 是乘法单位元. 因此上述乘法使 $\Z[G]$ 成为含幺环.
+
+	\paragraph{(b)} 对于任意的 $g \in G$, 有 $[g][g^{-1}] = [g^{-1}][g] = [e]$, 因此 $[g] \in \Z[G]^\times$. 并且 $[g][h] = [gh]$, 因此 $g \mapsto [g]$ 是群同态. 由自由阿贝尔群中基元的唯一性, 若 $[g] = [h]$, 则 $g = h$, 因此此同态是单射.
+
+	考虑 $-[e]$. 由于 $(-[e])(-[e]) = [e]$, 因此 $-[e]$ 是单位. 而 $-[e]$ 在基元 $[e]$ 处的系数为 $-1$, 不可能等于任何一个 $[g]$, 因此它不属于上述同态的像.
+
+	若 $G$ 交换, 则对于任意的 $g, h \in G$, 有 $[g][h] = [gh] = [hg] = [h][g]$. 再结合分配律与 $[g]$ 生成 $\Z[G]$, 知 $\Z[G]$ 交换. 反之, 若 $\Z[G]$ 交换, 则 $[gh] = [g][h] = [h][g] = [hg]$, 由上述单射性知 $gh = hg$. 因此 $\Z[G]$ 交换当且仅当 $G$ 交换.
+
+	\paragraph{(c)} 由于 $s^2 = e$, 因此 $u^2 = 1$. 对于任意的 $a, b, c, d \in \Z$, 有
+	\begin{align*}
+		(a + bu)(c + du)
+		&= ac + adu + bcu + bdu^2 \\
+		&= (ac + bd) + (ad + bc)u.
+	\end{align*}
+	特别地,
+	\begin{align*}
+		(2 - u)(1 + 3u)
+		&= 2 + 6u - u - 3u^2 \\
+		&= 2 + 5u - 3 = -1 + 5u.
+	\end{align*}
+	并且
+	\[ (1 - u)(1 + u) = 1 + u - u - u^2 = 1 - 1 = 0. \]
+	由于 $1 = [e]$ 与 $u = [s]$ 是自由阿贝尔群中的两个不同基元, 因此 $1 - u \neq 0$, $1 + u \neq 0$. 故它们都是非零零因子.
+
+	\paragraph{(d)} 任取群同态 $\rho: G \to R^\times$. 将 $\rho$ 视为从 $G$ 到 $R$ 的底层集合的映射, 由自由阿贝尔群的泛性质, 存在唯一的加法群同态 $\widetilde{\rho}: \Z[G] \to R$, 使得 $\widetilde{\rho}([g]) = \rho(g)$. 其公式为
+	\[ \widetilde{\rho}\left(\sum_g a_g[g]\right) = \sum_g a_g\rho(g). \]
+	下面验证它是含幺环同态. 对于 $f_1 = \sum_g a_g[g]$, $f_2 = \sum_h b_h[h]$, 有
+	\begin{align*}
+		\widetilde{\rho}(f_1f_2)
+		&= \sum_{g, h} a_gb_h\rho(gh)
+		= \sum_{g, h} a_gb_h\rho(g)\rho(h) \\
+		&= \left(\sum_g a_g\rho(g)\right)\left(\sum_h b_h\rho(h)\right)
+		= \widetilde{\rho}(f_1)\widetilde{\rho}(f_2).
+	\end{align*}
+	并且 $\widetilde{\rho}([e]) = \rho(e) = 1_R$. 因此 $\widetilde{\rho}$ 是含幺环同态.
+
+	反之, 对于含幺环同态 $F: \Z[G] \to R$, 令 $\rho_F(g) = F([g])$. 由于 $F([g])F([g^{-1}]) = F([e]) = 1_R$, 且反向乘积也为 $1_R$, 因此 $\rho_F(g) \in R^\times$. 并且
+	\[ \rho_F(gh) = F([gh]) = F([g][h]) = \rho_F(g)\rho_F(h), \]
+	因此 $\rho_F: G \to R^\times$ 是群同态. 上述两个构造在每个基元上的取值互相恢复, 因此互为逆映射. 事实上, 若两个环同态在所有 $[g]$ 上均等于 $\rho(g)$, 则对于任意的 $f = \sum_g a_g[g]$, 它们在 $f$ 上的值都只能是 $\sum_g a_g\rho(g)$, 因此延拓唯一. 故限制到基元给出所需双射.
+
+	\paragraph{(e)} 对于群同态 $v: G' \to G$, 将其与第 (b) 问的嵌入 $G \to \Z[G]^\times$ 复合, 再利用第 (d) 问, 可以构造含幺环同态
+	\[ \Z[v]: \Z[G'] \to \Z[G], \quad \sum_{g'} a_{g'}[g'] \mapsto \sum_{g'} a_{g'}[v(g')]. \]
+	对于环同态 $w: R \to S$, 由于 $r \in R^\times$ 时 $w(r)w(r^{-1}) = w(r^{-1})w(r) = 1_S$, 因此可以定义群同态
+	\[ w^\times: R^\times \to S^\times, \quad r \mapsto w(r). \]
+
+	先来验证函子性. 对于群同态 $G \xrightarrow{u} H \xrightarrow{v} K$, 以及任意的 $g \in G$, 有
+	\begin{gather*}
+		\Z[v \circ u]([g]) = [v(u(g))] = \Z[v]([u(g)]) = (\Z[v] \circ \Z[u])([g]), \\
+		\Z[\id_G]([g]) = [g].
+	\end{gather*}
+	再结合基元生成整个加法群, 知 $\Z[v \circ u] = \Z[v] \circ \Z[u]$, $\Z[\id_G] = \id_{\Z[G]}$.
+
+	对于环同态 $R \xrightarrow{w} S \xrightarrow{z} T$, 以及任意的 $r \in R^\times$, 有
+	\begin{gather*}
+		(z \circ w)^\times(r) = z(w(r)) = (z^\times \circ w^\times)(r), \\
+		(\id_R)^\times(r) = r.
+	\end{gather*}
+	因此 $(z \circ w)^\times = z^\times \circ w^\times$, $(\id_R)^\times = \id_{R^\times}$. 故上述构造分别给出函子 $\Z[-]: \mathbf{Grp} \to \mathbf{Ring}$ 与 $(-)^\times: \mathbf{Ring} \to \mathbf{Grp}$.
+
+	下面来验证自然性. 考虑从 $\mathbf{Grp}^{\mathrm{op}} \times \mathbf{Ring}$ 到 $\mathbf{Set}$ 的两个函子
+	\begin{gather*}
+		(G, R) \mapsto \Hom_{\mathbf{Grp}}(G, R^\times), \\
+		(G, R) \mapsto \Hom_{\mathbf{Ring}}(\Z[G], R).
+	\end{gather*}
+	记第 (d) 问的延拓双射为 $\Phi_{G, R}: \rho \mapsto \widetilde{\rho}$. 对于 $v: G \to H$, $w: R \to S$, 需要验证下图中标为 (i)、(ii) 的两个面交换.
+	\begin{center}
+	\begin{tikzpicture}[
+		>=Latex,
+		every node/.style={font=\small, inner sep=2pt},
+		hom/.style={fill=white},
+		lab/.style={font=\footnotesize, fill=white, inner sep=1pt}
+	]
+		\coordinate (a) at (0,0);
+		\coordinate (b) at (7,0);
+		\coordinate (c) at (0,-4.2);
+		\coordinate (d) at (7,-4.2);
+		\coordinate (e) at (2.5,1.8);
+		\coordinate (f) at (9.5,1.8);
+		\coordinate (g) at (2.5,-2.4);
+		\coordinate (h) at (9.5,-2.4);
+		\fill[red!5] (a) -- (e) -- (f) -- (b) -- cycle;
+		\fill[blue!5] (b) -- (f) -- (h) -- (d) -- cycle;
+		\node[red!70!black] at (-0.7,1.4) {(i)};
+		\node[blue!70!black] at (10.2,-1.3) {(ii)};
+		\node[hom] (A) at (a) {$\Hom_{\mathbf{Grp}}(H,R^\times)$};
+		\node[hom] (B) at (b) {$\Hom_{\mathbf{Grp}}(G,R^\times)$};
+		\node[hom] (C) at (c) {$\Hom_{\mathbf{Grp}}(H,S^\times)$};
+		\node[hom] (D) at (d) {$\Hom_{\mathbf{Grp}}(G,S^\times)$};
+		\node[hom] (E) at (e) {$\Hom_{\mathbf{Ring}}(\Z[H],R)$};
+		\node[hom] (F) at (f) {$\Hom_{\mathbf{Ring}}(\Z[G],R)$};
+		\node[hom] (G) at (g) {$\Hom_{\mathbf{Ring}}(\Z[H],S)$};
+		\node[hom] (H) at (h) {$\Hom_{\mathbf{Ring}}(\Z[G],S)$};
+		\draw[->] (E) -- node[lab,above] {$(\cdot)\circ\Z[v]$} (F);
+		\draw[->] (G) -- node[lab,above,pos=.32] {$(\cdot)\circ\Z[v]$} (H);
+		\draw[->] (E) -- node[lab,right] {$w\circ(\cdot)$} (G);
+		\draw[->] (F) -- node[lab,right] {$w\circ(\cdot)$} (H);
+		\draw[->,preaction={draw=white,line width=2.5pt}] (A) -- node[lab,above] {$(\cdot)\circ v$} (B);
+		\draw[->] (C) -- node[lab,below] {$(\cdot)\circ v$} (D);
+		\draw[->] (A) -- node[lab,left] {$w^\times\circ(\cdot)$} (C);
+		\draw[->,preaction={draw=white,line width=2.5pt}] (B) -- node[lab,left,pos=.72] {$w^\times\circ(\cdot)$} (D);
+		\draw[->] (A) -- node[lab,above left] {$\Phi_{H,R}$} (E);
+		\draw[->] (B) -- node[lab,above left] {$\Phi_{G,R}$} (F);
+		\draw[->] (C) -- node[lab,above left] {$\Phi_{H,S}$} (G);
+		\draw[->] (D) -- node[lab,above left] {$\Phi_{G,S}$} (H);
+	\end{tikzpicture}
+	\end{center}
+	其中, 水平方向的箭头为预复合 $v$ 或 $\Z[v]$, 竖直方向的箭头为后复合 $w^\times$ 或 $w$.
+
+	对于面 (i), 任取 $\rho \in \Hom_{\mathbf{Grp}}(H, R^\times)$, 对于任意的 $g \in G$, 有
+	\begin{align*}
+		(\Phi_{H, R}(\rho) \circ \Z[v])([g])
+		&= \Phi_{H, R}(\rho)([v(g)]) \\
+		&= \rho(v(g)) = \Phi_{G, R}(\rho \circ v)([g]).
+	\end{align*}
+	再结合基元生成 $\Z[G]$, 知 $\Phi_{H, R}(\rho) \circ \Z[v] = \Phi_{G, R}(\rho \circ v)$.
+
+	对于面 (ii), 任取 $\rho \in \Hom_{\mathbf{Grp}}(G, R^\times)$, 对于任意的 $g \in G$, 有
+	\begin{align*}
+		(w \circ \Phi_{G, R}(\rho))([g])
+		&= w(\rho(g)) = (w^\times \circ \rho)(g) \\
+		&= \Phi_{G, S}(w^\times \circ \rho)([g]).
+	\end{align*}
+	同理, 知 $w \circ \Phi_{G, R}(\rho) = \Phi_{G, S}(w^\times \circ \rho)$. 因此
+	\begin{gather*}
+		\widetilde{\rho \circ v} = \widetilde{\rho} \circ \Z[v], \\
+		\widetilde{w^\times \circ \rho} = w \circ \widetilde{\rho}.
+	\end{gather*}
+	这正是第 (d) 问的双射关于两个变量的自然性.
+
+	\paragraph{(f)} 对于 $f_1 = \sum_g a_g[g]$, $f_2 = \sum_g b_g[g]$, 有
+	\begin{gather*}
+		\varepsilon_G(f_1 + f_2) = \sum_g(a_g + b_g)
+		= \varepsilon_G(f_1) + \varepsilon_G(f_2), \\
+		\varepsilon_G(f_1f_2) = \sum_{g,h}a_gb_h
+		= \left(\sum_g a_g\right)\left(\sum_h b_h\right)
+		= \varepsilon_G(f_1)\varepsilon_G(f_2).
+	\end{gather*}
+	并且 $\varepsilon_G([e]) = 1$. 因此 $\varepsilon_G$ 是含幺环同态. 对于任意的 $n \in \Z$, 有 $\varepsilon_G(n[e]) = n$, 因此它是满射.
+
+	任取 $f = \sum_g a_g[g] \in \ker\varepsilon_G$, 则 $\sum_g a_g = 0$, 因此
+	\[ \sum_g a_g([g] - [e]) = \sum_g a_g[g] - \left(\sum_g a_g\right)[e] = f. \]
+	故 $\ker\varepsilon_G \subseteq \braket{[g] - [e]: g \in G}$. 反之, 对于任意的 $g \in G$, 有 $\varepsilon_G([g] - [e]) = 0$, 因此 $\braket{[g] - [e]: g \in G} \subseteq \ker\varepsilon_G$. 综上,
+	\[ \ker\varepsilon_G = \braket{[g] - [e]: g \in G}. \]
+
+	\paragraph{(g)} 设群作用为 $\rho: G \to \Aut_{\mathbf{Ab}}(M)$. 由于
+	\[ \Aut_{\mathbf{Ab}}(M) = \bigl(\End_{\mathbf{Ab}}(M)\bigr)^\times, \]
+	由第 (d) 问, 存在唯一的含幺环同态 $\widetilde{\rho}: \Z[G] \to \End_{\mathbf{Ab}}(M)$, 使得 $\widetilde{\rho}([g]) = \rho(g)$. 定义 $f \cdot m = \widetilde{\rho}(f)(m)$, 则对于 $f = \sum_g a_g[g]$, 有
+	\[ f \cdot m = \sum_g a_g\rho(g)(m). \]
+	由于 $\widetilde{\rho}$ 是含幺环同态, 且 $\End_{\mathbf{Ab}}(M)$ 中的乘法为复合, 因此对于任意的 $f_1, f_2 \in \Z[G]$, $m, m' \in M$, 有
+	\begin{gather*}
+		(f_1 + f_2)\cdot m = f_1\cdot m + f_2\cdot m,\quad
+		f_1\cdot(m + m') = f_1\cdot m + f_1\cdot m', \\
+		(f_1f_2)\cdot m = f_1\cdot(f_2\cdot m),\quad [e]\cdot m = m.
+	\end{gather*}
+	因此上述作用给出 $M$ 上的左 $\Z[G]$-模结构.
+
+	反之, 给定 $M$ 上的左 $\Z[G]$-模结构, 定义 $\rho(g)(m) = [g]\cdot m$. 由模的分配律, $\rho(g)$ 是群同态. 并且 $\rho(g)\rho(g^{-1}) = \rho(g^{-1})\rho(g) = \id_M$, 因此 $\rho(g) \in \Aut_{\mathbf{Ab}}(M)$. 再由
+	\[ \rho(gh)(m) = [gh]\cdot m = [g]\cdot([h]\cdot m) = \rho(g)(\rho(h)(m)), \]
+	以及 $\rho(e) = \id_M$, 知 $\rho$ 是群作用. 这两个构造在每个 $[g]$ 上互相恢复, 再结合群环元素均为基元的有限整数线性组合, 知它们互为逆构造.
+
+	最后考虑同态. 设两个群作用分别为 $\rho_1: G \to \Aut_{\mathbf{Ab}}(M)$, $\rho_2: G \to \Aut_{\mathbf{Ab}}(N)$, 并设 $\varphi: M \to N$ 是等变群同态, 即
+	\[ \varphi(\rho_1(g)(m)) = \rho_2(g)(\varphi(m)). \]
+	由于 $\varphi$ 是群同态, 因此它保持加法与整数倍. 对于任意的 $f = \sum_g a_g[g] \in \Z[G]$, 有
+	\begin{align*}
+		\varphi(f\cdot m)
+		&= \varphi\left(\sum_g a_g\rho_1(g)(m)\right)
+		= \sum_g a_g\varphi(\rho_1(g)(m)) \\
+		&= \sum_g a_g\rho_2(g)(\varphi(m))
+		= f\cdot\varphi(m).
+	\end{align*}
+	因此 $\varphi$ 是 $\Z[G]$-模同态. 反之, 若 $\varphi$ 是 $\Z[G]$-模同态, 则它是加法群同态, 且取 $f = [g]$ 就得到上述等变性. 因此两个群作用之间的等变群同态恰好是对应的 $\Z[G]$-模同态.
+\end{solution}
+
+
+
 \begin{problem}
 ``群环的商'' 指存在某个群 $G$ 及满的含幺环同态 $\Z[G]\twoheadrightarrow R$.
 \begin{enumerate}
@@ -137,6 +572,65 @@
   \item[(d)] ({\heiti 思考题}) 令 $\Z[t]$ 为整数系数多项式环, 求其全部单位. 证明它的加法群自由, 特征为零, 但它既不是整数群环, 也不是任何整数群环的商.
 \end{enumerate}
 \end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 若存在群 $G$ 使得 $\Z[G] \cong R$, 记同构映射为 $\varphi: \Z[G] \xrightarrow{\sim} R$. 取 $V = \{\varphi([g]): g \in G\}$. 
+	
+	首先, 由于 $[g][g^{-1}] = [1_G]$, 故 $\varphi([g]) \varphi([g^{-1}]) = 1_R$, 因此 $V \subset R^\times$. 并且 $1_R = \varphi([1_G]) \in V$, $\varphi([g])\varphi([h]) = \varphi([gh]) \in V$, 故 $V \le R^\times$. 其次, 由于 $\Z[G]$ 中的元素 $f$ 可以唯一表示为 $f = \sum_{g \in G}^{}f(g) [g]$, 因此 $R$ 中的元素 $r$ 可以唯一地表示为
+	\[ r = \varphi(\varphi^{-1}(r)) = \varphi \left( \sum_{g \in G}^{}(\varphi^{-1}(r))(g)[g] \right) = \sum_{g \in G}^{}(\varphi^{-1}(r))(g) \varphi([g]). \]
+	
+	反过来, 若存在子群 $V \le R^\times$ 为 $(R, +)$ 的一组 $\Z$-基, 则考虑 \[ \varphi: R \to \Z[V], \quad r = \sum_{v \in V}^{}r_v v \mapsto \sum_{v \in V}^{}r_v [v]. \]
+	由于 $V$ 是 $(R, +)$ 的一组 $\Z$-基, 故 $\varphi$ 是良定义的. 任取 $r = \sum_v a_vv$, $s = \sum_v b_vv$, 有
+	\begin{gather*}
+		\varphi(r + s) = \sum_v(a_v + b_v)[v] = \varphi(r) + \varphi(s), \\
+		\varphi(rs) = \sum_{v,w}a_vb_w[vw]
+		= \left(\sum_v a_v[v]\right)\left(\sum_w b_w[w]\right)
+		= \varphi(r)\varphi(s).
+	\end{gather*}
+	这里使用了 $V$ 对乘法封闭, 且所有求和均只有有限多个非零项. 并且 $1_R$ 是群 $V$ 的单位元, 因此 $\varphi(1_R) = [1_R] = 1_{\Z[V]}$. 故 $\varphi$ 是含幺环同态.
+
+	若 $\varphi(r) = \sum_v a_v[v] = 0$, 则由基元的线性无关性知所有 $a_v = 0$, 因此 $r = 0$, 故 $\varphi$ 是单射. 对于任意的 $\sum_v a_v[v] \in \Z[V]$, 取 $r = \sum_v a_vv \in R$, 就有 $\varphi(r) = \sum_v a_v[v]$, 因此 $\varphi$ 是满射. 综上, $\varphi$ 是环同构, 故 $R \cong \Z[V]$.
+
+	\paragraph{(b)} 事实上, $\Z[G]$ 中的元素为 $0$ 当且仅当其每一个分量均为 $0$, 而加法群 $(\Z, +)$ 没有非零有限阶元素, 因此前两个断言成立.
+
+	因此 $\F_p$ 不可能是整数群环. 但是 $\F_p$ 可以是整数群环的商: 考虑平凡群的整数群环 $\Z[\{e\}]$ 与商映射 $\Z[\{e\}] \to \F_p, n[e] \mapsto n \mod p$ 即可.
+
+	\paragraph{(c)} 记题目中的 4 个条件分别为 (i), (ii), (iii), (iv). 
+
+	先由第 4(d) 问, 将恒等群同态 $R^\times \to R^\times$ 延拓为含幺环同态 $\epsilon_R: \Z[R^\times] \to R$, 其公式为
+	\[ \epsilon_R\left(\sum_{u \in R^\times} a_u[u]\right) = \sum_{u \in R^\times} a_u u. \]
+
+	(i) $\implies$ (ii): 若 $R$ 是某个整数群环的商, 则存在群 $G$ 以及满的幺环同态 $\varphi: \Z[G] \to R$. 根据上一个题的结论, $\varphi$ 对应一个群同态 $\tilde{\varphi}: G \to R^\times$, 满足 $\varphi([g]) = \tilde{\varphi}(g)$. 对任意的 $r \in R$, 取 $f \in \Z[G]$, 使得 $\varphi(f) = r$. 由前面的结论, 知对于任意的 $g \in G$, 均有 $\varphi([g]) = \tilde{\varphi}(g) \in R^\times$, 因此有
+	\[ \tilde{f} := \sum_{g \in G}^{} f(g) [\tilde{\varphi}(g)] \in \Z[R^\times]. \]
+	因此
+	\[ \epsilon_R(\tilde{f}) 
+	= \sum_{g \in G}^{} f(g) \epsilon_R([\tilde{\varphi}(g)]) 
+	= \sum_{g \in G}^{} f(g) \tilde{\varphi}(g)
+	= \sum_{g \in G}^{} f(g) \varphi([g])
+	= \varphi\left( \sum_{g \in G}^{} f(g)[g] \right)
+	= \varphi(f) = r. \]
+	由此知 $\epsilon_R$ 是满射.
+
+	(ii) $\implies$ (i): 这是显然的. 
+
+	(iii) $\implies$ (iv): 这是显然的. (iv) $\implies$ (iii): 由于 $R^\times$ 关于乘法封闭 (任意两个单位相乘仍为单位), 因此 $R^\times$ 中元素的两个整数线性组合的乘积仍然是整数线性组合. 再结合 $1_R \in R^\times$, 知这些整数线性组合构成包含 $R^\times$ 的含幺子环. 根据 (iv), 此子环必为 $R$, 因此 $(R, +)$ 可由 $R^\times$ 生成.
+
+	(ii) $\implies$ (iii): 对于任意的 $r \in (R, +)$, 存在 $f \in \Z[R^\times]$ 使得 $\epsilon_R(f) = r$. 因此, 
+	\begin{align*}
+		r &= \epsilon_R(f) 
+		= \epsilon_R \left( \sum_{r' \in R^\times}^{} f(r')[r'] \right)
+		= \sum_{r' \in R^\times}^{} f(r') \epsilon_R([r'])
+		= \sum_{r' \in R^\times}^{} f(r') r' \in \braket{R^\times}.
+	\end{align*}
+
+	(iii) $\implies$ (ii): 只需要证明 $\epsilon_R$ 是满射即可. 事实上, 对于任意的 $r \in R$, 由于 $(R, +) = \braket{R^\times}$, 因此存在 $a_{r'} \in \Z$ ($r' \in R^\times$, 并且 $a_{r'} \neq 0$ 对有限多个 $r'$ 成立), 使得 $r = \sum_{r' \in R^\times}^{} a_{r'}r'$. 故
+	\[ f := \sum_{r' \in R^\times}^{} a_{r'}[r'] \in \Z[R^\times], \]
+	并且
+	\[ \epsilon_R(f) = \sum_{r' \in R^\times}^{} a_{r'} \epsilon_R([r']) = \sum_{r' \in R^\times}^{} a_{r'} r' = r. \]
+	因此 $\epsilon_R$ 为满射.
+\end{solution}
+
+
 
 \begin{problem}
 范畴 $\mathcal D$ 上的一个 \emph{monad} 是函子 $T:\mathcal D\to\mathcal D$, 连同自然变换 $\eta:\id_{\mathcal D}\Rightarrow T$, $\mu:T^2\Rightarrow T$, 满足
@@ -162,8 +656,125 @@
 \end{enumerate}
 \end{problem}
 
+\begin{solution}
+	题目中的 monad 公理可以表示为以下两个交换图:
+	\begin{center}
+	\begin{tikzpicture}[>=Latex,baseline=(current bounding box.center),every node/.style={inner sep=2pt}]
+		\node (A) at (0,0) {$T(A)$};
+		\node (B) at (3.8,0) {$T^2(A)$};
+		\node (C) at (0,-2.2) {$T^2(A)$};
+		\node (D) at (3.8,-2.2) {$T(A)$};
+		\draw[->] (A) -- node[above] {$T(\eta_A)$} (B);
+		\draw[->] (A) -- node[left] {$\eta_{T(A)}$} (C);
+		\draw[->] (B) -- node[right] {$\mu_A$} (D);
+		\draw[->] (C) -- node[below] {$\mu_A$} (D);
+		\draw[->] (A) -- node[above right,fill=white,inner sep=1pt] {$\id_{T(A)}$} (D);
+	\end{tikzpicture}
+	\qquad
+	\begin{tikzpicture}[>=Latex,baseline=(current bounding box.center),every node/.style={inner sep=2pt}]
+		\node (A) at (0,0) {$T^3(A)$};
+		\node (B) at (3.8,0) {$T^2(A)$};
+		\node (C) at (0,-2.2) {$T^2(A)$};
+		\node (D) at (3.8,-2.2) {$T(A)$};
+		\draw[->] (A) -- node[above] {$T(\mu_A)$} (B);
+		\draw[->] (A) -- node[left] {$\mu_{T(A)}$} (C);
+		\draw[->] (B) -- node[right] {$\mu_A$} (D);
+		\draw[->] (C) -- node[below] {$\mu_A$} (D);
+	\end{tikzpicture}
+	\end{center}
+
+	\paragraph{(a)} 对于任意的阿贝尔群 $A$, 定义 $\eta_A: A \to R \otimes A$, $a \mapsto 1_R \otimes a$. 由张量积的线性性, 显然 $\eta_A$ 是群同态. 另一方面, 三线性函数 $(r,s,a) \mapsto rs \otimes a$ 由第 1 题的结论唯一确定群同态
+	\[ \mu_A: R \otimes (R \otimes A) \to R \otimes A, \quad r \otimes (s \otimes a) \mapsto rs \otimes a. \]
+
+	先来验证 $\eta$ 的自然性. 对于任意的群同态 $f: A \to B$, 需要验证 $\eta_B \circ f = T(f) \circ \eta_A$. 事实上, 对于任意的 $a \in A$, 有
+	\begin{gather*}
+		(\eta_B \circ f)(a) = \eta_B(f(a)) = 1_R \otimes f(a), \\
+		(T(f) \circ \eta_A)(a) = (\id_R \otimes f)(1_R \otimes a) = 1_R \otimes f(a).
+	\end{gather*}
+	因此 $\eta: \id_{\mathbf{Ab}} \Rightarrow T$ 是自然变换.
+
+	再来验证 $\mu$ 的自然性, 即 $\mu_B \circ T^2(f) = T(f) \circ \mu_A$. 对于任意的 $r,s \in R$, $a \in A$, 有
+	\begin{gather*}
+		(\mu_B \circ T^2(f))(r \otimes (s \otimes a))
+		= \mu_B(r \otimes (s \otimes f(a))) = rs \otimes f(a), \\
+		(T(f) \circ \mu_A)(r \otimes (s \otimes a))
+		= T(f)(rs \otimes a) = rs \otimes f(a).
+	\end{gather*}
+	再结合这些纯张量生成 $T^2(A)$, 知所需等式成立, 因此 $\mu: T^2 \Rightarrow T$ 是自然变换.
+
+	\paragraph{(b)} 对于任意的 $r \in R$, $a \in A$, 有
+	\begin{gather*}
+		(\mu_A \circ T(\eta_A))(r \otimes a)
+		= \mu_A(r \otimes (1_R \otimes a))
+		= r1_R \otimes a = r \otimes a, \\
+		(\mu_A \circ \eta_{T(A)})(r \otimes a)
+		= \mu_A(1_R \otimes (r \otimes a))
+		= 1_Rr \otimes a = r \otimes a.
+	\end{gather*}
+	再结合纯张量生成 $T(A)$, 知 $\mu_A \circ T(\eta_A) = \id_{T(A)} = \mu_A \circ \eta_{T(A)}$. 这两个等式分别使用了环的右单位律和左单位律.
+
+	对于任意的 $r,s,t \in R$, $a \in A$, 有
+	\begin{gather*}
+		(\mu_A \circ T(\mu_A))(r \otimes (s \otimes (t \otimes a)))
+		= \mu_A(r \otimes (st \otimes a)) = r(st) \otimes a, \\
+		(\mu_A \circ \mu_{T(A)})(r \otimes (s \otimes (t \otimes a)))
+		= \mu_A(rs \otimes (t \otimes a)) = (rs)t \otimes a.
+	\end{gather*}
+	由环乘法的结合律, $r(st) = (rs)t$. 再结合这些纯张量生成 $T^3(A)$, 知 $\mu_A \circ T(\mu_A) = \mu_A \circ \mu_{T(A)}$. 因此 monad 的全部公理成立.
+
+	\paragraph{(c)} 给定一个 $T$-代数 $(A,h)$, 对于 $r \in R$, $a \in A$, 定义 $r \cdot a = h(r \otimes a)$. 先来验证它给出左 $R$-模结构. 由于 $h$ 是群同态, 对于任意的 $r,s \in R$, $a,a_1,a_2 \in A$, 有
+	\begin{gather*}
+		r \cdot (a_1 + a_2) = h(r \otimes (a_1 + a_2))
+		= h(r \otimes a_1) + h(r \otimes a_2)
+		= r \cdot a_1 + r \cdot a_2, \\
+		(r+s) \cdot a = h((r+s) \otimes a)
+		= h(r \otimes a) + h(s \otimes a)
+		= r \cdot a + s \cdot a.
+	\end{gather*}
+	由 $h \circ \eta_A = \id_A$, 有
+	\[ 1_R \cdot a = h(1_R \otimes a) = (h \circ \eta_A)(a) = a. \]
+	再由 $h \circ T(h) = h \circ \mu_A$, 有
+	\begin{align*}
+		r \cdot (s \cdot a)
+		&= h(r \otimes h(s \otimes a))
+		= (h \circ T(h))(r \otimes (s \otimes a)) \\
+		&= (h \circ \mu_A)(r \otimes (s \otimes a))
+		= h(rs \otimes a) = (rs) \cdot a.
+	\end{align*}
+	因此上述作用给出左 $R$-模结构.
+
+	反之, 给定左 $R$-模 $M$, 将其视为阿贝尔群. 由于标量作用 $(r,m) \mapsto r \cdot m$ 是双线性函数, 由张量积的泛性质, 存在唯一的群同态
+	\[ h: T(M) \to M, \quad r \otimes m \mapsto r \cdot m. \]
+	对于任意的 $m \in M$, 有
+	\[ (h \circ \eta_M)(m) = h(1_R \otimes m) = 1_R \cdot m = m. \]
+	对于任意的 $r,s \in R$, $m \in M$, 有
+	\begin{gather*}
+		(h \circ \mu_M)(r \otimes (s \otimes m))
+		= h(rs \otimes m) = (rs) \cdot m, \\
+		(h \circ T(h))(r \otimes (s \otimes m))
+		= h(r \otimes (s \cdot m)) = r \cdot (s \cdot m) = (rs) \cdot m.
+	\end{gather*}
+	再结合纯张量生成 $T^2(M)$, 知 $h \circ \mu_M = h \circ T(h)$. 因此 $(M,h)$ 是 $T$-代数. 这两个构造在每个 $r \otimes a$ 上互相恢复, 再结合纯张量生成整个张量积, 知它们互为逆构造.
+
+	\paragraph{(d)} 设 $(A,h)$ 与 $(A',h')$ 是两个 $T$-代数, $f: A \to A'$ 是它们之间的 $T$-代数态射, 即 $f \circ h = h' \circ T(f)$. 对于任意的 $r \in R$, $a \in A$, 有
+	\begin{align*}
+		f(r \cdot a)
+		&= f(h(r \otimes a))
+		= h'(T(f)(r \otimes a)) \\
+		&= h'(r \otimes f(a)) = r \cdot f(a).
+	\end{align*}
+	由于 $f$ 本来就是阿贝尔群同态, 因此它是 $R$-模同态. 反之, 若 $f$ 是对应的 $R$-模同态, 则
+	\[ (f \circ h)(r \otimes a) = f(r \cdot a)
+	= r \cdot f(a) = h'(r \otimes f(a))
+	= (h' \circ T(f))(r \otimes a). \]
+	再结合纯张量生成 $T(A)$, 知 $f \circ h = h' \circ T(f)$, 因此 $f$ 是 $T$-代数态射. 结合第 (c) 问的互逆构造, 且两边的态射对应保持恒等与复合, 知 $T$-代数范畴与 $R$-$\mathbf{Mod}$ 等价.
+\end{solution}
+
+
+
 \section*{思考题}
 \enlargethispage{\baselineskip}
+
 
 \begin{problem}
 设 $A$ 为阿贝尔群, $\mu:A\otimes A\to A$, $\eta:\Z\to A$ 为群同态. 采用第 1 题的 $\alpha,s$ 记号, 并记
