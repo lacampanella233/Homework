@@ -1,4 +1,76 @@
-def compare_assignments(previous, current):
+"""Shared data contracts for offline assignment management.
+
+Structures (str/int denote field types; ... denotes more items)::
+
+    assignment = {
+        "course_id": str,
+        "assignment_id": str,
+        "title": str,
+        "due_at": str,
+    }
+    snapshot = [assignment, ...]  # previous or current
+
+    course_mapping = {course_id: local_course, ...}  # str -> str
+    mapped_assignment = {**assignment, "local_course": str}
+
+    binding = {
+        "course_id": str,
+        "assignment_id": str,
+        "local_course": str,
+        "local_number": int,  # > 0; bool excluded
+    }
+    bindings = [binding, ...]
+    binding_index = {
+        (course_id, assignment_id): (local_course, local_number),
+    }
+
+Rules:
+    - Shown record fields are required; extra fields and empty lists are allowed.
+    - Snapshot key: (course_id, assignment_id), unique within each snapshot.
+    - Binding: platform key <-> (local_course, local_number), both unique.
+    - Local directory: <local_course>/<local_number>/.
+    - Inputs are preserved; field structure/types are checked in assignment_storage.
+    - Read-only input interfaces use Sequence/Mapping; results use list/dict.
+
+Results:
+    - compare_assignments -> (new, updated): complete current records, current order.
+      Updates compare title/due_at as strings; previous-only records are omitted.
+    - map_assignment_courses -> (mapped, unmapped): input order within each group;
+      mapped records are copies with local_course added.
+    - build_binding_index -> binding_index; duplicate keys/targets raise ValueError.
+    - add_assignment_binding -> new bindings list; same binding adds nothing,
+      conflicting bindings raise ValueError.
+
+Documented with AI assistance.
+"""
+
+
+from collections.abc import Mapping, Sequence
+from typing import TypedDict
+
+
+# AI-assisted type annotations; records remain ordinary dictionaries.
+class Assignment(TypedDict):
+    course_id: str
+    assignment_id: str
+    title: str
+    due_at: str
+
+
+class MappedAssignment(Assignment):
+    local_course: str
+
+
+class AssignmentBinding(TypedDict):
+    course_id: str
+    assignment_id: str
+    local_course: str
+    local_number: int
+
+
+def compare_assignments(
+    previous: Sequence[Assignment], current: Sequence[Assignment]
+) -> tuple[list[Assignment], list[Assignment]]:
     """Compare previous and current assignments, return new and updated assignments respectively."""
     pre_dict= {}
     new, updated= [], []
@@ -23,28 +95,45 @@ def compare_assignments(previous, current):
     return new, updated
 
 
-def map_assignment_courses(assignments, course_mapping):
+def map_assignment_courses(
+    assignments: Sequence[Assignment], course_mapping: Mapping[str, str]
+) -> tuple[list[MappedAssignment], list[Assignment]]:
     """Map course_id to local_course, return mapped and unmapped assignments respectively, add 'local_course' field for each mapped course."""
     mapped, unmapped = [], []
     for assignment in assignments:
         if assignment["course_id"] in course_mapping:
-            mapped_assignment = assignment.copy()
-            mapped_assignment["local_course"] = course_mapping[assignment["course_id"]]
+            mapped_assignment: MappedAssignment = {
+                **assignment,
+                "local_course": course_mapping[assignment["course_id"]],
+            }
             mapped.append(mapped_assignment)
         else:
             unmapped.append(assignment)
     return mapped, unmapped
 
 
-def build_binding_index(bindings):
-    """Build the binding dictionary from platform_id to local_id."""
+def build_binding_index(
+    bindings: Sequence[AssignmentBinding],
+) -> dict[tuple[str, str], tuple[str, int]]:
+    """Build the binding dictionary from platform_id to local_id, check wheather platform_id or local_id is repeated."""
     binded_dict = {}
     for bind in bindings:
-        binded_dict[(bind["course_id"], bind["assignment_id"])] = (bind["local_course"], bind["local_number"])
+        platform_id = (bind["course_id"], bind["assignment_id"])
+        local_id = (bind["local_course"], bind["local_number"])
+        if platform_id in binded_dict:
+            raise ValueError(f"Platform_id {platform_id} is repeated.")
+        elif local_id in binded_dict.values():
+            raise ValueError(f"Local_id {local_id} is repeated.")
+        else:
+            binded_dict[platform_id] = local_id
     return binded_dict
 
 
-def add_assignment_binding(bindings, assignment, local_number):
+def add_assignment_binding(
+    bindings: list[AssignmentBinding],
+    assignment: MappedAssignment,
+    local_number: int,
+) -> list[AssignmentBinding]:
     """Return a new list with the assignment binding added if needed, raising ValueError on conflicts."""
     binded_dict = build_binding_index(bindings)
     new_bindings = bindings[:]
@@ -57,7 +146,7 @@ def add_assignment_binding(bindings, assignment, local_number):
         if assignment_local_id in binded_dict.values():
             raise ValueError(f"Local assigment '{assignment_local_id}' has already been binded.")
         else:
-            new_binding = {
+            new_binding: AssignmentBinding = {
                 "course_id": assignment["course_id"],
                 "assignment_id": assignment["assignment_id"],
                 "local_course": assignment["local_course"],

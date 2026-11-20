@@ -12,6 +12,7 @@ ACTIONS = {
     'Status': 'status', 'NewCourse': 'new_course', 'NewHomework': 'new_homework',
     'Compile': 'compile', 'Sync': 'sync', 'Switch': 'switch',
     'Finish': 'finish', 'Open': 'open',
+    'CompareAssignments': 'compare_assignments'
 }
 
 
@@ -36,8 +37,11 @@ def main():
     parser.add_argument('--repo-path', type=Path, default=Path(__file__).resolve().parents[4])
     parser.add_argument('--apply', action='store_true')
     parser.add_argument('--open', action='store_true')
+    parser.add_argument('--previous', type=Path)
+    parser.add_argument('--current', type=Path)
+    parser.add_argument('--course-mapping', type=Path)
     args = parser.parse_args()
-    if args.action in ('Compile', 'Open', 'Status') and args.apply:
+    if args.action in ('Compile', 'Open', 'Status', 'CompareAssignments') and args.apply:
         parser.error(f'{args.action} does not accept --apply')
     try:
         repo = Repository(args.repo_path)

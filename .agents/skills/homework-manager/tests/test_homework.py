@@ -69,6 +69,168 @@ class HomeworkTests(unittest.TestCase):
         self.assertIn('next: 4', result.stdout)
         self.assertEqual(git(self.root, 'status', '--porcelain'), '')
 
+    def test_compare_assignments_reports_new_and_updated(self):
+        old_assignment = {
+            'course_id': 'course_1',
+            'assignment_id': 'assignment_1',
+            'title': '第一次作业',
+            'due_at': '2026-11-20 23:59',
+        }
+        updated_assignment = dict(old_assignment, due_at='2026-11-21 23:59')
+        new_assignment = {
+            'course_id': 'course_1',
+            'assignment_id': 'assignment_2',
+            'title': '第二次作业',
+            'due_at': '2026-11-22 23:59',
+        }
+        previous_path = self.base / 'previous.json'
+        current_path = self.base / 'current.json'
+        previous_path.write_text(
+            json.dumps([old_assignment], ensure_ascii=False), encoding='utf-8'
+        )
+        current_path.write_text(
+            json.dumps([updated_assignment, new_assignment], ensure_ascii=False),
+            encoding='utf-8',
+        )
+
+        result = self.ok(
+            'CompareAssignments',
+            '--previous', str(previous_path),
+            '--current', str(current_path),
+        )
+
+        expected_output = (
+            'New assignments (1)\n'
+            '  [course_1 / assignment_2] 第二次作业\n'
+            '    Due: 2026-11-22 23:59\n'
+            '\n'
+            'Updated assignments (1)\n'
+            '  [course_1 / assignment_1] 第一次作业\n'
+            '    Due: 2026-11-21 23:59\n'
+        )
+        self.assertEqual(result.stdout, expected_output)
+        self.assertEqual(result.stderr, '')
+
+    def test_compare_assignments_requires_previous(self):
+        current_path = self.base / 'current.json'
+        current_path.write_text('[]', encoding='utf-8')
+
+        result = self.cli('CompareAssignments', '--current', str(current_path))
+
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout, '')
+        self.assertIn('CompareAssignments requires --previous.', result.stderr)
+
+    def test_compare_assignments_requires_current(self):
+        previous_path = self.base / 'previous.json'
+        previous_path.write_text('[]', encoding='utf-8')
+
+        result = self.cli('CompareAssignments', '--previous', str(previous_path))
+
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout, '')
+        self.assertIn('CompareAssignments requires --current.', result.stderr)
+
+    def test_compare_assignments_mapping_preserves_order_and_inputs(self):
+        old_mapped = dict(course_id='course_1', assignment_id='old',
+                          title='已映射作业', due_at='2026-11-20')
+        old_unmapped = dict(old_mapped, course_id='course_2', title='未映射作业')
+        updated_mapped = dict(old_mapped, due_at='2026-11-21')
+        updated_unmapped = dict(old_unmapped, due_at='2026-11-21')
+        new_mapped = dict(old_mapped, assignment_id='new', title='新增已映射')
+        new_unmapped = dict(old_unmapped, assignment_id='new', title='新增未映射')
+        previous_path = self.base / 'previous.json'
+        current_path = self.base / 'current.json'
+        mapping_path = self.base / '课程 mapping.json'
+        inputs = (
+            (previous_path, [old_mapped, old_unmapped]),
+            (current_path, [new_unmapped, new_mapped, updated_unmapped, updated_mapped]),
+            (mapping_path, {'course_1': '代数课程'}),
+        )
+        for path, data in inputs:
+            path.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+        original_contents = {path: path.read_bytes() for path, _ in inputs}
+        original_refs = git(self.root, 'show-ref')
+
+        result = self.ok(
+            'CompareAssignments', '--previous', str(previous_path),
+            '--current', str(current_path),
+            '--course-mapping', mapping_path.name,
+        )
+
+        expected_output = (
+            'New assignments (2)\n'
+            '  [course_2 / new] 新增未映射\n'
+            '    Local course: (unmapped)\n'
+            '    Due: 2026-11-20\n'
+            '  [course_1 / new] 新增已映射\n'
+            '    Local course: 代数课程\n'
+            '    Due: 2026-11-20\n'
+            '\n'
+            'Updated assignments (2)\n'
+            '  [course_2 / old] 未映射作业\n'
+            '    Local course: (unmapped)\n'
+            '    Due: 2026-11-21\n'
+            '  [course_1 / old] 已映射作业\n'
+            '    Local course: 代数课程\n'
+            '    Due: 2026-11-21\n'
+        )
+        self.assertEqual(result.stdout, expected_output)
+        self.assertEqual(result.stderr, '')
+        for path, contents in original_contents.items():
+            self.assertEqual(path.read_bytes(), contents)
+        self.assertEqual(git(self.root, 'show-ref'), original_refs)
+        self.assertEqual(git(self.root, 'status', '--porcelain'), '')
+
+    def test_compare_assignments_empty_mapping_keeps_assignments(self):
+        previous_path = self.base / 'previous.json'
+        current_path = self.base / 'current.json'
+        mapping_path = self.base / 'courses.json'
+        assignment = dict(course_id='course_1', assignment_id='assignment_1',
+                          title='作业', due_at='2026-11-20')
+        previous_path.write_text('[]', encoding='utf-8')
+        current_path.write_text(json.dumps([assignment]), encoding='utf-8')
+        mapping_path.write_text('{}', encoding='utf-8')
+
+        result = self.ok(
+            'CompareAssignments', '--previous', str(previous_path),
+            '--current', str(current_path), '--course-mapping', str(mapping_path),
+        )
+
+        self.assertIn('New assignments (1)', result.stdout)
+        self.assertIn('[course_1 / assignment_1] 作业', result.stdout)
+        self.assertIn('    Local course: (unmapped)\n', result.stdout)
+        self.assertEqual(result.stderr, '')
+
+    def test_compare_assignments_reports_mapping_file_errors(self):
+        previous_path = self.base / 'previous.json'
+        current_path = self.base / 'current.json'
+        mapping_path = self.base / 'courses.json'
+        previous_path.write_text('[]', encoding='utf-8')
+        current_path.write_text('[]', encoding='utf-8')
+        cases = (
+            ('missing file', None, mapping_path.name),
+            ('invalid JSON', '{', 'ERROR:'),
+            ('wrong structure', '[]', 'dictionary'),
+            ('wrong value type', '{"course_1": 1}', 'course_1'),
+        )
+        for name, contents, expected_error in cases:
+            with self.subTest(case=name):
+                if contents is None:
+                    mapping_path.unlink(missing_ok=True)
+                else:
+                    mapping_path.write_text(contents, encoding='utf-8')
+                result = self.cli(
+                    'CompareAssignments', '--previous', str(previous_path),
+                    '--current', str(current_path),
+                    '--course-mapping', str(mapping_path),
+                )
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, '')
+                self.assertIn('ERROR:', result.stderr)
+                self.assertIn(expected_error, result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+
     def test_course_defaults_and_explicit_overrides(self):
         config = {'courses': {
             self.course: {'semester': '2026 秋季', 'defaultLanguage': 'zh'},

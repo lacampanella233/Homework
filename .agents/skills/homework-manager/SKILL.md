@@ -1,6 +1,6 @@
 ---
 name: homework-manager
-description: "Manage this Homework Git and LaTeX repository on macOS: inspect status, create or compile homework, sync assignments, switch branches, finish and merge assignments, or open related tools. Use for repository management and assignment compilation, not for solving or editing assignment content."
+description: "Manage this Homework Git and LaTeX repository on macOS: inspect status, compare local assignment snapshots, create or compile homework, sync assignments, switch branches, finish and merge assignments, or open related tools. Use for repository management and assignment compilation, not for solving or editing assignment content."
 ---
 
 # Homework Manager
@@ -24,6 +24,7 @@ Root `homework.config.json` supplies per-course defaults under `courses`, keyed 
 - `NewCourse --course <name>`: create a course on updated `main`, commit its `.gitkeep`, and push `main`.
 - `NewHomework --course <name> [--number <n>] [--semester <term>] [--language auto|zh|en] [--display-course <name>]`: create `<course>-HW<n>`, copy root `homework.sty`, create `<n>.tex` and an assignment `.gitignore` allowing only `<n>.pdf`, commit the assignment directory, and push the branch. The next number is the maximum numeric directory plus one. Use `--open` only when opening VS Code was requested.
 - `Compile [--course <name>] [--number <n>]`: immediately run `latexmk -xelatex` in the assignment directory, preserve logs, and return the compiler exit code. It does not accept `--apply`. macOS supports Chinese paths directly; no drive mapping is used.
+- `CompareAssignments --previous <path> --current <path> [--course-mapping <path>]`: read two local UTF-8 JSON snapshots and print new/updated assignment counts, course and assignment IDs, titles, and deadlines. Both snapshot paths are required; all relative paths resolve from the terminal working directory. The optional course mapping adds a `Local course` line to each result, showing `(unmapped)` when its course ID is absent from the mapping; counts and result order are preserved. Read-only; does not accept `--apply`. See [assignment_data.py](scripts/assignment_data.py) for record formats and comparison rules. This Action documentation was added with AI assistance.
 - `Sync`: stage only the matching assignment directory, commit only when needed, and push the homework branch. Refuse existing staged changes. `--course` and `--number` can identify a directory, but must match the current homework branch.
 - `Switch --branch <name>`: switch a clean worktree to an existing branch and pull with `--ff-only`, including when already on that branch.
 - `Finish`: push the clean current homework branch, merge into updated `main`, push `main`, then safely clean up the remote and local homework branch.
@@ -32,6 +33,7 @@ Root `homework.config.json` supplies per-course defaults under `courses`, keyed 
 Mutating actions default to preview. Inspect the exact paths and branches, then add `--apply` only when the request authorizes the action and its remote effects. A status, audit or plan request does not authorize applying it. For `Finish`, require explicit authorization to finish/merge the named or current homework branch. Re-run `Status` between state-changing actions.
 
 ```sh
+python3 .agents/skills/homework-manager/scripts/homework.py CompareAssignments --previous previous.json --current current.json --course-mapping courses.json
 python3 .agents/skills/homework-manager/scripts/homework.py NewHomework --course Analysis-1
 python3 .agents/skills/homework-manager/scripts/homework.py NewHomework --course Analysis-1 --apply
 python3 .agents/skills/homework-manager/scripts/homework.py Compile --course Algebra-1 --number 2
