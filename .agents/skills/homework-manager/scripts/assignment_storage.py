@@ -9,12 +9,13 @@ then replaces the destination and cleans up the temporary file on failure.
 
 import json
 from pathlib import Path
-from assignment_data import Assignment, AssignmentBinding, build_binding_index
+from shutil import copyfile
+from assignment_data import build_binding_index, validate_assignment_ids
 from tempfile import NamedTemporaryFile
 from typing import Union
 
 
-def load_assignments(path: Union[str, Path]) -> list[Assignment]:
+def load_assignments(path):
     "Load assignments json file from path."
     text = Path(path).read_text(encoding = "utf-8")
     data = json.loads(text)
@@ -29,6 +30,7 @@ def load_assignments(path: Union[str, Path]) -> list[Assignment]:
                 raise ValueError(f"Assignment at index {index} is missing required field '{field}'.")
             elif not isinstance(assignment[field], str):
                 raise ValueError(f"Assignment at index {index} field '{field}' must be a string.")
+    validate_assignment_ids(data)
     return data
 
 
@@ -45,7 +47,7 @@ def load_course_mapping(path: Union[str, Path]) -> dict[str, str]:
     return data
 
 
-def _validate_binding_fields(bindings: object) -> None:
+def _validate_binding_fields(bindings):
     """Validate binding structure and field values, raising ValueError for invalid data."""
     if not isinstance(bindings, list):
         raise ValueError("Assignment binding must be a list.")
@@ -63,7 +65,7 @@ def _validate_binding_fields(bindings: object) -> None:
                 raise ValueError(f"Binding at index {index} field '{field}' must be a string.")
 
 
-def load_bindings(path: Union[str, Path]) -> list[AssignmentBinding]:
+def load_bindings(path):
     text = Path(path).read_text(encoding="utf-8")
     data = json.loads(text)
 
@@ -72,9 +74,7 @@ def load_bindings(path: Union[str, Path]) -> list[AssignmentBinding]:
     return data
 
 
-def save_bindings(
-    path: Union[str, Path], bindings: list[AssignmentBinding]
-) -> None:
+def save_bindings(path, bindings):
     """Save validated bindings via a temporary file and clean it up on failure."""
     path = Path(path)
     _validate_binding_fields(bindings)
@@ -90,3 +90,12 @@ def save_bindings(
     finally:
         if temp_path is not None:
             temp_path.unlink(missing_ok=True)
+
+
+# AI-assisted implementation.
+def backup_bindings(path: Union[str, Path]) -> Path:
+    """Copy bindings to a fixed .bak file, overwriting the previous backup."""
+    path = Path(path)
+    backup_path = path.with_name(path.name + ".bak")
+    copyfile(path, backup_path)
+    return backup_path

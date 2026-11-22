@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 import json
 import tempfile
+from shutil import copyfile
 from unittest.mock import patch
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
@@ -13,6 +14,7 @@ from assignment_storage import (
     load_course_mapping,
     load_bindings,
     save_bindings,
+    backup_bindings,
 )
 from assignment_data import compare_assignments
 
@@ -356,3 +358,68 @@ class SaveBindingsTests(unittest.TestCase):
         self.assertIs(raised.exception, failure)
         self.assertEqual(self.path.read_bytes(), self.original_contents)
         self.assertEqual(set(self.path.parent.iterdir()), {self.path})
+
+
+# AI-assisted tests for a single rolling binding backup.
+class BackupBindingsTests(unittest.TestCase):
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.path = Path(directory.name) / "课程 bindings.json"
+        self.backup_path = self.path.with_name(self.path.name + ".bak")
+
+    def test_copy_exact_bytes_without_parsing_json(self):
+        contents = b"not JSON\r\n\x00\xff"
+        self.path.write_bytes(contents)
+
+        for path in (self.path, str(self.path)):
+            with self.subTest(path=path):
+                self.assertEqual(backup_bindings(path), self.backup_path)
+                self.assertEqual(self.backup_path.read_bytes(), contents)
+                self.assertEqual(self.path.read_bytes(), contents)
+
+    def test_repeated_backup_replaces_previous_version(self):
+        self.path.write_bytes(b"first version")
+        backup_bindings(self.path)
+        self.path.write_bytes(b"second version")
+
+        self.assertEqual(backup_bindings(self.path), self.backup_path)
+
+        self.assertEqual(self.backup_path.read_bytes(), b"second version")
+        self.assertEqual(self.path.read_bytes(), b"second version")
+        self.assertEqual(set(self.path.parent.iterdir()), {self.path, self.backup_path})
+
+    def test_missing_source_raises_without_creating_backup(self):
+        with self.assertRaises(FileNotFoundError):
+            backup_bindings(self.path)
+
+        self.assertEqual(list(self.path.parent.iterdir()), [])
+
+    def test_copy_failure_propagates_and_preserves_source(self):
+        contents = b"[]\n"
+        self.path.write_bytes(contents)
+        self.backup_path.mkdir()
+
+        with self.assertRaises(IsADirectoryError):
+            backup_bindings(self.path)
+
+        self.assertEqual(self.path.read_bytes(), contents)
+        self.assertTrue(self.backup_path.is_dir())
+
+    def test_restore_previous_bindings_from_backup(self):
+        binding = {
+            "course_id": "course_1",
+            "assignment_id": "assignment_1",
+            "local_course": "分析课程",
+            "local_number": 7,
+        }
+        contents = (json.dumps([binding], ensure_ascii=False, indent=4) + "\n").encode("utf-8")
+        self.path.write_bytes(contents)
+        backup_path = backup_bindings(self.path)
+        save_bindings(self.path, [])
+        self.assertEqual(load_bindings(self.path), [])
+
+        copyfile(backup_path, self.path)
+
+        self.assertEqual(self.path.read_bytes(), contents)
+        self.assertEqual(load_bindings(self.path), [binding])

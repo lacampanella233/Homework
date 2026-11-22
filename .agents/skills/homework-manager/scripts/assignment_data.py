@@ -27,10 +27,15 @@ Structures (str/int denote field types; ... denotes more items)::
 Rules:
     - Shown record fields are required; extra fields and empty lists are allowed.
     - Snapshot key: (course_id, assignment_id), unique within each snapshot.
+    - Course mappings suggest defaults; mapped records do not confirm bindings.
+    - Bindings record confirmed targets, which take precedence over defaults.
     - Binding: platform key <-> (local_course, local_number), both unique.
     - Local directory: <local_course>/<local_number>/.
     - Inputs are preserved; field structure/types are checked in assignment_storage.
     - Read-only input interfaces use Sequence/Mapping; results use list/dict.
+
+AUTOMATION_PLAN.md defines lookup and persistence policy; helpers do not
+orchestrate that workflow.
 
 Results:
     - compare_assignments -> (new, updated): complete current records, current order.
@@ -68,23 +73,24 @@ class AssignmentBinding(TypedDict):
     local_number: int
 
 
+def validate_assignment_ids(assignments: Sequence[Assignment]) -> None:
+    """Check assignment identity uniqueness, raising ValueError on duplicates."""
+    platform_ids = set()
+    for platform_id in [(assignment["course_id"], assignment["assignment_id"]) for assignment in assignments]:
+        if platform_id in platform_ids:
+            raise ValueError(f"Repeated assignment identity: {platform_id}")
+        else:
+            platform_ids.add(platform_id)
+
+
 def compare_assignments(
     previous: Sequence[Assignment], current: Sequence[Assignment]
 ) -> tuple[list[Assignment], list[Assignment]]:
     """Compare previous and current assignments, return new and updated assignments respectively."""
     pre_dict= {}
     new, updated= [], []
-    pre_ids, cur_ids = set(), set()
-    for pre_id in [(pre_assignment["course_id"], pre_assignment["assignment_id"]) for pre_assignment in previous]:
-        if pre_id in pre_ids:
-            raise ValueError(f"Repeated assigment id in previous: {pre_id}")
-        else:
-            pre_ids.add(pre_id)
-    for cur_id in [(cur_assignment["course_id"], cur_assignment["assignment_id"]) for cur_assignment in current]:
-        if cur_id in cur_ids:
-            raise ValueError(f"Repeated assigment id in current: {cur_id}")
-        else:
-            cur_ids.add(cur_id)
+    validate_assignment_ids(previous)
+    validate_assignment_ids(current)
     for pre_assignment in previous:
         pre_dict[(pre_assignment["course_id"], pre_assignment["assignment_id"])] = (pre_assignment["title"], pre_assignment["due_at"])
     for cur_assignment in current:

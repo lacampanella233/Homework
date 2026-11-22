@@ -15,6 +15,8 @@ sys.dont_write_bytecode = True
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
 from common import HomeworkError, Repository, open_target
+from argparse import Namespace
+from actions.bind_assignment import run as bind_assignment
 ENTRY = SCRIPTS / 'homework.py'
 
 
@@ -60,6 +62,11 @@ class HomeworkTests(unittest.TestCase):
         result = self.cli(*args)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         return result
+
+    def write_json(self, name, data):
+        path = self.base / name
+        path.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+        return path
 
     def branch(self):
         git(self.root, 'switch', '-c', self.course + '-HW3')
@@ -230,6 +237,470 @@ class HomeworkTests(unittest.TestCase):
                 self.assertIn('ERROR:', result.stderr)
                 self.assertIn(expected_error, result.stderr)
                 self.assertNotIn('Traceback', result.stderr)
+
+    def test_compare_assignments_bindings_preserve_order_and_inputs(self):
+        old_bound = dict(course_id='course_1', assignment_id='old',
+                         title='更新已绑定', due_at='2026-11-20')
+        old_unbound = dict(old_bound, course_id='course_2', title='更新未绑定')
+        new_bound = dict(old_bound, assignment_id='new', title='新增已绑定')
+        new_unbound = dict(old_unbound, assignment_id='new', title='新增未绑定')
+        previous = self.write_json('previous.json', [old_bound, old_unbound])
+        current = self.write_json('current.json', [
+            new_unbound, new_bound,
+            dict(old_unbound, due_at='2026-11-21'),
+            dict(old_bound, due_at='2026-11-21'),
+        ])
+        bindings = self.write_json('作业 bindings.json', [
+            dict(course_id='course_1', assignment_id='new',
+                 local_course='Algebra-1', local_number=7),
+            dict(course_id='course_1', assignment_id='old',
+                 local_course='Algebra-1', local_number=6),
+        ])
+        originals = {path: path.read_bytes() for path in (previous, current, bindings)}
+        original_refs = git(self.root, 'show-ref')
+        original_status = git(self.root, 'status', '--porcelain')
+
+        result = self.ok(
+            'CompareAssignments', '--previous', str(previous),
+            '--current', str(current), '--bindings', bindings.name,
+        )
+
+        expected_output = (
+            'New assignments (2)\n'
+            '  [course_2 / new] 新增未绑定\n'
+            '    Local assignment: (unbound)\n'
+            '    Due: 2026-11-20\n'
+            '  [course_1 / new] 新增已绑定\n'
+            '    Local assignment: Algebra-1/7\n'
+            '    Due: 2026-11-20\n'
+            '\n'
+            'Updated assignments (2)\n'
+            '  [course_2 / old] 更新未绑定\n'
+            '    Local assignment: (unbound)\n'
+            '    Due: 2026-11-21\n'
+            '  [course_1 / old] 更新已绑定\n'
+            '    Local assignment: Algebra-1/6\n'
+            '    Due: 2026-11-21\n'
+        )
+        self.assertEqual(result.stdout, expected_output)
+        self.assertEqual(result.stderr, '')
+        for path, contents in originals.items():
+            self.assertEqual(path.read_bytes(), contents)
+        self.assertEqual(git(self.root, 'show-ref'), original_refs)
+        self.assertEqual(git(self.root, 'status', '--porcelain'), original_status)
+
+    def test_compare_assignments_empty_bindings_keep_assignments(self):
+        assignment = dict(course_id='course_1', assignment_id='hw_1',
+                          title='作业', due_at='2026-11-20')
+        previous = self.write_json('previous.json', [])
+        current = self.write_json('current.json', [assignment])
+        bindings = self.write_json('bindings.json', [])
+        mapping = self.write_json('courses.json', {'course_1': 'Algebra-1'})
+
+        result = self.ok(
+            'CompareAssignments', '--previous', str(previous),
+            '--current', str(current), '--bindings', str(bindings),
+            '--course-mapping', str(mapping),
+        )
+
+        self.assertIn('New assignments (1)', result.stdout)
+        self.assertIn('[course_1 / hw_1] 作业', result.stdout)
+        self.assertIn('Local course: Algebra-1\n    Local assignment: (unbound)\n',
+                      result.stdout)
+        self.assertEqual(result.stderr, '')
+
+    def test_compare_assignments_warns_without_changing_bindings(self):
+        new = dict(course_id='course_1', assignment_id='new',
+                   title='新增作业', due_at='2026-11-21')
+        old = dict(new, course_id='course_2', assignment_id='old', title='更新作业')
+        unchanged = dict(new, course_id='course_3', assignment_id='unchanged')
+        previous = self.write_json('previous.json', [old, unchanged])
+        current = self.write_json('current.json', [
+            new, dict(old, due_at='2026-11-22'), unchanged,
+        ])
+        bindings = self.write_json('bindings.json', [
+            dict(course_id='course_1', assignment_id='new',
+                 local_course='Algebra-1', local_number=7),
+            dict(course_id='course_2', assignment_id='old',
+                 local_course='Physics-1', local_number=6),
+            dict(course_id='course_3', assignment_id='unchanged',
+                 local_course='Unchanged bound course', local_number=1),
+        ])
+        mapping = self.write_json('courses.json', {
+            'course_1': 'Analysis-1', 'course_2': 'Analysis-0',
+            'course_3': 'Unchanged default course',
+        })
+        originals = {p: p.read_bytes() for p in (previous, current, bindings, mapping)}
+
+        result = self.ok(
+            'CompareAssignments', '--previous', str(previous),
+            '--current', str(current), '--bindings', str(bindings),
+            '--course-mapping', str(mapping),
+        )
+
+        warnings = result.stderr.splitlines()
+        self.assertEqual(len(warnings), 2)
+        for line, identity, default, bound in (
+            (warnings[0], '[course_1 / new]', 'Analysis-1', 'Algebra-1'),
+            (warnings[1], '[course_2 / old]', 'Analysis-0', 'Physics-1'),
+        ):
+            self.assertTrue(line.startswith('WARNING:'))
+            for field in (identity, default, bound):
+                self.assertIn(field, line)
+        self.assertIn('New assignments (1)', result.stdout)
+        self.assertIn('Updated assignments (1)', result.stdout)
+        self.assertIn('Local course: Analysis-1\n    Local assignment: Algebra-1/7\n',
+                      result.stdout)
+        self.assertIn('Local course: Analysis-0\n    Local assignment: Physics-1/6\n',
+                      result.stdout)
+        self.assertNotIn('WARNING:', result.stdout)
+        for path, contents in originals.items():
+            self.assertEqual(path.read_bytes(), contents)
+
+    def test_compare_assignments_does_not_warn_without_relevant_difference(self):
+        assignment = dict(course_id='course_1', assignment_id='hw_1',
+                          title='作业', due_at='2026-11-20')
+        binding = dict(course_id='course_1', assignment_id='hw_1',
+                       local_course='Algebra-1', local_number=7)
+        different_default = {'course_1': 'Analysis-1'}
+        cases = (
+            ('same course', [], [assignment], {'course_1': 'Algebra-1'}, [binding], True, True),
+            ('missing default', [], [assignment], {}, [binding], True, True),
+            ('unbound', [], [assignment], different_default, [], True, True),
+            ('unchanged', [assignment], [assignment], different_default, [binding], True, True),
+            ('absent from current', [assignment], [], different_default, [binding], True, True),
+            ('only mapping', [], [assignment], different_default, [binding], True, False),
+            ('only bindings', [], [assignment], different_default, [binding], False, True),
+        )
+        for name, old, new, defaults, records, use_mapping, use_bindings in cases:
+            with self.subTest(case=name):
+                previous = self.write_json('previous.json', old)
+                current = self.write_json('current.json', new)
+                mapping = self.write_json('courses.json', defaults)
+                bindings = self.write_json('bindings.json', records)
+                args = ['CompareAssignments', '--previous', str(previous),
+                        '--current', str(current)]
+                if use_mapping:
+                    args += ['--course-mapping', str(mapping)]
+                if use_bindings:
+                    args += ['--bindings', str(bindings)]
+
+                result = self.ok(*args)
+
+                self.assertEqual(result.stderr, '')
+                if not use_bindings:
+                    self.assertNotIn('Local assignment:', result.stdout)
+                if use_bindings and name in ('same course', 'missing default', 'only bindings'):
+                    self.assertIn('Local assignment: Algebra-1/7', result.stdout)
+
+    def test_compare_assignments_reports_binding_file_errors_before_output(self):
+        assignment = dict(course_id='course_1', assignment_id='hw_1',
+                          title='作业', due_at='2026-11-20')
+        binding = dict(course_id='course_1', assignment_id='hw_1',
+                       local_course='Algebra-1', local_number=7)
+        previous = self.write_json('previous.json', [])
+        bindings = self.base / 'bindings.json'
+        cases = (
+            ('missing file', None),
+            ('invalid JSON', '['),
+            ('wrong container', '{}'),
+            ('wrong record', '[1]'),
+            ('missing field', json.dumps([{'course_id': 'course_1'}])),
+            ('invalid number', json.dumps([dict(binding, local_number=True)])),
+            ('duplicate identity', json.dumps([binding, binding])),
+            ('duplicate target', json.dumps([binding, dict(binding, assignment_id='hw_2')])),
+        )
+        for current_records in ([], [assignment]):
+            current = self.write_json('current.json', current_records)
+            for name, contents in cases:
+                with self.subTest(case=name, has_results=bool(current_records)):
+                    if contents is None:
+                        bindings.unlink(missing_ok=True)
+                    else:
+                        bindings.write_text(contents, encoding='utf-8')
+                    result = self.cli(
+                        'CompareAssignments', '--previous', str(previous),
+                        '--current', str(current), '--bindings', str(bindings),
+                    )
+                    self.assertEqual(result.returncode, 1)
+                    self.assertEqual(result.stdout, '')
+                    self.assertIn('ERROR:', result.stderr)
+                    self.assertNotIn('Traceback', result.stderr)
+                    if contents is None:
+                        self.assertFalse(bindings.exists())
+                    else:
+                        self.assertEqual(bindings.read_text(encoding='utf-8'), contents)
+
+    def test_compare_assignments_rejects_apply_with_bindings(self):
+        result = self.cli(
+            'CompareAssignments', '--previous', str(self.base / 'previous.json'),
+            '--current', str(self.base / 'current.json'),
+            '--bindings', str(self.base / 'bindings.json'), '--apply',
+        )
+
+        self.assertEqual(result.returncode, 2)
+        self.assertEqual(result.stdout, '')
+        self.assertIn('does not accept --apply', result.stderr)
+
+    def test_bind_assignment_preview_preserves_files_and_refs(self):
+        assignment = dict(course_id='course_1', assignment_id='hw_1',
+                          title='待绑定作业', due_at='2026-11-20')
+        binding = dict(course_id='course_1', assignment_id='hw_1',
+                       local_course=self.course, local_number=3)
+        snapshot = self.write_json('作业 snapshot.json', [assignment])
+        source = self.root / self.course / '3/3.tex'
+        refs = git(self.root, 'show-ref')
+        status = git(self.root, 'status', '--porcelain')
+        for records, operation in (([], 'add binding'), ([binding], 'none')):
+            with self.subTest(operation=operation):
+                bindings = self.write_json('bindings.json', records)
+                originals = {p: p.read_bytes() for p in (snapshot, bindings, source)}
+                contents = set(self.base.iterdir())
+
+                result = self.ok(
+                    'BindAssignment', '--current', str(snapshot),
+                    '--course-id', 'course_1', '--assignment-id', 'hw_1',
+                    '--course', self.course, '--number', '3',
+                    '--bindings', str(bindings),
+                )
+
+                for field in ('course_1 / hw_1', assignment['title'],
+                              str(source.parent), str(bindings), f'Operation: {operation}'):
+                    self.assertIn(field, result.stdout)
+                self.assertIn('Preview only', result.stdout)
+                self.assertNotIn('add --apply', result.stdout)
+                self.assertEqual(result.stderr, '')
+                for path, original in originals.items():
+                    self.assertEqual(path.read_bytes(), original)
+                self.assertEqual(set(self.base.iterdir()), contents)
+                self.assertEqual(git(self.root, 'show-ref'), refs)
+                self.assertEqual(git(self.root, 'status', '--porcelain'), status)
+
+    def test_bind_assignment_requires_explicit_arguments(self):
+        options = {
+            '--current': str(self.base / 'snapshot.json'),
+            '--course-id': 'course_1', '--assignment-id': 'hw_1',
+            '--course': self.course, '--number': '3',
+            '--bindings': str(self.base / 'bindings.json'),
+        }
+        for missing in options:
+            with self.subTest(missing=missing):
+                args = ['BindAssignment']
+                for flag, value in options.items():
+                    if flag != missing:
+                        args += [flag, value]
+                result = self.cli(*args)
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, '')
+                self.assertIn(f'requires {missing}', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+
+    def test_bind_assignment_requires_existing_target_and_tex(self):
+        snapshot = self.write_json('snapshot.json', [dict(
+            course_id='course_1', assignment_id='hw_1', title='作业', due_at='',
+        )])
+        bindings = self.write_json('bindings.json', [])
+        source = self.root / self.course / '3/3.tex'
+        for case in ('missing course', 'missing directory', 'missing tex', 'tex is directory'):
+            with self.subTest(case=case):
+                course = 'Missing' if case == 'missing course' else self.course
+                number = '99' if case == 'missing directory' else '3'
+                if case == 'missing tex':
+                    source.unlink()
+                elif case == 'tex is directory':
+                    source.mkdir()
+                result = self.cli(
+                    'BindAssignment', '--current', str(snapshot),
+                    '--course-id', 'course_1', '--assignment-id', 'hw_1',
+                    '--course', course, '--number', number, '--bindings', str(bindings),
+                )
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, '')
+                self.assertIn('ERROR:', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                if case in ('missing tex', 'tex is directory'):
+                    self.assertIn(str(source), result.stderr)
+                self.assertEqual(bindings.read_text(encoding='utf-8'), '[]')
+
+    def test_bind_assignment_rejects_unusable_snapshots(self):
+        assignment = dict(course_id='course_1', assignment_id='hw_1', title='作业', due_at='')
+        other = dict(assignment, assignment_id='other')
+        snapshot = self.base / 'snapshot.json'
+        bindings = self.write_json('bindings.json', [])
+        cases = (
+            ('empty', '[]'),
+            ('not found', json.dumps([other])),
+            ('duplicate selected', json.dumps([assignment, assignment])),
+            ('duplicate other', json.dumps([assignment, other, other])),
+            ('invalid JSON', '{'),
+            ('invalid root', 'null'),
+            ('invalid record', '[1]'),
+            ('missing ID', json.dumps([{'title': 'missing ID'}])),
+            ('invalid ID type', json.dumps([dict(assignment, course_id=[])])),
+        )
+        for name, contents in cases:
+            with self.subTest(case=name):
+                snapshot.write_text(contents, encoding='utf-8')
+                result = self.cli(
+                    'BindAssignment', '--current', str(snapshot),
+                    '--course-id', 'course_1', '--assignment-id', 'hw_1',
+                    '--course', self.course, '--number', '3', '--bindings', str(bindings),
+                )
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, '')
+                self.assertIn('ERROR:', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                self.assertEqual(snapshot.read_text(encoding='utf-8'), contents)
+                self.assertEqual(bindings.read_text(encoding='utf-8'), '[]')
+
+    def test_bind_assignment_rejects_invalid_or_conflicting_bindings(self):
+        assignment = dict(course_id='course_1', assignment_id='hw_1', title='作业', due_at='')
+        snapshot = self.write_json('snapshot.json', [assignment])
+        bindings = self.base / 'bindings.json'
+        existing = dict(course_id='course_1', assignment_id='hw_1',
+                        local_course=self.course, local_number=1)
+        occupied = dict(existing, assignment_id='other', local_number=3)
+        cases = (
+            ('missing file', None),
+            ('invalid JSON', '['),
+            ('invalid structure', '{}'),
+            ('duplicate identity', json.dumps([existing, existing])),
+            ('duplicate target', json.dumps([existing, dict(existing, assignment_id='other')])),
+            ('change existing target', json.dumps([existing])),
+            ('occupied target', json.dumps([occupied])),
+        )
+        for name, contents in cases:
+            with self.subTest(case=name):
+                if contents is None:
+                    bindings.unlink(missing_ok=True)
+                else:
+                    bindings.write_text(contents, encoding='utf-8')
+                result = self.cli(
+                    'BindAssignment', '--current', str(snapshot),
+                    '--course-id', 'course_1', '--assignment-id', 'hw_1',
+                    '--course', self.course, '--number', '3', '--bindings', str(bindings),
+                )
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, '')
+                self.assertIn('ERROR:', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                if contents is None:
+                    self.assertFalse(bindings.exists())
+                else:
+                    self.assertEqual(bindings.read_text(encoding='utf-8'), contents)
+
+    def test_bind_assignment_rejects_apply_without_writing(self):
+        snapshot = self.write_json('snapshot.json', [dict(
+            course_id='course_1', assignment_id='hw_1', title='作业', due_at='',
+        )])
+        bindings = self.write_json('bindings.json', [])
+        originals = {p: p.read_bytes() for p in (snapshot, bindings)}
+
+        result = self.cli(
+            'BindAssignment', '--current', str(snapshot),
+            '--course-id', 'course_1', '--assignment-id', 'hw_1',
+            '--course', self.course, '--number', '3', '--bindings', str(bindings),
+            '--apply',
+        )
+
+        self.assertEqual(result.returncode, 2)
+        self.assertEqual(result.stdout, '')
+        self.assertIn('does not accept --apply', result.stderr)
+        for path, original in originals.items():
+            self.assertEqual(path.read_bytes(), original)
+
+    # AI-assisted action tests; the public CLI stays blocked until integration is complete.
+    def _binding_action_args(self):
+        snapshot = self.write_json('作业 snapshot.json', [dict(
+            course_id='course_1', assignment_id='hw_1', title='待绑定作业', due_at='',
+        )])
+        bindings = self.write_json('bindings.json', [])
+        return Namespace(current=snapshot, course_id='course_1', assignment_id='hw_1',
+                         course=self.course, number=3, bindings=bindings, apply=True)
+
+    def test_bind_assignment_action_saves_and_repeated_apply_is_noop(self):
+        args = self._binding_action_args()
+        original = args.bindings.read_bytes()
+        backup = Path(str(args.bindings) + '.bak')
+        backup.write_bytes(b'older backup')
+        source = self.root / self.course / '3/3.tex'
+        inputs = {path: path.read_bytes() for path in (args.current, source)}
+        refs = git(self.root, 'show-ref')
+        status = git(self.root, 'status', '--porcelain')
+        output = io.StringIO()
+
+        with contextlib.redirect_stdout(output):
+            bind_assignment(Repository(self.root), args)
+
+        expected = [dict(course_id='course_1', assignment_id='hw_1',
+                         local_course=self.course, local_number=3)]
+        self.assertEqual(json.loads(args.bindings.read_text(encoding='utf-8')), expected)
+        self.assertEqual(backup.read_bytes(), original)
+        self.assertIn('saved bindings successfully', output.getvalue())
+        saved = args.bindings.read_bytes()
+        with contextlib.redirect_stdout(io.StringIO()):
+            with patch('actions.bind_assignment.backup_bindings') as copy:
+                with patch('actions.bind_assignment.save_bindings') as save:
+                    bind_assignment(Repository(self.root), args)
+                    copy.assert_not_called()
+                    save.assert_not_called()
+        self.assertEqual(args.bindings.read_bytes(), saved)
+        self.assertEqual(backup.read_bytes(), original)
+        for path, contents in inputs.items():
+            self.assertEqual(path.read_bytes(), contents)
+        self.assertEqual(git(self.root, 'show-ref'), refs)
+        self.assertEqual(git(self.root, 'status', '--porcelain'), status)
+
+    def test_bind_assignment_action_backup_failure_stops_save(self):
+        args = self._binding_action_args()
+        original = args.bindings.read_bytes()
+        Path(str(args.bindings) + '.bak').mkdir()
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            with patch('actions.bind_assignment.save_bindings') as save:
+                with self.assertRaises(IsADirectoryError):
+                    bind_assignment(Repository(self.root), args)
+                save.assert_not_called()
+
+        self.assertEqual(args.bindings.read_bytes(), original)
+        self.assertNotIn('successfully', output.getvalue())
+
+    def test_bind_assignment_action_save_failure_keeps_backup(self):
+        args = self._binding_action_args()
+        original = args.bindings.read_bytes()
+        failure = OSError('Simulated save failure')
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            with patch('actions.bind_assignment.save_bindings', side_effect=failure):
+                with self.assertRaises(OSError) as raised:
+                    bind_assignment(Repository(self.root), args)
+
+        self.assertIs(raised.exception, failure)
+        self.assertEqual(args.bindings.read_bytes(), original)
+        self.assertEqual(Path(str(args.bindings) + '.bak').read_bytes(), original)
+        self.assertNotIn('successfully', output.getvalue())
+
+    def test_bind_assignment_action_rereads_bindings_after_preview(self):
+        args = self._binding_action_args()
+        repo = Repository(self.root)
+        args.apply = False
+        with contextlib.redirect_stdout(io.StringIO()):
+            bind_assignment(repo, args)
+        backup = Path(str(args.bindings) + '.bak')
+        self.assertFalse(backup.exists())
+        other = dict(course_id='course_2', assignment_id='hw_2',
+                     local_course=self.course, local_number=1)
+        args.bindings.write_text(json.dumps([other]), encoding='utf-8')
+        original = args.bindings.read_bytes()
+        args.apply = True
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            bind_assignment(repo, args)
+
+        records = json.loads(args.bindings.read_text(encoding='utf-8'))
+        self.assertEqual(records, [other, dict(course_id='course_1', assignment_id='hw_1',
+                                              local_course=self.course, local_number=3)])
+        self.assertEqual(backup.read_bytes(), original)
 
     def test_course_defaults_and_explicit_overrides(self):
         config = {'courses': {

@@ -12,7 +12,8 @@ ACTIONS = {
     'Status': 'status', 'NewCourse': 'new_course', 'NewHomework': 'new_homework',
     'Compile': 'compile', 'Sync': 'sync', 'Switch': 'switch',
     'Finish': 'finish', 'Open': 'open',
-    'CompareAssignments': 'compare_assignments'
+    'CompareAssignments': 'compare_assignments',
+    'BindAssignment': 'bind_assignment',
 }
 
 
@@ -40,8 +41,11 @@ def main():
     parser.add_argument('--previous', type=Path)
     parser.add_argument('--current', type=Path)
     parser.add_argument('--course-mapping', type=Path)
+    parser.add_argument('--bindings', type=Path)
+    parser.add_argument('--course-id')
+    parser.add_argument('--assignment-id')
     args = parser.parse_args()
-    if args.action in ('Compile', 'Open', 'Status', 'CompareAssignments') and args.apply:
+    if args.action in ('Compile', 'Open', 'Status', 'CompareAssignments', 'BindAssignment') and args.apply:
         parser.error(f'{args.action} does not accept --apply')
     try:
         repo = Repository(args.repo_path)
