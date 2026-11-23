@@ -1,0 +1,318 @@
+\documentclass{article}
+\usepackage[zh]{homework}
+
+\config{Algebra-1}{2026 秋季}{9}
+
+\begin{document}
+
+{\heiti 我承诺, 本次作业的完成没有使用大语言模型.}
+
+\paragraph{约定.} 环均含幺, 环同态保持单位元, 模均为含幺左模. 只在题目指明时假设环交换. 全卷共八题, 除第 5(d) 问选做外, 其余均为必做. 可使用课堂已证的结论及前面习题的结果.
+
+\section*{习题}
+
+\begin{problem}
+建议自己私下核对课堂上构造的模的直积与直和是否分别满足积与余积的泛性质.
+
+在允许零环的含幺环范畴 $\mathbf{Ring}$ 中, 用泛性质求 $\Z/2\Z$ 与 $\Z/3\Z$ 的余积. 说明为什么两个底层加法群的直和配上逐坐标乘法不能给出这个余积.
+
+设 $I$ 为任意集合. 在 $\mathbf{Ring}$ 中, 一族环 $(R_i)_{i\in I}$ 的余积是否总是存在? 证明你的结论.
+\end{problem}
+
+\begin{solution}
+	用 $\Z_n$ 代指 $\Z / n\Z$. 下面来证明: $\Z_2 \coprod \Z_3 \cong 0$, 其中 $0 \in \mathbf{Ring}$ 是零环. 
+
+	取唯一的环同态 $\iota_1: \Z_2 \to 0$, $\iota_2: \Z_3 \to 0$. 对于任意的幺环 $R$ 以及同态 $f_1: \Z_2 \to R$ 和 $f_2: \Z_3 \to R$, 有 $f_1([1]_2) = f_2([1]_3) = 1_R$. 再结合 $2[1]_2 = [0]_2$ 和 $3[1]_3 = [0]_3$, 知 $2 1_R = 3 1_R = 0_R$, 故 $1_R = 0_R$, 于是 $R = 0$. 因此存在唯一的环同态 $g: 0 \to R$, 使得 $f_i = g \circ \iota_i$ ($i = 1, 2$). 
+
+	这就验证了零环及上述两个同态满足余积的泛性质.
+
+	底层加法群的直和为 $\Z_2 \oplus \Z_3$. 配上逐坐标乘法后, 其单位元为 $([1]_2, [1]_3)$, 而
+	\[ 2([1]_2, [1]_3) = ([0]_2, [2]_3) \neq ([0]_2, [0]_3). \]
+	因此不存在环同态 $\Z_2 \to \Z_2 \oplus \Z_3$, 否则根据同态保持单位元, 可知其单位元的两倍为零. 故这个环不能给出所求的余积.
+
+	下面来证明任意环族 $(R_i)_{i \in I}$ 的余积总是存在. 对于每个 $i \in I$ 以及 $r \in R_i$, 引入符号 $x_{i,r}$, 并令
+	\[ F = \Z\langle x_{i,r}: i \in I, r \in R_i \rangle. \]
+	这里 $F$ 是以这些符号组成的所有有限字为基的自由阿贝尔群, 包括空字; 乘法由字的拼接双线性延拓, 空字作为单位元. 由于字的拼接满足结合律, 上述运算使 $F$ 成为含幺环.
+
+	令 $J$ 为以下元素生成的双侧理想:
+	\begin{gather*}
+		x_{i,r} + x_{i,s} - x_{i,r+s},\\
+		x_{i,r}x_{i,s} - x_{i,rs},\\
+		x_{i,1_{R_i}} - 1_F,
+	\end{gather*}
+	其中 $i \in I$, $r, s \in R_i$. 记 $C = F/J$, 定义
+	\[ \iota_i: R_i \to C, \quad r \mapsto x_{i,r} + J. \]
+	根据 $J$ 的定义, $\iota_i$ 保持加法、乘法和单位元, 因此是环同态.
+
+	再来验证余积的泛性质. 对于任意的幺环 $R$ 以及一族环同态 $f_i: R_i \to R$, 定义 $\widetilde{f}: F \to R$, 将空字映到 $1_R$, 并将每个非空字映到
+	\[ x_{i_1,r_1} \cdots x_{i_n,r_n} \mapsto f_{i_1}(r_1) \cdots f_{i_n}(r_n), \]
+	再作整数线性延拓. 根据字的拼接所定义的乘法, $\widetilde{f}$ 是环同态. 由于每个 $f_i$ 都保持加法、乘法和单位元, $J$ 的所有生成元在 $\widetilde{f}$ 下的像均为零, 因此 $J \subseteq \ker \widetilde{f}$. 故存在环同态
+	\[ f: C \to R, \quad a + J \mapsto \widetilde{f}(a), \]
+	使得 $f \circ \iota_i = f_i$ 对所有 $i \in I$ 成立. 又因为所有 $x_{i,r} + J$ 生成 $C$ 作为含幺环, 上述条件唯一确定了 $f$. 因此 $C$ 连同 $(\iota_i)_{i \in I}$ 满足余积的泛性质.
+
+	当 $I = \varnothing$ 时, 上述构造给出 $F = \Z$, $J = 0$, 因此空余积为 $\Z$. 综上, 任意集合指标的环族在 $\mathbf{Ring}$ 中都有余积.
+\end{solution}
+
+
+
+\begin{problem}
+对左 $R$-模 $M$ 的子集 $S$, 记 $\langle S\rangle_R$ 为包含 $S$ 的最小子模. 若存在有限子集 $S\subseteq M$ 使 $\langle S\rangle_R=M$, 则称 $M$ 有限生成. 若存在集合 $B$ 使 $M\cong R^{(B)}=\bigoplus_{b\in B}R$(左 $R$-模同构), 则称 $M$ 为自由模.
+
+设 $M$ 自由且有限生成. 证明存在整数 $n\geq 0$ 使 $M\cong R^n$.
+\end{problem}
+
+\begin{proof}
+	若 $R = 0$, 则由于 $M$ 是含幺模, 对任意的 $m \in M$, 均有 $m = 1_Rm = 0_Rm = 0_M$, 因此 $M = 0$, 取 $n = 0$ 即可. 以下设 $R \neq 0$. 由于 $M$ 自由, 因此存在集合 $B$ 使得 $M \cong \bigoplus_{b \in B}^{}R$. 若证明了 $B$ 有限, 取整数 $n = \abs{B} \ge 0$, 知 $M \cong R^n$. 下面来证明 $B$ 有限.
+
+	反之, 假设 $B$ 是无限集. 由于 $M$ 是有限生成的, 因此存在有限子集 
+	\[ S \subset M \cong \bigoplus_{b \in B}^{}R = \{f: B \to R: \abs{\supp(f)} < \infty\}. \]
+	记 $S$ 中的全部元素为 $s_1, s_2, \dots, s_n$. 由于每一个 $\supp(s_i)$ 有限, 因此 $\bigcup_{i=1}^{n}\supp(s_i) \subset B$ 有限, 而 $B$ 是无限集, 因此存在 $b \in B$, 使得对于任意的 $1 \le i \le n$, 均有 $b \notin \supp(s_i)$. 因此, 对于任意的 $f \in \braket{S}_R = M$, 均有 $f(b) = 0$. 但是 $M$ 中显然存在在 $b$ 上的取值不为 $0$ 的元素, 矛盾.
+\end{proof}
+
+
+
+\begin{problem}
+给定模同态 $j:N\to M$. 回忆之前作业中的定义: $j$ 为单态射, 是指对任意模 $X$ 和任意两个模同态 $a,b:X\to N$, 由 $j\circ a=j\circ b$ 总能推出 $a=b$. 证明以下三个条件等价:
+\[
+  j\text{ 是单态射}\quad\Longleftrightarrow\quad
+  j\text{ 的底层集合映射是单射}\quad\Longleftrightarrow\quad
+  \ker j=\{0\}.
+\]
+\end{problem}
+
+\begin{proof}
+	依次记上面的命题为 (i), (ii), (iii). 
+
+	(ii) $\implies$ (i): 不难证明遗忘函子 $U: R-\mathbf{Mod} \to \mathbf{Set}$ 是忠实的, 因此 $U$ 反映单态射, 因此成立.
+
+	(i) $\implies$ (iii): 考虑 $j$ 的核同态 $k: \ker j \hookrightarrow N$. 由于 $j \circ k = 0 = j \circ 0$, 因此 $k = 0$, 从而 $\ker j = \{0\}$. 
+
+	(iii) $\implies$ (ii): 若 $j(a) = j(b)$, 则 $j(a-b) = j(a) - j(b) = 0$, 即 $a - b \in \ker j = \{0\}$, 故 $a = b$. 由此知 $j$ 为单射.
+\end{proof}
+
+
+
+\begin{problem}
+设 $I$ 是环 $R$ 的双侧理想, $M$ 是左 $R$-模. 记 $IM$ 为所有有限和 $\sum_j i_jm_j$ 组成的子模, 其中 $i_j\in I$, $m_j\in M$.
+\begin{enumerate}
+  \item[(a)] 证明: $M$ 上存在满足 $(r+I)\cdot m=rm$ 的良定义的 $R/I$-模作用, 当且仅当 $IM=0$. 证明这样的作用一旦存在就唯一. 对两个满足此条件的模, 证明一个加法群同态为 $R$-线性当且仅当它为 $R/I$-线性.
+  \item[(b)] 对一般的 $M$, 写出 $R/I$ 在 $M/IM$ 上的作用并核对良定义. 对任意 $R/I$-模 $N$, 沿 $R\to R/I$ 把 $N$ 看作 $R$-模. 证明与商映射 $q:M\to M/IM$ 复合给出双射
+  \[
+    \Hom_{R/I}(M/IM,N)\longrightarrow\Hom_R(M,N),\qquad h\longmapsto h\circ q.
+  \]
+\end{enumerate}
+\end{problem}
+
+\begin{proof}
+	\paragraph{(a)} 若存在良定义的 $R/I$-作用, 则对于任意的 $m \in M$ 和 $i \in I$, 均有 $im = (i + I)m = (0_R + I)m = 0_Rm = 0_M$, 因此 $IM = 0$; 反之, 若 $IM = 0$, 则对所有的 $i \in I$ 和 $m \in M$, 均有 $im = 0$, 故若 $r_1 + I = r_2 + I$, 则 $r_2 - r_1 \in I$, 因此 $r_2 m = r_1 m + (r_2 - r_1) m = r_1 m$, 故 $(r + I) m := rm$ 是良定义的. 模公理由原 $R$-模结构直接得到, 因此这确实给出了一个 $R/I$-模作用. 又因为每个标量都可以写成 $r+I$, 上述公式已经确定了作用的全部取值, 因此这样的作用一旦存在就唯一.
+
+	考虑两个 $R$-模 $M, N$, 满足 $IM = IN = 0$, 并且有一个加法群同态 $f: M \to N$. 若 $f$ 是 $R$-线性的, 则对于任意的 $r + I \in R/I$, 均有
+	\[ f((r + I)\cdot m) = f(rm) = r f(m) = (r + I) \cdot f(m), \]
+	因此 $f$ 是 $R/I$-线性的; 反之, 若 $f$ 是 $R/I$ 线性的, 则对于任意的 $r \in R$, 均有
+	\[ f(rm) = f((r+I) \cdot m) = (r+I) \cdot f(m) = r f(m), \]
+	因此 $f$ 是 $R$-线性的.
+
+	\paragraph{(b)} 可以将 $R/I$ 在 $M/IM$ 上的作用定义如下: 对于 $r+I \in R/I$ 和 $m + IM \in M/IM$, 定义
+	\[ (r+I) \cdot (m + IM) = rm + IM. \]
+	下面来核对良定义. 对于任意的 $r_1, r_2 \in R$ 和 $m_1, m_2 \in M$, 如果 $r_1 + I = r_2 + I$, 并且 $m_1 + IM = m_2 + IM$, 则
+	\[ r_1m_1 + IM = r_2m_2 + r_2(m_1 - m_2) + (r_1 - r_2)m_1 + IM = r_2m_2 + IM. \]
+	因此上述作用是良定义的. 作用的可加性、结合律以及单位元作用为恒等映射, 均由 $M$ 的模公理直接得到, 因此这确实给出了 $M/IM$ 上的 $R/I$-模结构.
+
+	下面证明题目中提到的映射为双射. 首先, 商映射 $q: M \to M/IM$ 是 $R$-线性的, 并且 $I(M/IM) = IN = 0$. 根据 (a), 每个 $R/I$-线性映射 $h: M/IM \to N$ 也是 $R$-线性的, 因此 $h \circ q$ 是 $R$-线性的. 故映射
+	\[ \Phi: \Hom_{R/I}(M/IM, N) \to \Hom_R(M, N), \quad h \mapsto h \circ q \]
+	是良定义的.
+
+	对于任意的 $f \in \Hom_R(M, N)$, 由于对任意的 $i \in I$ 和 $m \in M$, 均有
+	\[ f(im) = i f(m) = (i+I) \cdot f(m) = 0_N, \]
+	再结合 $f$ 的可加性, 知 $IM \subseteq \ker f$. 根据商映射 $q$ 的泛性质, 存在唯一的 $\tilde{f} \in \Hom_R(M/IM, N)$, 满足 $\tilde{f} \circ q = f$. 根据 (a), $\tilde{f}$ 也是 $R/I$-线性的, 因此可以定义映射
+	\[ \Psi: \Hom_R(M, N) \to \Hom_{R/I}(M/IM, N), \quad f \mapsto \tilde{f}. \]
+
+	最后来验证这两个映射互为逆映射. 对于任意的 $f \in \Hom_R(M, N)$, 根据定义有 $\Phi(\Psi(f)) = \tilde{f} \circ q = f$. 对于任意的 $h \in \Hom_{R/I}(M/IM, N)$, $h$ 本身就是满足 $h \circ q = \Phi(h)$ 的 $R$-线性映射, 因此根据商映射泛性质中的唯一性, 有 $\Psi(\Phi(h)) = h$. 故 $\Phi$ 与 $\Psi$ 互为逆映射, 从而 $\Phi$ 为双射.
+\end{proof}
+
+
+
+\begin{problem}
+(本题涉及的基本定义下周三会讲.)
+
+设 $R$ 为交换环. 两个理想 $I,J$ 的和定义为
+\[
+  I+J=\{x+y:x\in I,\ y\in J\}.
+\]
+若 $I+J=R$, 称 $I,J$ 互素.
+\begin{enumerate}
+  \item[(a)] 证明 $I+J$ 是包含 $I$ 与 $J$ 的最小理想. 再设 $I_1,\ldots,I_n$ 是 $R$ 中两两互素的理想, $n\geq 2$. 证明 $I_1+\bigcap_{j=2}^n I_j=R$.
+  \item[(b)] 在 (a) 的两两互素假设下, 记 $K=\bigcap_{i=1}^n I_i$. 证明下列映射为环同构, 并写出其逆映射:
+  \[
+    R/K\longrightarrow\prod_{i=1}^n R/I_i,\qquad r+K\longmapsto(r+I_i)_i.
+  \]
+  \item[(c)] 在 $\Z$ 中, 设 $I=m\Z$, $J=n\Z$, 其中 $m,n\geq 0$, 约定 $\gcd(0,0)=0$. 证明 $m\Z+n\Z=\gcd(m,n)\Z$, 并给出 $I,J$ 互素的充要条件.
+  \item[(d)] ({\heiti 选做}) 韩信点兵, 三人一排余二, 五人一排余三, 七人一排余二. 将这三条记录写成 (b) 中乘积环的一个元素, 求满足条件的最小人数, 并写出所有正整数解.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 不难验证 $I+J$ 本身为一个理想. 对于任意同时包含 $I, J$ 的理想 $K$, 若 $x \in I \subset K$, $y \in J \subset K$, 则根据理想的定义, $x + y \in K$. 因此 $I + J \subset K$. 因此 $I + J$ 是包含 $I$ 和 $J$ 的最小理想.
+
+	下面来证明后面一个命题. 由于 $I_1 + I_k = R$ ($2 \le k \le n$), 因此存在 $a_k \in I_1$ 和 $b_k \in I_k$, 使得 $a_k + b_k = 1_R$. 因此, 
+	\[ 1_R = \prod_{k=2}^{n}(a_k + b_k) = \sum_{\substack{S \subset \{2,\dots,n\} \\ S \neq \varnothing}}^{}\left( \prod_{k \in S}^{}a_k \prod_{k \notin S}^{}b_k \right) + b_2b_3 \dots b_n. \]
+	在第一项求和中, 由于每一项都满足 $S \neq \varnothing$, 因此每一项的乘积中都有某个 $a_k$, 因此此项属于 $I_1$, 故整个求和都在 $I_1$ 中; 而第二项 $b_2b_3\dots b_n$ 属于每一个 $I_k$ ($2 \le k \le n$), 因此 $b_2 \dots b_n \in \bigcap_{k=2}^{n}I_k$. 因此, 存在 $a \in I_1$ 和 $b \in \bigcap_{k=2}^{n}I_k$, 使得 $a + b = 1_R$. 故对于任意的 $r \in R$, 均有 $ra + rb = r$, 从而 $I_1 + \bigcap_{k=2}^{n}I_k = R$.
+
+	\paragraph{(b)} 记题中的映射为 $\varphi$. 由 \textbf{(a)} 中的结论, 知对于任意的 $1 \le k \le n$, 均存在 $a_k \in I_k$ 和 $b_k \in \bigcap_{i=1, i \neq k}^{n}I_i$, 使得 $a_k + b_k = 1_R$. 构造映射 $\psi$ 如下: 
+	\[ \prod_{k=1}^{n}R/I_k \to R/K, \quad 
+	(r_k + I_k)_{k=1}^{n} \mapsto \sum_{k=1}^{n}r_kb_k + K. \]
+
+	不难验证 $\varphi$ 和 $\psi$ 均为环同态. 对于任意的 $r \in R$, 令 $s = \sum_{i=1}^{n}rb_i$. 对于每个 $1 \le k \le n$, 均有
+	\[ s-r = r(b_k-1_R) + \sum_{\substack{1 \le i \le n \\ i \neq k}}rb_i = -ra_k + \sum_{\substack{1 \le i \le n \\ i \neq k}}rb_i \in I_k. \]
+	因此 $s-r \in \bigcap_{k=1}^{n}I_k = K$, 故
+	\[ \psi \circ \varphi(r+K) = s+K = r+K. \]
+	并且, 对于任意的 $(r_k + I_k)_k \in \prod_{k=1}^{n}R/I_k$, 注意到 $r_ka_k \in I_k$, 并且对任意的 $i \neq k$, 均有 $r_ib_i \in I_k$, 因此
+	\begin{align*}
+		\varphi \circ \psi((r_k + I_k)_k) = \left( \sum_{i=1}^{n} r_i b_i + I_k \right)_k = \left( r_kb_k + I_k \right)_k = (r_k(1_R - a_k) + I_k)_k = (r_k + I_k)_k.
+	\end{align*}
+	因此, $\varphi$ 和 $\psi$ 互为逆映射.
+
+	\paragraph{(c)} 记 $d = \gcd(m,n)$. 若 $m = n = 0$, 则 $d = 0$, 并且 $m\Z + n\Z = \{0\} = d\Z$, 因此结论成立. 下面考虑 $m, n$ 不同时为零的情况, 此时 $d > 0$.
+
+	由于 $d \mid m$ 且 $d \mid n$, 对于任意的 $a, b \in \Z$, 均有 $d \mid am + bn$, 因此 $m\Z + n\Z \subseteq d\Z$. 另一方面, 根据 B\'ezout 定理, 存在 $u, v \in \Z$, 使得 $um + vn = d$. 因此, 对于任意的 $k \in \Z$, 均有
+	\[ kd = (ku)m + (kv)n \in m\Z + n\Z. \]
+	故 $d\Z \subseteq m\Z + n\Z$. 综上, $m\Z + n\Z = \gcd(m,n)\Z$.
+
+	根据互素的定义以及上述结论, $I, J$ 互素当且仅当 $d\Z = \Z$. 由于 $d \ge 0$, 后者等价于 $d = 1$. 因此 $I, J$ 互素的充要条件为 $\gcd(m,n) = 1$.
+\end{solution}
+
+
+
+\begin{problem}
+设 $k$ 是域, $a_1,\ldots,a_n\in k$ 两两不同, $n\geq 1$, 并记 $P(t)=\prod_{i=1}^n(t-a_i)$.
+\begin{enumerate}
+  \item[(a)] 对 $a\in k$, 证明求值同态 $k[t]\to k$, $f\mapsto f(a)$ 的核是 $(t-a)$, 并说明这个理想为什么极大. 再证明 $(t-a_i)$ 两两互素, 且求值给出环同构
+  \[
+    k[t]/(P)\longrightarrow k^n,\qquad f+(P)\longmapsto\bigl(f(a_1),\ldots,f(a_n)\bigr).
+  \]
+  \item[(b)] 构造次数小于 $n$ 的多项式 $L_i(t)$, 使 $L_i(a_i)=1$ 且 $L_i(a_j)=0$($j\neq i$). 由此对任意 $d_1,\ldots,d_n\in k$ 写出满足 $f(a_i)=d_i$ 的次数小于 $n$ 的多项式, 并证明唯一性. 零多项式也允许作为解.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 根据多项式的熟知结果, 有
+	\[ f(a) = 0 \Longleftrightarrow t-a \mid f(t) \Longleftrightarrow f(t) \in (t-a). \]
+	若对于理想 $I$ 满足 $I \supset (t - a)$, 且 $I \neq (t-a)$, 则存在 $f \in I$, 满足 $f(a) \neq 0$. 由于 $f(t) - f(a) \in (t-a) \subset I$, 故 $f(a) = f(t) - (f(t) - f(a)) \in I$. 而 $f(a)$ 是非零的常数, 因此 $I = k[t]$. 故 $(t-a)$ 为极大理想.
+
+	事实上, 对于不同的 $i, j$, 有
+	\[ \frac{t - a_i}{a_j - a_i} \in (t - a_i), \quad \frac{a_j - t}{a_j - a_i} \in (t - a_j), \quad \frac{t - a_i}{a_j - a_i} + \frac{a_j - t}{a_j - a_i} = 1, \]
+	由此可知 $(t - a_i) + (t - a_j) = k[t]$.
+
+	由于 $a_1, \dots, a_n$ 两两不同, 逐次使用因式定理可知, 一个多项式同时被所有的 $t-a_i$ 整除, 当且仅当它被 $P(t) = \prod_{i=1}^{n}(t-a_i)$ 整除. 因此
+	\[ \bigcap_{i=1}^{n}(t-a_i) = (P). \]
+	再结合上一道题的结论, 得到环同构
+	\[ k[t]/(P) \to \prod_{k=1}^{n}k[t]/(t - a_k), \quad f + (P) \mapsto (f + (t - a_k))_{k}. \]
+	因此, 只需要证明下面的环同构:
+	\[ \varphi: k[t]/(t - a) \to k, \quad f + (t - a) \mapsto f(a). \]
+
+	构造环同态
+	\[ \psi: k \to k[t]/(t - a), \quad a' \mapsto a' + (t - a). \]
+	下面来验证这两个映射互为逆映射. 注意到 $f(t) - f(a) \in (t-a)$, 因此对于任意的 $a' \in k$ 和 $f + (t-a) \in k[t]/(t-a)$, 均有
+	\begin{gather*}
+		\varphi \circ \psi(a') = \varphi(a'+(t-a)) = a',\\
+		\psi \circ \varphi(f+(t-a)) = f(a)+(t-a) = f+(t-a).
+	\end{gather*}
+	因此 $\varphi$ 和 $\psi$ 互为逆映射, 故 $\varphi$ 为环同构.
+
+	\paragraph{(b)} 对于每个 $1 \le i \le n$, 构造多项式
+	\[ L_i(t) = \prod_{\substack{1 \le j \le n \\ j \neq i}} \frac{t-a_j}{a_i-a_j}. \]
+	由于 $a_1, \dots, a_n$ 两两不同, 每个分母 $a_i-a_j$ 均非零, 因此上述表达式确实是 $k[t]$ 中的多项式, 并且 $\deg L_i = n-1 < n$. 当 $n = 1$ 时, 约定空积为 $1$, 此时 $L_1(t) = 1$. 根据定义, 显然有 $L_i(a_i) = 1$; 而对于任意的 $j \neq i$, 乘积中含有因子 $t-a_j$, 因此 $L_i(a_j) = 0$.
+
+	对于任意的 $d_1, \dots, d_n \in k$, 令
+	\[ f(t) = \sum_{i=1}^{n} d_i L_i(t) = \sum_{i=1}^{n} d_i \prod_{\substack{1 \le j \le n \\ j \neq i}} \frac{t-a_j}{a_i-a_j}. \]
+	则 $f$ 为零多项式或次数小于 $n$ 的多项式, 并且对于任意的 $1 \le k \le n$, 均有
+	\[ f(a_k) = \sum_{i=1}^{n} d_i L_i(a_k) = d_k. \]
+	因此上述 $f$ 满足题目的要求.
+
+	最后来证明唯一性. 若另有零多项式或次数小于 $n$ 的多项式 $g$, 满足 $g(a_i) = d_i$ 对所有 $1 \le i \le n$ 成立, 则 $(f-g)(a_i) = 0$. 因此 $f-g$ 至少有 $n$ 个不同的根. 若 $f-g$ 非零, 则其次数小于 $n$, 这与域上非零多项式的根的个数不超过其次数矛盾. 故 $f-g = 0$, 即 $f = g$, 从而唯一性成立.
+\end{solution}
+
+
+
+\begin{problem}
+环 $R$ 中满足 $e^2=e$ 的元素称为幂等元. 若 $e$ 与 $R$ 的所有元素交换, 则称其为中心幂等元.
+\begin{enumerate}
+  \item[(a)] 设 $e$ 是中心幂等元. 证明 $eR$ 与 $(1-e)R$ 在继承的运算下都是环, 写出各自的单位元, 并证明下列映射是环同构:
+  \[
+    R\longrightarrow eR\times(1-e)R,\qquad r\longmapsto\bigl(er,(1-e)r\bigr).
+  \]
+  反过来, 给定环同构 $R\cong A\times B$, 怎样从中恢复决定这两个因子的中心幂等元?
+  \item[(b)] 取 $R=M_2(k)$, 其中 $k$ 是域. 记 $E_{ij}$ 为仅在 $(i,j)$ 处为 $1$, 其余各项为零的矩阵, 令 $e=E_{11}$. 证明左正则模有分解 ${}_R R=Re\oplus R(1-e)$. (这个分解的含义是什么?)
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 首先来验证 $eR$ 在继承的运算下是环. 对于任意的 $r, s \in R$, 根据 $e$ 的中心性以及 $e^2 = e$, 均有
+	\begin{gather*}
+		er+es = e(r+s), \quad -(er) = e(-r),\\
+		(er)(es) = e^2rs = ers.
+	\end{gather*}
+	再结合 $0_R = e0_R \in eR$, 知 $eR$ 对加法、取负元和乘法均封闭. 加法交换律、加法结合律、乘法结合律以及分配律均由 $R$ 继承, 因此只需要验证单位元. 事实上, $e = e1_R \in eR$, 并且对于任意的 $er \in eR$, 有
+	\[ e(er) = e^2r = er, \quad (er)e = e^2r = er. \]
+	因此 $eR$ 是含幺环, 其单位元为 $e$.
+
+	另一方面, 由于
+	\[ (1-e)^2 = 1-2e+e^2 = 1-e, \]
+	并且对于任意的 $r \in R$, 均有 $(1-e)r = r(1-e)$, 因此 $1-e$ 也是中心幂等元. 同理可知 $(1-e)R$ 在继承的运算下也是含幺环, 其单位元为 $1-e$.
+
+	下面来证明题目中提到的映射为环同构. 不难验证此映射为环同态, 即为 $\varphi$. 构造环同态
+	\[ \psi: eR \times (1-e)R \to R, \quad (er_1, (1-e)r_2) \mapsto er_1 + (1-e)r_2. \]
+	对于任意的 $r \in R$, 均有
+	\[ \psi \circ \varphi(r) = er + (1-e)r = r. \]
+	对于任意的 $(er_1, (1-e)r_2) \in eR \times (1-e)R$, 注意到 $e(1-e) = e - e^2 = 0_R$, 因此
+	\begin{align*}
+		\varphi \circ \psi(er_1, (1-e)r_2)
+		&= \left( e(er_1 + (1-e)r_2), (1-e)(er_1 + (1-e)r_2) \right)\\
+		&= (er_1, (1-e)r_2).
+	\end{align*}
+	因此 $\varphi$ 和 $\psi$ 互逆.
+
+	反过来, 若给定了环同态 $\varphi: R \xrightarrow{\sim} A \times B$, 则取 $e = \varphi^{-1}(1_A, 0_B)$. 不难验证 $(1_A, 0_B)$ 在 $A \times B$ 中为中心幂等元, 因此 $e$ 在 $R$ 中也为中心幂等元.
+
+	\paragraph{(b)} 注意到 $e^2 = e$, 并且 $Re$ 与 $R(1-e)$ 均为 $R$ 的左理想, 因此是左正则模 ${}_R R$ 的子模. 参考 (a), 构造映射
+	\begin{gather*}
+		\varphi: {}_R R \to Re \oplus R(1-e), \quad r \mapsto (re, r(1-e)),\\
+		\psi: Re \oplus R(1-e) \to {}_R R, \quad (u,v) \mapsto u+v.
+	\end{gather*}
+	根据乘法结合律以及分配律, 不难验证这两个映射均为 $R$-线性的. 对于任意的 $r \in R$, 均有
+	\[ \psi \circ \varphi(r) = re + r(1-e) = r. \]
+	对于任意的 $u \in Re$ 和 $v \in R(1-e)$, 由于 $e^2 = e$, $(1-e)^2 = 1-e$, 并且 $e(1-e) = (1-e)e = 0_R$, 因此 $ue = u$, $u(1-e) = 0_R$, $ve = 0_R$, $v(1-e) = v$. 故
+	\[ \varphi \circ \psi(u,v) = ((u+v)e, (u+v)(1-e)) = (u,v). \]
+	因此 $\varphi$ 和 $\psi$ 互逆. 由于 $\psi$ 就是两个子模的元素相加, 因此这给出了内部直和分解 ${}_R R = Re \oplus R(1-e)$.
+
+	这个分解的含义是: 每个矩阵都可以唯一写成一个仅第一列可能非零的矩阵与一个仅第二列可能非零的矩阵之和. 事实上, 对于任意的 $r = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in R$, 均有
+	\[ r = re + r(1-e) = \begin{pmatrix} a & 0 \\ c & 0 \end{pmatrix} + \begin{pmatrix} 0 & b \\ 0 & d \end{pmatrix}. \]
+\end{solution}
+
+
+
+\begin{problem}
+设 $J,I_1,\ldots,I_n$ 为交换环 $R$ 的理想, $n\geq 2$, 且对每个 $i$ 都有 $J\nsubseteq I_i$.
+\begin{enumerate}
+  \item[(a)] 当 $n=2$ 时, 证明存在 $x\in J$ 同时落在 $I_1,I_2$ 之外.
+  \item[(b)] 对一般的 $n$, 假设 $I_1,\ldots,I_n$ 中至多两个不是素理想. 证明仍可找到同一个 $x\in J$, 使得 $x\notin I_i$ 对所有 $i$ 成立.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+	\paragraph{(a)} 采用反证法, 假设 $J \subset I_1 \cup I_2$. 取 $a_1 \in J \setminus I_1$, $a_2 \in J \setminus I_2$. 则 $a_1 \in I_2$, $a_2 \in I_1$. 考虑 $a_1 + a_2 \in J$. 若 $a_1 + a_2 \in I_1$, 则由 $a_2 \in I_1$ 知 $a_1 = (a_1 + a_2) - a_2 \in I_1$, 这与 $a_1$ 的定义矛盾, 因此 $a_1 + a_2 \notin I_1$. 同理, $a_1 + a_2 \notin I_2$. 
+
+	\paragraph{(b)} 若某个 $I_i \subseteq I_j$ ($i \neq j$), 则删去 $I_i$ 不改变这些理想的并集. 重复删去这样的理想, 若最后只剩一个理想, 则根据 $J$ 不包含于该理想, 结论直接成立. 因此不妨假设各 $I_k$ 互不包含, 并且重新编号后不妨设 $I_k$ ($k \ge 3$) 均为素理想.
+
+	下面对 $n$ 使用数学归纳法. $n=2$ 的命题即为 \textbf{(a)}. 假设命题对某一个 $n \ge 2$ 成立, 现考虑 $n+1$ 个满足上述条件的理想 $I_1, \dots, I_{n+1}$. 根据归纳假设, 存在 $x \in J$, 使得 $x \notin I_k$ 对任意的 $1 \le k \le n$ 成立. 若 $x \notin I_{n+1}$, 则结论已经成立. 下面考虑 $x \in I_{n+1}$ 的情况.
+
+	由于 $J \nsubseteq I_{n+1}$, 可以取 $a \in J \setminus I_{n+1}$. 又因为各理想互不包含, 因此对于每个 $1 \le k \le n$, 均可以取 $b_k \in I_k \setminus I_{n+1}$. 令
+	\[ y = a\prod_{k=1}^{n}b_k. \]
+	由于 $a \in J$, 并且 $b_k \in I_k$, 因此 $y \in J \cap \bigcap_{k=1}^{n}I_k$. 另一方面, $I_{n+1}$ 是素理想, 而 $a, b_1, \dots, b_n$ 均不属于 $I_{n+1}$, 因此其乘积 $y \notin I_{n+1}$.
+
+	考虑 $x+y \in J$. 对于任意的 $1 \le k \le n$, 若 $x+y \in I_k$, 则由 $y \in I_k$ 知 $x = (x+y)-y \in I_k$, 与 $x$ 的选取矛盾. 因此 $x+y \notin I_k$. 若 $x+y \in I_{n+1}$, 则由 $x \in I_{n+1}$ 知 $y = (x+y)-x \in I_{n+1}$, 同样矛盾. 因此 $x+y$ 同时落在 $I_1, \dots, I_{n+1}$ 之外. 故命题对 $n+1$ 成立, 从而根据数学归纳法, 结论对所有 $n \ge 2$ 成立.
+\end{solution}
+
+
+
+\end{document}
