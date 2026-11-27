@@ -1,79 +1,63 @@
 ---
 name: homework-manager
-description: "Manage this Homework Git and LaTeX repository on macOS: inspect status, compare local assignment snapshots, preview assignment bindings, create or compile homework, sync assignments, switch branches, finish and merge assignments, or open related tools. Use for repository management and assignment compilation, not for solving or editing assignment content."
+description: "Manage this Homework Git and LaTeX repository on macOS: inspect status, compare local assignment snapshots, manage assignment bindings, create or compile homework, sync assignments, switch branches, finish and merge assignments, or open related tools. Use for repository management and assignment compilation, not for solving or editing assignment content."
 ---
 
 # Homework Manager
 
-Use the standard-library Python dispatcher at `scripts/homework.py`. The default repository is resolved from the script location, so it also works when invoked outside the repository. Use `--repo-path` only for isolated tests or an explicitly selected checkout. Python 3.9 or newer, Git, and MacTeX are the runtime tools; PowerShell is not required.
+Use the standalone program at `tools/homework/scripts/homework.py`. This Skill contains AI invocation and authorization rules; implementation, tests, dependencies, and the [business workflow and CLI manual](../../../tools/homework/README.md) live in `tools/homework/`. The separation and these instructions were AI-assisted.
 
-Call only the dispatcher. Shared Git, path and validation logic lives in `scripts/common.py`; action implementations are allowlisted under `scripts/actions/`. Do not execute an action module directly. This macOS migration of the scripts and related documentation was AI-assisted.
+Follow repository [AGENTS.md](../../../AGENTS.md). Run commands from the repository root, or use the absolute entry path from another directory. The program resolves its default repository from its own location. Use `--repo-path` only for isolated tests or an explicitly selected checkout. Invoke public Actions through the dispatcher, never execute internal `scripts/actions/` modules.
 
 ## Start every request
 
-Run `Status` and inspect the branch and every existing change. Treat pre-existing changes as user-owned. Do not clean, restore, stage or commit them merely to unblock a workflow. Identify the exact course, assignment, branch and requested remote effects. Do not infer permission to push, merge or delete branches beyond the standing local-cleanup authorization below.
+Run `Status` and inspect the branch and every existing change. Treat pre-existing changes as user-owned. Do not clean, restore, stage or commit them merely to unblock a workflow. Identify the exact course, assignment, branch and requested remote effects; do not infer permission to push, merge or delete branches beyond the standing authorization below.
 
 ```sh
-python3 .agents/skills/homework-manager/scripts/homework.py Status
+python3 tools/homework/scripts/homework.py Status
+python3 tools/homework/scripts/homework.py --help
 ```
 
-Root `homework.config.json` supplies per-course defaults under `courses`, keyed by the exact course directory name (for example, `"Physics-1": {"semester": "2026 Fall", "defaultLanguage": "en"}`). New assignments inherit the latest numbered assignment's language and course display name when available; explicit options override those defaults. An unconfigured course requires `--semester`, plus `--language` when no language can be inherited. `Status` shows each course's configured defaults. The per-course configuration and reader changes were AI-assisted.
+## Select and authorize an Action
 
-## Actions
+Read the [CLI manual](../../../tools/homework/README.md) for arguments and business behavior. Available Actions are `Status`, `CompareAssignments`, `BindAssignment`, `NewCourse`, `NewHomework`, `Compile`, `Sync`, `Switch`, `Finish`, and `Open`.
 
-- `NewCourse --course <name>`: create a course on updated `main`, commit its `.gitkeep`, and push `main`.
-- `NewHomework --course <name> [--number <n>] [--semester <term>] [--language auto|zh|en] [--display-course <name>]`: create `<course>-HW<n>`, copy root `homework.sty`, create `<n>.tex` and an assignment `.gitignore` allowing only `<n>.pdf`, commit the assignment directory, and push the branch. The next number is the maximum numeric directory plus one. Use `--open` only when opening VS Code was requested.
-- `Compile [--course <name>] [--number <n>]`: immediately run `latexmk -xelatex` in the assignment directory, preserve logs, and return the compiler exit code. It does not accept `--apply`. macOS supports Chinese paths directly; no drive mapping is used.
-- `CompareAssignments --previous <path> --current <path> [--course-mapping <path>] [--bindings <path>]`: read local UTF-8 JSON files and print new/updated assignments without changing counts or order. Both snapshot paths are required; all relative paths resolve from the terminal working directory. The course mapping adds `Local course`, a default suggestion or `(unmapped)`. Bindings add `Local assignment`, the confirmed `<course>/<number>` or `(unbound)`; omit this line when `--bindings` is absent. A different default course produces a `WARNING:` on `stderr` for each displayed affected assignment, preserves its binding, and still succeeds. Invalid input files fail before normal output, even with no results. Read-only; does not accept `--apply`, create homework, or save bindings. See [assignment_data.py](scripts/assignment_data.py) for record formats and [the automation plan](../../../AUTOMATION_PLAN.md#绑定语义与处理顺序) for binding policy. This Action documentation was added with AI assistance.
-- `BindAssignment --current <snapshot> --course-id <id> --assignment-id <id> --course <name> --number <n> --bindings <path>`: currently preview-only; `--apply` is rejected because saving is not implemented. Require all six options explicitly. Read an existing snapshot and bindings file, reject duplicate assignment identities, select the platform assignment, and check that the local assignment directory and matching `<n>.tex` exist. Print its title, IDs, target, bindings path, and whether the relation would be added or is already identical. Reject conflicting bindings. Do not create, back up, or save any files, or perform Git mutations. This preview workflow was documented with AI assistance.
-- `Sync`: stage only the matching assignment directory, commit only when needed, and push the homework branch. Refuse existing staged changes. `--course` and `--number` can identify a directory, but must match the current homework branch.
-- `Switch --branch <name>`: switch a clean worktree to an existing branch and pull with `--ff-only`, including when already on that branch.
-- `Finish`: push the clean current homework branch, merge into updated `main`, push `main`, then safely clean up the remote and local homework branch.
-- `Open [--course <name>] [--number <n>] --tool code|finder|web|desktop`: open VS Code, Finder, GitHub in the browser, or GitHub Desktop. `explorer` remains a Finder alias. macOS uses `/usr/bin/open`; VS Code can use its `code` command when available.
+- `Status` and `CompareAssignments` are read-only and do not accept `--apply`.
+- `NewCourse`, `NewHomework`, `BindAssignment`, `Sync`, `Switch`, and `Finish` default to preview. Inspect exact paths, branches, overwrite notices and remote effects; add `--apply` only when authorized. A status, audit or plan request does not authorize applying it. Re-run `Status` between state-changing actions.
+- `NewCourse` commits and pushes `main`; `NewHomework` creates, commits and pushes an assignment branch; `Sync` commits and pushes the current assignment. `BindAssignment` backs up and saves the confirmed relation without Git mutations.
+- `Finish --apply` pushes the assignment branch, merges into updated `main`, pushes `main`, then attempts remote and local branch cleanup. Require explicit authorization to finish/merge the named or current assignment, and especially verify the previewed branch.
+- `Compile` immediately runs `latexmk -xelatex`, accepts no `--apply`, and returns its exit code. Preserve source, PDF and logs; compilation success does not establish content correctness.
+- `Open` is only for a user request to open VS Code, Finder, GitHub or GitHub Desktop.
 
-Mutating actions default to preview. Inspect the exact paths and branches, then add `--apply` only when the request authorizes the action and its remote effects. A status, audit or plan request does not authorize applying it. For `Finish`, require explicit authorization to finish/merge the named or current homework branch. Re-run `Status` between state-changing actions.
-
-```sh
-python3 .agents/skills/homework-manager/scripts/homework.py CompareAssignments --previous previous.json --current current.json --course-mapping courses.json --bindings bindings.json
-python3 .agents/skills/homework-manager/scripts/homework.py BindAssignment --current snapshot.json --course-id course_1 --assignment-id hw_1 --course Algebra-1 --number 7 --bindings bindings.json
-python3 .agents/skills/homework-manager/scripts/homework.py NewHomework --course Analysis-1
-python3 .agents/skills/homework-manager/scripts/homework.py NewHomework --course Analysis-1 --apply
-python3 .agents/skills/homework-manager/scripts/homework.py Compile --course Algebra-1 --number 2
-python3 .agents/skills/homework-manager/scripts/homework.py Sync --apply
-python3 .agents/skills/homework-manager/scripts/homework.py Finish --apply
-```
+Management requests do not authorize editing assignment questions, answers, proofs or layout. Configuration defaults and numbering are computed by the program; inspect its output rather than hard-coding the next number. Consult the [automation plan](../../../AUTOMATION_PLAN.md) for current platform capabilities before developing or attempting real access.
 
 ## Finish after review
 
-When the user says “完成作业” after reviewing the current assignment, treat it as explicit authorization to commit the reviewed assignment changes, merge its branch into `main`, and push. Do not request the same authorization again. Run `Sync` to commit and push assignment changes, then run `Finish` once the worktree is clean, inspecting both previews and the exact homework branch first. Handle separately authorized rule or Skill changes in a separate scoped commit; do not include unrelated user changes. This convention does not authorize editing assignment content. This user convention was recorded with AI assistance.
+When the user says “完成作业” after reviewing the current assignment, treat it as explicit authorization to commit the reviewed assignment changes, merge its branch into `main`, and push. Do not ask for the same authorization again. Run `Sync`, then `Finish` once the worktree is clean, inspecting both previews and the exact branch. Handle separately authorized rule or Skill changes in a separate scoped commit; exclude unrelated changes. This does not authorize editing assignment content.
 
 ## Preserve assignment sources
 
-Whenever creating homework, copy the user-provided original problem files (PDFs, images, etc.) into `<course>/<number>/` after `NewHomework` creates that directory. If the files arrive later, save them there when received. Keep the originals in place and preserve their filenames when possible; avoid collisions with `<number>.tex`, `<number>.pdf`, or other existing files. Reuse an identical existing copy; otherwise choose a distinct filename without overwriting. Verify that each copy matches its source. Problem PDFs remain ignored and local under the existing PDF policy. Source-preservation instructions were added with AI assistance.
+Whenever creating homework, copy user-provided original problem files into `<course>/<number>/` after `NewHomework` creates it, including files supplied later. Preserve filenames where possible and avoid collisions with existing files, including `<number>.tex` and `<number>.pdf`. Reuse an identical copy; otherwise choose a distinct filename without overwriting. Verify source and copy match. Problem PDFs remain local and ignored; preserve them independently of Git.
 
 ## Clean up completed homework branches
 
-The user has authorized automatic local cleanup after an authorized homework merge. Once the completed homework branch is merged into `main` and `main` is successfully pushed, delete that local branch as part of the same workflow without another confirmation. This applies to `Finish` and other explicitly authorized homework-merge workflows. `Finish` already implements this behavior. These cleanup instructions were updated with AI assistance.
+After an authorized merge and successful push of `main`, the user authorizes local branch cleanup without further confirmation. `Finish` already performs this.
 
-- Confirm the branch tip is contained in `main` with `git merge-base --is-ancestor <branch> main`. Do not use upstream disappearance or matching assignment files as proof of a merge.
-- Use only `git branch -d <branch>`, never force deletion. Preserve branches with unmerged commits, the current branch, and branches checked out in other worktrees. If `main` has not been successfully pushed, preserve the branch.
-- Cleanup failures after a successful merge and push are warnings; report the remaining branch without misreporting the merge as failed.
-- For a request to inspect existing branches, list every local branch and identify merged homework branches as cleanup candidates. An inspection request alone does not authorize deleting those existing branches.
-- This standing authorization covers local branch deletion. Remote branch deletion still requires explicit authorization. Deleting a branch does not authorize removing ignored PDFs, build files, or assignment directories left in the checkout.
+- Verify the branch tip is contained in `main` using `git merge-base --is-ancestor <branch> main`; disappearing upstream refs or matching files do not prove this.
+- Use only `git branch -d`. Preserve unmerged, current, or worktree-checked-out branches; if `main` was not successfully pushed, preserve both branches.
+- Cleanup failure is a warning after successful merge/push. Report remaining branches without misreporting the merge as failed.
+- Inspection alone does not authorize deleting existing branches. Remote deletion requires explicit authorization. Branch cleanup does not authorize deleting ignored PDFs, build files or assignment directories.
 
 ## Stop conditions
 
-- Stop on a dirty worktree for creation, switching or finishing and report its paths. Do not discard user work.
-- Stop on missing course/template/origin, invalid input, existing targets, non-fast-forward pulls, merge conflicts or failed pushes. Do not rebase or force-push.
-- For compilation, stop on missing source or `latexmk`; preserve source and logs. MacTeX's `/Library/TeX/texbin` is also checked when `latexmk` is absent from PATH.
-- A failed merge attempts `merge --abort` and return to the homework branch; report recovery failures. Do not improvise conflict resolution.
-- If `main` was merged locally but its push fails, preserve both branches and the local merge; no cleanup runs.
-- After successful `main` push, cleanup failures are warnings. Report what remains; local deletion uses `git branch -d`.
+- Stop on dirty worktrees for creation, switching or finishing; report paths without discarding changes.
+- Stop on missing prerequisites, existing targets, invalid input, non-fast-forward pulls, conflicts or failed pushes. Do not rebase, force-push or improvise conflict resolution.
+- A failed merge attempts abort and return to the assignment branch; report any recovery failures. If only the push of merged `main` fails, preserve the local merge and both branches without cleanup.
+- For compilation failure, preserve source and logs. The program also checks MacTeX's `/Library/TeX/texbin` when `latexmk` is absent from PATH.
+- Follow existing PDF tracking rules: track only the compiled main assignment PDF; preserve ignored originals and figures locally. Never use `git add -f` or broad numeric exceptions to bypass them.
 
-For assignment-content edits, follow repository `AGENTS.md`. Management requests do not authorize writing solutions or proofs. Generated homework PDFs are intentionally tracked so they can be viewed in the remote repository. `Sync` includes the changed or newly compiled `<number>.pdf` in the assignment directory. All other PDFs (including problem sources and figure PDFs) are ignored and kept locally. Root `.gitignore` denies all PDFs and lists exact exceptions for existing homework outputs. `NewHomework` writes a directory-level `!/<number>.pdf` exception for future assignments; never use `git add -f` or a broad numeric wildcard to admit PDFs.
-
-Run isolated behavioral checks after changing these scripts:
+For automation development, follow `AUTOMATION_PLAN.md`, update the program's manual alongside public behavior changes, and run isolated tests from the repository root:
 
 ```sh
-python3 -B -m unittest discover -s .agents/skills/homework-manager/tests -v
+python3 -B -m unittest discover -s tools/homework/tests -v
 ```

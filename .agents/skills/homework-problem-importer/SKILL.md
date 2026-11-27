@@ -97,7 +97,7 @@ Choose the width by visual inspection. Keep the filename relative to the assignm
 3. From the repository root, compile through the management dispatcher:
 
 ```sh
-python3 .agents/skills/homework-manager/scripts/homework.py Compile --course <course> --number <number>
+python3 tools/homework/scripts/homework.py Compile --course <course> --number <number>
 ```
 
 This uses XeLaTeX and handles macOS paths directly; no PowerShell or Windows drive mapping is required.

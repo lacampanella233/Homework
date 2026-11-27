@@ -49,10 +49,11 @@ def run(repo: Repository, args: Namespace) -> None:
     else:
         print("Operation: add binding")
         print(f"Backup path: {args.bindings}.bak")
+        print("An existing backup will be overwritten.")
 
     if preview(args):
         return
     if new_bindings != bindings:
         backup_bindings(args.bindings)
         save_bindings(args.bindings, new_bindings)
-        print("Backed up and saved bindings successfully. The previous backup was covered by the current one.")
+        print("Backed up and saved bindings successfully.")

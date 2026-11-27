@@ -20,7 +20,7 @@ def run(repo, args):
         repo.git_result('switch', branch)
         raise
     try:
-        repo.git('merge', '--no-ff', branch, '-m', f'Merge homework branch {branch} to main (via homework-manager skill)')
+        repo.git('merge', '--no-ff', branch, '-m', f'Merge homework branch {branch} to main (via Homework Manager)')
     except HomeworkError as error:
         abort = repo.git_result('merge', '--abort')
         back = repo.git_result('switch', branch)

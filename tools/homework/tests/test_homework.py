@@ -17,6 +17,7 @@ sys.path.insert(0, str(SCRIPTS))
 from common import HomeworkError, Repository, open_target
 from argparse import Namespace
 from actions.bind_assignment import run as bind_assignment
+from homework import main as homework_main
 ENTRY = SCRIPTS / 'homework.py'
 
 
@@ -75,6 +76,20 @@ class HomeworkTests(unittest.TestCase):
         result = self.ok('Status')
         self.assertIn('next: 4', result.stdout)
         self.assertEqual(git(self.root, 'status', '--porcelain'), '')
+
+    def test_default_repo_uses_program_location_outside_cwd(self):
+        scripts = self.root / 'tools' / 'homework' / 'scripts'
+        shutil.copytree(SCRIPTS, scripts)
+
+        result = subprocess.run(
+            [sys.executable, str(scripts / 'homework.py'), 'Status'],
+            cwd=self.base, capture_output=True, text=True,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn(f'Repository: {self.root}', result.stdout)
+        self.assertIn('Current branch: main', result.stdout)
+        self.assertIn('next: 4', result.stdout)
 
     def test_compare_assignments_reports_new_and_updated(self):
         old_assignment = {
@@ -442,6 +457,82 @@ class HomeworkTests(unittest.TestCase):
         self.assertEqual(result.stdout, '')
         self.assertIn('does not accept --apply', result.stderr)
 
+    def test_offline_assignment_workflow(self):
+        """Verify comparison, confirmed binding, missing records, and repeat execution together."""
+        assignment_a = dict(course_id='course_1', assignment_id='A',
+                            title='作业 A', due_at='2026-11-24')
+        updated_a = dict(assignment_a, due_at='2026-11-25')
+        assignment_b = dict(assignment_a, assignment_id='B', title='作业 B')
+        previous = self.write_json('previous.json', [assignment_a])
+        current = self.write_json('current.json', [updated_a, assignment_b])
+        latest = self.write_json('latest.json', [updated_a])
+        mapping = self.write_json('course_mapping.json', {'course_1': self.course})
+        binding_a = dict(course_id='course_1', assignment_id='A',
+                         local_course=self.course, local_number=1)
+        bindings = self.write_json('bindings.json', [binding_a])
+        original_bindings = bindings.read_bytes()
+        backup = Path(str(bindings) + '.bak')
+        source_files = [self.root / self.course / f'{n}/{n}.tex' for n in (1, 3)]
+        inputs = {p: p.read_bytes() for p in (previous, current, latest, mapping, *source_files)}
+        refs = git(self.root, 'show-ref')
+        status = git(self.root, 'status', '--porcelain')
+        comparison = ('CompareAssignments', '--previous', str(previous),
+                      '--current', str(current), '--course-mapping', str(mapping),
+                      '--bindings', str(bindings))
+        binding = ('BindAssignment', '--current', str(current),
+                   '--course-id', 'course_1', '--assignment-id', 'B',
+                   '--course', self.course, '--number', '3', '--bindings', str(bindings))
+
+        # Discover B and the changed deadline for A, using the existing A binding.
+        result = self.ok(*comparison)
+        new_output, updated_output = result.stdout.split('\nUpdated assignments', 1)
+        self.assertIn('New assignments (1)', new_output)
+        self.assertIn('[course_1 / B]', new_output)
+        self.assertIn(f'Local course: {self.course}', new_output)
+        self.assertIn('Local assignment: (unbound)', new_output)
+        self.assertIn('Updated assignments (1)', result.stdout)
+        self.assertIn('[course_1 / A]', updated_output)
+        self.assertIn(updated_a['due_at'], updated_output)
+        self.assertIn(f'Local assignment: {self.course}/1', updated_output)
+        self.assertEqual(result.stderr, '')
+
+        # Preview leaves storage untouched; apply preserves A and backs up the old list.
+        preview = self.ok(*binding)
+        self.assertIn('Operation: add binding', preview.stdout)
+        self.assertEqual(bindings.read_bytes(), original_bindings)
+        self.assertFalse(backup.exists())
+        self.ok(*binding, '--apply')
+        binding_b = dict(course_id='course_1', assignment_id='B',
+                         local_course=self.course, local_number=3)
+        self.assertEqual(json.loads(bindings.read_text(encoding='utf-8')), [binding_a, binding_b])
+        self.assertEqual(backup.read_bytes(), original_bindings)
+        saved = bindings.read_bytes()
+
+        # The same snapshot pair still reports B as new, now with its confirmed target.
+        result = self.ok(*comparison)
+        new_output = result.stdout.split('\nUpdated assignments', 1)[0]
+        self.assertIn('New assignments (1)', new_output)
+        self.assertIn('[course_1 / B]', new_output)
+        self.assertIn(f'Local assignment: {self.course}/3', new_output)
+        self.assertNotIn('(unbound)', new_output)
+
+        # A later snapshot missing B must not remove its binding.
+        result = self.ok('CompareAssignments', '--previous', str(current),
+                         '--current', str(latest), '--course-mapping', str(mapping),
+                         '--bindings', str(bindings))
+        self.assertIn('New assignments (0)', result.stdout)
+        self.assertIn('Updated assignments (0)', result.stdout)
+        self.assertEqual(bindings.read_bytes(), saved)
+
+        repeated = self.ok(*binding, '--apply')
+        self.assertIn('Operation: none', repeated.stdout)
+        self.assertEqual(bindings.read_bytes(), saved)
+        self.assertEqual(backup.read_bytes(), original_bindings)
+        for path, contents in inputs.items():
+            self.assertEqual(path.read_bytes(), contents)
+        self.assertEqual(git(self.root, 'show-ref'), refs)
+        self.assertEqual(git(self.root, 'status', '--porcelain'), status)
+
     def test_bind_assignment_preview_preserves_files_and_refs(self):
         assignment = dict(course_id='course_1', assignment_id='hw_1',
                           title='待绑定作业', due_at='2026-11-20')
@@ -468,7 +559,12 @@ class HomeworkTests(unittest.TestCase):
                               str(source.parent), str(bindings), f'Operation: {operation}'):
                     self.assertIn(field, result.stdout)
                 self.assertIn('Preview only', result.stdout)
-                self.assertNotIn('add --apply', result.stdout)
+                self.assertIn('add --apply', result.stdout)
+                if operation == 'add binding':
+                    self.assertIn(f'Backup path: {bindings}.bak', result.stdout)
+                    self.assertIn('An existing backup will be overwritten.', result.stdout)
+                else:
+                    self.assertNotIn('Backup path:', result.stdout)
                 self.assertEqual(result.stderr, '')
                 for path, original in originals.items():
                     self.assertEqual(path.read_bytes(), original)
@@ -589,27 +685,141 @@ class HomeworkTests(unittest.TestCase):
                 else:
                     self.assertEqual(bindings.read_text(encoding='utf-8'), contents)
 
-    def test_bind_assignment_rejects_apply_without_writing(self):
+    def test_bind_assignment_cli_apply_saves_and_repeat_preserves_backup(self):
         snapshot = self.write_json('snapshot.json', [dict(
             course_id='course_1', assignment_id='hw_1', title='作业', due_at='',
         )])
         bindings = self.write_json('bindings.json', [])
-        originals = {p: p.read_bytes() for p in (snapshot, bindings)}
-
-        result = self.cli(
-            'BindAssignment', '--current', str(snapshot),
+        source = self.root / self.course / '3/3.tex'
+        originals = {p: p.read_bytes() for p in (snapshot, source)}
+        original_bindings = bindings.read_bytes()
+        backup = Path(str(bindings) + '.bak')
+        backup.write_bytes(b'previous backup')
+        refs = git(self.root, 'show-ref')
+        status = git(self.root, 'status', '--porcelain')
+        args = (
+            'BindAssignment', '--current', snapshot.name,
             '--course-id', 'course_1', '--assignment-id', 'hw_1',
-            '--course', self.course, '--number', '3', '--bindings', str(bindings),
-            '--apply',
+            '--course', self.course, '--number', '3', '--bindings', bindings.name, '--apply',
         )
 
-        self.assertEqual(result.returncode, 2)
-        self.assertEqual(result.stdout, '')
-        self.assertIn('does not accept --apply', result.stderr)
+        result = self.ok(*args)
+
+        expected = [dict(course_id='course_1', assignment_id='hw_1',
+                         local_course=self.course, local_number=3)]
+        self.assertEqual(json.loads(bindings.read_text(encoding='utf-8')), expected)
+        self.assertEqual(backup.read_bytes(), original_bindings)
+        self.assertIn('saved bindings successfully', result.stdout)
+        self.assertEqual(result.stderr, '')
+        saved = bindings.read_bytes()
+        repeated = self.ok(*args)
+        self.assertIn('Operation: none', repeated.stdout)
+        self.assertNotIn('saved bindings successfully', repeated.stdout)
+        self.assertEqual(bindings.read_bytes(), saved)
+        self.assertEqual(backup.read_bytes(), original_bindings)
         for path, original in originals.items():
             self.assertEqual(path.read_bytes(), original)
+        self.assertEqual(git(self.root, 'show-ref'), refs)
+        self.assertEqual(git(self.root, 'status', '--porcelain'), status)
 
-    # AI-assisted action tests; the public CLI stays blocked until integration is complete.
+    def test_bind_assignment_cli_apply_reads_latest_bindings(self):
+        args = self._binding_action_args()
+        flags = ('BindAssignment', '--current', str(args.current),
+                 '--course-id', args.course_id, '--assignment-id', args.assignment_id,
+                 '--course', args.course, '--number', str(args.number),
+                 '--bindings', str(args.bindings))
+        self.ok(*flags)
+        backup = Path(str(args.bindings) + '.bak')
+        self.assertFalse(backup.exists())
+        other = dict(course_id='course_2', assignment_id='hw_2',
+                     local_course=self.course, local_number=1)
+        args.bindings.write_text(json.dumps([other]), encoding='utf-8')
+        before_apply = args.bindings.read_bytes()
+
+        self.ok(*flags, '--apply')
+
+        records = json.loads(args.bindings.read_text(encoding='utf-8'))
+        self.assertEqual(records, [other, dict(course_id='course_1', assignment_id='hw_1',
+                                              local_course=self.course, local_number=3)])
+        self.assertEqual(backup.read_bytes(), before_apply)
+
+    def test_bind_assignment_cli_backup_failure_preserves_bindings(self):
+        args = self._binding_action_args()
+        original = args.bindings.read_bytes()
+        Path(str(args.bindings) + '.bak').mkdir()
+
+        result = self.cli(
+            'BindAssignment', '--current', str(args.current),
+            '--course-id', args.course_id, '--assignment-id', args.assignment_id,
+            '--course', args.course, '--number', str(args.number),
+            '--bindings', str(args.bindings), '--apply',
+        )
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('ERROR:', result.stderr)
+        self.assertNotIn('Traceback', result.stderr)
+        self.assertNotIn('successfully', result.stdout)
+        self.assertEqual(args.bindings.read_bytes(), original)
+
+    def test_bind_assignment_cli_save_failure_returns_error_with_backup(self):
+        args = self._binding_action_args()
+        original = args.bindings.read_bytes()
+        files = set(self.base.iterdir())
+        argv = [str(ENTRY), 'BindAssignment', '--repo-path', str(self.root),
+                '--current', str(args.current), '--course-id', args.course_id,
+                '--assignment-id', args.assignment_id, '--course', args.course,
+                '--number', str(args.number), '--bindings', str(args.bindings), '--apply']
+        output, errors = io.StringIO(), io.StringIO()
+        # Call the real dispatcher in-process to inject a filesystem failure.
+        with patch.object(sys, 'argv', argv), patch.object(
+            Path, 'replace', side_effect=PermissionError('Simulated replace failure')
+        ), contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
+            result = homework_main()
+
+        backup = Path(str(args.bindings) + '.bak')
+        self.assertEqual(result, 1)
+        self.assertIn('ERROR: Simulated replace failure', errors.getvalue())
+        self.assertNotIn('successfully', output.getvalue())
+        self.assertEqual(args.bindings.read_bytes(), original)
+        self.assertEqual(backup.read_bytes(), original)
+        self.assertEqual(set(self.base.iterdir()), files | {backup})
+
+    def test_bind_assignment_cli_apply_rechecks_inputs_and_target(self):
+        args = self._binding_action_args()
+        flags = ('BindAssignment', '--current', str(args.current),
+                 '--course-id', args.course_id, '--assignment-id', args.assignment_id,
+                 '--course', args.course, '--number', str(args.number),
+                 '--bindings', str(args.bindings))
+        self.ok(*flags)
+        snapshot = args.current.read_bytes()
+        bindings = args.bindings.read_bytes()
+        source = self.root / self.course / '3/3.tex'
+        backup = Path(str(args.bindings) + '.bak')
+        backup.write_bytes(b'previous backup')
+        conflict = dict(course_id=args.course_id, assignment_id=args.assignment_id,
+                        local_course=self.course, local_number=1)
+        for case in ('invalid snapshot', 'binding conflict', 'missing target source'):
+            with self.subTest(case=case):
+                args.current.write_bytes(snapshot)
+                args.bindings.write_bytes(bindings)
+                if case == 'invalid snapshot':
+                    args.current.write_text('null', encoding='utf-8')
+                elif case == 'binding conflict':
+                    args.bindings.write_text(json.dumps([conflict]), encoding='utf-8')
+                else:
+                    source.unlink()
+                before = {p: p.read_bytes() for p in (args.current, args.bindings, backup)}
+
+                result = self.cli(*flags, '--apply')
+
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('ERROR:', result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                self.assertNotIn('successfully', result.stdout)
+                for path, contents in before.items():
+                    self.assertEqual(path.read_bytes(), contents)
+
+    # AI-assisted action tests complement the public CLI tests above.
     def _binding_action_args(self):
         snapshot = self.write_json('作业 snapshot.json', [dict(
             course_id='course_1', assignment_id='hw_1', title='待绑定作业', due_at='',

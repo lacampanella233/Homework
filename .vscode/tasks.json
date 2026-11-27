@@ -7,7 +7,7 @@
             "label": "Homework Status",
             "type": "process",
             "command": "${userHome}/.local/bin/python3.14",
-            "args": [".agents/skills/homework-manager/scripts/homework.py", "Status"],
+            "args": ["tools/homework/scripts/homework.py", "Status"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

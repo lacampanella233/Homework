@@ -110,13 +110,13 @@
 仓库管理使用本机已有的 Python 3.9+ 和 Git；编译使用 MacTeX（`/Library/TeX/texbin`）。打开 Finder、浏览器及 GitHub Desktop 使用 macOS 的 `open` 命令；VS Code 可通过 `code` 或应用名打开。无需安装 PowerShell 或额外 Python 包。
 
 ```sh
-python3 .agents/skills/homework-manager/scripts/homework.py Status
-python3 .agents/skills/homework-manager/scripts/homework.py NewHomework --course Analysis-1
-python3 .agents/skills/homework-manager/scripts/homework.py Compile --course Algebra-1 --number 2
+python3 tools/homework/scripts/homework.py Status
+python3 tools/homework/scripts/homework.py NewHomework --course Analysis-1
+python3 tools/homework/scripts/homework.py Compile --course Algebra-1 --number 2
 ```
 
-创建、同步、切换及完成操作默认只输出计划；核对后通过 `--apply` 执行。课程／作业选项为 `--course`／`--number`。详细操作和安全边界见 `.agents/skills/homework-manager/SKILL.md`。
+创建、同步、切换及完成操作默认只输出计划；核对后通过 `--apply` 执行。课程／作业选项为 `--course`／`--number`。独立管理程序的业务流程和命令手册见 [tools/homework/README.md](tools/homework/README.md)；AI 调用约束见 [.agents/skills/homework-manager/SKILL.md](.agents/skills/homework-manager/SKILL.md)。
 
 只追踪数字作业主文件 `<number>.tex` 编译生成的同名 `<number>.pdf`，便于在远程仓库查看；其余 PDF（包括题目和绘图 PDF）均忽略并保留本地。现有作业使用根 `.gitignore` 的精确例外，新作业自动创建目录级 `.gitignore` 例外；`Sync` 包含作业 PDF，忽略其他 PDF 和 LaTeX 中间文件。当前仓库没有 Git LFS 文件，无需安装 Git LFS；其他仓库的全局 LFS 设置不受影响。
 
-本仓库的 macOS 管理脚本迁移、PDF 追踪策略调整、测试和相关文档由 AI 辅助完成。
+本仓库的 macOS 管理脚本迁移、程序与 Skill 分离、PDF 追踪策略调整、测试和相关文档由 AI 辅助完成。

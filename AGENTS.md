@@ -4,9 +4,9 @@
 
 ## 仓库用途
 
-这是个人课程作业仓库，使用根目录 `homework.sty` 生成 LaTeX 作业。仓库管理自动化由 `.agents/skills/homework-manager/` 提供；涉及创建课程、创建作业、编译作业、同步、切换或完成作业时，优先使用该 Skill 的脚本，不要临时拼接一组等价命令。
+这是个人课程作业仓库，使用根目录 `homework.sty` 生成 LaTeX 作业。仓库管理程序位于 `tools/homework/`，可由终端、VS Code 和 AI 共用；`.agents/skills/homework-manager/` 只保存 AI 调用规则。涉及创建课程、创建作业、编译作业、同步、切换或完成作业时，优先使用该程序，不要临时拼接一组等价命令。本次程序与 Skill 分离由 AI 辅助完成。
 
-Skill 使用统一入口 `scripts/homework.py`：入口负责稳定参数、仓库初始化和白名单分派；公共逻辑位于 `scripts/common.py`；每类任务的实现位于 `scripts/actions/` 中的 Python 模块。Agent 应选择公开 Action，不直接执行内部动作脚本。
+程序使用统一入口 `tools/homework/scripts/homework.py`：入口负责稳定参数、仓库初始化和白名单分派；公共逻辑位于该程序的 `scripts/common.py`；每类任务的实现位于 `scripts/actions/` 中的 Python 模块。Agent 应选择公开 Action，不直接执行内部动作脚本。使用手册及测试随程序维护在 `tools/homework/`。
 
 ## AI 使用声明
 
@@ -55,12 +55,12 @@ Skill 使用统一入口 `scripts/homework.py`：入口负责稳定参数、仓�
 - read-only/status 操作可以直接执行。修改文件或本地分支必须来自用户当前请求；push、合并和删除远程分支必须由用户明确要求该动作。
 - 本仓库可能同时由 LaTeX 编辑器、Git 客户端和 Agent 使用。任何已有未提交状态均视为用户所有。
 
-## Skill 使用
+## 管理程序与 Skill 使用
 
 脚本入口：
 
 ```sh
-python3 .agents/skills/homework-manager/scripts/homework.py <Action> [options]
+python3 tools/homework/scripts/homework.py <Action> [options]
 ```
 
 - `Status` 是只读操作。
@@ -76,7 +76,7 @@ python3 .agents/skills/homework-manager/scripts/homework.py <Action> [options]
 修改某个 `<number>.tex` 或其 `homework.sty` 后，通过统一入口编译。在作业分支上可自动识别课程和编号：
 
 ```sh
-python3 .agents/skills/homework-manager/scripts/homework.py Compile
+python3 tools/homework/scripts/homework.py Compile
 ```
 
 当前分支无法识别作业时，显式传入 `--course <name> --number <number>`。本机使用 MacTeX 和 XeLaTeX，支持中文目录。管理脚本仅使用 Python 3 标准库，无需 PowerShell。
