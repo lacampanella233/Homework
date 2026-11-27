@@ -1,0 +1,20 @@
+% AI-assisted redraw of the supplied projectile diagram.
+\begin{tikzpicture}[homework diagram]
+  \coordinate (O) at (0,0);
+  \coordinate (S) at (80:1.85);
+  \coordinate (A) at (1.53,2.12);
+
+  \draw[diagram orbit] (190:1.85) arc[start angle=190,end angle=-10,radius=1.85];
+  \fill (O) circle[radius=1.5pt];
+  \draw[diagram guide] (O) -- node[left=3pt] {$R_e$} (S);
+  \draw[diagram guide, diagram dashed] (S) -- ++(80:1.12);
+  \draw[diagram trajectory, diagram dashed]
+    (S) .. controls (.85,2.35) and (1.212,2.3495) .. (A)
+    .. controls (2.06,1.7375) and (2.03,1.39) .. (1.71,1.08);
+  \draw[diagram guide, ->] (O) -- node[below right=2pt] {$r_{\max}$} (A);
+  \draw[diagram vector]
+    (S) -- ++(45:1.25) node[above right=-1pt] {$\mathbf{v}_0$};
+  \draw[diagram guide] ($(S)+(45:.84)$)
+    arc[start angle=45,end angle=80,radius=.84];
+  \node at ($(S)+(63:1.02)$) {$\alpha$};
+\end{tikzpicture}
