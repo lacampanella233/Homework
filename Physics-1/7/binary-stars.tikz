@@ -1,0 +1,29 @@
+% AI-assisted redraw of the supplied binary-star diagram.
+\begin{tikzpicture}[homework diagram]
+  \coordinate (O) at (0,0);
+  \coordinate (m) at (150:1.65);
+  \coordinate (M) at (330:.825);
+  \coordinate (md) at ($(m)+(-.95,-1.6454)$);
+  \coordinate (Od) at (-.95,-1.6454);
+  \coordinate (Md) at ($(M)+(-.95,-1.6454)$);
+
+  \draw[diagram orbit, diagram dashed] (O) circle[radius=1.65];
+  \draw[diagram orbit, diagram dashed] (O) circle[radius=.825];
+  \draw[diagram guide] (m) -- ($(md)+(-.25,-.433)$);
+  \draw[diagram guide] (O) -- ($(Od)+(-.25,-.433)$);
+  \draw[diagram guide] (M) -- ($(Md)+(-.25,-.433)$);
+  \draw[diagram dimension] (md) -- node[below=1pt, sloped] {$r_1$} (Od);
+  \draw[diagram dimension] (Od) -- node[below=1pt, sloped] {$r_2$} (Md);
+  \draw[diagram dimension] ($(md)+(-.18,-.312)$)
+    -- node[below=1pt, sloped] {$d$} ($(Md)+(-.18,-.312)$);
+
+  \draw[diagram vector]
+    (m) -- ++(-.52,-.90) node[midway, left=3pt] {$\vec{v}_1$};
+  \draw[diagram vector]
+    (M) -- ++(.52,.90) node[midway, right=3pt] {$\vec{v}_2$};
+  \node[diagram body, circle, minimum size=5.2mm, inner sep=0pt] at (m) {$m$};
+  \node[diagram body, circle, minimum size=7mm, inner sep=0pt] at (M) {$M$};
+  \draw (-.065,-.065) -- (.065,.065)
+    (-.065,.065) -- (.065,-.065);
+  \node[above right=-1pt] at (O) {CM};
+\end{tikzpicture}

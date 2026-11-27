@@ -1,0 +1,21 @@
+% AI-assisted redraw of the supplied Hohmann transfer diagram.
+\begin{tikzpicture}[homework diagram]
+  \draw[diagram orbit] (0,0) circle[radius=2.30];
+  \draw[diagram orbit] (0,0) circle[radius=1.15];
+  \draw[diagram trajectory] (-.575,0) ellipse[x radius=1.725,y radius=1.6263];
+  \filldraw[diagram body] (0,0) circle[radius=.095];
+
+  \node[above] at (.75,2.23) {Mars orbit};
+  \node at (0,-.78) {Earth orbit};
+
+  \draw[diagram vector]
+    (1.39,.29) .. controls (1.10,1.36) and (.40,1.80) .. (-.85,1.83);
+  \filldraw[diagram point] (124:2.30) circle[radius=.055];
+  \node[align=left, anchor=east] at (-1.39,1.95)
+    {Mars' position\\at launch};
+  \filldraw[diagram point] (-2.30,0) circle[radius=.055];
+  \node[align=left, anchor=east] at (-2.42,0)
+    {arrival\\at Mars};
+  \node at (1.75,-.03) {launch};
+  \node at (0,-2.70) {Hohmann transfer trajectory};
+\end{tikzpicture}
